@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".SongList"
+    tools:showIn="@layout/activity_songlist">
+
+
+    <!--  <VideoView
+        android:id="@+id/bgVideoView"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+-->
+    <ImageView
+        android:id="@+id/bgBlur"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidever1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="27dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidever2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="125dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidehor1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="160dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidehor2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="218dp" />
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideEndLIst"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/startButton"
+        app:layout_constraintGuide_begin="515dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideStartList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="235dp" />
+
+
+    <!--videoBGbanner-->
+    <!--bannerBG-->
+
+
+    <!-- Canvas Para sprites-->
+
+
+    <com.example.rodrigo.sgame.ScreenSelectMusic.ThemeElements
+        android:id="@+id/songElements"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerSongs"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#10101010"
+        android:clipToPadding="false"
+        android:scrollbarSize="5dp"
+
+        android:scrollbars="horizontal"
+
+        app:layout_constraintBottom_toTopOf="@+id/startButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideStartList"></android.support.v7.widget.RecyclerView><!-- list-->
+    <!-- lvl-->
+
+
+    <ImageView
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="55sp"
+        android:layout_marginBottom="23dp"
+        android:background="#00000000"
+        android:gravity="center"
+        android:src="@drawable/start"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideEndLIst" />
+
+    <ImageView
+        android:id="@+id/imagelevl"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginStart="7dp"
+        app:layout_constraintBottom_toTopOf="@+id/guidehor2"
+        app:layout_constraintEnd_toEndOf="@+id/numberlevel"
+        app:layout_constraintStart_toEndOf="@+id/guidever1"
+        app:layout_constraintTop_toTopOf="@+id/guidehor1"
+        app:srcCompat="@drawable/lvl" />
+
+    <TextView
+        android:id="@+id/numberlevel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imagelevl"
+        app:layout_constraintEnd_toEndOf="@+id/guidever2"
+        app:layout_constraintStart_toStartOf="@+id/guidever1"
+        app:layout_constraintTop_toTopOf="@+id/imagelevl" />
+
+    <TextView
+        android:id="@+id/yourlvlmsjtv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+
+        android:gravity="right"
+        android:text="Your Level"
+        android:textColor="#60f2dc"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/guidehor2"
+        app:layout_constraintEnd_toStartOf="@+id/guidever1"
+        app:layout_constraintStart_toEndOf="@+id/guidever1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidehor1" />
+
+    <FrameLayout
+        android:id="@+id/frameLayoutVideoPreview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideEndPreviewV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="154dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideStartPreviewV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="41dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guidePreviewH2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="351dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guidePreviewH1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="171dp" />
+
+            <VideoView
+                android:id="@+id/preview"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_gravity="right"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideEndPreviewV"
+                app:layout_constraintEnd_toStartOf="@+id/guidePreviewH2"
+                app:layout_constraintStart_toStartOf="@+id/guidePreviewH1"
+                app:layout_constraintTop_toTopOf="@+id/guideStartPreviewV" />
+
+        </android.support.constraint.ConstraintLayout>
+    </FrameLayout>
+    //video preview
+    <!-- Start-->
+
+    <!-- Preview-->
+
+</android.support.constraint.ConstraintLayout>

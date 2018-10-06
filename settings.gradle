@@ -1,0 +1,2 @@
+include ':app', ':zip_file', ':obbzipreader'
+include ':zip_file1'

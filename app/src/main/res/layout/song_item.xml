@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+
+
+
+    <LinearLayout
+
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/banner2"
+            android:layout_width="18dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/blue_tip"
+            android:layout_marginTop="0dp"
+            android:paddingBottom="0dp"
+            android:scaleType="fitXY"
+            android:layout_marginRight="0dp"
+            />
+        <ImageView
+            android:id="@+id/banner"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginTop="0dp"
+            android:scaleType="fitXY"
+            android:layout_marginRight="10dp"/>
+
+
+        <ImageView
+            android:id="@+id/banner22"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/red_tip"
+
+            android:scaleType="fitXY"
+            android:layout_marginRight="0dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Name"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Nombre"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"/>
+
+            <TextView
+                android:textColor="#FFFFFF"
+                android:id="@+id/artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descripcion "
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="10dp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"
+        android:layout_below="@+id/idImagen"
+        android:layout_marginTop="11dp" />
+
+
+
+</LinearLayout>
