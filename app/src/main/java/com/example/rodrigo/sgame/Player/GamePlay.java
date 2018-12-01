@@ -44,7 +44,7 @@ import java.util.Stack;
 public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     private static double MIN_DISTANCE = (double) 1 / 192;
     float testFloatNOTUSE= 0f;
-
+    //NUevo com
     //Objects variables
     //private ThreadAudio musicPlayer;
     private GamePad touchPad;
