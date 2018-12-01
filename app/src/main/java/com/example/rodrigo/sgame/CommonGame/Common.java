@@ -24,6 +24,9 @@ import java.net.URL;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Creator : Rodrigo Vidal Villaseñor
+ */
 public class Common {
 
 
@@ -39,7 +42,6 @@ public class Common {
 
 
     public final static String[] possibleDirectorys = {
-
             Environment.getExternalStoragePublicDirectory("piu").getPath() + "/Songs",
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath() + "/Songs",
             System.getenv("EXTERNAL_STORAGE") + "/piu/Songs",
@@ -100,7 +102,7 @@ public class Common {
     public static String convertStreamToString(FileInputStream is) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
-        String line = null;
+        String line ;
         while ((line = reader.readLine()) != null) {
             sb.append(line).append("\n");
         }
@@ -172,12 +174,10 @@ public class Common {
 
         @Override
         protected void onPreExecute() {
-
         }
 
         @Override
         protected Boolean doInBackground(String... params) {
-
             try {
                 HttpURLConnection.setFollowRedirects(false);
                 HttpURLConnection con = (HttpURLConnection) new URL(params[0]).openConnection();
@@ -201,5 +201,9 @@ public class Common {
         }
     }
 
+
+
+    public static  int WIDTH = 0;
+    public static  int HEIGHT = 0;
 
 }

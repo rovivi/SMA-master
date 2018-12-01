@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 import com.example.rodrigo.sgame.R;
 
@@ -19,7 +20,7 @@ public class LifeBar {
 
     public LifeBar(Context context,String mode){
         BitmapFactory.Options myOpt2 = new BitmapFactory.Options();
-        myOpt2.inSampleSize = 4;
+        myOpt2.inSampleSize = 1;
         
         tipBlue = BitmapFactory.decodeResource(context.getResources(), R.drawable.blue_tip,myOpt2);
         tipRed = BitmapFactory.decodeResource(context.getResources(), R.drawable.red_tip,myOpt2);
@@ -35,29 +36,29 @@ public class LifeBar {
 
     }
 
-    public void draw(Canvas canvas,int x,int y){
+    public void draw(Canvas canvas/*int x,int y*/){
         //se calcula la pociocion del tip
         aumento++;
 
-        float porcent= (life /100);
-        int totalX=(int) ((x*0.7));
-        int pocicionTip= (int) ((totalX*porcent));
-        int posIntY= (int) (y*0.01);
-        int posIntX= (int) (y*0.15);
-        int posFinalY=posIntY+(int) (y*0.045);
-        float posBarBlue = (totalX*(porcent+ aumentLife /100));
+        float percent= (life /100);
+        int totalX=(int) ((Common.WIDTH *0.7));
+        int positionTip= (int) ((totalX*percent));
+        int posIntY= (int) (Common.HEIGHT*0.01);
+        int posIntX= (int) (Common.WIDTH*0.15);
+        int posFinalY=posIntY+(int) (Common.HEIGHT*0.025);
+        float posBarBlue = (totalX*(percent+ aumentLife /100));
         Bitmap currentHotBar= TransformBitmap.cutBitmap(barHot, life );
 
 
         if (life<95){
             canvas.drawBitmap(glowBlue, null, new Rect(posIntX, posIntY, (int) (posIntX +posBarBlue), posFinalY), new Paint());
-            canvas.drawBitmap(tipBlue, null, new Rect(posIntX+pocicionTip, posIntY,  posIntX+pocicionTip+(int)(x*0.05), posFinalY), new Paint());
+            canvas.drawBitmap(tipBlue, null, new Rect(posIntX+positionTip, posIntY,  posIntX+positionTip+(int)(Common.WIDTH*0.05), posFinalY), new Paint());
         }
         if(life<25){
             canvas.drawBitmap(glueRed, null, new Rect(posIntX, posIntY, posIntX+totalX, posFinalY), new Paint());
         }
 
-        canvas.drawBitmap(currentHotBar, null, new Rect(posIntX, posIntY, posIntX +pocicionTip, posFinalY), new Paint());
+        canvas.drawBitmap(currentHotBar, null, new Rect(posIntX, posIntY, posIntX +positionTip, posFinalY), new Paint());
         if (life>98 ){
             canvas.drawBitmap(        TransformBitmap.makeTransparent(resplandor, (int) (0+ aumentLife *20)), null, new Rect(posIntX, posIntY, posIntX+totalX, posFinalY), new Paint());
         }

@@ -34,7 +34,7 @@ public class RadarEffectsThread extends Thread {
                             game.currentDurationFake -= (game.BPMS.get(game.posBPM)[0] - game.currentBeat);
                             game.currentBeat = game.BPMS.get(game.posBPM)[0];
 
-                            while ((double) game.bufferSteps.get(game.posBuffer + 1)[1] <= game.currentBeat) {
+                            while ((double) game.bufferSteps.get(game.posBuffer + 1).beat <= game.currentBeat) {
                                 game.posBuffer++;
                             }
 
@@ -45,7 +45,7 @@ public class RadarEffectsThread extends Thread {
                 posBPM++;
             }*/
                 }
-
+/*
                 if (checkTime(game.DELAYS, game.posDelay)) {
                     double dif = game.currentBeat - game.DELAYS.get(game.posDelay)[0];
                     game.currentBeat = game.DELAYS.get(game.posDelay)[0] + 0.00000;
@@ -63,7 +63,7 @@ public class RadarEffectsThread extends Thread {
                     game.currentDelay = game.STOPS.get(game.posstop)[1] + game.currentSecond - Common.beat2Second(dif * 1.018, game.BPM);
                     // STOPS.remove(posstop);
                     game.posstop++;
-                }
+                }*/
 
                 if (checkTime(game.FAKES, game.posFake)) {
                     game.currentDurationFake = game.FAKES.get(game.posFake)[1] + game.FAKES.get(game.posFake)[0];
@@ -72,7 +72,7 @@ public class RadarEffectsThread extends Thread {
                 //spedmods
                 if (checkTime(game.SPEEDS, game.posSpeed)) {
                     game.metaBeatSpeed = game.currentBeat + game.SPEEDS.get(game.posSpeed)[2];
-                    game.lastSpeed = game.speedMod;
+                   // game.lastSpeed = game.speedMod;
                     game.beatsofSpeedMod = game.SPEEDS.get(game.posSpeed)[2];
                     game.speedMod = game.SPEEDS.get(game.posSpeed)[1];
                     if (game.speedMod < 0) {
@@ -140,7 +140,7 @@ public class RadarEffectsThread extends Thread {
                         game.currentBeat = game.WARPS.get(game.posWarp)[1] + game.WARPS.get(game.posWarp)[0];//perdidad
                         game.posWarp++;
 
-                        while (game.posBuffer + 1 < game.bufferSteps.size() && (double) game.bufferSteps.get(game.posBuffer + 1)[1] <= game.currentBeat) {
+                        while (game.posBuffer + 1 < game.bufferSteps.size() && (double) game.bufferSteps.get(game.posBuffer + 1).beat <= game.currentBeat) {
                             game.posBuffer++;
                         }
                     }
@@ -168,4 +168,12 @@ public class RadarEffectsThread extends Thread {
     public boolean checkTime(ArrayList<Float[]> array, int pos) {
         return array != null && (array.size() > 0 && array.size() > pos && game.currentBeat >= array.get(pos)[0]);
     }
+
+
+    synchronized void doPause(){
+
+
+    }
+
+
 }

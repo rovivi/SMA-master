@@ -40,7 +40,7 @@ public class AdapterSSC extends RecyclerView.Adapter<AdapterSSC.ViewHolderSSC> {
 
     @Override
     public void onBindViewHolder(AdapterSSC.ViewHolderSSC holder, int position) {
-        //ciando se selecciona  un elemento en la carga
+        //cuando se selecciona  un elemento en la carga
         holder.setInfo(songsGroup, position);
        // holder.setSelected( selectedItems.get(position, false));
         setAnimation(holder.itemView, position);

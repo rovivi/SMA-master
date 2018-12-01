@@ -4,24 +4,7 @@
             "outputFile": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-nl/values-nl.xml",
             "map": [
                 {
-                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-login-4.36.0.aar/9309b88cce30352bb84148b2b57f82e4/res/values-nl/values-nl.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,212,347,495,606,695,788,863,955,1047,1160,1270,1362,1454,1555,1671,1756,1838,2033,2127,2235,2348,2459",
-                        "endColumns": "156,134,147,110,88,92,74,91,91,112,109,91,91,100,115,84,81,194,93,107,112,110,143",
-                        "endOffsets": "207,342,490,601,690,783,858,950,1042,1155,1265,1357,1449,1550,1666,1751,1833,2028,2122,2230,2343,2454,2598"
-                    },
-                    "to": {
-                        "startLines": "19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "1888,2045,2180,2328,2439,2528,2621,2696,2788,2880,2993,3103,3195,3287,3388,3504,3589,3671,3866,3960,4068,4181,4292",
-                        "endColumns": "156,134,147,110,88,92,74,91,91,112,109,91,91,100,115,84,81,194,93,107,112,110,143",
-                        "endOffsets": "2040,2175,2323,2434,2523,2616,2691,2783,2875,2988,3098,3190,3282,3383,3499,3584,3666,3861,3955,4063,4176,4287,4431"
-                    }
-                },
-                {
-                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.2.aar/aa64e080cde65d58dca57c1cfd3474c8/res/values-nl/values-nl.xml",
+                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.2.aar/0c8d059487d03e9119cccaacdf01875b/res/values-nl/values-nl.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -38,24 +21,7 @@
                     }
                 },
                 {
-                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/e07ba141f9e12515a2af116108c7d172/res/values-nl/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "247",
-                        "endColumns": "201",
-                        "endOffsets": "448"
-                    },
-                    "to": {
-                        "startLines": "50",
-                        "startColumns": "4",
-                        "startOffsets": "5623",
-                        "endColumns": "201",
-                        "endOffsets": "5820"
-                    }
-                },
-                {
-                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/933d05c519f3a33a652e5413437be7fb/res/values-nl/values.xml",
+                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-base-16.0.1.aar/6ff4ba45b7ad65bb2a3e58510abeed8a/res/values-nl/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -72,7 +38,24 @@
                     }
                 },
                 {
-                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/6ef8f620e2dd2a48ad82ab7f6dcde4b7/res/values-nl/values-nl.xml",
+                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-login-4.36.0.aar/2d6506a6d0a690f78f5f9bd2ad498266/res/values-nl/values-nl.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,212,347,495,606,695,788,863,955,1047,1160,1270,1362,1454,1555,1671,1756,1838,2033,2127,2235,2348,2459",
+                        "endColumns": "156,134,147,110,88,92,74,91,91,112,109,91,91,100,115,84,81,194,93,107,112,110,143",
+                        "endOffsets": "207,342,490,601,690,783,858,950,1042,1155,1265,1357,1449,1550,1666,1751,1833,2028,2122,2230,2343,2454,2598"
+                    },
+                    "to": {
+                        "startLines": "19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "1888,2045,2180,2328,2439,2528,2621,2696,2788,2880,2993,3103,3195,3287,3388,3504,3589,3671,3866,3960,4068,4181,4292",
+                        "endColumns": "156,134,147,110,88,92,74,91,91,112,109,91,91,100,115,84,81,194,93,107,112,110,143",
+                        "endOffsets": "2040,2175,2323,2434,2523,2616,2691,2783,2875,2988,3098,3190,3282,3383,3499,3584,3666,3861,3955,4063,4176,4287,4431"
+                    }
+                },
+                {
+                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/f3a69c32e396d20a37c6c6395b6db2ad/res/values-nl/values-nl.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -86,6 +69,23 @@
                         "startOffsets": "7313",
                         "endColumns": "100",
                         "endOffsets": "7409"
+                    }
+                },
+                {
+                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-basement-16.0.1.aar/070fc094b827ea4a0c80cab177c6d6f6/res/values-nl/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "201",
+                        "endOffsets": "448"
+                    },
+                    "to": {
+                        "startLines": "50",
+                        "startColumns": "4",
+                        "startOffsets": "5623",
+                        "endColumns": "201",
+                        "endOffsets": "5820"
                     }
                 }
             ]

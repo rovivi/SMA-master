@@ -18,14 +18,18 @@ import java.util.Stack;
 
 public class Steps {
     static public SpriteReader mine, receptor;
-    static private SpriteReader[] arrows2, longs, tails;
+    static private SpriteReader[] arrows, longs, tails;
     static public SpriteReader[] explotions, explotionTails;
     static private int Longinfo[] = {-9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999};
     static public boolean efecto = false;
     Point screenSize;
 
+    /**
+     * Created the step
+     * @param context
+     * @param screenSize
+     */
     Steps(Context context, Point screenSize) {
-
         receptor = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.base), 1, 2, 0.5f);
         receptor.play();
         int sizeArrow = (int) (screenSize.x * 0.8 / 10);
@@ -39,16 +43,16 @@ public class Steps {
 
 
         try {
-            if (arrows2 == null || tails == null || longs == null || explotions == null) {
-                arrows2 = new SpriteReader[10];
+            if (arrows == null || tails == null || longs == null || explotions == null) {
+                arrows = new SpriteReader[10];
                 tails = new SpriteReader[10];
                 longs = new SpriteReader[10];
                 explotionTails = new SpriteReader[10];
-                arrows2[0] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_left_tap, myOpt), 6, 1, 0.2f);
-                arrows2[1] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_up_left_tap, myOpt), 6, 1, 0.2f);
-                arrows2[2] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_center_tap, myOpt), 6, 1, 0.2f);
-                arrows2[3] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_up_right_tap, myOpt), 6, 1, 0.2f);
-                arrows2[4] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_right_tap, myOpt), 6, 1, 0.2f);
+                arrows[0] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_left_tap, myOpt), 6, 1, 0.2f);
+                arrows[1] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_up_left_tap, myOpt), 6, 1, 0.2f);
+                arrows[2] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_center_tap, myOpt), 6, 1, 0.2f);
+                arrows[3] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_up_right_tap, myOpt), 6, 1, 0.2f);
+                arrows[4] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_right_tap, myOpt), 6, 1, 0.2f);
                 tails[0] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_left_tail, myOpt), 6, 1, 0.2f);
                 tails[1] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_up_left_tail, myOpt), 6, 1, 0.2f);
                 tails[2] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_center_tail, myOpt), 6, 1, 0.2f);
@@ -60,7 +64,6 @@ public class Steps {
                 longs[3] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_up_right_body, myOpt), 6, 1, 0.2f);
                 longs[4] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_right_body, myOpt), 6, 1, 0.2f);
 
-
                 Bitmap r1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s1, myOpt2);
                 Bitmap r2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s2, myOpt2);
                 Bitmap r3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s3, myOpt2);
@@ -68,7 +71,7 @@ public class Steps {
                 Bitmap r5 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s5, myOpt2);
                 explotions = new SpriteReader[10];
                 for (int w =0;w<5;w++){
-                    arrows2[w+5] = arrows2[w];
+                    arrows[w+5] = arrows[w];
                     tails[5+w] = tails[w];
                     longs[5+w] = longs[w];
                     // tails[5+w] = tails[w];
@@ -76,12 +79,12 @@ public class Steps {
 
                 for (int cd = 0; cd < 10; cd++) {
                     explotions[cd] = new SpriteReader(new Bitmap[]{
-                            TransformBitmap.returnMaskCut(arrows2[cd].frames[0], TransformBitmap.returnMask(arrows2[cd].frames[0], r1)),
-                            TransformBitmap.returnMaskCut(arrows2[cd].frames[1], TransformBitmap.returnMask(arrows2[cd].frames[1], r2)),
-                            TransformBitmap.returnMaskCut(arrows2[cd].frames[2], TransformBitmap.returnMask(arrows2[cd].frames[2], r3)),
-                            TransformBitmap.returnMaskCut(arrows2[cd].frames[3], TransformBitmap.returnMask(arrows2[cd].frames[3], r3)),
-                            TransformBitmap.returnMaskCut(arrows2[cd].frames[4], TransformBitmap.returnMask(arrows2[cd].frames[4], r4)),
-                            TransformBitmap.returnMaskCut(arrows2[cd].frames[5], TransformBitmap.returnMask(arrows2[cd].frames[5], r5)),
+                            TransformBitmap.returnMaskCut(arrows[cd].frames[0], TransformBitmap.returnMask(arrows[cd].frames[0], r1)),
+                            TransformBitmap.returnMaskCut(arrows[cd].frames[1], TransformBitmap.returnMask(arrows[cd].frames[1], r2)),
+                            TransformBitmap.returnMaskCut(arrows[cd].frames[2], TransformBitmap.returnMask(arrows[cd].frames[2], r3)),
+                            TransformBitmap.returnMaskCut(arrows[cd].frames[3], TransformBitmap.returnMask(arrows[cd].frames[3], r3)),
+                            TransformBitmap.returnMaskCut(arrows[cd].frames[4], TransformBitmap.returnMask(arrows[cd].frames[4], r4)),
+                            TransformBitmap.returnMaskCut(arrows[cd].frames[5], TransformBitmap.returnMask(arrows[cd].frames[5], r5)),
                     }, 0.15f);
                     explotionTails[cd]=explotions[cd];
                 }
@@ -93,14 +96,14 @@ public class Steps {
         } catch (OutOfMemoryError E) {
            // System.gc();
             for (int cd = 0; cd < 10; cd++) {
-                explotions[cd] = arrows2[cd];
+                explotions[cd] = arrows[cd];
 
             }
 
         }
 
-        for (int x = 0; x < arrows2.length; x++) {
-            arrows2[x].play();
+        for (int x = 0; x < arrows.length; x++) {
+            arrows[x].play();
             longs[x].play();
             tails[x].play();
         }
@@ -170,13 +173,13 @@ public class Steps {
                 switch (Steps[j]) {
                     case (11):
                         if (currenty < screenSize.y *0.20f) {
-                           // arrows2[j].drawWhitShader(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa), 100);
-//arrows2[j].drawWhitShader(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa), 100);
+                           // arrows[j].drawWhitShader(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa), 100);
+//arrows[j].drawWhitShader(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa), 100);
                         }
                         else if (currenty > screenSize.y *0.27f){
-                            arrows2[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                            arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                         } else{
-                            arrows2[j].drawWhitShader(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa), 100);
+                            arrows[j].drawWhitShader(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa), 100);
                         }
 
                         break;
@@ -185,7 +188,7 @@ public class Steps {
                     case (51):
                     case (61):
                     case (71):
-                        arrows2[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                        arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                         break;
                     case (2):
                     case (52):
@@ -193,7 +196,7 @@ public class Steps {
                     case (72):
                         //   longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, nexty));
                         longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[j]));
-                        arrows2[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                        arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                         Longinfo[j] = -9999;
                         break;
                     case (3):
@@ -268,8 +271,6 @@ public class Steps {
 
 
 
-
-
         int posintX2 = posintx;
         int aux2 = (int) (playerSizeY * 0.085);
         currenty = (int) (playerSizeY * 0.085);
@@ -289,15 +290,15 @@ public class Steps {
 
                 switch (Steps.charAt(j)) {
                     case ('1'):
-                        arrows2[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                        arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                         break;
                     case ('F'):
-                        arrows2[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                        arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                         break;
                     case ('2'):
                         //   longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, nexty));
                         longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[j]));
-                        arrows2[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                        arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
 
                         Longinfo[j] = -9999;
                         break;
@@ -354,7 +355,7 @@ public class Steps {
 
     public void update() {
         for (int x = 0; x < 10; x++) {
-            arrows2[x].update();
+            arrows[x].update();
             tails[x].update();
             longs[x].update();
             explotions[x].update();
@@ -382,14 +383,14 @@ public class Steps {
         tails[0] = tails[2];
         tails[1] = tails[2];
         tails[3] = tails[2];
-        arrows2[0] = new SpriteReader(TransformBitmap.RotateBitmap(upOn, 270), 1, 1, 0.2f);
-        arrows2[1] = new SpriteReader(TransformBitmap.RotateBitmap(upOn, 180), 1, 1, 0.2f);
-        arrows2[2] = new SpriteReader(upOn, 1, 1, 0.2f);
-        arrows2[3] = new SpriteReader(TransformBitmap.RotateBitmap(upOn, 90), 1, 1, 0.2f);
-        arrows2[0].play();
-        arrows2[1].play();
-        arrows2[2].play();
-        arrows2[3].play();
+        arrows[0] = new SpriteReader(TransformBitmap.RotateBitmap(upOn, 270), 1, 1, 0.2f);
+        arrows[1] = new SpriteReader(TransformBitmap.RotateBitmap(upOn, 180), 1, 1, 0.2f);
+        arrows[2] = new SpriteReader(upOn, 1, 1, 0.2f);
+        arrows[3] = new SpriteReader(TransformBitmap.RotateBitmap(upOn, 90), 1, 1, 0.2f);
+        arrows[0].play();
+        arrows[1].play();
+        arrows[2].play();
+        arrows[3].play();
     }
 
 }

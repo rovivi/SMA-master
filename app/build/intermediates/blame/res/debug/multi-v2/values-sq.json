@@ -4,41 +4,7 @@
             "outputFile": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sq/values-sq.xml",
             "map": [
                 {
-                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/e07ba141f9e12515a2af116108c7d172/res/values-sq/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "247",
-                        "endColumns": "187",
-                        "endOffsets": "434"
-                    },
-                    "to": {
-                        "startLines": "27",
-                        "startColumns": "4",
-                        "startOffsets": "3100",
-                        "endColumns": "187",
-                        "endOffsets": "3283"
-                    }
-                },
-                {
-                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/6ef8f620e2dd2a48ad82ab7f6dcde4b7/res/values-sq/values-sq.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "38",
-                        "startColumns": "4",
-                        "startOffsets": "4799",
-                        "endColumns": "100",
-                        "endOffsets": "4895"
-                    }
-                },
-                {
-                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.2.aar/aa64e080cde65d58dca57c1cfd3474c8/res/values-sq/values-sq.xml",
+                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.2.aar/0c8d059487d03e9119cccaacdf01875b/res/values-sq/values-sq.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -55,7 +21,24 @@
                     }
                 },
                 {
-                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/933d05c519f3a33a652e5413437be7fb/res/values-sq/values.xml",
+                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-basement-16.0.1.aar/070fc094b827ea4a0c80cab177c6d6f6/res/values-sq/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "187",
+                        "endOffsets": "434"
+                    },
+                    "to": {
+                        "startLines": "27",
+                        "startColumns": "4",
+                        "startOffsets": "3100",
+                        "endColumns": "187",
+                        "endOffsets": "3283"
+                    }
+                },
+                {
+                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-base-16.0.1.aar/6ff4ba45b7ad65bb2a3e58510abeed8a/res/values-sq/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -69,6 +52,23 @@
                         "startOffsets": "1881,1990,2195,2334,2443,2663,2799,2955,3288,3517,3627,3833,3973,4201,4415,4510,4607",
                         "endColumns": "108,204,138,108,219,135,155,144,228,109,205,139,227,213,94,96,110",
                         "endOffsets": "1985,2190,2329,2438,2658,2794,2950,3095,3512,3622,3828,3968,4196,4410,4505,4602,4713"
+                    }
+                },
+                {
+                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/f3a69c32e396d20a37c6c6395b6db2ad/res/values-sq/values-sq.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "38",
+                        "startColumns": "4",
+                        "startOffsets": "4799",
+                        "endColumns": "100",
+                        "endOffsets": "4895"
                     }
                 }
             ]

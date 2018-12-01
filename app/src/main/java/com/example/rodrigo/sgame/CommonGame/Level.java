@@ -1,12 +1,22 @@
 package com.example.rodrigo.sgame.CommonGame;
 
 
-
+/**
+ * Creator : Rodrigo Vidal Villaseñor
+ */
 public class Level {
-    public Level(){
 
-    }
+    /**
+     * Void Constructor
+     */
+    public Level(){}
 
+    /**
+     * Create a Level object for the adapter
+     * @param numberLevel Number of level
+     * @param gameType Type of step
+     * @param tag Some additional information
+     */
     public Level(int numberLevel, String gameType, String tag) {
         this.numberLevel = numberLevel;
         this.gameType = gameType;

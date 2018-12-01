@@ -5,7 +5,7 @@
     android:versionName="1.03" >
 
     <uses-sdk
-        android:minSdkVersion="15"
+        android:minSdkVersion="18"
         android:targetSdkVersion="26" />
 
     <meta-data
@@ -41,12 +41,6 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" /> <!-- Required by older versions of Google Play services to create IID tokens -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
-    <permission
-        android:name="com.example.rodrigo.sgame.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-
-    <uses-permission android:name="com.example.rodrigo.sgame.permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
@@ -141,7 +135,9 @@
             android:exported="false"
             android:initOrder="101" />
 
-        <service android:name="com.google.firebase.components.ComponentDiscoveryService" >
+        <service
+            android:name="com.google.firebase.components.ComponentDiscoveryService"
+            android:exported="false" >
             <meta-data
                 android:name="com.google.firebase.components:com.google.firebase.perf.component.FirebasePerfRegistrar"
                 android:value="com.google.firebase.components.ComponentRegistrar" />
@@ -208,8 +204,6 @@
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
-                <category android:name="com.example.rodrigo.sgame" />
             </intent-filter>
         </receiver>
         <!--

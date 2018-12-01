@@ -11,13 +11,13 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.WindowManager;
 
+import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 import com.example.rodrigo.sgame.R;
 
 
 public class GamePad {
 
-    public String Log = "";
     private Bitmap[] arrows;
     private Bitmap panel, panel2;
     private TransformBitmap TB;
@@ -28,20 +28,12 @@ public class GamePad {
     public byte pad[];
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public GamePad(Context context, String type, byte[] pad, int width, int height) {
-
-
-        /////////////
-
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Point size = new Point();
-        wm.getDefaultDisplay().getRealSize(size);
-        width = size.x;
-        height = size.y;
+    public GamePad(Context context, String type, byte[] pad) {
+        int width=Common.WIDTH ;
+        int height= Common.HEIGHT;
 
         panel = BitmapFactory.decodeResource(context.getResources(), R.drawable.touch_controls);
         switch (type) {
-
             case "pump-single":
 
                 panel = BitmapFactory.decodeResource(context.getResources(), R.drawable.touch_controls);
@@ -152,6 +144,7 @@ public class GamePad {
                     float heightStep7=0.174f;
                     float widthStep5=widthStep7+0.03f;
                     float heightStep5=0.152f;
+
                     panel2 = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
                     arrowsPosition2 = new Rect[10];
@@ -172,7 +165,7 @@ public class GamePad {
 
                 }
                 break;
-
+    
             case "dance-single":
 
                 panel2 = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);

@@ -217,8 +217,8 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             @Override
             public boolean onError(MediaPlayer mp, int what, int extra) {
                 //    Log.d("video", "setOnErrorListener ");
-                if (what == -1010 || extra ==-1010 )
-                preview.setBackground(errorAuxImage);
+                if (what == -1010 || extra == -1010)
+                    preview.setBackground(errorAuxImage);
                 return true;
             }
         });
@@ -328,9 +328,8 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             String superinfoinfo = mountObbFile(obbFile.getPath());
 
 
-        }
-        else {
-               loadSongs();
+        } else {
+            loadSongs();
 
         }
 
@@ -370,20 +369,16 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             }
 
 
-
-
-
             //If the song provides from OBB
-             if (auxStep.isPropitarySongs) {
+            if (auxStep.isPropitarySongs) {
 
 
             } else {
-
+                //if the song provides from SD
 
                 File audio = new File(paths + "/" + auxStep.songInfo.get("MUSIC"));
                 File video = new File(paths + "/" + auxStep.songInfo.get("PREVIEWVID"));
                 File bg = new File(paths + "/" + auxStep.songInfo.get("BACKGROUND"));
-
 
                 if (video.exists() && (video.getPath().endsWith(".mpg") || video.getPath().endsWith(".mp4") || video.getPath().endsWith(".avi"))) {
                     preview.setBackground(null);
@@ -409,23 +404,15 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 /*
                 Uri uriAudio = CustomAPEZProvider.buildUri(audio.getPath().replace(obbMountPath + "/", ""));
                 mediaPlayer.setDataSource(this, uriAudio);*/
-                 mediaPlayer.setDataSource(audio.getPath());
+                mediaPlayer.setDataSource(audio.getPath());
             }
-
-             mediaPlayer.prepare();
+            mediaPlayer.prepare();
             mediaPlayer.seekTo(offset);
-
             musicTimer = new MusicThread();
             musicTimer.player = mediaPlayer;
             musicTimer.time = (long) (Double.parseDouble(auxStep.songInfo.get("SAMPLELENGTH")) * 1000);
             musicTimer.start();
             mediaPlayer.start();
-
-
-
-
-
-
         } catch (
                 FileNotFoundException e) {
             e.printStackTrace();
@@ -642,12 +629,10 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             int k = indices.get(i);
             while (i != k && swapMap.containsKey(k))
                 k = swapMap.get(k);
-
             swapFrom.add(i);
             swapTo.add(k);
             swapMap.put(i, k);
         }
-
         // use the swap order to sort each list by swapping elements
         for (List<?> list : lists)
             for (int i = 0; i < list.size(); i++)
@@ -684,15 +669,10 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     };
 
     public String mountObbFile(String obbFile) {
-
         StorageManager storageManager = (StorageManager) getSystemService(STORAGE_SERVICE);
-
-
         storageManager.mountObb(obbFile, null, obi);
         String w = storageManager.getMountedObbPath(obbFile);
         boolean x = storageManager.isObbMounted(obbMountPath);
-
-
         return obbMountPath;
     }
 

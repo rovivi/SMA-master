@@ -4,6 +4,8 @@ package com.example.rodrigo.sgame;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
@@ -11,12 +13,16 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.rodrigo.sgame.CommonGame.Common;
+import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 
 
 public class Splash extends AppCompatActivity {
@@ -52,6 +58,12 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
+        Bitmap prueba = BitmapFactory.decodeResource(getResources(),R.drawable.press_raw);
+        Bitmap [] test211 = TransformBitmap.customSpriteArray(prueba,5,2,0,5);
+
+
         setContentView(R.layout.activity_splash);
         try {
             this.getSupportActionBar().hide();
@@ -76,6 +88,9 @@ public class Splash extends AppCompatActivity {
 
         splashImage.setVisibility(View.GONE);
 
+
+
+
     }
 
     public void startSongList() {
@@ -90,7 +105,7 @@ public class Splash extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-      /*  if (ContextCompat.checkSelfPermission(this,
+        if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
@@ -100,8 +115,13 @@ public class Splash extends AppCompatActivity {
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         69);
             }
-        }*/
+        }
 
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        Common.HEIGHT = displayMetrics.heightPixels;
+        Common.WIDTH = displayMetrics.widthPixels;
 
         handler.postDelayed(runAnimation, 1000);    }
 

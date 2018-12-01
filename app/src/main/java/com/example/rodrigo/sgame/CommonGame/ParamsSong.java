@@ -3,18 +3,23 @@ package com.example.rodrigo.sgame.CommonGame;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Created : Rodrigo Vidal
+ * This class is used to manage the preferences in the game
+ */
 public class ParamsSong {
     public static float speed = 2f;
     public static int judgment = 3;
     public static int av = -1;
     public static int delayMS = 0;
-    public static Float rush = 0.05f;
+    public static Float rush = 1.0f;
 
     /**
      * Game mode
-     * 0 SM mode
-     * 1 DM mode
-     * 2 FS mode
+     * 0 50-50 mode
+     * 1 70-30 mode
+     * 2 DM mode
+     * 3 FS mode
      */
     public static short gameMode = 0;
 

@@ -1,51 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
     abi="arm64-v8a,armeabi-v7a,armeabi"
-    api-level="24"
-    build-mode="FULL"
+    api-level="26"
+    build-mode="COLD"
     density="xxhdpi"
     format="10"
-    plugin-version="3.1.4"
-    timestamp="1537991252397"
+    ir-eligibility="COMPATIBLE"
+    plugin-version="3.2.1"
+    timestamp="1542600746616"
     token="6685960864000445536"
-    verifier="FULL_BUILD_REQUESTED" >
+    verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="260" />
+        duration="320" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="22" />
+        duration="6" />
     <task
         name="verifier"
-        duration="6" />
+        duration="1" />
 
     <artifact
-        location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/slices/directories.apk"
+        location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
         type="SPLIT" />
-    <artifact
-        location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/dep/dependencies.apk"
-        type="SPLIT" />
-    <artifact
-        location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
-        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1537991252397"
+        timestamp="1542600314598"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/slices/directories.apk"
+            location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
             type="SPLIT" />
         <artifact
             location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/dep/dependencies.apk"
             type="SPLIT" />
         <artifact
+            location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
+            type="SPLIT" />
+        <artifact
             location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
             type="SPLIT_MAIN" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="COMPATIBLE"
+        timestamp="1542600746616"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
+            type="SPLIT" />
     </build>
 
 </instant-run>

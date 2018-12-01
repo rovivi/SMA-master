@@ -17,25 +17,22 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.RequiresApi;
 
 public class TransformBitmap {
-    public static Bitmap RotateBitmap(Bitmap source, float angle)
-    {
+    public static Bitmap RotateBitmap(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
 
-    public static Bitmap FlipBitmap(Bitmap source, Boolean eje)
-    {
+    public static Bitmap FlipBitmap(Bitmap source, Boolean eje) {
         Matrix matrix = new Matrix();
-        if (eje){
+        if (eje) {
             matrix.postScale(-1, 1);
-        }
-        else {
+        } else {
             matrix.postScale(1, -1);
         }
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
-  }
+    }
 
     public static Bitmap makeTransparent(Bitmap src, int value) {
         int width = src.getWidth();
@@ -55,10 +52,10 @@ public class TransformBitmap {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static Bitmap myblur(Bitmap image, Context context) {
 
-        if (image==null){
-            return  null;
+        if (image == null) {
+            return null;
         }
-        try{
+        try {
             final float BITMAP_SCALE = 0.4f;
             final float BLUR_RADIUS = 8.5f;
             int width = Math.round(image.getWidth() * BITMAP_SCALE);
@@ -74,8 +71,7 @@ public class TransformBitmap {
             theIntrinsic.forEach(tmpOut);
             tmpOut.copyTo(outputBitmap);
             return outputBitmap;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -84,10 +80,10 @@ public class TransformBitmap {
     }
 
 
-    public static Bitmap getscaledBitmap(Bitmap bm,int  percent) {
+    public static Bitmap getscaledBitmap(Bitmap bm, int percent) {
 
-        int newWidth= (int) (bm.getWidth()*(float)percent/100);
-        int newHeight= (int) (bm.getWidth()*(float)percent/100);
+        int newWidth = (int) (bm.getWidth() * (float) percent / 100);
+        int newHeight = (int) (bm.getWidth() * (float) percent / 100);
         int width = bm.getWidth();
         int height = bm.getHeight();
         float scaleWidth = ((float) newWidth) / width;
@@ -105,18 +101,15 @@ public class TransformBitmap {
     }
 
 
-
-    public static Bitmap cutBitmap(Bitmap  fullLengthBitmap, float percent)
-    {
-        percent/=100;
-        if (percent>0.05) {
+    public static Bitmap cutBitmap(Bitmap fullLengthBitmap, float percent) {
+        percent /= 100;
+        if (percent > 0.05) {
             Bitmap backDrop = Bitmap.createBitmap((int) (fullLengthBitmap.getWidth() * percent), fullLengthBitmap.getHeight(), Bitmap.Config.RGB_565);
             Canvas can = new Canvas(backDrop);
             can.drawBitmap(fullLengthBitmap, 0, 0, null);
             return backDrop;
-        }
-        else {
-            return  fullLengthBitmap;
+        } else {
+            return fullLengthBitmap;
         }
 
     }
@@ -124,13 +117,12 @@ public class TransformBitmap {
     public static Bitmap overlay(Bitmap bmp2, Bitmap bmp1) {
         Bitmap bmOverlay = Bitmap.createBitmap(200, 200, bmp1.getConfig());
         Canvas canvas = new Canvas(bmOverlay);
-        canvas.drawBitmap(bmp2,null,new Rect(0,0,canvas.getWidth(),canvas.getHeight()),new Paint() );
-        canvas.drawBitmap(bmp1,null,new Rect(0,0,canvas.getWidth(),canvas.getHeight()),new Paint() );
+        canvas.drawBitmap(bmp2, null, new Rect(0, 0, canvas.getWidth(), canvas.getHeight()), new Paint());
+        canvas.drawBitmap(bmp1, null, new Rect(0, 0, canvas.getWidth(), canvas.getHeight()), new Paint());
         return bmOverlay;
     }
 
-    public static Bitmap adjustedContrast(Bitmap src, double value)
-    {
+    public static Bitmap adjustedContrast(Bitmap src, double value) {
         // image size
         int width = src.getWidth();
         int height = src.getHeight();
@@ -154,26 +146,35 @@ public class TransformBitmap {
         double contrast = Math.pow((100 + value) / 100, 2);
 
         // scan through all pixels
-        for(int x = 0; x < width; ++x) {
-            for(int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            for (int y = 0; y < height; ++y) {
                 // get pixel color
                 pixel = src.getPixel(x, y);
                 A = Color.alpha(pixel);
                 // apply filter contrast for every channel R, G, B
                 R = Color.red(pixel);
-                R = (int)(((((R / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
-                if(R < 0) { R = 0; }
-                else if(R > 255) { R = 255; }
+                R = (int) (((((R / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
+                if (R < 0) {
+                    R = 0;
+                } else if (R > 255) {
+                    R = 255;
+                }
 
                 G = Color.green(pixel);
-                G = (int)(((((G / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
-                if(G < 0) { G = 0; }
-                else if(G > 255) { G = 255; }
+                G = (int) (((((G / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
+                if (G < 0) {
+                    G = 0;
+                } else if (G > 255) {
+                    G = 255;
+                }
 
                 B = Color.blue(pixel);
-                B = (int)(((((B / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
-                if(B < 0) { B = 0; }
-                else if(B > 255) { B = 255; }
+                B = (int) (((((B / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
+                if (B < 0) {
+                    B = 0;
+                } else if (B > 255) {
+                    B = 255;
+                }
 
                 // set new pixel color to output bitmap
                 bmOut.setPixel(x, y, Color.argb(A, R, G, B));
@@ -194,8 +195,7 @@ public class TransformBitmap {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY));
         mCanvas.drawBitmap(original, 0, 0, null);
         // mCanvas.drawBitmap(mask, , paint);
-        mCanvas.drawBitmap(mask, null, new Rect(0,0,original.getWidth(),original.getHeight()), paint);
-
+        mCanvas.drawBitmap(mask, null, new Rect(0, 0, original.getWidth(), original.getHeight()), paint);
 
 
         paint.setXfermode(null);
@@ -214,12 +214,38 @@ public class TransformBitmap {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         mCanvas.drawBitmap(original, 0, 0, null);
         // mCanvas.drawBitmap(mask, , paint);
-        mCanvas.drawBitmap(mask, null, new Rect(0,0,original.getWidth(),original.getHeight()), paint);
-
+        mCanvas.drawBitmap(mask, null, new Rect(0, 0, original.getWidth(), original.getHeight()), paint);
 
 
         paint.setXfermode(null);
         return result;
     }
+
+    /**
+     * @param sprite rawImage Sprite
+     * @param sizeX  divide on X blocks bitmap
+     * @param sizeY  divide on Y blocks bitmap
+     * @param params array of  coordinates in sprite
+     *               follow the next sequence
+     *               012
+     *               345
+     *               678
+     *               representes of square 3x3
+     * @return
+     */
+    public static Bitmap[] customSpriteArray(Bitmap sprite, int sizeX, int sizeY, int... params) {
+        Bitmap[] spriteArray = new Bitmap[params.length];//crete array
+        int frameWhith = (sprite.getWidth() / sizeX);
+        int frameHeight = (sprite.getHeight() / sizeY);
+        for (int index = 0; index < params.length; index++) {
+            if (params[index] < (sizeX * sizeY) && sizeX > 0 && sizeY > 0) {//verify for errors
+                int x = params[index] % sizeX;
+                int y = params[index] / sizeX;
+                spriteArray[index] = Bitmap.createBitmap(sprite, x * frameWhith, y * frameHeight, frameWhith, frameHeight);
+            }
+        }
+        return spriteArray ;
+    }
+
 
 }

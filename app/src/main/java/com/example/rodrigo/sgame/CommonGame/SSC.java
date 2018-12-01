@@ -1,7 +1,4 @@
 package com.example.rodrigo.sgame.CommonGame;
-/**
- * @author Rodrigo Vidal Villaseñor
- */
 
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -9,11 +6,16 @@ import android.support.annotation.RequiresApi;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author Rodrigo Vidal Villaseñor
+ */
 
 public class SSC {
 
@@ -21,7 +23,8 @@ public class SSC {
     int id = -1;//For online and propietaries songs
     public File path;
     public String pathSSC;
-    public boolean isPropitarySongs ;
+    public boolean isPropitarySongs;
+    public Map<String, ArrayList<Float[]>> effectMap = new HashMap<>();
     private ArrayList<Float[]> SCROLLS, BPMS, FAKES, TICKCOUNTS, STOPS, DELAYS, SPEEDS, WARPS;
     ArrayList<String[]> ATTACKS = null;
     public Map<String, String> songInfo = new HashMap<>();//datos generales para el screen select music
@@ -31,21 +34,26 @@ public class SSC {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
 
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public SSC(String raw,boolean isPropitary) {
+    public SSC(String raw, boolean isPropitary) {
         this.ParseSSCLines(StripComments(raw), false);
-        this.isPropitarySongs=isPropitary;
+        this.isPropitarySongs = isPropitary;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public SSC(String raw, boolean option,boolean isPropitary) {
-        this.isPropitarySongs=isPropitary;
+    public SSC(String raw, boolean option, boolean isPropitary) {
+        this.isPropitarySongs = isPropitary;
         this.ParseSSCLines(StripComments(raw), option);
 
 
     }
 
+
+    /**
+     * Clean comments in the SM string
+     *
+     * @param data
+     * @return String whit out comments
+     */
     private static String StripComments(String data) {//Ya quedo uwu
         return data.replaceAll("(\\s+//-([^;]+)\\s)|(//[\\s+]measure\\s[0-9]+\\s)", "");
     }
@@ -56,14 +64,14 @@ public class SSC {
     public void ParseSSCLines(String data, boolean miniVer) {
         for (int hh = 0; hh < 12; hh++) {
             wasLong[hh] = 0;
-        }
-        Matcher m = Pattern.compile("#([^;]+);").matcher(data);
+        }// reset long checker
+        Matcher matcher = Pattern.compile("#([^;]+);").matcher(data);// this matcher read  each tag in the sm
         int chart = -1;
-        while (m.find()) {
-            String auxstring = m.group();
-            String key = auxstring.substring(1, auxstring.indexOf(":"));
-            String valor = auxstring.substring(auxstring.indexOf(":") + 1, auxstring.indexOf(";"));
-            if (key.equals("NOTEDATA")) {
+        while (matcher.find()) {  //read any tag in the sm string
+            String auxString = matcher.group();//Separate tagc
+            String key = auxString.substring(1, auxString.indexOf(":"));// separate key and value
+            String valor = auxString.substring(auxString.indexOf(":") + 1, auxString.indexOf(";"));
+            if (key.equals("NOTEDATA")) {//when you read note data index++
                 chart += 1;
 
             } else {
@@ -71,7 +79,7 @@ public class SSC {
                     switch (key) {
                         case "NOTES":
                             if (!miniVer) {
-                                valor = valor.replaceAll(" ", "").replaceAll("&",",");
+                                valor = valor.replaceAll(" ", "").replaceAll("&", ",");
                                 this.charts[chart] = this.step2Array(valor);
                             }
                             break;
@@ -103,10 +111,15 @@ public class SSC {
         }
     }
 
-
+    /**
+     * Converted string into a steps array,
+     *
+     * @param data String whit steps
+     * @return array whit steps structure
+     */
     private ArrayList step2Array(String data) {
-        ArrayList<ArrayList<String>> steps = new ArrayList<>();
-        ArrayList<String> auxBlock = new ArrayList<>();
+        ArrayList<ArrayList<String>> steps = new ArrayList<>(); // initialize the step array
+        ArrayList<String> auxBlock = new ArrayList<>(); //initialize the aux block (used to set new block of steps)
         String[] arrayString = data.split("\n");
         for (int x = 1; x < arrayString.length; x++) {
             if (arrayString[x].contains(",")) {
@@ -125,68 +138,19 @@ public class SSC {
     }
 
 
-   /* private ArrayList step2Array2(String data) {
-        ArrayList<ArrayList<String>> steps = new ArrayList<>();
-        ArrayList<String> auxBlock = new ArrayList<>();
-        String[] arrayString = data.split("\n");
-        for (String x : arrayString) {
-            if (x.contains(",")) {
-                steps.add(auxBlock);
-                auxBlock = new ArrayList<>();
-                if (x.contains("0") || x.contains("1") || x.contains("2") || x.contains("3")) {
-                    auxBlock.add(x.replace(",", ""));
-                }
-            } else {
-                auxBlock.add(x);
-            }
-        }
-        //steps.add(auxBlock);
-        return steps;
-    }*/
-
-
-  /*  public ArrayList createBuffer(int nchar) {
-        if (this.chartsInfo[nchar].get("SCROLLS") != null && !this.chartsInfo[nchar].get("SCROLLS").equals("")) {
-            SCROLLS = this.arrayListTag(this.chartsInfo[nchar].get("SCROLLS").toString());
-        }
-        double currentBeat = 0;//offset/(60/BPM);
-        ArrayList<String[]> buffer = new ArrayList<>();
-        ArrayList<ArrayList<String>> aux = this.charts[nchar];
-        int numberBlock = 0;
-        for (int i = 0; i < aux.size(); i++) {
-            for (int j = 0; j < 192; j++) {
-                String auxString[] = new String[4];
-                if (aux.get(i).size() == 192) {
-                    auxString[0] = checkLong(aux.get(i).get(j));
-                } else {
-                    int div = 192 / aux.get(i).size();
-                    if (j % div == 0) {
-                        auxString[0] = checkLong(aux.get(i).get(j / div));
-                    } else {
-                        auxString[0] = checkLong("0000000000");
-                    }
-                }
-                auxString[1] = 192 + "";
-                auxString[2] = currentBeat + "";
-                auxString[3] = "1";
-                buffer.add(auxString);
-                currentBeat = (double) numberBlock / 48;
-                numberBlock++;
-                //currentBeat += (double) 4 / 192;
-            }
-        }
-        for (int i = 0; i < buffer.size() && SCROLLS != null; i++) {
-            buffer.get(i)[3] = foundScroll(Float.parseFloat(buffer.get(i)[2]), SCROLLS) + "";
-        }
-
-        return buffer;
-    }*/
-
-
+    /**
+     * Create the "thing" will be used by the player, contains steps, scroll size , and current beat info
+     *
+     * @param nchar Contains the index to be used in the player
+     * @return the "thing"
+     */
     public ArrayList<Object[]> createBuffer2(int nchar) {
         if (this.chartsInfo[nchar].get("SCROLLS") != null && !this.chartsInfo[nchar].get("SCROLLS").equals("")) {
             SCROLLS = this.arrayListTag(this.chartsInfo[nchar].get("SCROLLS").toString());
-        }//DO not remove is for scrolling
+        }
+
+
+        //DO not remove is for scrolling
 
         double currentBeat = 0;//offset/(60/BPM);
         ArrayList<Object[]> buffer = new ArrayList<>();
@@ -202,8 +166,8 @@ public class SSC {
                 } else {
                     int div = 192 / aux.get(i).size();
                     if (j % div == 0) {
-                        if (i>= aux.size() || (j/div )>=aux.get(i).size()){
-                            String x="sdsdsd";
+                        if (i >= aux.size() || (j / div) >= aux.get(i).size()) {
+                            String x = "sdsdsd";
                         }
 
                         auxObject[0] = stringStep2ByteArary(checkLong(aux.get(i).get(j / div)));
@@ -217,13 +181,20 @@ public class SSC {
                 buffer.add(auxObject);
                 currentBeat = (double) numberBlock / 48;
                 numberBlock++;
-                //currentBeat += (double) 4 / 192;
+                //beat += (double) 4 / 192;
             }
         }
         for (int i = 0; i < buffer.size() && SCROLLS != null; i++) {
             buffer.get(i)[2] = foundScroll((Double) buffer.get(i)[1], SCROLLS);
         }
-/*
+
+
+
+
+
+
+
+        /*
         for (int i = 0; i < buffer.size() && SCROLLS != null; i++) {
             buffer.get(i)[2] = foundScroll((Double) buffer.get(i)[1], SCROLLS);
         }
@@ -240,6 +211,105 @@ public class SSC {
 
 
         return buffer;
+    }
+
+
+    public ArrayList<RowStep> createBuffer(int nchar) {
+        if (this.chartsInfo[nchar].get("SCROLLS") != null && !this.chartsInfo[nchar].get("SCROLLS").equals("")) {
+            SCROLLS = this.arrayListTag(this.chartsInfo[nchar].get("SCROLLS").toString());
+        }//DO not remove is for scrolling
+
+        //  BPMS = setMetadata(chartsInfo[nchar].get("BPMS"), songInfo.get("BPMS"));
+        TICKCOUNTS = setMetadata(chartsInfo[nchar].get("TICKCOUNTS"), songInfo.get("TICKCOUNTS"));
+        STOPS = setMetadata(chartsInfo[nchar].get("STOPS"), songInfo.get("STOPS"));
+        DELAYS = setMetadata(chartsInfo[nchar].get("DELAYS"), songInfo.get("DELAYS"));
+
+        //  effectMap.put("BPMS", BPMS);
+        if (TICKCOUNTS != null) {
+            effectMap.put("TICKCOUNTS", TICKCOUNTS);
+        }
+        if (STOPS != null) {
+            effectMap.put("STOPS", STOPS);
+        }
+        if (DELAYS != null) {
+            effectMap.put("DELAYS", DELAYS);
+        }
+
+
+        double currentBeat = 0;//offset/(60/BPM);
+        ArrayList<RowStep> buffer = new ArrayList<>();
+        ArrayList<ArrayList<String>> aux = this.charts[nchar];
+        int numberBlock = 0;
+        for (int i = 0; i < aux.size(); i++) {
+            for (int j = 0; j < 192; j++) {
+                RowStep row = new RowStep();
+                if (aux.get(i).size() == 192) {
+                    row.rowStep = stringStep2ByteArary(checkLong(aux.get(i).get(j)));
+                } else {
+                    int div = 192 / aux.get(i).size();
+                    if (j % div == 0) {
+                        if (i >= aux.size() || (j / div) >= aux.get(i).size()) {
+                            String x = "sdsdsd";
+                        }
+
+                        row.rowStep = stringStep2ByteArary(checkLong(aux.get(i).get(j / div)));
+                    } else {
+                        row.rowStep = stringStep2ByteArary(checkLong("0000000000"));
+                    }
+                }
+                row.beat = currentBeat;
+
+                row.scroll = foundScroll(currentBeat, SCROLLS);
+                row.effect = foundEffectOnBeat(currentBeat);
+                buffer.add(row);
+                currentBeat = (double) numberBlock++ / 48;
+            }
+        }
+
+
+
+
+
+        /*
+        for (int i = 0; i < buffer.size() && SCROLLS != null; i++) {
+            buffer.get(i)[2] = foundScroll((Double) buffer.get(i)[1], SCROLLS);
+        }
+
+
+        BPMS = setMetadata(chartsInfo[nchar].get("BPMS"), songInfo.get("BPMS"));
+        FAKES = setMetadata(chartsInfo[nchar].get("FAKES"), songInfo.get("FAKES"));
+        TICKCOUNTS = setMetadata(chartsInfo[nchar].get("TICKCOUNTS"), songInfo.get("TICKCOUNTS"));
+        STOPS = setMetadata(chartsInfo[nchar].get("STOPS"), songInfo.get("STOPS"));
+        DELAYS = setMetadata(chartsInfo[nchar].get("DELAYS"), songInfo.get("DELAYS"));
+        SPEEDS = setMetadata(chartsInfo[nchar].get("SPEEDS"), songInfo.get("SPEEDS"));
+        WARPS = setMetadata(chartsInfo[nchar].get("WARPS"), songInfo.get("WARPS"));
+*/
+
+
+        return buffer;
+    }
+
+
+    private EffectStep[] foundEffectOnBeat(double beat) {
+        Iterator<Map.Entry<String, ArrayList<Float[]>>> it = effectMap.entrySet().iterator();
+        ArrayList<EffectStep> auxArray = new ArrayList<>();
+        while (it.hasNext()) {
+            Map.Entry<String, ArrayList<Float[]>> pair = it.next();
+            String key = pair.getKey();//Nombre del efecto
+            ArrayList<Float[]> value = pair.getValue();// se declara la lista de efectos
+            if (value.size()>0 && beat== value.get(0)[0]){
+                auxArray.add(new EffectStep(key, value.get(0)));
+                value.remove( 0);
+            }
+
+        }
+
+
+        EffectStep[] effi = new EffectStep[auxArray.size()];
+        for (int z = 0; z < auxArray.size(); z++) {
+            effi[z] = auxArray.get(z);
+        }
+        return (auxArray.size() == 0) ? null : effi;
     }
 
     private String checkLong(String charts) {
@@ -346,12 +416,15 @@ public class SSC {
         return buffer;
     }
 
-
+    /***
+     * Read list of effects (BPM,SPEED,SCROLLSIZE)
+     * @param data
+     * @return
+     */
     public ArrayList<Float[]> arrayListSpeed(String data) {
-        ArrayList<Float[]> buffer=null;
-
-        if (!   data.equals("")) {
-           buffer = new ArrayList<>();
+        ArrayList<Float[]> buffer = null;
+        if (!data.equals("")) {
+            buffer = new ArrayList<>();
             String[] array = data.replace("\n", "").split(",");
             for (String x : array) {
                 Float auxString[] = new Float[6];
@@ -511,6 +584,8 @@ public class SSC {
         } else {
             return null;
         }
+
+
     }
 
 

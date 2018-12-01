@@ -34,7 +34,7 @@ public class RadarEffectsThread2 extends Thread {
                             game.currentDurationFake -= (game.BPMS.get(game.posBPM)[0] - game.currentBeat);
                             game.currentBeat = game.BPMS.get(game.posBPM)[0];
 
-                            while ((double) game.bufferSteps.get(game.posBuffer + 1)[1] <= game.currentBeat) {
+                            while ((double) game.bufferSteps.get(game.posBuffer + 1).beat <= game.currentBeat) {
                                 game.posBuffer++;
                             }
 
@@ -134,7 +134,7 @@ public class RadarEffectsThread2 extends Thread {
                         game.currentBeat = game.WARPS.get(game.posWarp)[1] + game.WARPS.get(game.posWarp)[0];//perdidad
                         game.posWarp++;
 
-                        while (game.posBuffer + 1 < game.bufferSteps.size() && (double) game.bufferSteps.get(game.posBuffer + 1)[1] <= game.currentBeat) {
+                        while (game.posBuffer + 1 < game.bufferSteps.size() && (double) game.bufferSteps.get(game.posBuffer + 1).beat <= game.currentBeat) {
                             game.posBuffer++;
                         }
                     }

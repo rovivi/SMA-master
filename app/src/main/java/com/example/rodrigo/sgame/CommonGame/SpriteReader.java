@@ -15,7 +15,9 @@ import com.example.rodrigo.sgame.Player.Attack;
 
 import java.util.ArrayList;
 
-@SuppressWarnings("ALL")
+/**
+ * Created by Rodrigo Vidal February 2018
+ */
 public class SpriteReader {
     public Bitmap[] frames;
     private int frameIndex;
@@ -31,18 +33,30 @@ public class SpriteReader {
     ArrayList<String[]> attacksList = new ArrayList<String[]>();
 
 
+    /**
+     * This constructor request bitmap array for each frame in the sprite animation
+     * @param frames Frame as bitmap
+     * @param timeFrame Time the bitmap will apear in the screen
+     */
     public SpriteReader(Bitmap[] frames, float timeFrame) {
         this.frameIndex = 0;
         this.frames = frames;
         frameTime = timeFrame / frames.length;
     }
 
+
+    /**
+     * Create sprite since a long bitmap resource and create square whit the parameter size X and size Y
+     * @param sprite bitmap of sprite image
+     * @param sizeX number of sprite squares horizontally
+     * @param sizeY nombre of sprite squares vertically
+     * @param timeFrame Time the bitmap will appears in the screen
+     */
     public SpriteReader(Bitmap sprite, int sizeX, int sizeY, float timeFrame) {
         paint = new Paint();
         painShader = new Paint();
         paint.setAntiAlias(true);
         paint.setDither(true);
-
         frames = new Bitmap[sizeX * sizeY];
         int frameWhith = (sprite.getWidth() / sizeX);
         int frameHeight = (sprite.getHeight() / sizeY);
@@ -72,6 +86,8 @@ public class SpriteReader {
 
     }
 
+
+
     public void play() {
         isPlaying = true;
         frameIndex = 0;
@@ -95,38 +111,26 @@ public class SpriteReader {
         }
     }
 
-    public void draw(Canvas canvas, Rect destino) {
+
+    /**
+     * Draw the sprite in the canvas
+     * @param canvas destinated canvas
+     * @param destiny sprite position as rect
+     */
+    public void draw(Canvas canvas, Rect destiny) {
         if (!isPlaying) {
             return;
         }
         if (rotate) {
-            canvas.drawBitmap(TransformBitmap.RotateBitmap(frames[frameIndex], (float) (45)), null, destino, paint);
+            canvas.drawBitmap(TransformBitmap.RotateBitmap(frames[frameIndex], (float) (45)), null, destiny, paint);
         } else if (attacksList.size() < 1) {
-
-/*
-
-            Bitmap backing = Bitmap.createBitmap(frames[frameIndex].getWidth(), frames[frameIndex].getHeight(), Bitmap.Config.ARGB_8888);
-            {
-                Canvas offscreen = new Canvas(backing);
-                offscreen.drawBitmap(frames[frameIndex], 0, 0, null);
-                Paint paint = new Paint();
-                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
-                paint.setShader(new LinearGradient(0, 0, frames[0].getWidth(), 0, 0x00000000, 0xFF000000, Shader.TileMode.CLAMP));
-                offscreen.drawRect(0, 0, frames[0].getWidth(), frames[0].getHeight(), paint);
-            }*/
-
-            canvas.drawBitmap(frames[frameIndex], null, destino, paint);
+            canvas.drawBitmap(frames[frameIndex], null, destiny, paint);
         }
-
-
     }
 
 
     public void drawWhitShader(Canvas canvas, Rect destino, int percent) {
-
-
         Bitmap backing = Bitmap.createBitmap(frames[frameIndex].getWidth(), frames[frameIndex].getHeight(), Bitmap.Config.ARGB_8888);
-
         Canvas offscreen = new Canvas(backing);
         offscreen.drawBitmap(frames[frameIndex], 0, 0, null);
         Paint paint2 = new Paint();
@@ -138,6 +142,11 @@ public class SpriteReader {
     }
 
 
+    /**
+     * Draw only a one time the sprite
+     * @param canvas
+     * @param destiny
+     */
     public void staticDraw(Canvas canvas, Rect destiny) {
         if (!isPlaying) {
             return;
