@@ -52,6 +52,7 @@ public class PlayerBga extends Activity {
             //this.getSupportActionBar().hide();
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                             | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -93,15 +94,11 @@ public class PlayerBga extends Activity {
             gl.setLayoutParams(params);
         }
 
-        bg.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-
-            @Override
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-                String path2 = "android.resource://" + getPackageName() + "/" + R.raw.bgaoff;
-                bg.setVideoPath(path2);
-                bg.start();
-                return true;
-            }
+        bg.setOnErrorListener((mp, what, extra) -> {
+            String path2 = "android.resource://" + getPackageName() + "/" + R.raw.bgaoff;
+            bg.setVideoPath(path2);
+            bg.start();
+            return true;
         });
 
 

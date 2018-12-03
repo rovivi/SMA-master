@@ -27,6 +27,7 @@
     <!-- Required to keep CPU alive while downloading files
         (NOT to keep screen awake) -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    
 
     <!-- Required to poll the state of the network connection
         and respond to changes -->

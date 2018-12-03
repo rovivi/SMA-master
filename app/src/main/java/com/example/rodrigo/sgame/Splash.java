@@ -4,6 +4,7 @@ package com.example.rodrigo.sgame;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -14,6 +15,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -123,6 +126,23 @@ public class Splash extends AppCompatActivity {
         Common.HEIGHT = displayMetrics.heightPixels;
         Common.WIDTH = displayMetrics.widthPixels;
 
+
+
+        int navBarHeight = 0;//verificamos la barra de navegacion
+        Resources resources = getResources();
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            navBarHeight = resources.getDimensionPixelSize(resourceId);
+        }
+
+
+
+        boolean hasPhysicalHomeKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);//Para sumar la barra de navegacion
+        if (!hasPhysicalHomeKey){
+           Common.HEIGHT+= navBarHeight;
+        }
+
+        int h=Common.HEIGHT;
         handler.postDelayed(runAnimation, 1000);    }
 
 

@@ -8,6 +8,8 @@ import com.example.rodrigo.sgame.CommonGame.SpriteReader;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -28,6 +30,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 import com.example.rodrigo.sgame.R;
 import com.example.rodrigo.sgame.CommonGame.SSC;
 import com.example.rodrigo.sgame.PlayerBga;
@@ -225,6 +228,11 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             tipo = "";
         }
 
+
+
+
+
+
         databga = new ArrayList<>();
 
         ConnectivityManager cm =
@@ -283,6 +291,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
         currentSecond = offset;
         pathMusic = path + "/" + stepData.songInfo.get("MUSIC");
         pathImage = path + "/" + stepData.songInfo.get("BACKGROUND");
+
 
         //musica
 
@@ -387,7 +396,14 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
         }
 
-
+        File bgImage = new File(pathImage);//se le asigna una mimagen al panel
+        if (bgImage.exists() && bgImage.isFile()) {
+            Bitmap ww = BitmapFactory.decodeFile(bgImage.getPath());
+            if (ww != null && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                ww = TransformBitmap.makeTransparent(TransformBitmap.myblur(ww, context), 130);
+            }
+            touchPad.setBg(ww);
+        }
         dibujante.setColor(Color.TRANSPARENT);
 
     }
