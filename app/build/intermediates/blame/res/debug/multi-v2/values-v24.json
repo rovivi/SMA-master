@@ -4,17 +4,7 @@
             "outputFile": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.2.aar/0c8d059487d03e9119cccaacdf01875b/res/values-v24/values-v24.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,212",
-                        "endColumns": "156,134",
-                        "endOffsets": "207,342"
-                    }
-                },
-                {
-                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.2.aar/c22398ada067a458ec7cf09e9df5b817/res/values-v24/values-v24.xml",
+                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/49f2dfb2e5650f95b3d556d643f64b6e/res/values-v24/values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -28,6 +18,16 @@
                         "startOffsets": "347,413,474,540",
                         "endColumns": "65,60,65,66",
                         "endOffsets": "408,469,535,602"
+                    }
+                },
+                {
+                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/values-v24/values-v24.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,212",
+                        "endColumns": "156,134",
+                        "endOffsets": "207,342"
                     }
                 }
             ]
