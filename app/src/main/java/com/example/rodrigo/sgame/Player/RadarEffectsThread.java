@@ -45,7 +45,7 @@ public class RadarEffectsThread extends Thread {
                 posBPM++;
             }*/
                 }
-/*
+
                 if (checkTime(game.DELAYS, game.posDelay)) {
                     double dif = game.currentBeat - game.DELAYS.get(game.posDelay)[0];
                     game.currentBeat = game.DELAYS.get(game.posDelay)[0] + 0.00000;
@@ -63,7 +63,7 @@ public class RadarEffectsThread extends Thread {
                     game.currentDelay = game.STOPS.get(game.posstop)[1] + game.currentSecond - Common.beat2Second(dif * 1.018, game.BPM);
                     // STOPS.remove(posstop);
                     game.posstop++;
-                }*/
+                }
 
                 if (checkTime(game.FAKES, game.posFake)) {
                     game.currentDurationFake = game.FAKES.get(game.posFake)[1] + game.FAKES.get(game.posFake)[0];

@@ -22,5 +22,7 @@ public class ParamsSong {
      * 3 FS mode
      */
     public static short gameMode = 0;
+    public static short padOption = 1;
+
 
 }

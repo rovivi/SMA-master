@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:plainpie="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/AppTheme.NoActionBar"
@@ -13,7 +14,7 @@
         android:id="@+id/bgBlurEvaluation"
         android:layout_width="0dp"
         android:layout_height="0dp"
-
+        android:layout_marginTop="35sp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,6 +49,7 @@
                 android:id="@+id/tvPerfect1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="right"
                 android:text="Perfect"
                 android:textColor="#00ffff"
                 android:textSize="18sp" />
@@ -56,6 +58,7 @@
                 android:id="@+id/tvGreat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="right"
                 android:text="Great"
                 android:textColor="#00ff00"
                 android:textSize="18sp" />
@@ -64,6 +67,7 @@
                 android:id="@+id/tvGood"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="right"
                 android:text="Good"
                 android:textColor="#ffff6c"
                 android:textSize="18sp" />
@@ -72,6 +76,7 @@
                 android:id="@+id/tvBad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="right"
                 android:text="Bad"
                 android:textColor="#ff55ff"
                 android:textSize="18sp" />
@@ -80,6 +85,7 @@
                 android:id="@+id/tvMiss"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="right"
                 android:text="Miss"
                 android:textColor="#ff98a2"
                 android:textSize="18sp" />
@@ -88,6 +94,7 @@
                 android:id="@+id/tv_Combo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="right"
                 android:text="Max Combo"
                 android:textColor="#ffffff"
                 android:textSize="18sp" />
@@ -152,17 +159,15 @@
 
     <az.plainpie.PieView
         android:id="@+id/pieView"
-        android:layout_width="164dp"
-        android:layout_height="173dp"
-        android:layout_marginBottom="60dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_width="150sp"
+        android:layout_height="152sp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="65dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonContinue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.11"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.0"
@@ -171,30 +176,31 @@
         plainpie:percentage="75"
         plainpie:percentage_size="70" />
 
-    <Button
+    <TextView
         android:id="@+id/buttonContinue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="Continue"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Tap Here To continue"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.579"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/title_evaluation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/line_top"
+        android:gravity="center"
         android:text="TextView"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="30sp"
@@ -202,5 +208,34 @@
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dance_grade_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="177dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="175dp"
+        android:layout_marginBottom="7dp"
+        android:fontFamily="monospace"
+        android:text="Dance Grade"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintBottom_toTopOf="@+id/bgBlurEvaluation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/letterGrade"
+        android:layout_width="150sp"
+        android:layout_height="150sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pieView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pieView"
+        app:layout_constraintTop_toTopOf="@+id/pieView"
+        plainpie:srcCompat="@android:color/transparent" />
+
 
 </android.support.constraint.ConstraintLayout>

@@ -12,6 +12,7 @@ import android.support.annotation.RequiresApi;
 import android.view.WindowManager;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
+import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 import com.example.rodrigo.sgame.R;
 
@@ -39,7 +40,21 @@ public class GamePad {
         int height= Common.HEIGHT;
 
         panel = BitmapFactory.decodeResource(context.getResources(), R.drawable.touch_controls);
+        float starty1=0.76f;
+        float starty2=0.51f;
+        float starty3=0.62f;
+        if (ParamsSong.padOption==0){
+             starty1=0.826f;//76
+             starty2=0.576f;
+             starty3=0.686f;
+
+
+        }
+
         switch (type) {
+
+
+
             case "pump-single":
 
                 panel = BitmapFactory.decodeResource(context.getResources(), R.drawable.touch_controls);
@@ -68,13 +83,12 @@ public class GamePad {
                     float startx1=0.0f;
                     float startx2=0.635f;
                     float startx3=0.255f;
-                    float starty1=0.76f;
-                    float starty2=0.51f;
-                    float starty3=0.62f;
+
                     float widthStep7=0.365f;
-                    float heightStep7=0.174f;
                     float widthStep5=widthStep7+0.10f;
+                    float heightStep7=0.174f;
                     float heightStep5=0.202f;
+
 
 
                     arrowsPosition2 = new Rect[10];
@@ -142,14 +156,15 @@ public class GamePad {
                     float startx1=-0.005f;
                     float startx2=0.333f;
                     float startx3=0.158f;
-                    float starty1=0.76f;
-                    float starty2=0.51f;
-                    float starty3=0.62f;
+
+                     //heightStep7=0.174f;
+                    //float heightStep5=0.202f;
+
                     float widthStep7=0.365f/2+0.033f;
                     float heightStep7=0.174f;
                     float widthStep5=widthStep7+0.03f;
-                    float heightStep5=0.152f;
-
+                   // float heightStep5=0.152f;
+                    float heightStep5=0.202f;
                     panel2 = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
                     arrowsPosition2 = new Rect[10];
@@ -193,9 +208,9 @@ public class GamePad {
                 float startx1=0.0f;
                 float startx2=0.33f;
                 float startx3=0.635f;
-                float starty1=0.66f;
-                float starty2=0.51f;
-                float starty3=0.82f;
+                 starty1=0.66f;
+                 starty2=0.51f;
+                 starty3=0.82f;
                 float widthStepUP=0.365f;
                 float heightStepUP=0.184f;
                 float heightStepLeft=0.1875f;

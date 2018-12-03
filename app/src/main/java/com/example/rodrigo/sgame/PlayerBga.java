@@ -18,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.VideoView;
 
 import com.crashlytics.android.Crashlytics;
@@ -35,6 +36,7 @@ import io.fabric.sdk.android.Fabric;
 public class PlayerBga extends Activity {
     GamePlay gpo;
     public VideoView bg;
+    public ImageView bgPad;
     MainThread hilo;
     Guideline gl;
     Intent i;
@@ -72,6 +74,7 @@ public class PlayerBga extends Activity {
         String path = getIntent().getExtras().getString("path");
         int nchar = getIntent().getExtras().getInt("nchar");
         gpo = findViewById(R.id.gamePlay);
+        bgPad=findViewById(R.id.bg_pad);
         hilo = gpo.mainTread;
         try {
             //gpo.setZOrderOnTop(true);
@@ -88,10 +91,16 @@ public class PlayerBga extends Activity {
             e.printStackTrace();
             e.printStackTrace();
         }
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) gl.getLayoutParams();
+
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) gl.getLayoutParams();
             params.guidePercent = 1f;
             gl.setLayoutParams(params);
+        }
+        else {
+            params.guidePercent = 0.575f;
+            gl.setLayoutParams(params);
+
         }
 
         bg.setOnErrorListener((mp, what, extra) -> {

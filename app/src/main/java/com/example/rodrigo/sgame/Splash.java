@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
+import com.google.android.gms.ads.MobileAds;
 
 
 public class Splash extends AppCompatActivity {
@@ -61,6 +62,8 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        MobileAds.initialize(this);
 
 
         Bitmap prueba = BitmapFactory.decodeResource(getResources(),R.drawable.press_raw);
@@ -138,9 +141,9 @@ public class Splash extends AppCompatActivity {
 
 
         boolean hasPhysicalHomeKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);//Para sumar la barra de navegacion
-        if (!hasPhysicalHomeKey){
+
            Common.HEIGHT+= navBarHeight;
-        }
+
 
         int h=Common.HEIGHT;
         handler.postDelayed(runAnimation, 1000);    }

@@ -207,8 +207,8 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
         FAKES = setMetadata((String) stepData.chartsInfo[nchar].get("FAKES"), stepData.songInfo.get("FAKES"));
          TICKCOUNTS = setMetadata((String) stepData.chartsInfo[nchar].get("TICKCOUNTS"), stepData.songInfo.get("TICKCOUNTS"));
 
-        // STOPS = setMetadata((String) stepData.chartsInfo[nchar].get("STOPS"), stepData.songInfo.get("STOPS"));
-        // DELAYS = setMetadata((String) stepData.chartsInfo[nchar].get("DELAYS"), stepData.songInfo.get("DELAYS"));
+         STOPS = setMetadata((String) stepData.chartsInfo[nchar].get("STOPS"), stepData.songInfo.get("STOPS"));
+         DELAYS = setMetadata((String) stepData.chartsInfo[nchar].get("DELAYS"), stepData.songInfo.get("DELAYS"));
         SPEEDS = setMetadata((String) stepData.chartsInfo[nchar].get("SPEEDS"), stepData.songInfo.get("SPEEDS"));
         WARPS = setMetadata((String) stepData.chartsInfo[nchar].get("WARPS"), stepData.songInfo.get("WARPS"));
 
@@ -356,7 +356,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
                 switch (ParamsSong.gameMode) {
                     case 0:
-                        playerSizeY = (int) (Common.HEIGHT * (0.5));
+                        playerSizeY = (int) (Common.HEIGHT * (0.62));
                         arrowSize = (int) (playerSizeX / 10 * 0.8);
                         posIntX = (int) (playerSizeX * 0.3);
 
@@ -388,6 +388,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             } else if (tipo.equals("pump-double")) {
                 arrowSize = (int) (playerSizeX / 10 * 0.8);
                 posIntX = (int) (playerSizeX * 0.1);
+                playerSizeY = (int) (Common.HEIGHT * (0.62));
                /* steps.receptor.draw(c, new Rect((int) (playerSizeX * 0.04), (int) currentY, (int) (playerSizeX * 0.542
                 ), (int) currentY + arrowSize));
                 steps.receptor.draw(c, new Rect((int) (playerSizeX * 0.435), (int) currentY, (int) (playerSizeX * 0.94
@@ -401,8 +402,9 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             Bitmap ww = BitmapFactory.decodeFile(bgImage.getPath());
             if (ww != null && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 ww = TransformBitmap.makeTransparent(TransformBitmap.myblur(ww, context), 130);
+                bga.bgPad.setImageBitmap(ww);
             }
-            touchPad.setBg(ww);
+
         }
         dibujante.setColor(Color.TRANSPARENT);
 
@@ -516,7 +518,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                     if (bufferSteps.get(posBuffer).beat < currentBeat) {
                         drawCharts(canvas, posBuffer, true);
                     } else if (bufferSteps.get(posBuffer).beat > currentBeat) {
-                        //drawCharts(canvas, posBuffer, true);
+                        drawCharts(canvas, posBuffer, true);
                     }
                 } else if ((posBuffer + 1 >= bufferSteps.size())) {
                     this.startEvaluation();
@@ -682,7 +684,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                         //calculateEffects();
                         if (bufferSteps.get(posBuffer).effect != null) {
                             for (EffectStep effect : bufferSteps.get(posBuffer).effect) {
-                                effect.execute(this);
+                               // effect.execute(this);
                             }
                         }
                     }

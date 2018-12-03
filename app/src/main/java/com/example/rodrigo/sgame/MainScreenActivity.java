@@ -27,6 +27,8 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -54,9 +56,12 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
     VideoView bgLoop;
     TextView taptostart;
     MediaPlayer mp=new MediaPlayer();
+    private AdView mAdView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
 
         try {
@@ -83,6 +88,9 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
         startButton = findViewById(R.id.startGameButton);
         taptostart = findViewById(R.id.taptostart);
         settingsButton = findViewById(R.id.imageViewSetting);
+        mAdView = findViewById(R.id.adbaner1);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
         taptostart.setTypeface(custom_font);

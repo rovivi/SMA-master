@@ -13,4 +13,5 @@
 
     <string name="facebook_app_id">259210448034964</string>
     <string name="fb_login_protocol_scheme">fb259210448034964</string>
+    <string name="todo">TODO</string>
 </resources>
