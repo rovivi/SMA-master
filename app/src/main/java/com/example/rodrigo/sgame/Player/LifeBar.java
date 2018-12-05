@@ -39,13 +39,13 @@ public class LifeBar {
     public void draw(Canvas canvas/*int x,int y*/){
         //se calcula la pociocion del tip
         aumento++;
-
+        //int percentReduxAnimate= Common.AnimateFactor/100*Common.HEIGHT;
         float percent= (life /100);
         int totalX=(int) ((Common.WIDTH *0.7));
         int positionTip= (int) ((totalX*percent));
-        int posIntY= (int) (Common.HEIGHT*0.01);
+        int posIntY= (int) (Common.HEIGHT*0.022);
         int posIntX= (int) (Common.WIDTH*0.15);
-        int posFinalY=posIntY+(int) (Common.HEIGHT*0.025);
+        int posFinalY=posIntY+(int) (Common.HEIGHT*0.022);
         float posBarBlue = (totalX*(percent+ aumentLife /100));
         Bitmap currentHotBar= TransformBitmap.cutBitmap(barHot, life );
 
@@ -67,9 +67,6 @@ public class LifeBar {
         }
 
         canvas.drawBitmap(skin, null, new Rect(posIntX, posIntY, posIntX+totalX, posFinalY), new Paint());
-
-
-
 
 
 

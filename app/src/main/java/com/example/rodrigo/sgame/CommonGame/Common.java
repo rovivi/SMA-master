@@ -2,6 +2,7 @@ package com.example.rodrigo.sgame.CommonGame;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -203,7 +204,26 @@ public class Common {
 
 
 
+
+
+    public float  compareRecords(Context context,String nameSongs){
+        SharedPreferences sharedPref = context.getSharedPreferences("stepmix", Context.MODE_PRIVATE);
+        return sharedPref.getFloat(nameSongs,-1);
+
+    }
+
+
+    public  void  writeRecord(Context context,String nameSongs,float value){
+        SharedPreferences sharedPref = context.getSharedPreferences("stepmix", Context.MODE_PRIVATE);
+        sharedPref.edit().putFloat(nameSongs,value).clear().apply();
+    }
+
+
+
     public static  int WIDTH = 0;
     public static  int HEIGHT = 0;
+    public static  int AnimateFactor= 100;
+    public static  float START_Y= 0.115f;
+
 
 }

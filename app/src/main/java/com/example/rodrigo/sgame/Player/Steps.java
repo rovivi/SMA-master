@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 
+import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.SpriteReader;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 import com.example.rodrigo.sgame.R;
@@ -19,7 +20,7 @@ import java.util.Stack;
 public class Steps {
     static public SpriteReader mine, receptor;
     static private SpriteReader[] arrows, longs, tails;
-    static public SpriteReader[] explotions, explotionTails;
+    static public SpriteReader[] explotions, explotionTails,tapsEffect;
     static private int Longinfo[] = {-9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999};
     static public boolean efecto = false;
     Point screenSize;
@@ -48,6 +49,14 @@ public class Steps {
                 tails = new SpriteReader[10];
                 longs = new SpriteReader[10];
                 explotionTails = new SpriteReader[10];
+                tapsEffect = new SpriteReader[10];
+
+
+                for (int j=0;j<5;j++){
+                    tapsEffect[j]= new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(),R.drawable.pad_pressed),5,2,j,j+5,j+5,j),0.2f);
+                    tapsEffect[j+5]= new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(),R.drawable.pad_pressed),5,2,j,j+5,j+5,j),0.2f);
+                }
+
                 arrows[0] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_left_tap, myOpt), 6, 1, 0.2f);
                 arrows[1] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_up_left_tap, myOpt), 6, 1, 0.2f);
                 arrows[2] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_center_tap, myOpt), 6, 1, 0.2f);
@@ -63,6 +72,7 @@ public class Steps {
                 longs[2] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_center_body, myOpt), 6, 1, 0.2f);
                 longs[3] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_up_right_body, myOpt), 6, 1, 0.2f);
                 longs[4] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_right_body, myOpt), 6, 1, 0.2f);
+
 
                 Bitmap r1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s1, myOpt2);
                 Bitmap r2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s2, myOpt2);
@@ -123,10 +133,9 @@ public class Steps {
         }
 
         int posintX2 = posintx;
-        int aux2 = (int) (playerSizeY * 0.085);
+        int aux2 = (int) (playerSizeY *Common.START_Y);
         int currenty;
-        /*receptor.draw(c, new Rect((int) (playersizex * 0.24), currenty, (int) (playersizex * 0.742
-        ), currenty + wa));*/
+
         while (!stackSteps.isEmpty()) {
             Object[] aux = stackSteps.pop();
             byte[] Steps = (byte[]) aux[0];
@@ -233,10 +242,12 @@ public class Steps {
                 Longinfo[j] = -9999;
             }
         }
-        currenty = (int) (playerSizeY * 0.085);
+        currenty = (int) (playerSizeY * Common.START_Y);
         for (int j = 0; j < 10 && speed != 0; j++) {
             explotions[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
             explotionTails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+            tapsEffect[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+
             if (Longinfo[j] != -9999) {
                 longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, Longinfo[j]));
                 Longinfo[j] = -9999;
@@ -244,7 +255,7 @@ public class Steps {
         }
 
 
-        if (efecto) {
+        if (false) {
             Matrix sken = new Matrix();
             Camera camera = new Camera();
             camera.rotateY(-1);
@@ -272,10 +283,10 @@ public class Steps {
 
 
         int posintX2 = posintx;
-        int aux2 = (int) (playerSizeY * 0.085);
-        currenty = (int) (playerSizeY * 0.085);
-        /*receptor.draw(c, new Rect((int) (playersizex * 0.24), currenty, (int) (playersizex * 0.742
-        ), currenty + wa));*/
+        int aux2 = (int) (playerSizeY * Common.START_Y);
+        currenty = (int) (playerSizeY * Common.START_Y);
+        receptor.draw(c, new Rect((int) (playersizex * 0.24), currenty, (int) (playersizex * 0.742
+        ), currenty + wa));
         while (!stackSteps.isEmpty()) {
             String[] aux = stackSteps.pop();
             String Steps = aux[0];
@@ -283,7 +294,7 @@ public class Steps {
             int nexty = Integer.parseInt(aux[2]);
             for (int j = 0; j < Steps.length() && speed != 0; j++) {
 
-                if (efecto) {
+                if (false) {
                     posintx = (int) (posintX2 + Math.sin((double) (aux2 - currenty) / wa / 1.2) * wa * 0.8);
                 }
 
@@ -333,6 +344,7 @@ public class Steps {
         currenty = (int) (playerSizeY * 0.085);
         for (int j = 0; j < 10 && speed != 0; j++) {
             explotions[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+            tapsEffect[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
             explotionTails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
             if (Longinfo[j] != -9999) {
                 longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, Longinfo[j]));
@@ -360,6 +372,7 @@ public class Steps {
             longs[x].update();
             explotions[x].update();
             explotionTails[x].update();
+            tapsEffect[x].update();
         }
         receptor.update();
         mine.update();

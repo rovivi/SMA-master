@@ -44,9 +44,9 @@ public class GamePad {
         float starty2=0.51f;
         float starty3=0.62f;
         if (ParamsSong.padOption==0){
-             starty1=0.826f;//76
-             starty2=0.576f;
-             starty3=0.686f;
+             starty1=0.836f;//76
+             starty2=0.586f;
+             starty3=0.696f;
 
 
         }
@@ -154,9 +154,10 @@ public class GamePad {
                     float widthStep5=widthStep7;
                     float heightStep5=0.152f;*/
                     float startx1=-0.005f;
-                    float startx2=0.333f;
-                    float startx3=0.158f;
+                    float startx2=0.329f;
+                    float startx3=0.148f;
 
+                    float startxP2= 0.48f;
                      //heightStep7=0.174f;
                     //float heightStep5=0.202f;
 
@@ -173,11 +174,11 @@ public class GamePad {
                     arrowsPosition2[2] = new Rect((int) (width *startx3), (int) (height * starty3), (int) (width * (startx3+widthStep5)), (int) (height * (starty3+heightStep5)));
                     arrowsPosition2[3] = new Rect((int) (width * startx2), (int) (height * starty2), (int) (width * (startx2+widthStep7)), (int) (height * (starty2+heightStep7)));
                     arrowsPosition2[4] = new Rect((int) (width * startx2), (int) (height * starty1), (int) (width * (startx2+widthStep7)), (int) (height * (starty1+heightStep7)));
-                    arrowsPosition2[5] = new Rect((int) (width * (startx1+0.5)), (int) (height * starty1), (int) (width * (startx1+widthStep7+0.5)), (int) (height *(starty1+heightStep7)));
-                    arrowsPosition2[6] = new Rect((int) (width * (startx1+0.5)), (int) (height * starty2), (int) (width * (startx1+widthStep7+0.5)), (int) (height *(starty2+heightStep7)));
-                    arrowsPosition2[7] = new Rect((int) (width * (startx3+0.5)), (int) (height * starty3), (int) (width * (startx3+widthStep5+0.5)), (int) (height * (starty3+heightStep5)));
-                    arrowsPosition2[8] = new Rect((int) (width * (startx2+0.5)), (int) (height * starty2), (int) (width * (startx2+widthStep7+0.5)), (int) (height * (starty2+heightStep7)));
-                    arrowsPosition2[9] = new Rect((int) (width * (startx2+0.5)), (int) (height * starty1), (int) (width * (startx2+widthStep7+0.5)), (int) (height * (starty1+heightStep7)));
+                    arrowsPosition2[5] = new Rect((int) (width * (startx1+startxP2)), (int) (height * starty1), (int) (width * (startx1+widthStep7+startxP2)), (int) (height *(starty1+heightStep7)));
+                    arrowsPosition2[6] = new Rect((int) (width * (startx1+startxP2)), (int) (height * starty2), (int) (width * (startx1+widthStep7+startxP2)), (int) (height *(starty2+heightStep7)));
+                    arrowsPosition2[7] = new Rect((int) (width * (startx3+startxP2)), (int) (height * starty3), (int) (width * (startx3+widthStep5+startxP2)), (int) (height * (starty3+heightStep5)));
+                    arrowsPosition2[8] = new Rect((int) (width * (startx2+startxP2)), (int) (height * starty2), (int) (width * (startx2+widthStep7+startxP2)), (int) (height * (starty2+heightStep7)));
+                    arrowsPosition2[9] = new Rect((int) (width * (startx2+startxP2)), (int) (height * starty1), (int) (width * (startx2+widthStep7+startxP2)), (int) (height * (starty1+heightStep7)));
                     Canvas c = new Canvas(panel2);
                     for (int w = 0; w < arrowsPosition2.length; w++) {
                         c.drawBitmap(arrowOFF[w], null, arrowsPosition2[w], new Paint());
@@ -240,7 +241,8 @@ public class GamePad {
 
     public void draw(Canvas canvas) {
         Paint paint = new Paint();
-
+        int alphaValue= 450-(255/100*Common.AnimateFactor);
+        paint.setAlpha(230);
         if (bg!=null){
          //   canvas.drawBitmap(bg, null,new Rect(0,Common.HEIGHT/2,Common.WIDTH,Common.HEIGHT), paint);
         }
@@ -274,6 +276,7 @@ public class GamePad {
                 if (arrowsPosition2[j].contains(x,y)){
                     if (pad[j] == 0) { //by this way confirm if the curret pad is off
                         pad[j] = 1;
+                        Steps.tapsEffect[j].play();
                     }
                     wasPressed = true;
                     break;

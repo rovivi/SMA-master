@@ -6,19 +6,21 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Guideline;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.crashlytics.android.Crashlytics;
@@ -29,7 +31,6 @@ import com.example.rodrigo.sgame.Player.GamePlay;
 import com.example.rodrigo.sgame.Player.MainThread;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -37,18 +38,72 @@ public class PlayerBga extends Activity {
     GamePlay gpo;
     public VideoView bg;
     public ImageView bgPad;
+    TextView tvMsj;
     MainThread hilo;
     Guideline gl;
     Intent i;
     AudioManager audio;
+    Boolean gamePlayError = false;
+    Handler handler = new Handler();
+    int indexMsj = 0;
     byte[] pad = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private String[] msjs = {"Ready", "GO!"};
+    Runnable textAnimator = new Runnable() {
+        @Override
+        public void run() {
+            if (indexMsj < msjs.length) {
+                tvMsj.setText(msjs[indexMsj]);
+                tvMsj.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_out_right));
+                handler.postDelayed(textAnimator, 800);
+                indexMsj++;
+            } else {
+                tvMsj.setText("");
+              //  animateGpo.run();
+                Common.AnimateFactor=0;
+                bgPad.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in));
+
+                tvMsj.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_out_right));
+
+                if (!gamePlayError && gpo != null) {
+                    gpo.startGame();
+                } else {
+                    finish();
+                }
+
+            }
+
+        }
+    };
+
+
+    Runnable animateGpo = new Runnable() {
+        @Override
+        public void run() {
+            if (Common.AnimateFactor >= 0) {
+            Common.AnimateFactor--;
+            handler.postDelayed(this,10);
+            } else if (!gpo.isRunning) {
+
+                bgPad.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in));
+
+                tvMsj.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_out_right));
+
+                if (!gamePlayError && gpo != null) {
+                    gpo.startGame();
+                } else {
+                    finish();
+                }
+
+            }
+
+        }
+    };
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         i = new Intent(this, EvaluationActivity.class);
         try {
             //this.getSupportActionBar().hide();
@@ -65,7 +120,9 @@ public class PlayerBga extends Activity {
         } catch (NullPointerException e) {
         }
 
+       // Common.AnimateFactor=100;
         setContentView(R.layout.activity_playerbga);
+        tvMsj = findViewById(R.id.gamemsg);
         audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         //evaluationIntet = new Intent(this, EvaluationActivity.class);
         bg = findViewById(R.id.bgVideoView2);
@@ -74,7 +131,7 @@ public class PlayerBga extends Activity {
         String path = getIntent().getExtras().getString("path");
         int nchar = getIntent().getExtras().getInt("nchar");
         gpo = findViewById(R.id.gamePlay);
-        bgPad=findViewById(R.id.bg_pad);
+        bgPad = findViewById(R.id.bg_pad);
         hilo = gpo.mainTread;
         try {
             //gpo.setZOrderOnTop(true);
@@ -84,21 +141,27 @@ public class PlayerBga extends Activity {
             int width = displayMetrics.widthPixels;
             String z = Common.convertStreamToString(new FileInputStream(rawscc));
 
-            gpo.build1Object(getBaseContext(), new SSC(z,false), nchar, path, this, pad, width, height);
+            try {
+                gpo.build1Object(getBaseContext(), new SSC(z, false), nchar, path, this, pad, width, height);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                gamePlayError = true;
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
             //System.gc();
 
         } catch (Exception e) {
             e.printStackTrace();
-            e.printStackTrace();
+
         }
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) gl.getLayoutParams();
 
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             params.guidePercent = 1f;
             gl.setLayoutParams(params);
-        }
-        else {
-            params.guidePercent = 0.575f;
+        } else {
+            params.guidePercent = 0.555f;
             gl.setLayoutParams(params);
 
         }
@@ -109,7 +172,6 @@ public class PlayerBga extends Activity {
             bg.start();
             return true;
         });
-
 
 
     }
@@ -128,8 +190,10 @@ public class PlayerBga extends Activity {
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
 
+            if (!gamePlayError && gpo != null) {
+                gpo.stop();
 
-            gpo.stop();
+            }
 
             super.onBackPressed();
 
@@ -266,25 +330,22 @@ public class PlayerBga extends Activity {
     }
 
     public void startVideo() {
-        bg.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                mediaPlayer.setLooping(true);
-                mediaPlayer.setVolume(0, 0);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed(ParamsSong.rush));// Esto será para el rush
-                }
-
+        bg.setOnPreparedListener(mediaPlayer -> {
+            mediaPlayer.setLooping(true);
+            mediaPlayer.setVolume(0, 0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed(ParamsSong.rush));// Esto será para el rush
             }
+
         });
         bg.start();
 
     }
 
     public void StartEvaluation(int[] params) {
-        i.putExtra("evaluation",params);
-        i.putExtra("pathbg",gpo.pathImage);
-        i.putExtra("name",gpo.stepData.songInfo.get("TITLE").toLowerCase()  );
+        i.putExtra("evaluation", params);
+        i.putExtra("pathbg", gpo.pathImage);
+        i.putExtra("name", gpo.stepData.songInfo.get("TITLE").toLowerCase());
 
         startActivity(i);
     }
@@ -306,19 +367,15 @@ public class PlayerBga extends Activity {
         Fabric.with(fabric);
 
 
-        gpo.startGame();
+        //textAnimator.run();
+        if (!gamePlayError && gpo != null) {
+            gpo.startGame();
+        } else {
+            finish();
+        }
+
 
     }
-
-
-
-
-
-
-
-
-
-
 
 
     public Point getresolution() {
@@ -328,5 +385,6 @@ public class PlayerBga extends Activity {
         int width = displayMetrics.widthPixels;
         return new Point(width, height);
     }
+
 
 }
