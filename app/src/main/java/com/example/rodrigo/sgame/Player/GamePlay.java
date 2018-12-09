@@ -1,10 +1,9 @@
 package com.example.rodrigo.sgame.Player;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
-import com.example.rodrigo.sgame.CommonGame.EffectStep;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.CommonGame.RowStep;
-import com.example.rodrigo.sgame.CommonGame.SpriteReader;
+import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
 
 import android.content.Context;
 import android.content.res.Configuration;

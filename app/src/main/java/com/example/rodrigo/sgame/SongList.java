@@ -296,19 +296,19 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             // preview.setZOrderOnTop(true);
             //themeElements.setZOrderOnTop(true);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // bg.setZ(0);
-                backgroundBluour.setZ(1000000);
-                preview.setZ(23000000);
+                backgroundBluour.setZ(0);
+                preview.setZ(1);
                 relativeLayout.setZ(23000000);
                 // themeElements.setZ(21000000);
-                startImage.setZ(21000000);
+                startImage.setZ(1);
                 btnLevel.setZ(21000000);
                 lvlText.setZ(21000000);
                 msjlvl.setZ(21000000);
                 recyclerView.setZ(21000000);
 
-            }
+            }*/
 
 
             //   bg.start();
@@ -323,7 +323,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         //se carga el OBB
         File obbFile = new File(getObbDir().getPath() + "/main.1." + getPackageName() + ".obb");
 
-        if (obbFile.exists()) {
+        if (false &&obbFile.exists()) {//desabilitado por el momento
             //ObbInfo info =ObbScanner.getObbInfo(obbFile.getPath());
             String superinfoinfo = mountObbFile(obbFile.getPath());
 
@@ -561,7 +561,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
                 files = archivo.listFiles();
                 path = archivo.getPath();
             } else {
-                Toast.makeText(getBaseContext(), "No se podra por hoy :C ", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "No se podrá por hoy :C ", Toast.LENGTH_LONG).show();
             }
         }
         if (files.length <= 0) {
@@ -606,7 +606,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     }
 
 
-    public static <T extends Comparable<T>> void concurrentSort(
+    public static void concurrentSort(
             final List<SSC> key, List<?>... lists) {
         // Create a List of indices
         List<Integer> indices = new ArrayList<Integer>();

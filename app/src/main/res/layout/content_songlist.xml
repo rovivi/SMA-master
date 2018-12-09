@@ -25,6 +25,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitXY"
+
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +110,7 @@
         app:layout_constraintBottom_toTopOf="@+id/startButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideStartList"></android.support.v7.widget.RecyclerView><!-- list-->
+        app:layout_constraintTop_toTopOf="@+id/guideStartList" /><!-- list-->
     <!-- lvl-->
 
 
@@ -130,10 +132,11 @@
         android:id="@+id/imagelevl"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="7dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp"
         android:layout_marginStart="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="25sp"
         app:layout_constraintBottom_toTopOf="@+id/guidehor2"
         app:layout_constraintEnd_toEndOf="@+id/numberlevel"
         app:layout_constraintStart_toEndOf="@+id/guidever1"
@@ -144,12 +147,12 @@
         android:id="@+id/numberlevel"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="6dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
         android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
         android:layout_marginTop="6dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="6dp"
         android:gravity="center"
         android:text="TextView"
         android:textColor="#ffffff"
@@ -165,9 +168,9 @@
         android:layout_height="0dp"
 
 
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
 
         android:gravity="right"
         android:text="Your Level"
@@ -227,9 +230,9 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_gravity="right"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/guideEndPreviewV"
                 app:layout_constraintEnd_toStartOf="@+id/guidePreviewH2"
                 app:layout_constraintStart_toStartOf="@+id/guidePreviewH1"

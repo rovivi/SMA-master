@@ -1,6 +1,8 @@
 package com.example.rodrigo.sgame;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -19,6 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.example.rodrigo.sgame.CommonGame.CustomSprite.Sprite;
+import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
+import com.example.rodrigo.sgame.CommonGame.CustomSprite.ThreadSprite;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -55,13 +60,15 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
     GoogleSignInClient mGoogleSignInClient;
     VideoView bgLoop;
     TextView taptostart;
-    MediaPlayer mp=new MediaPlayer();
+    MediaPlayer mp = new MediaPlayer();
+
+    Sprite testSprite, testSprite2, testSprite3, testSprite4, testSprite5, testSprite6;
+    ThreadSprite threadSprite;
     private AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
 
 
         try {
@@ -81,74 +88,61 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         setContentView(R.layout.activity_main_screen);
-        ConstraintLayout constraintLayout= findViewById(R.id.constraintlogo);
+        ConstraintLayout constraintLayout = findViewById(R.id.constraintlogo);
         SignInButton sing = findViewById(R.id.sign_in_google);
         sing.setSize(SignInButton.SIZE_STANDARD);
         bgLoop = findViewById(R.id.bg_loop);
         startButton = findViewById(R.id.startGameButton);
         taptostart = findViewById(R.id.taptostart);
         settingsButton = findViewById(R.id.imageViewSetting);
+        testSprite = findViewById(R.id.spriteTest);
+        testSprite2 = findViewById(R.id.spriteTest2);
+
+        testSprite3 = findViewById(R.id.spriteTest3);
+        testSprite4 = findViewById(R.id.spriteTest4);
+        testSprite5 = findViewById(R.id.spriteTest5);
+        testSprite6 = findViewById(R.id.spriteTest6);
+
+
         mAdView = findViewById(R.id.adbaner1);
         AdRequest adRequest = new AdRequest.Builder().build();
+
         mAdView.loadAd(adRequest);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
         taptostart.setTypeface(custom_font);
 
-        bgLoop.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.setLooping(true);
-                mp.setVolume(0, 0);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    //mp.setPlaybackParams(mp.getPlaybackParams().setSpeed(0.7f));// Esto será para el rush
-                }
+        bgLoop.setOnPreparedListener(mp -> {
+            mp.setLooping(true);
+            mp.setVolume(0, 0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                //mp.setPlaybackParams(mp.getPlaybackParams().setSpeed(0.7f));// Esto será para el rush
             }
         });
 
-        bgLoop.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-
-            @Override
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-                //    Log.d("video", "setOnErrorListener ");
-                return true;
-            }
+        bgLoop.setOnErrorListener((mp, what, extra) -> {
+            //    Log.d("video", "setOnErrorListener ");
+            return true;
         });
 
 
-        View.OnClickListener listenerStart = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startGame();
-                releaseMediaPlayer();
-            }
+        View.OnClickListener listenerStart = v -> {
+            startGame();
+            releaseMediaPlayer();
         };
 
         bgLoop.setOnClickListener(listenerStart);
         startButton.setOnClickListener(listenerStart);
         taptostart.setOnClickListener(listenerStart);
-        constraintLayout.setOnClickListener(listenerStart   );
+        constraintLayout.setOnClickListener(listenerStart);
 
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        startButton.setOnClickListener(v -> {
 
-            }
         });
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showEditFragment();
-            }
-        });
+        settingsButton.setOnClickListener(v -> showEditFragment());
 
-        sing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
+        sing.setOnClickListener(v -> signIn());
 
 
         //Google login
@@ -199,7 +193,7 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
-        mp= MediaPlayer.create(this,R.raw.title_loop);
+        mp = MediaPlayer.create(this, R.raw.title_loop);
         mp.setLooping(true);
         mp.start();
 
@@ -232,8 +226,30 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
         taptostart.setAnimation(controller);
 
 
-       ;
         //mp.setDataSource();
+
+
+        /////////////////////////////test
+        Bitmap sprite = BitmapFactory.decodeResource(getResources(), R.drawable.centercanon3x2);
+        SpriteReader spriteReader = new SpriteReader(sprite, 3, 2, 0.2f);
+
+
+        testSprite.create(spriteReader);
+        testSprite2.create(new SpriteReader(sprite, 3, 2, 0.3f));
+        testSprite4.create(new SpriteReader(sprite, 3, 2, 0.5f));
+        testSprite3.create(new SpriteReader(sprite, 3, 2, 0.7f));
+        testSprite5.create(new SpriteReader(sprite, 3, 2, 1.3f));
+        testSprite6.create(new SpriteReader(sprite, 3, 2, 0.2f));
+        threadSprite = new ThreadSprite(testSprite, testSprite2, testSprite3, testSprite4, testSprite5, testSprite6);
+
+
+        /*try {
+            threadSprite.running=true;
+            threadSprite.start();
+        } catch (Exception e) {
+
+        }
+        testSprite.setAnimation(controller);*/
     }
 
     private void updateUIAccount(GoogleSignInAccount account) {
@@ -373,10 +389,7 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-
-
-
-    private class LoadSongs extends AsyncTask<SongList,SongList,SongList> {
+    private class LoadSongs extends AsyncTask<SongList, SongList, SongList> {
 
 
         @Override

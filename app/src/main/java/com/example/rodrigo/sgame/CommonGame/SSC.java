@@ -104,7 +104,7 @@ public class SSC {
                             }
                             this.chartsInfo[chart].put(key, valor);
                     }
-                } else {
+                }    else {
                     this.songInfo.put(key, valor);
                 }
             }

@@ -11,7 +11,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
-import com.example.rodrigo.sgame.CommonGame.SpriteReader;
+import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 import com.example.rodrigo.sgame.R;
 

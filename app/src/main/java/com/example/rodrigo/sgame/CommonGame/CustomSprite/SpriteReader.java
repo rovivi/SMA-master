@@ -1,4 +1,4 @@
-package com.example.rodrigo.sgame.CommonGame;
+package com.example.rodrigo.sgame.CommonGame.CustomSprite;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
@@ -11,6 +11,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Shader;
 
+import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 import com.example.rodrigo.sgame.Player.Attack;
 
 import java.util.ArrayList;

@@ -13,7 +13,7 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.example.rodrigo.sgame.CommonGame.SpriteReader;
+import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
 import com.example.rodrigo.sgame.R;
 
 import java.io.InputStream;
