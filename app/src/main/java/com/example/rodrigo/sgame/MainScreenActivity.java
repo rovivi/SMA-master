@@ -240,16 +240,16 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
         testSprite3.create(new SpriteReader(sprite, 3, 2, 0.7f));
         testSprite5.create(new SpriteReader(sprite, 3, 2, 1.3f));
         testSprite6.create(new SpriteReader(sprite, 3, 2, 0.2f));
-        threadSprite = new ThreadSprite(testSprite, testSprite2, testSprite3, testSprite4, testSprite5, testSprite6);
+        threadSprite = new ThreadSprite(testSprite);
 
 
-        /*try {
-            threadSprite.running=true;
-            threadSprite.start();
+        try {
+           /* threadSprite.running=true;
+            threadSprite.start();*/
         } catch (Exception e) {
 
         }
-        testSprite.setAnimation(controller);*/
+        testSprite.setAnimation(controller);
     }
 
     private void updateUIAccount(GoogleSignInAccount account) {
@@ -263,10 +263,15 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
 
 
     public void showEditFragment() {
+
+        mp.pause();
+        Intent i = new Intent(this,SettingsActivity.class);
+        startActivity(i);
+        /*
         SettingsDialogGeneric newFragment = new SettingsDialogGeneric();
-        /*newFragment.lista = levelArrayList;
+        newFragment.lista = levelArrayList;
         newFragment.setSongList(this);*/
-        newFragment.show(getFragmentManager(), "");
+        //newFragment.show(getFragmentManager(), "");
         //  newFragment.show
     }
 

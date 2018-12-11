@@ -35,7 +35,11 @@ import android.widget.VideoView;
 
 import com.crashlytics.android.Crashlytics;
 import com.example.rodrigo.sgame.CommonGame.Common;
+import com.example.rodrigo.sgame.CommonGame.CustomSprite.Sprite;
+import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
+import com.example.rodrigo.sgame.CommonGame.CustomSprite.ThreadSprite;
 import com.example.rodrigo.sgame.CommonGame.Level;
+import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.CommonGame.SSC;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 import com.example.rodrigo.sgame.ScreenSelectMusic.AdapterSSC;
@@ -57,6 +61,7 @@ import java.util.Map;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.perf.FirebasePerformance;
 import com.google.firebase.perf.metrics.Trace;
+import com.squareup.picasso.Picasso;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -75,12 +80,12 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     final List<String> lvl = new ArrayList<>();
     final List<SongsGroup> groups = new ArrayList<>();
     int currentSongIndex = 0;
-    ThemeElements themeElements;
+    //ThemeElements themeElements;
     // ArrayAdapter<String> adp2;
     Intent i;
     VideoView preview;
-    ImageView backgroundBluour, btnLevel;
-    TextView lvlText;
+    ImageView backgroundBluour, btnLevel,btnSpeed;
+    TextView lvlText,titleCurrentSong,authorCurrent;
     FirebaseAnalytics mFirebaseAnalytics;
     ArrayList<Level> levelArrayList = new ArrayList<>();
 
@@ -91,6 +96,12 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     ImageView startImage;
 
 
+
+
+    //Sprites
+
+    Sprite flashSpeedSprite;
+    ThreadSprite threadSprite;
     View.OnClickListener listenerButton = new View.OnClickListener() {
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         public void onClick(View v) {
@@ -131,7 +142,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             this.getSupportActionBar().hide();
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
-         /*   getWindow().getDecorView().setSystemUiVisibility(
+            getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LOW_PROFILE
                             | View.SYSTEM_UI_FLAG_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -139,7 +150,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
                             | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                             | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
-*/
+
 
 
         } catch (NullPointerException e) {
@@ -150,61 +161,36 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
         Guideline guideLine = findViewById(R.id.guideStartList);
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) guideLine.getLayoutParams();
-        params.guidePercent = 0.5f; // 45% // range: 0 <-> 1
+        params.guidePercent = 0.42f; // 45% // range: 0 <-> 1
         guideLine.setLayoutParams(params);
         guideLine = findViewById(R.id.guideEndLIst);
         params = (ConstraintLayout.LayoutParams) guideLine.getLayoutParams();
         params.guidePercent = 0.93f; // 45% // range: 0 <-> 1
         guideLine.setLayoutParams(params);
-        guideLine = findViewById(R.id.guidePreviewH1);
-        params = (ConstraintLayout.LayoutParams) guideLine.getLayoutParams();
-        params.guidePercent = 0.23f; // 45% // range: 0 <-> 1
-        guideLine.setLayoutParams(params);
-        guideLine = findViewById(R.id.guidePreviewH2);
-        params = (ConstraintLayout.LayoutParams) guideLine.getLayoutParams();
-        params.guidePercent = 0.97f; // 45% // range: 0 <-> 1
-        guideLine.setLayoutParams(params);
-        guideLine = findViewById(R.id.guideStartPreviewV);
-        params = (ConstraintLayout.LayoutParams) guideLine.getLayoutParams();
-        params.guidePercent = 0.07f; // 45% // range: 0 <-> 1
-        guideLine.setLayoutParams(params);
-        guideLine = findViewById(R.id.guideEndPreviewV);
-        params = (ConstraintLayout.LayoutParams) guideLine.getLayoutParams();
-        params.guidePercent = 0.32f; // 45% // range: 0 <-> 1
-        guideLine.setLayoutParams(params);
 
-
-        //--
-        guideLine = findViewById(R.id.guidehor1);
-        params = (ConstraintLayout.LayoutParams) guideLine.getLayoutParams();
-        params.guidePercent = 0.32f; // 45% // range: 0 <-> 1
-        guideLine.setLayoutParams(params);
-        guideLine = findViewById(R.id.guidehor2);
-        params = (ConstraintLayout.LayoutParams) guideLine.getLayoutParams();
-        params.guidePercent = 0.52f; // 45% // range: 0 <-> 1
-        guideLine.setLayoutParams(params);
-        guideLine = findViewById(R.id.guidever1);
-        params = (ConstraintLayout.LayoutParams) guideLine.getLayoutParams();
-        params.guidePercent = 0.48f; // 45% // range: 0 <-> 1
-        guideLine.setLayoutParams(params);
-        guideLine = findViewById(R.id.guidever2);
-        params = (ConstraintLayout.LayoutParams) guideLine.getLayoutParams();
-        params.guidePercent = 0.7f; // 45% // range: 0 <-> 1
-        guideLine.setLayoutParams(params);
 
 
         //------Fin de las lineas guia-----//
         //------get Elemets----------------//
         btnLevel = findViewById(R.id.imagelevl);
+        btnSpeed= findViewById(R.id.imagelevl2);
         lvlText = findViewById(R.id.numberlevel);
-        themeElements = findViewById(R.id.songElements);
+      //  themeElements = findViewById(R.id.songElements);
         backgroundBluour = findViewById(R.id.bgBlur);
         recyclerView = findViewById(R.id.recyclerSongs);
         //  bg = findViewById(R.id.bgVideoView);
         preview = findViewById(R.id.preview);
         startImage = findViewById(R.id.startButton);
-        FrameLayout relativeLayout;
-        relativeLayout = findViewById(R.id.frameLayoutVideoPreview);
+        titleCurrentSong =findViewById(R.id.current_song_name);
+        authorCurrent =findViewById(R.id.current_text_author);
+
+        titleCurrentSong.setSelected(true);
+        titleCurrentSong.setSingleLine(true);
+
+
+
+
+
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -228,22 +214,16 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         //---------Listeners-------//
 
 
-        btnLevel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showEditFragment();
+        btnLevel.setOnClickListener(v -> {
+            showEditFragment();
 
-                //                changeLevel();
-            }
+            //                changeLevel();
         });
 
-        btnLevel.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                //showEditFragment();
+        btnLevel.setOnLongClickListener(v -> {
+            //showEditFragment();
 
-                return false;
-            }
+            return false;
         });
 
 
@@ -291,33 +271,38 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             });
 
 
-            // loadSongs();
+           btnSpeed.setOnClickListener(v -> {
+               ParamsSong.speed +=0.5f;
+               if ( ParamsSong.speed>7){
+                   ParamsSong.speed =1f;
+               }
+               flashSpeedSprite. image.play();
 
-            // preview.setZOrderOnTop(true);
-            //themeElements.setZOrderOnTop(true);
-
-            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                // bg.setZ(0);
-                backgroundBluour.setZ(0);
-                preview.setZ(1);
-                relativeLayout.setZ(23000000);
-                // themeElements.setZ(21000000);
-                startImage.setZ(1);
-                btnLevel.setZ(21000000);
-                lvlText.setZ(21000000);
-                msjlvl.setZ(21000000);
-                recyclerView.setZ(21000000);
-
-            }*/
-
-
-            //   bg.start();
+           });
 
         } catch (Exception e) {
 
             Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
+
+
+        ///////Sprites
+        flashSpeedSprite = findViewById(R.id.sprite_velocity);
+        //flashSpeedSprite.staticDraw=true;
+
+        Bitmap sprite = BitmapFactory.decodeResource(getResources(), R.drawable.centercanon3x2);
+        SpriteReader spriteReader = new SpriteReader(sprite, 3, 2, 0.2f);
+
+        SpriteReader spriFlash =new SpriteReader(BitmapFactory.decodeResource(getResources(),R.drawable.glow_command),1,2,0.3f);
+        flashSpeedSprite.create(spriteReader);
+        threadSprite= new ThreadSprite(flashSpeedSprite);
+        try{
+
+            threadSprite.start();
+
+        }catch (Exception e)
+        {}
 
 
         //se carga el OBB
@@ -350,14 +335,19 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
         paths = songsGroup.listOfSongs.get(position).path.getPath();
         try {
-            themeElements.flash.play();
+           // themeElements.flash.play();
             SSC auxStep = songsGroup.listOfSongs.get(position);
             Float sampleStart = Float.parseFloat(auxStep.songInfo.get("SAMPLESTART"));
             int offset = (int) (sampleStart * 1000);
+            titleCurrentSong.setText(auxStep.songInfo.get("TITLE")!=null? auxStep.songInfo.get("TITLE"):"No title");
+            authorCurrent.setText(auxStep.songInfo.get("ARTIST")!=null? "Composed by:"+auxStep.songInfo.get("ARTIST"):"No Artist");
+            titleCurrentSong.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.zoom_in ));
+            authorCurrent.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in ));
 
             currentSSC = songsGroup.listOfSongs.get(position).pathSSC;
             lvl.clear();
             levelArrayList.clear();
+
             for (Map currentChart : auxStep.chartsInfo) {
                 if (currentChart == null) {
                     break;
@@ -395,8 +385,13 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
                 }
 
                 if (bg.exists() && bg.isFile()) {
+
                     Bitmap ww = TransformBitmap.makeTransparent(TransformBitmap.myblur(BitmapFactory.decodeFile(bg.getPath()), getApplicationContext()), 150);
-                    backgroundBluour.setImageBitmap(ww);
+                    backgroundBluour.setImageBitmap(BitmapFactory.decodeFile(bg.getPath()));
+                    backgroundBluour.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_in_left  ));
+                  //  Picasso.get().load(bg.getPath()).into(backgroundBluour);
+
+
                 }
                 mediaPlayer = new MediaPlayer();
                 mediaPlayer.setVolume(1f, 1f);
@@ -442,7 +437,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
                 .debuggable(true)           // Enables Crashlytics debugger
                 .build();
         Fabric.with(fabric);
-
+        threadSprite.running=true;
     }
 
 
@@ -450,7 +445,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     public void onResume() {
         super.onResume();
         //  this.bg.start();
-
+        threadSprite.running=false;
 
     }
 
@@ -578,7 +573,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         }
         AdapterSSC adapterSSC = new AdapterSSC(songsGroup, currentSongIndex, this);
         recyclerView.setAdapter(adapterSSC);
-        themeElements.biuldObject(this, songsGroup);
+      //  themeElements.biuldObject(this, songsGroup);
         concurrentSort(songsGroup.listOfSongs, songsGroup.listOfSongs);
         changeSong(0);
 
@@ -586,12 +581,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
 
     private void hide() {
-        themeElements.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
         backgroundBluour.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE

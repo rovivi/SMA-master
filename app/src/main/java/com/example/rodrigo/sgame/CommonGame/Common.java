@@ -43,16 +43,19 @@ public class Common {
 
 
     public final static String[] possibleDirectorys = {
-            Environment.getExternalStoragePublicDirectory("piu").getPath() + "/Songs",
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath() + "/Songs",
+            "/storage/3839-2A39/piu/Songs",
+            "/storage/sdcard1/piu/Songs",
+            "/sdcard/piu/Songs",
             System.getenv("EXTERNAL_STORAGE") + "/piu/Songs",
             System.getenv("SECONDARY_STORAGE") + "/piu/Songs",
             System.getenv("EXTERNAL_SDCARD_STORAGE") + "/piu/Songs",
+            Environment.getExternalStoragePublicDirectory("piu").getPath() + "/Songs",
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath() + "/Songs",
             //"/storage/self/primary/piu/Songs",
             "/storage/self/secondary/piu/Songs",
             Environment.DIRECTORY_DOCUMENTS + "/piu/Songs",
             Environment.getExternalStoragePublicDirectory("SONGS").getPath(),
-            "/sdcard/piu/Songs"
+
             //        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath(),
 
     };

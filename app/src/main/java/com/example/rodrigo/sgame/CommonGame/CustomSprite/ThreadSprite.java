@@ -1,13 +1,13 @@
 package com.example.rodrigo.sgame.CommonGame.CustomSprite;
 
 import android.graphics.Canvas;
-import android.view.SurfaceHolder;
+
 
 
 public class ThreadSprite extends Thread {
 
 
-    public static final int MAX_FPS = 40;
+    public static final int MAX_FPS =35;
     private double avergeFPS;
     //public  SurfaceHolder surfaceHolder;
     private Sprite[] displayArea;
@@ -38,8 +38,9 @@ public class ThreadSprite extends Thread {
                 try {
                     synchronized (sprite.getHolder()) {
                         canvas = sprite.getHolder().lockCanvas();
+                        if (canvas != null) {
                         sprite.update();
-                        sprite.draw(canvas);
+                        sprite.draw(canvas);}
                     }
 
                 } catch (Exception e) {

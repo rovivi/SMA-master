@@ -13,7 +13,7 @@ import android.view.SurfaceView;
 
 public class Sprite extends SurfaceView implements SurfaceHolder.Callback {
     public SpriteReader image;
-    Boolean staticDraw = false;
+    public Boolean staticDraw = false;
 
     public Sprite(Context context) {
         super(context);
@@ -38,11 +38,13 @@ public class Sprite extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         //destroy stuff
+
     }
 
 
     public void draw(Canvas canvas) {
         super.draw(canvas);
+        //if (getHolde)
         if (staticDraw) {
             image.staticDraw(canvas, new Rect(0, 0, getWidth(), getHeight()));
 
