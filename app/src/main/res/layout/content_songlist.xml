@@ -53,45 +53,48 @@
         android:id="@+id/recyclerSongs"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginLeft="25sp"
+        android:layout_marginRight="25sp"
+
         android:background="#10101010"
+
         android:clipToPadding="false"
         android:scrollbarSize="5dp"
-
         android:scrollbars="horizontal"
-
         app:layout_constraintBottom_toTopOf="@+id/startButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideStartList" /><!-- list-->
+        app:layout_constraintTop_toBottomOf="@+id/include3" /><!-- list-->
     <!-- lvl-->
+
+
+    <include
+        android:id="@+id/include3"
+        layout="@layout/content_menu_songlist"
+        android:layout_width="413dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="-10dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerSongs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideStartList" />
 
 
     <ImageView
         android:id="@+id/startButton"
         android:layout_width="wrap_content"
-        android:layout_height="55sp"
+        android:layout_height="35sp"
         android:layout_marginBottom="23dp"
         android:background="#00000000"
         android:gravity="center"
+        android:scaleType="fitEnd"
         android:src="@drawable/start"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideEndLIst" />
-
-    <ImageView
-        android:id="@+id/imagelevl"
-        android:layout_width="40sp"
-        android:layout_height="30sp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/current_song_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagelevl2"
-        app:srcCompat="@drawable/lvl" />
 
     <ImageView
         android:id="@+id/imagelevl2"
@@ -104,25 +107,7 @@
         app:layout_constraintBottom_toTopOf="@+id/current_song_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/preview"
-        app:srcCompat="@drawable/x2" />
-
-    <TextView
-        android:id="@+id/numberlevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="6dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textColor="#ffffff"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imagelevl"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imagelevl" />
+        app:srcCompat="@drawable/x3" />
 
     <TextView
         android:id="@+id/speedControl"
@@ -168,8 +153,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerSongs"
+        app:layout_constraintBottom_toTopOf="@+id/guideStartList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

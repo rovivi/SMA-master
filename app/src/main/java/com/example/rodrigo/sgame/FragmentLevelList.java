@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class FragmentLevelList extends DialogFragment {
-    public ArrayList<Level> lista;
-    private AdapterLevel adapterLevel;
+    //public ArrayList<Level> lista;
+
     SongList songList;
     TextView msj2;
     ImageView pp1, pp0_5, ll1, ll0_5;
@@ -43,7 +43,7 @@ public class FragmentLevelList extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        adapterLevel = new AdapterLevel(lista, null, getActivity().getAssets());
+        //adapterLevel = new AdapterLevel(lista, null, getActivity().getAssets());
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -112,35 +112,26 @@ public class FragmentLevelList extends DialogFragment {
         setTxtRush();
 
 
-        pp1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                velocity += 1;
-                changeVelocity();
-                songList.playSoundPool(songList.spSelect);
+        pp1.setOnClickListener(v -> {
+            velocity += 1;
+            changeVelocity();
+            songList.playSoundPool(songList.spSelect);
 
-            }
         });
 
-        pp0_5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                velocity += 0.5f;
-                songList.playSoundPool(songList.spSelect);
+        pp0_5.setOnClickListener(v -> {
+            velocity += 0.5f;
+            songList.playSoundPool(songList.spSelect);
 
-                changeVelocity();
-            }
+            changeVelocity();
         });
 
         ll1 = view.findViewById(R.id.iv1ll);
-        ll1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                velocity -= 1;
-                songList.playSoundPool(songList.spSelect);
+        ll1.setOnClickListener(v -> {
+            velocity -= 1;
+            songList.playSoundPool(songList.spSelect);
 
-                changeVelocity();
-            }
+            changeVelocity();
         });
 
         ll0_5.setOnClickListener(new View.OnClickListener() {
@@ -154,23 +145,9 @@ public class FragmentLevelList extends DialogFragment {
         });
 
 
-        RecyclerView recyclerView = view.findViewById(R.id.rv_leves);
 
-        //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 7, GridLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(adapterLevel);
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                songList.changelvl(position);
-                dismiss();
-            }
 
-            @Override
-            public void onItemLongClick(View view, int position) {
 
-            }
-        }));
         changeVelocity();
         return view;
     }

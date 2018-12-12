@@ -4,23 +4,6 @@
             "outputFile": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-pt-rPT/values-pt-rPT.xml",
             "map": [
                 {
-                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-ads-17.1.1.aar/3cdbab3972f583680cda2ccdad60c975/res/values-pt-rPT/values.xml",
-                    "from": {
-                        "startLines": "4,5,6,7,8,9,10",
-                        "startColumns": "0,0,0,0,0,0,0",
-                        "startOffsets": "201,272,402,467,532,616,733",
-                        "endColumns": "70,129,64,64,83,116,73",
-                        "endOffsets": "271,401,466,531,615,732,806"
-                    },
-                    "to": {
-                        "startLines": "70,71,72,73,74,75,76",
-                        "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "8288,8363,8497,8566,8635,8723,8844",
-                        "endColumns": "74,133,68,68,87,120,77",
-                        "endOffsets": "8358,8492,8561,8630,8718,8839,8917"
-                    }
-                },
-                {
                     "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-base-16.0.1.aar/6ff4ba45b7ad65bb2a3e58510abeed8a/res/values-pt-rPT/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
@@ -35,6 +18,23 @@
                         "startOffsets": "5465,5572,5767,5897,6007,6234,6364,6516,6858,7105,7215,7416,7549,7767,7975,8073,8172",
                         "endColumns": "106,194,129,109,226,129,151,137,246,109,200,132,217,207,97,98,115",
                         "endOffsets": "5567,5762,5892,6002,6229,6359,6511,6649,7100,7210,7411,7544,7762,7970,8068,8167,8283"
+                    }
+                },
+                {
+                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-ads-17.1.2.aar/c0180c207c2aee6aebe7c629193c67e5/res/values-pt-rPT/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "0,0,0,0,0,0,0",
+                        "startOffsets": "201,272,402,467,532,616,733",
+                        "endColumns": "70,129,64,64,83,116,73",
+                        "endOffsets": "271,401,466,531,615,732,806"
+                    },
+                    "to": {
+                        "startLines": "70,71,72,73,74,75,76",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "8288,8363,8497,8566,8635,8723,8844",
+                        "endColumns": "74,133,68,68,87,120,77",
+                        "endOffsets": "8358,8492,8561,8630,8718,8839,8917"
                     }
                 },
                 {

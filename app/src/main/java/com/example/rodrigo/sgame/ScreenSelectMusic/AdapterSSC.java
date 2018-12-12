@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
+import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.R;
 import com.squareup.picasso.Picasso;
 
@@ -23,18 +24,24 @@ public class AdapterSSC extends RecyclerView.Adapter<AdapterSSC.ViewHolderSSC> {
     private SongsGroup songsGroup;
     SparseBooleanArray selectedItems = new SparseBooleanArray();
     private int lastPosition = -1;
-    Activity a;
 
-    public AdapterSSC(SongsGroup songsGroup, int index, Activity a) {
+
+    public AdapterSSC(SongsGroup songsGroup, int index) {
         this.index = index;
         this.songsGroup = songsGroup;
-        this.a=a;
     }
 
 
     @Override
     public AdapterSSC.ViewHolderSSC onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_item, null, false);
+        View itemView;
+        if (ParamsSong.listCuadricula) {
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_item_square, null, false);
+
+        } else {
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_item, null, false);
+        }
+
         return new ViewHolderSSC(itemView);
     }
 
@@ -42,7 +49,7 @@ public class AdapterSSC extends RecyclerView.Adapter<AdapterSSC.ViewHolderSSC> {
     public void onBindViewHolder(AdapterSSC.ViewHolderSSC holder, int position) {
         //cuando se selecciona  un elemento en la carga
         holder.setInfo(songsGroup, position);
-       // holder.setSelected( selectedItems.get(position, false));
+        // holder.setSelected( selectedItems.get(position, false));
         setAnimation(holder.itemView, position);
     }
 
@@ -71,15 +78,15 @@ public class AdapterSSC extends RecyclerView.Adapter<AdapterSSC.ViewHolderSSC> {
         public void setInfo(SongsGroup sg, int index) {
             tv1.setText(sg.listOfSongs.get(index).songInfo.get("TITLE"));
             Artist.setText(sg.listOfSongs.get(index).songInfo.get("ARTIST"));
-            File f=new File(sg.listOfSongs.get(index).path.getPath() + "/" + sg.listOfSongs.get(index).songInfo.get("BANNER"));
+            File f = new File(sg.listOfSongs.get(index).path.getPath() + "/" + sg.listOfSongs.get(index).songInfo.get("BANNER"));
             //Bitmap bitmap = BitmapFactory.decodeFile(sg.listOfPaths.get(index).getPath() + "/" + sg.listOfSongs.get(index).songInfo.get("BANNER").toString());
             //banner.setImageBitmap(bitmap);
-            Picasso.get().load(f).error(R.drawable.no_banner).resize(200,120).centerCrop().into(banner);
+            Picasso.get().load(f).error(R.drawable.no_banner).resize(200, 120).centerCrop().into(banner);
 
         }
 
         public void setSelected(boolean is) {
-            Artist.setText(is+"");
+            Artist.setText(is + "");
         }
 
         @Override
@@ -96,19 +103,16 @@ public class AdapterSSC extends RecyclerView.Adapter<AdapterSSC.ViewHolderSSC> {
     }
 
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition)
-        {
+        if (position > lastPosition) {
             Animation animation;
             //Animation animation =
             // AnimationUtils.loadAnimation(a, android.R.anim.slide_in_left);
-            if (Common.getRandomNumberInRange(0,10)>5){
-                 animation = AnimationUtils.loadAnimation(a, R.anim.bounce);
-            }
-            else{
-                 animation = AnimationUtils.loadAnimation(a, android.R.anim.slide_in_left);
+            if (Common.getRandomNumberInRange(0, 10) > 5) {
+                animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(), R.anim.bounce);
+            } else {
+                animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(), android.R.anim.slide_in_left);
             }
             viewToAnimate.startAnimation(animation);
             lastPosition = position;

@@ -63,6 +63,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10sp"
                 android:text="Nombre"
+                android:ellipsize="marquee"
+
+                android:marqueeRepeatLimit="marquee_forever"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
                 android:textStyle="bold" />

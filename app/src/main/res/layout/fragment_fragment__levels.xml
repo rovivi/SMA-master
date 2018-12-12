@@ -24,23 +24,12 @@
             android:layout_marginTop="0dp"
             android:text="Select Your Level"
             android:textSize="25sp"
-            app:layout_constraintBottom_toTopOf="@+id/rv_leves"
+            app:layout_constraintBottom_toTopOf="@+id/tv_msj_level_modal2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_leves"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_msj_level_modal">
 
-        </android.support.v7.widget.RecyclerView>
 
         <TextView
             android:id="@+id/tv_msj_level_modal2"

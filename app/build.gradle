@@ -48,7 +48,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.1.0'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation 'com.google.android.gms:play-services-ads:17.1.2'
-
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.github.zurche:plain-pie:v0.2.4'
     implementation 'com.github.diogobernardino:WilliamChart:aae138315e'
     implementation 'com.facebook.android:facebook-android-sdk:4.36.0'

@@ -1,10 +1,4 @@
-#Mon Dec 03 16:35:24 CST 2018
-path.2=classes3.dex
-path.1=classes2.dex
+#Tue Dec 11 20:13:53 CST 2018
+base.0=/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/transforms/dexMerger/debug/1
 path.0=classes.dex
-renamed.2=classes3.dex
-renamed.1=classes2.dex
 renamed.0=classes.dex
-base.2=/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/transforms/dexMerger/debug/0
-base.1=/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/transforms/dexMerger/debug/0
-base.0=/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/transforms/dexMerger/debug/0

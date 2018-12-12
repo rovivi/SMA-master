@@ -21,8 +21,8 @@ import java.util.ArrayList;
 public class SongsGroup {
     public String description = "";
     public String name;
-    public SoundPool audio;
-    public Bitmap banner = null;
+    //public SoundPool audio;
+    public String banner = null;
     public static ArrayList<SSC> listOfSongs = new ArrayList<>();
    // public ArrayList<File> listOfPaths = new ArrayList<>();
     //public ArrayList<String> listOfPathsSSC = new ArrayList<>();
@@ -95,7 +95,7 @@ public class SongsGroup {
                     }
                 }
             } else if (i.getName().contains("banner")) {
-                banner = BitmapFactory.decodeFile(i.getPath());
+                banner = i.getPath();
             }
         }
 

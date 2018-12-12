@@ -3,6 +3,7 @@ package com.example.rodrigo.sgame;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -20,6 +21,7 @@ import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Guideline;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,8 +29,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -42,7 +46,9 @@ import com.example.rodrigo.sgame.CommonGame.Level;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.CommonGame.SSC;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
+import com.example.rodrigo.sgame.ScreenSelectMusic.AdapterLevel;
 import com.example.rodrigo.sgame.ScreenSelectMusic.AdapterSSC;
+import com.example.rodrigo.sgame.ScreenSelectMusic.ArrayAdapterLevel;
 import com.example.rodrigo.sgame.ScreenSelectMusic.MusicThread;
 import com.example.rodrigo.sgame.ScreenSelectMusic.RecyclerItemClickListener;
 import com.example.rodrigo.sgame.ScreenSelectMusic.SongsGroup;
@@ -61,6 +67,7 @@ import java.util.Map;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.perf.FirebasePerformance;
 import com.google.firebase.perf.metrics.Trace;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import io.fabric.sdk.android.Fabric;
@@ -84,20 +91,18 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     // ArrayAdapter<String> adp2;
     Intent i;
     VideoView preview;
-    ImageView backgroundBluour, btnLevel,btnSpeed;
-    TextView lvlText,titleCurrentSong,authorCurrent;
+    ImageView backgroundBluour, btnLevel, btnSpeed;
+    TextView lvlText, titleCurrentSong, authorCurrent;
     FirebaseAnalytics mFirebaseAnalytics;
     ArrayList<Level> levelArrayList = new ArrayList<>();
-
+    Spinner spinner;
 
     BitmapDrawable errorAuxImage = null;
     SongsGroup songsGroup = new SongsGroup();
     RecyclerView recyclerView;
     ImageView startImage;
-
-
-
-
+    RecyclerView recyclerViewLevels;
+    private AdapterLevel adapterLevel;
     //Sprites
 
     Sprite flashSpeedSprite;
@@ -132,8 +137,21 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     };
 
 
+    View.OnClickListener listenerlvl = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+        openLevelList();
+        }
+    };
+
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
+
+
+
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Windows Decorator
@@ -151,8 +169,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
                             | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
 
-
-
         } catch (NullPointerException e) {
         }
         setContentView(R.layout.activity_songlist);
@@ -161,7 +177,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
         Guideline guideLine = findViewById(R.id.guideStartList);
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) guideLine.getLayoutParams();
-        params.guidePercent = 0.42f; // 45% // range: 0 <-> 1
+        params.guidePercent = 0.35f; // 45% // range: 0 <-> 1
         guideLine.setLayoutParams(params);
         guideLine = findViewById(R.id.guideEndLIst);
         params = (ConstraintLayout.LayoutParams) guideLine.getLayoutParams();
@@ -169,44 +185,44 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         guideLine.setLayoutParams(params);
 
 
-
         //------Fin de las lineas guia-----//
         //------get Elemets----------------//
         btnLevel = findViewById(R.id.imagelevl);
-        btnSpeed= findViewById(R.id.imagelevl2);
+        btnSpeed = findViewById(R.id.imagelevl2);
         lvlText = findViewById(R.id.numberlevel);
-      //  themeElements = findViewById(R.id.songElements);
+        //  themeElements = findViewById(R.id.songElements);
         backgroundBluour = findViewById(R.id.bgBlur);
         recyclerView = findViewById(R.id.recyclerSongs);
         //  bg = findViewById(R.id.bgVideoView);
         preview = findViewById(R.id.preview);
         startImage = findViewById(R.id.startButton);
-        titleCurrentSong =findViewById(R.id.current_song_name);
-        authorCurrent =findViewById(R.id.current_text_author);
+        titleCurrentSong = findViewById(R.id.current_song_name);
+        authorCurrent = findViewById(R.id.current_text_author);
 
         titleCurrentSong.setSelected(true);
         titleCurrentSong.setSingleLine(true);
 
 
+        //lista
+
+        if (ParamsSong.listCuadricula) {
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+
+        } else {
+            recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        }
 
 
-
-
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setNestedScrollingEnabled(true);
         TextView msjlvl = findViewById(R.id.yourlvlmsjtv);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
         msjlvl.setTypeface(custom_font);
-        preview.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-
-            @Override
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-                //    Log.d("video", "setOnErrorListener ");
-                if (what == -1010 || extra == -1010)
-                    preview.setBackground(errorAuxImage);
-                return true;
-            }
+        preview.setOnErrorListener((mp, what, extra) -> {
+            //    Log.d("video", "setOnErrorListener ");
+            if (what == -1010 || extra == -1010)
+                preview.setBackground(errorAuxImage);
+            return true;
         });
 
         lvlText.setTypeface(custom_font);
@@ -214,11 +230,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         //---------Listeners-------//
 
 
-        btnLevel.setOnClickListener(v -> {
-            showEditFragment();
-
-            //                changeLevel();
-        });
+        btnLevel.setOnClickListener(listenerlvl);
 
         btnLevel.setOnLongClickListener(v -> {
             //showEditFragment();
@@ -271,14 +283,14 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             });
 
 
-           btnSpeed.setOnClickListener(v -> {
-               ParamsSong.speed +=0.5f;
-               if ( ParamsSong.speed>7){
-                   ParamsSong.speed =1f;
-               }
-               flashSpeedSprite. image.play();
+            btnSpeed.setOnClickListener(v -> {
+                ParamsSong.speed += 0.5f;
+                if (ParamsSong.speed > 7) {
+                    ParamsSong.speed = 1f;
+                }
+                flashSpeedSprite.image.play();
 
-           });
+            });
 
         } catch (Exception e) {
 
@@ -294,21 +306,21 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         Bitmap sprite = BitmapFactory.decodeResource(getResources(), R.drawable.centercanon3x2);
         SpriteReader spriteReader = new SpriteReader(sprite, 3, 2, 0.2f);
 
-        SpriteReader spriFlash =new SpriteReader(BitmapFactory.decodeResource(getResources(),R.drawable.glow_command),1,2,0.3f);
+        SpriteReader spriFlash = new SpriteReader(BitmapFactory.decodeResource(getResources(), R.drawable.glow_command), 1, 2, 0.3f);
         flashSpeedSprite.create(spriteReader);
-        threadSprite= new ThreadSprite(flashSpeedSprite);
-        try{
-
+        threadSprite = new ThreadSprite(flashSpeedSprite);
+        try {
+            threadSprite.running = true;
             threadSprite.start();
 
-        }catch (Exception e)
-        {}
+        } catch (Exception e) {
+        }
 
 
         //se carga el OBB
         File obbFile = new File(getObbDir().getPath() + "/main.1." + getPackageName() + ".obb");
 
-        if (false &&obbFile.exists()) {//desabilitado por el momento
+        if (false && obbFile.exists()) {//desabilitado por el momento
             //ObbInfo info =ObbScanner.getObbInfo(obbFile.getPath());
             String superinfoinfo = mountObbFile(obbFile.getPath());
 
@@ -317,6 +329,36 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             loadSongs();
 
         }
+
+
+// Selection of the spinner
+        spinner = findViewById(R.id.spinner_test);
+
+// Application of the Array to the Spinner
+
+        ArrayAdapterLevel spinnerArrayAdapter = new ArrayAdapterLevel(this, levelArrayList);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+        spinner.setAdapter(spinnerArrayAdapter);
+
+
+        ///-----------
+        adapterLevel = new AdapterLevel(levelArrayList, this, getAssets());
+         recyclerViewLevels = findViewById(R.id.rv_leves);
+        recyclerViewLevels.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        //recyclerViewLevels.setLayoutManager(new GridLayoutManager(this, 7, GridLayoutManager.VERTICAL, false));
+        recyclerViewLevels.setAdapter(adapterLevel);
+        recyclerViewLevels.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                changelvl(position);
+
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        }));
 
     }
 
@@ -335,18 +377,19 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
         paths = songsGroup.listOfSongs.get(position).path.getPath();
         try {
-           // themeElements.flash.play();
+            // themeElements.flash.play();
             SSC auxStep = songsGroup.listOfSongs.get(position);
             Float sampleStart = Float.parseFloat(auxStep.songInfo.get("SAMPLESTART"));
             int offset = (int) (sampleStart * 1000);
-            titleCurrentSong.setText(auxStep.songInfo.get("TITLE")!=null? auxStep.songInfo.get("TITLE"):"No title");
-            authorCurrent.setText(auxStep.songInfo.get("ARTIST")!=null? "Composed by:"+auxStep.songInfo.get("ARTIST"):"No Artist");
-            titleCurrentSong.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.zoom_in ));
-            authorCurrent.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in ));
+            titleCurrentSong.setText(auxStep.songInfo.get("TITLE") != null ? auxStep.songInfo.get("TITLE") : "No title");
+            authorCurrent.setText(auxStep.songInfo.get("ARTIST") != null ? "Composed by:" + auxStep.songInfo.get("ARTIST") : "No Artist");
+            titleCurrentSong.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.zoom_in));
+            authorCurrent.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in));
 
             currentSSC = songsGroup.listOfSongs.get(position).pathSSC;
             lvl.clear();
             levelArrayList.clear();
+            adapterLevel.notifyDataSetChanged();
 
             for (Map currentChart : auxStep.chartsInfo) {
                 if (currentChart == null) {
@@ -357,7 +400,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
                 String tag = (currentChart.get("STEPSTYPE") != null) ? currentChart.get("STEPSTYPE").toString() : "";
                 levelArrayList.add(new Level(lvl, tipo, tag));
             }
-
 
             //If the song provides from OBB
             if (auxStep.isPropitarySongs) {
@@ -388,8 +430,8 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
                     Bitmap ww = TransformBitmap.makeTransparent(TransformBitmap.myblur(BitmapFactory.decodeFile(bg.getPath()), getApplicationContext()), 150);
                     backgroundBluour.setImageBitmap(BitmapFactory.decodeFile(bg.getPath()));
-                    backgroundBluour.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_in_left  ));
-                  //  Picasso.get().load(bg.getPath()).into(backgroundBluour);
+                    backgroundBluour.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_in_left));
+                    //  Picasso.get().load(bg.getPath()).into(backgroundBluour);
 
 
                 }
@@ -437,7 +479,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
                 .debuggable(true)           // Enables Crashlytics debugger
                 .build();
         Fabric.with(fabric);
-        threadSprite.running=true;
+        threadSprite.running = true;
     }
 
 
@@ -445,7 +487,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     public void onResume() {
         super.onResume();
         //  this.bg.start();
-        threadSprite.running=false;
+        threadSprite.running = false;
 
     }
 
@@ -499,7 +541,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
     public void showEditFragment() {
         FragmentLevelList newFragment = new FragmentLevelList();
-        newFragment.lista = levelArrayList;
+        //newFragment.lista = levelArrayList;
         newFragment.setSongList(this);
         newFragment.show(getFragmentManager(), "");
         playSoundPool(spOpenWindow);
@@ -510,7 +552,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         if (levelArrayList.size() == 0) {
             return;
         }
-        currentSongIndex++;
         if (currentSongIndex >= levelArrayList.size()) {
             currentSongIndex = 0;
         }
@@ -519,8 +560,30 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
     public void changelvl(int index) {
         currentSongIndex = index;
+        changeMusic.play(spCode, 1, 1, 1, 0, 1.0f);
+        btnLevel.setOnClickListener(listenerlvl);
+        recyclerViewLevels.startAnimation(AnimationUtils.loadAnimation(getBaseContext(),android.R.anim.slide_out_right));
+        btnLevel.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.zoom_in));
+        lvlText.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.zoom_in));
+        recyclerViewLevels.setVisibility(View.INVISIBLE);
+
+
         animelvl();
     }
+
+    public void openLevelList(){
+        playSoundPool(spOpenWindow);
+        btnLevel.setOnClickListener(null);
+        recyclerViewLevels.setVisibility(View.VISIBLE);
+        btnLevel.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_out));
+        lvlText.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_out));
+        recyclerViewLevels.startAnimation(AnimationUtils.loadAnimation(getBaseContext(),android.R.anim.slide_in_left));
+
+    }
+
+
+
+
 
 
     public void animelvl() {
@@ -543,38 +606,58 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void loadSongs() {
 
+        SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mPrefs.getString("cacheList1", "");
 
-        File aux = Common.checkDirSongsFolders();
-        path = aux.getPath();
-        files = Common.checkDirSongsFolders().listFiles();
-        if (aux == null) {
-            File archivo = new File(this.getBaseContext().getFilesDir().getPath() + "/piu/Songs/");
-            if (archivo.exists()) {
-                files = archivo.listFiles();
-                path = archivo.getPath();
-            } else if (archivo.mkdirs()) {
-                files = archivo.listFiles();
-                path = archivo.getPath();
-            } else {
-                Toast.makeText(getBaseContext(), "No se podrá por hoy :C ", Toast.LENGTH_LONG).show();
+
+        if (true) {
+            SharedPreferences.Editor prefsEditor = mPrefs.edit();
+            File aux = Common.checkDirSongsFolders();
+            path = aux.getPath();
+            files = Common.checkDirSongsFolders().listFiles();
+            if (aux == null) {
+                File archivo = new File(this.getBaseContext().getFilesDir().getPath() + "/piu/Songs/");
+                if (archivo.exists()) {
+                    files = archivo.listFiles();
+                    path = archivo.getPath();
+                } else if (archivo.mkdirs()) {
+                    files = archivo.listFiles();
+                    path = archivo.getPath();
+                } else {
+                    Toast.makeText(getBaseContext(), "No se podrá por hoy :C ", Toast.LENGTH_LONG).show();
+                }
             }
-        }
-        if (files.length <= 0) {
-            Toast.makeText(getBaseContext(), "No hay archivos :c en:" + path, Toast.LENGTH_LONG).show();
-        } else {
-            songsGroup.addList(Common.checkDirSongsFolders());
-            if (songsGroup.listOfSongs.size() <= 0) {
-                Toast.makeText(getBaseContext(), ":c No hay archivos que pueda leer" +
-                        " en:" + path, Toast.LENGTH_LONG).show();
+            if (files.length <= 0) {
+                Toast.makeText(getBaseContext(), "No hay archivos :c en:" + path, Toast.LENGTH_LONG).show();
             } else {
+                songsGroup.addList(Common.checkDirSongsFolders());
+                if (songsGroup.listOfSongs.size() <= 0) {
+                    Toast.makeText(getBaseContext(), ":c No hay archivos que pueda leer" +
+                            " en:" + path, Toast.LENGTH_LONG).show();
+                } else {
+
+                }
 
             }
+            AdapterSSC adapterSSC = new AdapterSSC(songsGroup, currentSongIndex);
+            recyclerView.setAdapter(adapterSSC);
+            //  themeElements.biuldObject(this, songsGroup);
+            concurrentSort(songsGroup.listOfSongs, songsGroup.listOfSongs);
+        /*    json = gson.toJson(songsGroup);
+
+            prefsEditor.putString("cacheList1", json);
+            prefsEditor.apply();
+*/
+        }
+
+        else{
+            songsGroup = gson.fromJson(json, SongsGroup.class);
+            AdapterSSC adapterSSC = new AdapterSSC(songsGroup, currentSongIndex);
+            recyclerView.setAdapter(adapterSSC);
+            concurrentSort(songsGroup.listOfSongs, songsGroup.listOfSongs);
 
         }
-        AdapterSSC adapterSSC = new AdapterSSC(songsGroup, currentSongIndex, this);
-        recyclerView.setAdapter(adapterSSC);
-      //  themeElements.biuldObject(this, songsGroup);
-        concurrentSort(songsGroup.listOfSongs, songsGroup.listOfSongs);
         changeSong(0);
 
     }

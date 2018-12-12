@@ -25,4 +25,8 @@ public class ParamsSong {
     public static short padOption = 1;
 
 
+
+
+    //List mode
+    public static Boolean listCuadricula = true;
 }

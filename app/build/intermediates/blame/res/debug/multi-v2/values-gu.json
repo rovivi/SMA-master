@@ -21,23 +21,6 @@
                     }
                 },
                 {
-                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-ads-17.1.1.aar/3cdbab3972f583680cda2ccdad60c975/res/values-gu/values.xml",
-                    "from": {
-                        "startLines": "4,5,6,7,8,9,10",
-                        "startColumns": "0,0,0,0,0,0,0",
-                        "startOffsets": "197,263,379,445,508,587,692",
-                        "endColumns": "65,115,65,62,78,104,74",
-                        "endOffsets": "262,378,444,507,586,691,766"
-                    },
-                    "to": {
-                        "startLines": "70,71,72,73,74,75,76",
-                        "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "8026,8096,8216,8286,8353,8436,8545",
-                        "endColumns": "69,119,69,66,82,108,78",
-                        "endOffsets": "8091,8211,8281,8348,8431,8540,8619"
-                    }
-                },
-                {
                     "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-base-16.0.1.aar/6ff4ba45b7ad65bb2a3e58510abeed8a/res/values-gu/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
@@ -86,6 +69,23 @@
                         "startOffsets": "105,214,318,425,512,613,736,813,891,982,1075,1174,1268,1369,1462,1557,1654,1745,1836,1916,2022,2124,2221,2330,2429,2539,2699,8624",
                         "endColumns": "108,103,106,86,100,122,76,77,90,92,98,93,100,92,94,96,90,90,79,105,101,96,108,98,109,159,102,79",
                         "endOffsets": "209,313,420,507,608,731,808,886,977,1070,1169,1263,1364,1457,1552,1649,1740,1831,1911,2017,2119,2216,2325,2424,2534,2694,2797,8699"
+                    }
+                },
+                {
+                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-ads-17.1.2.aar/c0180c207c2aee6aebe7c629193c67e5/res/values-gu/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "0,0,0,0,0,0,0",
+                        "startOffsets": "197,263,379,445,508,587,692",
+                        "endColumns": "65,115,65,62,78,104,74",
+                        "endOffsets": "262,378,444,507,586,691,766"
+                    },
+                    "to": {
+                        "startLines": "70,71,72,73,74,75,76",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "8026,8096,8216,8286,8353,8436,8545",
+                        "endColumns": "69,119,69,66,82,108,78",
+                        "endOffsets": "8091,8211,8281,8348,8431,8540,8619"
                     }
                 },
                 {
