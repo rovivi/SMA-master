@@ -13,6 +13,7 @@ public class ParamsSong {
     public static int av = -1;
     public static int delayMS = 0;
     public static Float rush = 1.0f;
+    public static  boolean autoplay=false;
 
     /**
      * Game mode

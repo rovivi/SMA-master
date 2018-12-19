@@ -13,7 +13,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.rodrigo.sgame.CommonGame.Level;
@@ -25,13 +27,14 @@ import com.example.rodrigo.sgame.ScreenSelectMusic.RecyclerItemClickListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class FragmentLevelList extends DialogFragment {
+public class FragmenSongOptions extends DialogFragment {
     //public ArrayList<Level> lista;
 
     SongList songList;
     TextView msj2;
     ImageView pp1, pp0_5, ll1, ll0_5;
     TextView tvRush, tvJudge;
+    Switch switch_autoplay;
 
 
     float velocity = ParamsSong.speed;
@@ -48,7 +51,7 @@ public class FragmentLevelList extends DialogFragment {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Objects.requireNonNull(getDialog().getWindow())
-                    .getAttributes().windowAnimations = R.style.DialogAnimation;
+                    .getAttributes().windowAnimations = R.style.DialogAnimation2;
             Objects.requireNonNull(getDialog().getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         }
@@ -65,6 +68,7 @@ public class FragmentLevelList extends DialogFragment {
         pp0_5 = view.findViewById(R.id.iv0_5pp);
         ll1 = view.findViewById(R.id.iv1ll);
         ll0_5 = view.findViewById(R.id.iv0_5ll);
+        switch_autoplay = view.findViewById(R.id.switch_autoplay);
         TextView tv1 = view.findViewById(R.id.tvsped);
         TextView tv2 = view.findViewById(R.id.tvsped2);
         TextView tv3 = view.findViewById(R.id.tvsped3);
@@ -83,30 +87,25 @@ public class FragmentLevelList extends DialogFragment {
         tvJudge.setTypeface(custom_font);
 
 
-        tvRush.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ParamsSong.rush+=0.1f;
-                if (ParamsSong.rush>1.5f){
-                    ParamsSong.rush=0.8f;
-                }
-                songList.playSoundPool(songList.spSelect);
-
-                setTxtRush();
-
+        tvRush.setOnClickListener(v -> {
+            ParamsSong.rush+=0.1f;
+            if (ParamsSong.rush>1.5f){
+                ParamsSong.rush=0.8f;
             }
+            songList.playSoundPool(songList.spSelect);
+
+            setTxtRush();
+
         });
-
-        tvJudge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ParamsSong.judgment= (ParamsSong.judgment+1)%7;
-                setTxtJudge();
-                songList.playSoundPool(songList.spSelect);
-
+        switch_autoplay.setChecked(ParamsSong.autoplay);
+        switch_autoplay.setOnCheckedChangeListener((buttonView, isChecked) -> ParamsSong.autoplay=isChecked);
+        tvJudge.setOnClickListener(v -> {
+            ParamsSong.judgment= (ParamsSong.judgment+1)%7;
+            setTxtJudge();
+            songList.playSoundPool(songList.spSelect);
 
 
-            }
+
         });
         setTxtJudge();
         setTxtRush();
@@ -200,6 +199,12 @@ public class FragmentLevelList extends DialogFragment {
         tvRush.setText(x + "");
 
 
+    }
+    @Override
+    public void onActivityCreated(Bundle arg0) {
+        super.onActivityCreated(arg0);
+        getDialog().getWindow()
+                .getAttributes().windowAnimations = R.style.DialogAnimation2;
     }
 
 

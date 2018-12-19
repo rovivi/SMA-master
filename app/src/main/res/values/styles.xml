@@ -17,10 +17,20 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="DialogAnimation">
-        <item name="android:windowEnterAnimation">@anim/bounce</item>
-        <!--  <item name="android:windowExitAnimation">@anim/slide_down</item>-->
+    <style name="DialogAnimation2">
+        <item name="android:windowEnterAnimation">@anim/zoom_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+
+
     </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/zoom_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_up</item>
+
+
+    </style>
+
 
     <style name="FullscreenTheme" parent="AppTheme">
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
@@ -46,6 +56,20 @@
         <item name="android:shadowRadius">2</item>
     </style>
 
+
+
+
+    <style name="ShadowDisc">
+
+        <item name="android:textColor">#C0ffBB</item>
+
+        <item name="android:textSize">9sp</item>
+        <item name="android:shadowColor">#18DE18</item>
+        <item name="android:shadowDx">3</item>
+        <item name="android:shadowDy">3</item>
+        <item name="android:shadowRadius">16</item>
+    </style>
+
     <style name="ShadowWhiteFRee">
         <item name="android:paddingLeft">4px</item>
         <item name="android:paddingBottom">4px</item>
@@ -56,5 +80,18 @@
         <item name="android:shadowDy">3</item>
         <item name="android:shadowRadius">2</item>
     </style>
+
+
+    <style name="shadow_free">
+        <item name="android:paddingLeft">4px</item>
+        <item name="android:paddingBottom">4px</item>
+
+        <item name="android:textSize">12sp</item>
+
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">6</item>
+    </style>
+
 
 </resources>

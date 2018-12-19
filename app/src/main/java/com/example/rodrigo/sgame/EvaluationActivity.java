@@ -159,10 +159,19 @@ public class EvaluationActivity extends AppCompatActivity {
                 ((float) params[1] / total * 0.8f) +
                 ((float) params[2] / total * 0.6f) +
                 ((float) params[3] / total * 0.4f);
+
         animatedPie.setPercentage(percent * 100);
         animatedPie.setPercentageTextSize(32);
         animatedPie.setInnerText((double) Math.round(100 * percent * 100000d) / 100000d + "%");
         //listener
+        String secretName= getIntent().getExtras().getString("name")+getIntent().getExtras().getInt("nchar");
+
+
+            if(       Common.compareRecords(this,secretName,percent*100)){
+                Common.writeRecord(this,secretName,percent*100);
+            }
+
+
        continueText = findViewById(R.id.buttonContinue);
         continueText.setOnClickListener(new View.OnClickListener() {
             @Override

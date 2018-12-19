@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,7 +18,10 @@ import java.util.regex.Pattern;
  * @author Rodrigo Vidal Villaseñor
  */
 
-public class SSC {
+public class SSC implements Serializable {
+
+
+    ArrayList<RowStep> bufferTest = new ArrayList<>();
 
 
     int id = -1;//For online and propietaries songs
@@ -104,7 +108,7 @@ public class SSC {
                             }
                             this.chartsInfo[chart].put(key, valor);
                     }
-                }    else {
+                } else {
                     this.songInfo.put(key, valor);
                 }
             }
@@ -179,6 +183,8 @@ public class SSC {
                 auxObject[1] = currentBeat;
                 auxObject[2] = 1f;
                 buffer.add(auxObject);
+
+
                 currentBeat = (double) numberBlock / 48;
                 numberBlock++;
                 //beat += (double) 4 / 192;
@@ -219,20 +225,33 @@ public class SSC {
             SCROLLS = this.arrayListTag(this.chartsInfo[nchar].get("SCROLLS").toString());
         }//DO not remove is for scrolling
 
-        //  BPMS = setMetadata(chartsInfo[nchar].get("BPMS"), songInfo.get("BPMS"));
-        TICKCOUNTS = setMetadata(chartsInfo[nchar].get("TICKCOUNTS"), songInfo.get("TICKCOUNTS"));
-        STOPS = setMetadata(chartsInfo[nchar].get("STOPS"), songInfo.get("STOPS"));
-        DELAYS = setMetadata(chartsInfo[nchar].get("DELAYS"), songInfo.get("DELAYS"));
-
-        //  effectMap.put("BPMS", BPMS);
-        if (TICKCOUNTS != null) {
-            effectMap.put("TICKCOUNTS", TICKCOUNTS);
+        if (Common.testingRadars) {
+            BPMS = setMetadata(chartsInfo[nchar].get("BPMS"), songInfo.get("BPMS"));
+            TICKCOUNTS = setMetadata(chartsInfo[nchar].get("TICKCOUNTS"), songInfo.get("TICKCOUNTS"));
+            WARPS = setMetadata(chartsInfo[nchar].get("WARPS"), songInfo.get("WARPS"));
+            STOPS = setMetadata(chartsInfo[nchar].get("STOPS"), songInfo.get("STOPS"));
+            DELAYS = setMetadata(chartsInfo[nchar].get("DELAYS"), songInfo.get("DELAYS"));
         }
+        //  effectMap.put("BPMS", BPMS);
+        if (BPMS != null) {
+            effectMap.put("BPMS", BPMS);
+        }
+
+
         if (STOPS != null) {
             effectMap.put("STOPS", STOPS);
         }
         if (DELAYS != null) {
             effectMap.put("DELAYS", DELAYS);
+        }
+
+        if (WARPS != null) {
+            effectMap.put("WARPS", WARPS);
+        }
+
+
+        if (TICKCOUNTS != null) {
+            effectMap.put("TICKCOUNTS", TICKCOUNTS);
         }
 
 
@@ -257,11 +276,16 @@ public class SSC {
                         row.rowStep = stringStep2ByteArary(checkLong("0000000000"));
                     }
                 }
+
+
                 row.beat = currentBeat;
 
                 row.scroll = foundScroll(currentBeat, SCROLLS);
                 row.effect = foundEffectOnBeat(currentBeat);
                 buffer.add(row);
+                if (row.effect != null) {
+                    bufferTest.add(row);
+                }
                 currentBeat = (double) numberBlock++ / 48;
             }
         }
@@ -297,9 +321,24 @@ public class SSC {
             Map.Entry<String, ArrayList<Float[]>> pair = it.next();
             String key = pair.getKey();//Nombre del efecto
             ArrayList<Float[]> value = pair.getValue();// se declara la lista de efectos
-            if (value.size()>0 && beat== value.get(0)[0]){
-                auxArray.add(new EffectStep(key, value.get(0)));
-                value.remove( 0);
+
+
+            if (value.size() > 0 && beat == value.get(0)[0]) {
+                if (key == "BPMS") {//se confirma para transformar bpm alto en warp
+                    if (value.get(0)[1] > 999) {//found bpm warp
+                        float warpValue = value.get(1)[0] - value.get(0)[0];
+                        warpValue *= 0.98;
+                        Float[] auxFloatArray = value.get(0).clone();
+                        auxFloatArray[1] = warpValue;
+                        auxArray.add(new EffectStep("WARPS", auxFloatArray));
+                    } else {
+                        auxArray.add(new EffectStep(key, value.get(0)));
+                    }
+
+                } else {
+                    auxArray.add(new EffectStep(key, value.get(0)));
+                }
+                value.remove(0);
             }
 
         }
@@ -460,7 +499,7 @@ public class SSC {
 
     private float foundScroll(double Beat, ArrayList<Float[]> SCROLLS) {
         float f = 1f;
-        if (SCROLLS != null || SCROLLS.size() == 1) {
+        if (SCROLLS != null) {
             for (int x = 0; x < SCROLLS.size() && SCROLLS.get(x)[0] <= Beat; x++) {
                 f = SCROLLS.get(x)[1];
             }

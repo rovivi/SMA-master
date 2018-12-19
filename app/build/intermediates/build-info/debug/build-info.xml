@@ -6,7 +6,7 @@
     density="xxhdpi"
     format="10"
     plugin-version="3.2.1"
-    timestamp="1544586730106"
+    timestamp="1545165677079"
     token="6685960864000445536"
     verifier="COLD_SWAP_REQUESTED" >
 
@@ -23,19 +23,15 @@
         name="verifier"
         duration="0" />
 
-    <artifact
-        location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
-        type="SPLIT" />
-
     <build
         build-mode="FULL"
-        timestamp="1544586154589"
+        timestamp="1545165474092"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
+            location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
             type="SPLIT" />
         <artifact
-            location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
+            location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
             type="SPLIT" />
         <artifact
             location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
@@ -43,11 +39,7 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1544586730106"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
-            type="SPLIT" />
-    </build>
+        timestamp="1545165677079"
+        verifier="COLD_SWAP_REQUESTED" />
 
 </instant-run>

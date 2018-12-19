@@ -1,269 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentLevelList">
+    tools:context=".FragmenSongOptions">
 
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/option_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_msj_level_modal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/topback"
+        android:text="Select Your Speed"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/rv_leves"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.07999998" />
+
+    <TextView
+        android:id="@+id/tv_msj_level_modal2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/topback"
+        android:text="Select Your Speed"
+        android:textSize="25sp"
+        android:theme="@style/shadow_free"
+        app:layout_constraintBottom_toTopOf="@+id/rv_leves"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_msj_level_modal" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        style="@style/shadow_free"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/tv_msj_level_modal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
-            android:text="Select Your Level"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_msj_level_modal2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/iv1pp"
+        android:layout_width="44sp"
+        android:layout_height="44sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.31"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_msj_level_modal2"
+        app:srcCompat="@drawable/lvl" />
 
 
+    <ImageView
+        android:id="@+id/iv0_5pp"
+        android:layout_width="44sp"
+        android:layout_height="44sp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv1pp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/iv1pp"
+        app:layout_constraintTop_toTopOf="@+id/iv1pp"
+        app:srcCompat="@drawable/lvl" />
 
-        <TextView
-            android:id="@+id/tv_msj_level_modal2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
-            android:text="Select Your Speed"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toTopOf="@+id/rv_leves"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/iv1ll"
+        android:layout_width="44sp"
+        android:layout_height="44sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv0_5pp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/iv0_5pp"
+        app:layout_constraintTop_toTopOf="@+id/iv0_5pp"
+        app:srcCompat="@drawable/lvl" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/iv0_5ll"
+        android:layout_width="44sp"
+        android:layout_height="44sp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv1ll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toEndOf="@+id/iv1ll"
+        app:layout_constraintTop_toTopOf="@+id/iv1ll"
+        app:srcCompat="@drawable/lvl" />
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tvsped"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1+"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv1pp"
+        app:layout_constraintEnd_toEndOf="@+id/iv1pp"
+        app:layout_constraintStart_toStartOf="@+id/iv1pp"
+        app:layout_constraintTop_toTopOf="@+id/iv1pp" />
 
-                <ImageView
-                    android:id="@+id/iv1pp"
-                    android:layout_width="44sp"
-                    android:layout_height="44sp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/lvl" />
+    <TextView
+        android:id="@+id/tvsped3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.5+"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv0_5pp"
+        app:layout_constraintEnd_toEndOf="@+id/iv0_5pp"
+        app:layout_constraintStart_toStartOf="@+id/iv0_5pp"
+        app:layout_constraintTop_toTopOf="@+id/iv0_5pp" />
 
-                <TextView
-                    android:id="@+id/tvsped"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="1+"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tvsped2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1-"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv1ll"
+        app:layout_constraintEnd_toEndOf="@+id/iv1ll"
+        app:layout_constraintStart_toStartOf="@+id/iv1ll"
+        app:layout_constraintTop_toTopOf="@+id/iv1ll" />
 
-            </android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/tvsped4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.5-"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv0_5ll"
+        app:layout_constraintEnd_toEndOf="@+id/iv0_5ll"
+        app:layout_constraintStart_toStartOf="@+id/iv0_5ll"
+        app:layout_constraintTop_toTopOf="@+id/iv0_5ll" />
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+    <Switch
+        android:id="@+id/switch_autoplay"
+        android:layout_width="391dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Autoplay"
+        android:textColor="@color/com_facebook_button_background_color_focused"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv232321" />
 
-                <ImageView
-                    android:id="@+id/iv1ll"
-                    android:layout_width="44sp"
-                    android:layout_height="44sp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/lvl" />
+    <TextView
+        android:id="@+id/tv_msj_level_modal3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/topback"
+        android:text="Judment /Rush"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/rv_leves"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv0_5pp" />
 
-                <TextView
-                    android:id="@+id/tvsped2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="1-"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/iv232321"
+        android:layout_width="44sp"
+        android:layout_height="44sp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_msj_level_modal3"
+        app:srcCompat="@drawable/lvl" />
 
-            </android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_judge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="HJ"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/iv232321"
+        app:layout_constraintStart_toStartOf="@+id/iv232321"
+        app:layout_constraintTop_toTopOf="@+id/iv232321" />
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tvrush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="10"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_judge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/iv232321"
+        app:layout_constraintTop_toTopOf="@+id/tv_judge"
+        app:layout_constraintVertical_bias="1.0" />
 
-                <ImageView
-                    android:id="@+id/iv0_5pp"
-                    android:layout_width="44sp"
-                    android:layout_height="44sp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/lvl" />
 
-                <TextView
-                    android:id="@+id/tvsped3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="0.5+"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/iv0_5ll"
-                        android:layout_width="44sp"
-                        android:layout_height="44sp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/lvl" />
-
-                    <TextView
-                        android:id="@+id/tvsped4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:text="0.5-"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </android.support.constraint.ConstraintLayout>
-
-            </android.support.constraint.ConstraintLayout>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_msj_level_modal3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
-            android:text="Judment /Rush"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toTopOf="@+id/rv_leves"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/iv1pp"
-                    android:layout_width="44sp"
-                    android:layout_height="44sp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/lvl" />
-
-                <TextView
-                    android:id="@+id/tv_judge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="HJ"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/iv232321"
-                    android:layout_width="44sp"
-                    android:layout_height="44sp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/lvl" />
-
-                <TextView
-                    android:id="@+id/tvrush"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="10"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </android.support.constraint.ConstraintLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/song_list_bg"
+    android:background="@drawable/topback"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".SongList"
 
@@ -12,9 +12,11 @@
 
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="200sp"
+        android:id="@+id/constraintLayout"
+        android:layout_width="210sp"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/line_top"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,26 +24,23 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_leves"
-            android:layout_width="150sp"
+            android:layout_width="165sp"
             android:layout_height="50sp"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.96"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
 
         </android.support.v7.widget.RecyclerView>
 
         <ImageView
             android:id="@+id/imagelevl"
             android:layout_width="50sp"
-            android:layout_height="38sp"
-            android:layout_marginStart="8dp"
+            android:layout_height="50sp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
@@ -56,6 +55,7 @@
 
         <TextView
             android:id="@+id/numberlevel"
+            style="@style/ShadowBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -68,22 +68,88 @@
             app:layout_constraintStart_toStartOf="@+id/imagelevl"
             app:layout_constraintTop_toTopOf="@+id/imagelevl" />
 
+        <TextView
+            android:id="@+id/textView"
+            style="@style/ShadowBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="7dp"
+            android:text="Current Level"
+            android:textColor="@color/com_facebook_button_border_color_focused"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 
-    <Spinner
-        android:id="@+id/spinner_test"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/more_txt"
+        style="@style/ShadowWhiteFRee"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="62dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:spinnerMode="dropdown"
-
-        android:dropDownVerticalOffset="50dp"
-        android:popupBackground="@android:color/transparent"
-        android:background="@android:color/transparent"
+        android:gravity="left"
+        android:text="Options"
+        android:textAlignment="textStart"
+        android:textColor="@color/com_facebook_button_background_color_focused"
+        android:textSize="20sp"
+        android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.636"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="My record"
+        android:textColor="@color/com_facebook_button_background_color_focused"
+        app:layout_constraintBottom_toTopOf="@+id/more_txt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.29000002" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="6dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/more_txt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/textView4"
+        app:srcCompat="@drawable/mask3" />
+
+    <TextView
+        android:id="@+id/record_text"
+        style="@style/ShadowBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Non played"
+        android:textAlignment="textEnd"
+        android:textColor="@color/com_facebook_button_background_color_focused"
+        android:textSize="10sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.571" />
 
 </android.support.constraint.ConstraintLayout>

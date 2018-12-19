@@ -19,7 +19,7 @@ public class RadarEffectsThread2 extends Thread {
         while (running) {
             try {
 
-                if (checkTime(game.BPMS, game.posBPM + 1)) {
+                if (checkTime(game.BPMS, game.posBPM + 1)&&false) {
 
                     game.BPM = game.BPMS.get(game.posBPM + 1)[1];
                     game.posBPM++;

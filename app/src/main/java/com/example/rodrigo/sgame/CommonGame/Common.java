@@ -209,17 +209,33 @@ public class Common {
 
 
 
-    public float  compareRecords(Context context,String nameSongs){
+    public static boolean   compareRecords(Context context, String nameSongs, float percent){
         SharedPreferences sharedPref = context.getSharedPreferences("stepmix", Context.MODE_PRIVATE);
-        return sharedPref.getFloat(nameSongs,-1);
+        float oldRecord=sharedPref.getFloat(nameSongs,0f);
+
+        return  oldRecord <=percent;
 
     }
 
 
-    public  void  writeRecord(Context context,String nameSongs,float value){
+    public static void  writeRecord(Context context,String nameSongs,float value){
         SharedPreferences sharedPref = context.getSharedPreferences("stepmix", Context.MODE_PRIVATE);
         sharedPref.edit().putFloat(nameSongs,value).clear().apply();
     }
+
+    public static String   getRecords(Context context, String nameSongs){
+        SharedPreferences sharedPref = context.getSharedPreferences("stepmix", Context.MODE_PRIVATE);
+
+        float result=sharedPref.getFloat(nameSongs,-1);
+        return result!=-1 ?result+"":"N/A";
+
+    }
+
+
+
+
+
+
 
 
 
@@ -227,6 +243,7 @@ public class Common {
     public static  int HEIGHT = 0;
     public static  int AnimateFactor= 100;
     public static  float START_Y= 0.115f;
+    public static  boolean testingRadars=false;
 
 
 

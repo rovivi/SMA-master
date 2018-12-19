@@ -22,6 +22,7 @@ anim fade_in
 anim fade_out
 anim flip
 anim rotate
+anim rotate2
 anim sacudir
 anim sequential
 anim slide_down
@@ -33,6 +34,7 @@ anim translate_up
 anim zoom_in
 anim zoom_letter
 anim zoom_out
+anim zoom_out_expand
 anim zoom_splash
 animator design_appbar_state_list_animator
 animator design_fab_hide_motion_spec
@@ -1139,6 +1141,8 @@ drawable avd_show_password
 drawable backbox
 drawable barhot_double
 drawable base
+drawable bg_disc_selection
+drawable bg_disc_square
 drawable black_up
 drawable black_ur
 drawable blackbox
@@ -1216,6 +1220,12 @@ drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable grade1_8
 drawable grey_bar
+drawable hexa_double
+drawable hexa_performance
+drawable hexa_single
+drawable hexagon
+drawable hexagon1
+drawable hexagon2
 drawable ic_info_black_24dp
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -1231,6 +1241,7 @@ drawable lifeframe
 drawable line_top
 drawable logobeta
 drawable lvl
+drawable mask3
 drawable messenger_bubble_large_blue
 drawable messenger_bubble_large_white
 drawable messenger_bubble_small_blue
@@ -1258,6 +1269,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable objectospiu
+drawable option_bg
 drawable p0
 drawable pad_pressed
 drawable padpress0
@@ -1291,12 +1303,15 @@ drawable s4
 drawable s5
 drawable select1
 drawable settings
+drawable shape_seek_velocity
 drawable siluets
 drawable solid
 drawable soliddouble
 drawable song_list_bg
 drawable splash
+drawable sprite_mask_disc
 drawable spritesheet
+drawable square_redonded_corner
 drawable start
 drawable step7
 drawable stomp1_off
@@ -1309,6 +1324,8 @@ drawable tdouble
 drawable textura
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+drawable top
+drawable topback
 drawable touch_controls
 drawable up
 drawable ur
@@ -1364,6 +1381,7 @@ id bgBlur
 id bgBlurEvaluation
 id bgVideoView2
 id bg_loop
+id bg_lvl
 id bg_pad
 id blocking
 id bottom
@@ -1393,6 +1411,7 @@ id com_facebook_tooltip_bubble_view_bottom_pointer
 id com_facebook_tooltip_bubble_view_text_body
 id com_facebook_tooltip_bubble_view_top_pointer
 id confirmation_code
+id constraintLayout
 id constraintlogo
 id container
 id content
@@ -1414,6 +1433,7 @@ id design_navigation_view
 id dimensions
 id direct
 id disableHome
+id disc_layout
 id display_always
 id edit_query
 id end
@@ -1448,6 +1468,10 @@ id ifRoom
 id image
 id imageView
 id imageView2
+id imageView3
+id imageView4
+id imageView5
+id imageView6
 id imageViewSetting
 id imagelevl
 id imagelevl2
@@ -1464,6 +1488,9 @@ id iv1ll
 id iv1pp
 id iv232321
 id ivSpash
+id iv_hexagon1
+id iv_hexagon2
+id iv_hexagon3
 id labeled
 id large
 id largeLabel
@@ -1482,6 +1509,7 @@ id message
 id messenger_send_button
 id middle
 id mini
+id more_txt
 id mtrl_child_content_container
 id mtrl_internal_children_alpha_tag
 id multiply
@@ -1515,10 +1543,12 @@ id radioButton
 id radioButton2
 id radioButton3
 id recicler1
+id record_text
 id recyclerSongs
 id right
 id right_icon
 id right_side
+id rootId_songList
 id rv_leves
 id save_image_matrix
 id save_non_transition_alpha
@@ -1539,6 +1569,7 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
+id seekBar
 id select_dialog_listview
 id selected
 id shortcut
@@ -1554,7 +1585,6 @@ id snap
 id snapMargins
 id spacer
 id speedControl
-id spinner_test
 id split_action_bar
 id spread
 id spread_inside
@@ -1564,8 +1594,6 @@ id spriteTest3
 id spriteTest4
 id spriteTest5
 id spriteTest6
-id sprite_velocity
-id spriteback
 id src_atop
 id src_in
 id src_over
@@ -1573,10 +1601,12 @@ id standard
 id start
 id startButton
 id startGameButton
+id start_image
 id status_bar_latest_event_content
 id stretch
 id submenuarrow
 id submit_area
+id switch_autoplay
 id tabMode
 id tag_transition_group
 id tag_unhandled_key_event_manager
@@ -1587,6 +1617,8 @@ id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
+id textView
+id textView4
 id text_input_password_toggle
 id textinput_counter
 id textinput_error
@@ -1611,6 +1643,7 @@ id tvMiss
 id tvPerfect1
 id tv_Combo
 id tv_bad2
+id tv_damiss
 id tv_good2
 id tv_great2
 id tv_judge
@@ -1719,6 +1752,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
 layout fragment_fragment__levels
+layout fragment_fragment__start_menu
 layout fragment_settings_dialog_general
 layout lvl_item
 layout messenger_button_send_blue_large
@@ -1754,6 +1788,7 @@ mipmap ic_launcher
 mipmap ic_launcher_round
 raw beat
 raw beat2
+raw bg_no_banner
 raw bgaoff
 raw bgmain2
 raw change_song
@@ -1776,6 +1811,7 @@ raw rank_6
 raw rank_6_b
 raw rank_7
 raw rank_7_b
+raw select_song
 raw tick
 raw title_loop
 string abc_action_bar_home_description
@@ -2114,6 +2150,7 @@ style CardView
 style CardView_Dark
 style CardView_Light
 style DialogAnimation
+style DialogAnimation2
 style FullscreenActionBarStyle
 style FullscreenTheme
 style MessengerButton
@@ -2162,6 +2199,7 @@ style RtlOverlay_Widget_AppCompat_SearchView_MagIcon
 style RtlUnderlay_Widget_AppCompat_ActionButton
 style RtlUnderlay_Widget_AppCompat_ActionButton_Overflow
 style ShadowBlack
+style ShadowDisc
 style ShadowWhiteFRee
 style TextAppearance_AppCompat
 style TextAppearance_AppCompat_Body1
@@ -2445,6 +2483,7 @@ style com_facebook_button_send
 style com_facebook_button_share
 style com_facebook_loginview_default_style
 style com_facebook_loginview_silver_style
+style shadow_free
 style tooltip_bubble_text
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity

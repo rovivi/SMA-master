@@ -1,6 +1,7 @@
 package com.example.rodrigo.sgame.Player;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
+import com.example.rodrigo.sgame.CommonGame.EffectStep;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.CommonGame.RowStep;
 import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
@@ -115,14 +116,15 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     //Score
     byte[] inputs;
     int bad = 0, miss = 0, perfect = 0, great = 0, good = 0, maxCombo = 0;
-    public boolean doEvaluate = true, autoplay = false;
+    public boolean doEvaluate = true;
     public double currentDelay = 0;
     double residuoy = 0;
     double speedMod = 1;
     double lastSpeed;
     public double currentSecond = 0;
     SpriteReader items;
-    double lostBeats = 0, lostBeatbyWarp = 0;
+    double lostBeats = 0;
+    public double lostBeatbyWarp = 0;
     long delayTime = 0;
 
 
@@ -207,14 +209,19 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             }
             BPMS = setMetadata((String) stepData.chartsInfo[nchar].get("BPMS"), stepData.songInfo.get("BPMS"));
             BPM = BPMS.get(0)[1];
-            //ATTACKS= setMetadata(stepData.chartsInfo[nchar].get("ATTACKS"),stepData.songInfo.get("ATTACKS"));
             FAKES = setMetadata((String) stepData.chartsInfo[nchar].get("FAKES"), stepData.songInfo.get("FAKES"));
-            TICKCOUNTS = setMetadata((String) stepData.chartsInfo[nchar].get("TICKCOUNTS"), stepData.songInfo.get("TICKCOUNTS"));
-
-            STOPS = setMetadata((String) stepData.chartsInfo[nchar].get("STOPS"), stepData.songInfo.get("STOPS"));
-            DELAYS = setMetadata((String) stepData.chartsInfo[nchar].get("DELAYS"), stepData.songInfo.get("DELAYS"));
             SPEEDS = setMetadata((String) stepData.chartsInfo[nchar].get("SPEEDS"), stepData.songInfo.get("SPEEDS"));
-            WARPS = setMetadata((String) stepData.chartsInfo[nchar].get("WARPS"), stepData.songInfo.get("WARPS"));
+
+            if(!Common.testingRadars){
+                TICKCOUNTS = setMetadata((String) stepData.chartsInfo[nchar].get("TICKCOUNTS"), stepData.songInfo.get("TICKCOUNTS"));
+
+                STOPS = setMetadata((String) stepData.chartsInfo[nchar].get("STOPS"), stepData.songInfo.get("STOPS"));
+                DELAYS = setMetadata((String) stepData.chartsInfo[nchar].get("DELAYS"), stepData.songInfo.get("DELAYS"));
+                WARPS = setMetadata((String) stepData.chartsInfo[nchar].get("WARPS"), stepData.songInfo.get("WARPS"));
+
+            }
+
+            //ATTACKS= setMetadata(stepData.chartsInfo[nchar].get("ATTACKS"),stepData.songInfo.get("ATTACKS"));
 
             if (stepData.chartsInfo[nchar].get("OFFSET") != null) {
                 String xof = stepData.chartsInfo[nchar].get("OFFSET").toString();
@@ -433,18 +440,22 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 effectsThread = new RadarEffectsThread(this);
                 effectsThread.start();
                 isRunning = true;
+                currentBeat = 0;
 
                 if (offset > 0) {
                     // musicPlayer = new ThreadAudio(this.getContext(), offset, pathMusic);
-                    currentBeat = 0;
+
 
                     handler1.postDelayed(musicRun, (long) (offset * 1000));
                     //mpMusic.start();
                     //musicPlayer.start();
-                    BGA.startVideo();
+
                 } else {
-                    BGA.startVideo();
+
                     currentBeat = (double) offset / (60 / BPM);
+                    //handler1.postDelayed(musicRun, (long) (Common.second2Beat(-offset*1000) * 1000));
+
+
                     //musicPlayer = new ThreadAudio(this.getContext(), 0, pathMusic);
                     //mpMusic.setDataSource(pathMusic);
                     // musicPlayer.start();
@@ -452,6 +463,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                     mpMusic.prepare();
                     mpMusic.start();
                 }
+                BGA.startVideo();
             } else {
                 mainTread.sulrfaceHolder = this.getHolder();
             }
@@ -616,10 +628,10 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                             currentSpeedMod -= 150;
                         }
                     } else if (event.getX() < playerSizeX / 2 && event.getY() > playerSizeY / 2 && event.getY() < playerSizeY) {
-                        autoplay = !autoplay;
+                        //ParamsSong.autoplay = !ParamsSong.autoplay;
                     } else if (event.getX() > playerSizeX / 2 && event.getY() > playerSizeY / 2 && event.getY() < playerSizeY) {
 
-                    //    steps.efecto = !steps.efecto;
+                        //    steps.efecto = !steps.efecto;
                     }
                     touchPad.checkInputs(inputsTouch);
 
@@ -648,16 +660,17 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     public void calculateBeat() {
 
 
-            if (lostBeatbyWarp > 0) {
-                currentBeat += lostBeatbyWarp;
-                lostBeatbyWarp = 0;
-                //calculateEffects();
-            }
+        if (lostBeatbyWarp > 0) {
+            currentBeat += lostBeatbyWarp * 2;
+            lostBeatbyWarp = 0;
+            //calculateEffects();
+        }
 
-            ttranscurridobeat = System.nanoTime() - curentempobeat;
-            currentBeat += ParamsSong.rush * ttranscurridobeat / ((60 / BPM) * 1000 * 1000000);
-            currentDurationFake -= ttranscurridobeat / ((60 / BPM) * 1000 * 1000000);//reduce la duración de los fakes
-            curentempobeat = System.nanoTime();
+
+        ttranscurridobeat = System.nanoTime() - curentempobeat;
+        currentBeat += ParamsSong.rush * ttranscurridobeat / ((60 / BPM) * 1000 * 1000000);
+        currentDurationFake -= ttranscurridobeat / ((60 / BPM) * 1000 * 1000000);//reduce la duración de los fakes
+        curentempobeat = System.nanoTime();
 
 
     }
@@ -688,11 +701,11 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                         evaluate();
                         calculateBeat();
                         //calculateEffects();
-                      /*  if (bufferSteps.get(posBuffer).effect != null) {
+                        if (bufferSteps.get(posBuffer).effect != null &&Common.testingRadars) {
                             for (EffectStep effect : bufferSteps.get(posBuffer).effect) {
-                                // effect.execute(this);
+                                effect.execute(this);
                             }
-                        }*/
+                        }
                     }
                 }
             } else {
@@ -714,14 +727,14 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
         dibujante.setTextSize(25);
         dibujante.setColor(Color.WHITE);
-        c.drawText("FPS: " + fps, 50, 50, dibujante);
-        c.drawText("Log: " + currentTickCount, 50, 100, dibujante);
+        c.drawText("FPS: " + fps, 0, 350, dibujante);
+        c.drawText("Log: " + currentTickCount, 0, 100, dibujante);
         c.drawText("event: " + testFloatNOTUSE, 0, playerSizeY - 200, dibujante);
         //iversosn
-        c.drawText("C Seg: " + String.format("%.3f", currentSecond), 10, playerSizeY - 100, dibujante);
-        c.drawText("C Beat: " + String.format("%.3f", currentBeat), 10, playerSizeY - 50, dibujante);
-        c.drawText("C BPM: " + this.BPM, 10, playerSizeY - 150, dibujante);
-        c.drawText("C Speed: " + this.speedMod, 10, playerSizeY - 0, dibujante);
+        c.drawText("C Seg: " + String.format("%.3f", currentSecond), 00, playerSizeY - 300, dibujante);
+        c.drawText("C Beat: " + String.format("%.3f", currentBeat), 00, playerSizeY - 150, dibujante);
+        c.drawText("C BPM: " + this.BPM, 00, playerSizeY - 250, dibujante);
+        c.drawText("C Speed: " + this.speedMod, 00, playerSizeY - 100, dibujante);
         String st = "";
         for (int j = 0; j < 10; j++) {
             st += inputs[j];
@@ -796,7 +809,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             currentY += aumentoY * scrollSize;
         }
 
-        currentY = (int) (playerSizeY *Common.START_Y);
+        currentY = (int) (playerSizeY * Common.START_Y);
 
         for (int i = bufferPos; currentY > -50 && (i) >= 0 && (speedMod > 0.04); i--) {
             float w = bufferSteps.get(i).scroll;
@@ -829,7 +842,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     public void evaluate() {
         if (doEvaluate) {
             double[] currentJudge = Common.juicios[ParamsSong.judgment];
-            if (autoplay) {
+            if (ParamsSong.autoplay) {
                 ObjectCombo.posjudge = 0;
                 if (containTapNote(bufferSteps.get(posBuffer).rowStep)) {
                     playTick();

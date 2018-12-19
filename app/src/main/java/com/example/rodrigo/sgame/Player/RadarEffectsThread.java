@@ -19,17 +19,18 @@ public class RadarEffectsThread extends Thread {
         while (running) {
             try {
 
-                if (checkTime(game.BPMS, game.posBPM + 1)) {
+                if (checkTime(game.BPMS, game.posBPM + 1)&&!Common.testingRadars) {
 
                     game.BPM = game.BPMS.get(game.posBPM + 1)[1];
                     game.posBPM++;
 
                     if (game.BPMS.get(game.posBPM)[1] >= 1000) {
-                        if (game.currentBeat >= game.BPMS.get(1 + game.posBPM)[0]) {
-                            game.posBPM++;
-                        } else {
+                        game.posBPM++;
+                        if (game.currentBeat < game.BPMS.get(1 + game.posBPM)[0]) { //BPM warp
+
+
                             game.lostBeatbyWarp = game.currentBeat - game.BPMS.get(game.posBPM + 1)[0];
-                            game.posBPM++;
+
                             game.BPM = game.BPMS.get(game.posBPM)[1];
                             game.currentDurationFake -= (game.BPMS.get(game.posBPM)[0] - game.currentBeat);
                             game.currentBeat = game.BPMS.get(game.posBPM)[0];
@@ -46,7 +47,7 @@ public class RadarEffectsThread extends Thread {
             }*/
                 }
 
-                if (checkTime(game.DELAYS, game.posDelay)) {
+                if (checkTime(game.DELAYS, game.posDelay)&&!Common.testingRadars) {
                     double dif = game.currentBeat - game.DELAYS.get(game.posDelay)[0];
                     game.currentBeat = game.DELAYS.get(game.posDelay)[0] + 0.00000;
 
@@ -55,7 +56,7 @@ public class RadarEffectsThread extends Thread {
                     game.posDelay++;
                 }
                 //stops
-                if (checkTime(game.STOPS, game.posstop)) {
+                if (checkTime(game.STOPS, game.posstop)&&!Common.testingRadars) {
                     //                                                                                                                                                                                 delayTime= (long) (STOPS.get(posstop)[1]*1000000000.0);
                     double dif = game.currentBeat - game.STOPS.get(game.posstop)[0];
                     game.currentBeat = game.STOPS.get(game.posstop)[0];
@@ -132,7 +133,7 @@ public class RadarEffectsThread extends Thread {
 
                 //WARP
 
-                if (game.currentDelay <= 0 && checkTime(game.WARPS, game.posWarp)) {
+                if (game.currentDelay <= 0 && checkTime(game.WARPS, game.posWarp)&&!Common.testingRadars) {
                     if (game.currentBeat >= game.WARPS.get(game.posWarp)[1] + game.WARPS.get(game.posWarp)[0]) {
                         game.posWarp++;
                     } else {

@@ -16,24 +16,62 @@ public class EffectStep {
         if (values != null) {
             switch (this.type) {
                 case "BPMS":
+
+
+                    game.BPM = values[1];
+                 //   game.posBPM++;
+
+                  /*  if (game.BPMS.get(game.posBPM)[1] >= 1000) {
+                        game.posBPM++;
+                        if (game.currentBeat < game.BPMS.get(1 + game.posBPM)[0]) { //BPM warp
+
+
+                            game.lostBeatbyWarp = game.currentBeat - game.BPMS.get(game.posBPM + 1)[0];
+
+                            game.BPM = game.BPMS.get(game.posBPM)[1];
+                            game.currentDurationFake -= (game.BPMS.get(game.posBPM)[0] - game.currentBeat);
+                            game.currentBeat = game.BPMS.get(game.posBPM)[0];
+
+                            while ((double) game.bufferSteps.get(game.posBuffer + 1).beat <= game.currentBeat) {
+                                game.posBuffer++;
+                            }
+
+                        }
+
+                    }*/
+
+
                     break;
                 case "STOPS":
-                    double dif = game.currentBeat - values[0];
+                case "DELAYS":
+                    double dif = game.currentBeat -values[0];
                     game.currentBeat = values[0];
                     game.curentempobeat = System.nanoTime();
-                    //game.currentDelay = game.currentBeat +this.values[1] + game.currentSecond - Common.beat2Second(dif * 1.018, game.BPM);
+
+                    game.currentDelay = values[1] + game.currentSecond - Common.beat2Second(dif * 1.018, game.BPM);
                     game.currentDelay = this.values[1] + game.currentSecond ;//- Common.beat2Second(dif * 1.018, game.BPM);
 
                     break;
-                case "DELAYS":
-                    double dif2 = game.currentBeat - values[0];
+
+                  /*  double dif2 = game.currentBeat - values[0];
                     game.currentBeat = values[0];
                     game.curentempobeat = System.nanoTime();
                     game.currentDelay = this.values[1] + game.currentSecond;//   - Common.beat2Second(dif2 * 1.018, game.BPM);
 
                    // game.currentDelay = game.currentBeat+ this.values[1]+ game.currentSecond - Common.beat2Second(dif2 * 1.00001, game.BPM);//0.946f
-                    break;
+                    break;*/
                 case "WARPS":
+
+                    if (game.currentBeat < values[1] + values[0]) {
+
+                        game.lostBeatbyWarp = game.currentBeat - values[0];
+                        game.currentBeat = values[1] + values[0];//perdidad
+
+                      /*  while (game.posBuffer + 1 < game.bufferSteps.size() && (double) game.bufferSteps.get(game.posBuffer + 1).beat <= game.currentBeat) {
+                            game.posBuffer++;
+                        }*/
+                    }
+
                     break;
                 case "TIMESIGNATURES":
                     break;

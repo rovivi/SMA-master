@@ -2,14 +2,13 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootId_songList"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="#000000"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".SongList"
-    android:background="#000000"
     tools:showIn="@layout/activity_songlist">
-
-
 
 
     <android.support.constraint.Guideline
@@ -49,37 +48,56 @@
     <!-- Canvas Para sprites-->
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerSongs"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginLeft="25sp"
-        android:layout_marginRight="25sp"
-
-        android:background="#10101010"
-
-        android:clipToPadding="false"
-        android:scrollbarSize="5dp"
-        android:scrollbars="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/startButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include3" /><!-- list-->
-    <!-- lvl-->
+    <!--list-->
 
 
     <include
         android:id="@+id/include3"
         layout="@layout/content_menu_songlist"
-        android:layout_width="413dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="-10dp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerSongs"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideStartList" />
+        app:layout_constraintTop_toBottomOf="@+id/preview" />
 
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/disc_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/startButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include3">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="false"
+            android:cropToPadding="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bg_disc_square" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerSongs"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <ImageView
         android:id="@+id/startButton"
@@ -122,8 +140,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/imagelevl2"
         app:layout_constraintStart_toStartOf="@+id/imagelevl2"
         app:layout_constraintTop_toTopOf="@+id/imagelevl2" />
-
-
 
 
     <TextView
@@ -207,32 +223,33 @@
         app:layout_constraintTop_toBottomOf="@+id/current_song_name"
         app:layout_constraintVertical_bias="0.0" />
 
-    <com.example.rodrigo.sgame.CommonGame.CustomSprite.Sprite
-        android:id="@+id/sprite_velocity"
-        android:layout_width="40sp"
-        android:layout_height="30sp"
-        android:layout_marginStart="68dp"
-        android:gravity="center"
-        android:text="1x"
-        android:textColor="#ffffff"
-        android:textSize="18sp"
-
-        app:layout_constraintBottom_toBottomOf="@+id/imagelevl2"
-        app:layout_constraintStart_toStartOf="@+id/imagelevl2"
-        app:layout_constraintTop_toTopOf="@+id/imagelevl2"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <com.example.rodrigo.sgame.CommonGame.CustomSprite.Sprite
-        android:id="@+id/spriteback"
-        android:layout_width="40sp"
-        android:layout_height="30sp"
-        android:gravity="center"
-        android:text="1x"
-
-        android:textColor="#ffffff"
-        android:textSize="18sp"
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="196dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/startButton"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/preview" />
+        app:layout_constraintTop_toTopOf="@+id/startButton"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/topback" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="0dp"
+        android:layout_height="25sp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/include3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/top" />
 
 
 </android.support.constraint.ConstraintLayout>

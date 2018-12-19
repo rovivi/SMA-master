@@ -45,7 +45,7 @@ public class ArrayAdapterLevel extends ArrayAdapter<Level> {
             convertedView=LayoutInflater.from(getContext()).inflate(R.layout.lvl_item,parent,false);
         }
 
-        ImageView imageView = convertedView.findViewById(R.id.imageView);
+        ImageView imageView = convertedView.findViewById(R.id.bg_lvl);
         TextView lvl = convertedView.findViewById(R.id.tv_level);
         Level current = getItem(position);
 

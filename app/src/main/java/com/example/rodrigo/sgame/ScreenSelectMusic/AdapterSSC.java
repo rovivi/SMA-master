@@ -23,13 +23,14 @@ public class AdapterSSC extends RecyclerView.Adapter<AdapterSSC.ViewHolderSSC> {
     private int index;
     private SongsGroup songsGroup;
     SparseBooleanArray selectedItems = new SparseBooleanArray();
-    private int lastPosition = -1;
+    public int lastPosition = -1;
 
 
     public AdapterSSC(SongsGroup songsGroup, int index) {
         this.index = index;
         this.songsGroup = songsGroup;
     }
+
 
 
     @Override
@@ -77,6 +78,8 @@ public class AdapterSSC extends RecyclerView.Adapter<AdapterSSC.ViewHolderSSC> {
 
         public void setInfo(SongsGroup sg, int index) {
             tv1.setText(sg.listOfSongs.get(index).songInfo.get("TITLE"));
+            tv1.setSelected(true);
+            tv1.setSingleLine(true);
             Artist.setText(sg.listOfSongs.get(index).songInfo.get("ARTIST"));
             File f = new File(sg.listOfSongs.get(index).path.getPath() + "/" + sg.listOfSongs.get(index).songInfo.get("BANNER"));
             //Bitmap bitmap = BitmapFactory.decodeFile(sg.listOfPaths.get(index).getPath() + "/" + sg.listOfSongs.get(index).songInfo.get("BANNER").toString());

@@ -45,6 +45,7 @@ public class PlayerBga extends Activity {
     AudioManager audio;
     Boolean gamePlayError = false;
     Handler handler = new Handler();
+    int nchar;
     int indexMsj = 0;
     byte[] pad = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private String[] msjs = {"Ready", "GO!"};
@@ -129,7 +130,7 @@ public class PlayerBga extends Activity {
         gl = findViewById(R.id.guideline);
         String rawscc = getIntent().getExtras().getString("ssc");
         String path = getIntent().getExtras().getString("path");
-        int nchar = getIntent().getExtras().getInt("nchar");
+         nchar = getIntent().getExtras().getInt("nchar");
         gpo = findViewById(R.id.gamePlay);
         bgPad = findViewById(R.id.bg_pad);
         hilo = gpo.mainTread;
@@ -246,7 +247,7 @@ public class PlayerBga extends Activity {
                 gpo.evaluate();
                 break;
             case KeyEvent.KEYCODE_F8:
-                gpo.autoplay = !gpo.autoplay;
+                ParamsSong.autoplay = !ParamsSong.autoplay;
                 break;
             case KeyEvent.KEYCODE_VOLUME_UP:
                 audio.adjustStreamVolume(AudioManager.STREAM_MUSIC,
@@ -345,7 +346,8 @@ public class PlayerBga extends Activity {
     public void StartEvaluation(int[] params) {
         i.putExtra("evaluation", params);
         i.putExtra("pathbg", gpo.pathImage);
-        i.putExtra("name", gpo.stepData.songInfo.get("TITLE").toLowerCase());
+        i.putExtra("name", gpo.stepData.songInfo.get("TITLE"));
+        i.putExtra("nchar", nchar);
 
         startActivity(i);
     }
