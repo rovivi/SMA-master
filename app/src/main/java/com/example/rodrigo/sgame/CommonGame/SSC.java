@@ -59,6 +59,7 @@ public class SSC implements Serializable {
      * @return String whit out comments
      */
     private static String StripComments(String data) {//Ya quedo uwu
+
         return data.replaceAll("(\\s+//-([^;]+)\\s)|(//[\\s+]measure\\s[0-9]+\\s)", "");
     }
 
@@ -263,7 +264,7 @@ public class SSC implements Serializable {
             for (int j = 0; j < 192; j++) {
                 RowStep row = new RowStep();
                 if (aux.get(i).size() == 192) {
-                    row.rowStep = stringStep2ByteArary(checkLong(aux.get(i).get(j)));
+                    row.rowStep = stringStep2ByteArary(aux.get(i).get(j));
                 } else {
                     int div = 192 / aux.get(i).size();
                     if (j % div == 0) {
@@ -271,9 +272,9 @@ public class SSC implements Serializable {
                             String x = "sdsdsd";
                         }
 
-                        row.rowStep = stringStep2ByteArary(checkLong(aux.get(i).get(j / div)));
+                        row.rowStep = stringStep2ByteArary(aux.get(i).get(j / div));
                     } else {
-                        row.rowStep = stringStep2ByteArary(checkLong("0000000000"));
+                        row.rowStep = stringStep2ByteArary("0000000000");
                     }
                 }
 
@@ -350,6 +351,9 @@ public class SSC implements Serializable {
         }
         return (auxArray.size() == 0) ? null : effi;
     }
+
+
+
 
     private String checkLong(String charts) {
         if (charts.contains("{")) {
@@ -511,7 +515,7 @@ public class SSC implements Serializable {
         return f;
     }
 
-    public static byte[] stringStep2ByteArary(String stepData) {
+    public byte[] stringStep2ByteArary(String row) {
       /*  0 null char
             1 normal step
             2 start long
@@ -536,9 +540,123 @@ public class SSC implements Serializable {
             127 presed
 
         */
-        byte[] data = new byte[stepData.length()];
+
+        Matcher matcher = Pattern.compile("\\{([^\\}]+)\\}").matcher(row);
+        StringBuffer bufStr = new StringBuffer();
+
+        while (matcher.find()) {
+            String s1 = matcher.group();
+            int charType;
+            try {
+                charType = Integer.parseInt(s1.charAt(1) + "");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+               charType=letterToByte(s1.charAt(1));
+            }
+            int suma = 0;
+            switch (s1.charAt(3)) {
+                case 'v':
+                case 'V':
+                    suma = 210;
+                    break;
+                case 'H':
+                case 'h':
+                    suma = 220;
+                    break;
+                case 'S':
+                case 's':
+                    suma = 210;
+                    break;
+            }
+            suma += charType;
+            if (s1.charAt(5)=='1'){
+                suma=suma+1000;
+
+            }
+            matcher.appendReplacement(bufStr, (char) suma + "");
+
+        }
+        matcher.appendTail(bufStr);
+        row = bufStr.toString();
+        byte[] data = new byte[row.length()];
         for (int x = 0; x < data.length; x++) {
-            char aux = stepData.charAt(x);
+            char aux = row.charAt(x);
+            if (aux < 200) {
+                switch (aux) {
+                    case '0':
+                        if (wasLong[x] == 1) {
+                            data[x] = 4;
+                        }
+                        break;
+                    case '2':
+                        data[x] = letterToByte(aux);
+                        wasLong[x] = 1;
+                        break;
+                    case '3':
+                        data[x] = letterToByte(aux);
+                        wasLong[x] = 0;
+                        break;
+                    default:
+                        data[x] = letterToByte(aux);
+
+
+                }
+
+            } else {
+
+
+
+                data[x] = (byte) (aux - 200);
+                if (aux>1000){
+                    data[x] = (byte) -(aux - 1200);
+                }
+
+            }
+
+            if (data[x] > 200) {
+                if ((data[x] - 3) % 10 == 0 || (data[x] - 1) % 10 == 0) {
+                    wasLong[x] = 0;
+                } else if ((data[x] - 2) % 10 == 0) {
+                    wasLong[x] = 1;
+                }
+            }
+
+
+        }
+        return data;
+
+
+    }
+
+    public static byte[] stringStep2ByteArary2Old(String row) {
+      /*  0 null char
+            1 normal step
+            2 start long
+            3 end long
+            4 body long
+            5 fake
+            6 hidden
+            7 mine
+            8 poisson
+            +10 vanish
+            +20hidden
+            +30 sundden
+            +40 fit
+            51 --PERFORMANCE TAP
+            52 --PERFORMANCE START LONG
+            53 --PERFORMANCE END LONG
+            54 --PERFORMANCE BODY
+            THE SAME P2+10 +P3+20
+
+
+
+            127 presed
+
+        */
+        byte[] data = new byte[row.length()];
+        for (int x = 0; x < data.length; x++) {
+            char aux = row.charAt(x);
             switch (aux) {
                 case '1':
                     data[x] = 1;
@@ -623,8 +741,81 @@ public class SSC implements Serializable {
         } else {
             return null;
         }
+    }
 
 
+
+
+    private byte letterToByte (char letter) {
+        byte x=0;
+        switch (letter) {
+            case '1':
+                x = 1;
+                break;
+            case '2':
+                x = 2;
+                break;
+            case '3':
+                x = 3;
+                break;
+            case 'L':
+                x = 4;
+                break;
+            case 'M':
+                x = 7;
+                break;
+            case 'F':
+            case 'f':
+                x = 5;
+                break;
+            case 'V':
+                x = 11;
+                break;
+            case 'h':
+                x = 21;
+                break;
+            case 'O':
+                x = 54;
+                break;
+            case 'N':
+                x = 64;
+                break;
+            case 'G':
+                x = 74;
+                break;
+            case 'l':
+                x = 24;
+                break;
+            case 'o':
+                x = 34;
+                break;
+            case 'x':
+                x = 52;
+                break;
+            case 'X':
+                x = 51;
+                break;
+            case 'y':
+                x = 62;
+                break;
+            case 'Y':
+                x = 61;
+                break;
+            case 'z':
+                x = 72;
+                break;
+            case 'Z':
+                x = 71;
+                break;
+            case 'P':
+                x = 127;
+                break;
+            default:
+                x = 0;
+                break;
+
+        }
+    return x;
     }
 
 

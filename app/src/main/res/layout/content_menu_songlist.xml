@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/topback"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".SongList"
 
@@ -15,8 +14,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="210sp"
         android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/line_top"
+        android:background="@drawable/indicator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,13 +22,15 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_leves"
-            android:layout_width="165sp"
-            android:layout_height="50sp"
-            android:layout_marginTop="8dp"
+            android:layout_width="170dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0">
@@ -39,15 +39,16 @@
 
         <ImageView
             android:id="@+id/imagelevl"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
-            android:layout_marginTop="8dp"
+            android:layout_width="45sp"
+            android:layout_height="45sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.48000002"
@@ -73,18 +74,30 @@
             style="@style/ShadowBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="9dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="8dp"
             android:text="Current Level"
             android:textColor="@color/com_facebook_button_border_color_focused"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.78"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.06999999" />
 
     </android.support.constraint.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/indicator_flip" />
 
     <TextView
         android:id="@+id/more_txt"
@@ -112,6 +125,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="My record"
@@ -127,7 +141,7 @@
         android:id="@+id/imageView4"
         android:layout_width="0dp"
         android:layout_height="16dp"
-        android:layout_marginEnd="3dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="6dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/more_txt"
@@ -148,6 +162,7 @@
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.18"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="@+id/imageView4"
         app:layout_constraintVertical_bias="0.571" />

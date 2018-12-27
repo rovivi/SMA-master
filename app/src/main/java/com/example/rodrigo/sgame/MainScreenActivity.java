@@ -32,8 +32,10 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -62,7 +64,7 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
     TextView taptostart;
     MediaPlayer mp = new MediaPlayer();
 
-    Sprite testSprite, testSprite2, testSprite3, testSprite4, testSprite5, testSprite6;
+    //Sprite testSprite, testSprite2, testSprite3, testSprite4, testSprite5, testSprite6;
     ThreadSprite threadSprite;
     private AdView mAdView;
 
@@ -95,19 +97,9 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
         startButton = findViewById(R.id.startGameButton);
         taptostart = findViewById(R.id.taptostart);
         settingsButton = findViewById(R.id.imageViewSetting);
-        testSprite = findViewById(R.id.spriteTest);
-        testSprite2 = findViewById(R.id.spriteTest2);
-
-        testSprite3 = findViewById(R.id.spriteTest3);
-        testSprite4 = findViewById(R.id.spriteTest4);
-        testSprite5 = findViewById(R.id.spriteTest5);
-        testSprite6 = findViewById(R.id.spriteTest6);
-
 
         mAdView = findViewById(R.id.adbaner1);
-        AdRequest adRequest = new AdRequest.Builder().build();
 
-        mAdView.loadAd(adRequest);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
         taptostart.setTypeface(custom_font);
@@ -115,9 +107,6 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
         bgLoop.setOnPreparedListener(mp -> {
             mp.setLooping(true);
             mp.setVolume(0, 0);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                //mp.setPlaybackParams(mp.getPlaybackParams().setSpeed(0.7f));// Esto será para el rush
-            }
         });
 
         bgLoop.setOnErrorListener((mp, what, extra) -> {
@@ -127,8 +116,9 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
 
 
         View.OnClickListener listenerStart = v -> {
-            startGame();
             releaseMediaPlayer();
+            startGame();
+
         };
 
         bgLoop.setOnClickListener(listenerStart);
@@ -194,9 +184,37 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
         });
 
         mp = MediaPlayer.create(this, R.raw.title_loop);
-        mp.setLooping(true);
-        mp.start();
+        mAdView.setAdListener(new AdListener() {
 
+            @Override
+            public void onAdLoaded() {
+                Toast.makeText(getBaseContext(), "se ha cargado", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                Toast.makeText(getBaseContext(), "no ha cargado error :" + errorCode, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when when the user is about to return
+                // to the app after tapping on an ad.
+            }
+
+
+        });
     }
 
     @Override
@@ -222,34 +240,18 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
 
         Animation controller = AnimationUtils.loadAnimation(this, R.anim.zoom_splash);
         startButton.startAnimation(controller);
-
         taptostart.setAnimation(controller);
-
-
-        //mp.setDataSource();
-
-
-        /////////////////////////////test
-        Bitmap sprite = BitmapFactory.decodeResource(getResources(), R.drawable.centercanon3x2);
-        SpriteReader spriteReader = new SpriteReader(sprite, 3, 2, 0.2f);
-
-
-        testSprite.create(spriteReader);
-        testSprite2.create(new SpriteReader(sprite, 3, 2, 0.3f));
-        testSprite4.create(new SpriteReader(sprite, 3, 2, 0.5f));
-        testSprite3.create(new SpriteReader(sprite, 3, 2, 0.7f));
-        testSprite5.create(new SpriteReader(sprite, 3, 2, 1.3f));
-        testSprite6.create(new SpriteReader(sprite, 3, 2, 0.2f));
-        threadSprite = new ThreadSprite(testSprite);
-
-
-        try {
-           /* threadSprite.running=true;
-            threadSprite.start();*/
-        } catch (Exception e) {
-
+        if (mp != null) {
+            mp.setLooping(true);
+            mp.start();
         }
-        testSprite.setAnimation(controller);
+
+        MobileAds.initialize(this, "ca-app-pub-9689972331812584~5469764045");
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        mAdView.loadAd(adRequest);
+
     }
 
     private void updateUIAccount(GoogleSignInAccount account) {
@@ -264,8 +266,11 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
 
     public void showEditFragment() {
 
-        mp.pause();
-        Intent i = new Intent(this,SettingsActivity.class);
+        if (mp != null) {
+            mp.pause();
+
+        }
+        Intent i = new Intent(this, SettingsActivity.class);
         startActivity(i);
         /*
         SettingsDialogGeneric newFragment = new SettingsDialogGeneric();
@@ -295,6 +300,12 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        releaseMediaPlayer();
     }
 
 
@@ -364,6 +375,12 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
                 });
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+
+    }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {

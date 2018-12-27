@@ -43,7 +43,7 @@ public class GamePad {
         float starty1=0.76f;
         float starty2=0.51f;
         float starty3=0.62f;
-        if (ParamsSong.padOption==0){
+        if (!Common.HIDENAVBAR){
              starty1=0.836f;//76
              starty2=0.586f;
              starty3=0.696f;

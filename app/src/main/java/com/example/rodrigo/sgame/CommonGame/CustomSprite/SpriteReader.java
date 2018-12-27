@@ -11,6 +11,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Shader;
 
+import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 import com.example.rodrigo.sgame.Player.Attack;
 
@@ -46,7 +47,7 @@ public class SpriteReader {
     }
 
 
-    /**
+    /***
      * Create sprite since a long bitmap resource and create square whit the parameter size X and size Y
      * @param sprite bitmap of sprite image
      * @param sizeX number of sprite squares horizontally
@@ -56,6 +57,10 @@ public class SpriteReader {
     public SpriteReader(Bitmap sprite, int sizeX, int sizeY, float timeFrame) {
         paint = new Paint();
         painShader = new Paint();
+
+
+        painShader.setAntiAlias(true);
+        painShader.setDither(true);
         paint.setAntiAlias(true);
         paint.setDither(true);
         frames = new Bitmap[sizeX * sizeY];
@@ -75,15 +80,12 @@ public class SpriteReader {
         this.frameIndex = 0;
         frameTime = timeFrame / frames.length;
 
-        Shader shaderA = new LinearGradient(0, 0, frames[0].getWidth(), frames[0].getHeight(), 0xffffffff, 0x00ffffff, Shader.TileMode.CLAMP);
-        Shader shaderB = new BitmapShader(frames[0], Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-
-        painShader.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
-        painShader.setShader(new LinearGradient(0, 0, 50, 0, 0x00000000, 0xFF000000, Shader.TileMode.CLAMP));
 
 
-        painShader.setShader(new ComposeShader(shaderA, shaderB, PorterDuff.Mode.SRC_IN));
 
+
+       // paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+      //  paint.setShader(new LinearGradient(0, 10, 0, 20,  0xFF000000, 0x00000000, Shader.TileMode.CLAMP));
 
     }
 
@@ -131,12 +133,13 @@ public class SpriteReader {
 
 
     public void drawWhitShader(Canvas canvas, Rect destino, int percent) {
+
         Bitmap backing = Bitmap.createBitmap(frames[frameIndex].getWidth(), frames[frameIndex].getHeight(), Bitmap.Config.ARGB_8888);
         Canvas offscreen = new Canvas(backing);
         offscreen.drawBitmap(frames[frameIndex], 0, 0, null);
         Paint paint2 = new Paint();
         paint2.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
-        paint2.setShader(new LinearGradient(0, 0, 0, frames[0].getHeight(), 0xFF000000, 0x00000000, Shader.TileMode.CLAMP));
+        paint2.setShader(new LinearGradient(0, 0, 0, frames[0].getHeight(), 0x15000000, 0x00000000, Shader.TileMode.CLAMP));
         offscreen.drawRect(0, 0, frames[0].getWidth(), frames[0].getHeight(), paint2);
         canvas.drawBitmap(backing, null, destino, paint2);
 

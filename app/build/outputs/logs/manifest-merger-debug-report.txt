@@ -107,9 +107,9 @@ INJECTED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifes
 	xmlns:android
 		ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:2:11-69
 meta-data#firebase_crashlytics_collection_enabled
-ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:5:5-7:32
+ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:5:5-7:33
 	android:value
-		ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:7:9-29
+		ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:7:9-30
 	android:name
 		ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:6:9-63
 uses-permission#android.permission.READ_EXTERNAL_STORAGE

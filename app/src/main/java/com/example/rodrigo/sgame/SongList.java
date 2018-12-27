@@ -85,7 +85,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     final List<String> songs = new ArrayList<>();
     final List<String> lvl = new ArrayList<>();
     final List<SongsGroup> groups = new ArrayList<>();
-    int currentSongIndex = 0;
+    int currentSongIndex = 0, currentSSCIndex=0;
     //ThemeElements themeElements;
     // ArrayAdapter<String> adp2;
     Intent i;
@@ -99,8 +99,10 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     BitmapDrawable errorAuxImage = null;
     SongsGroup songsGroup = new SongsGroup();
     RecyclerView recyclerView;
-    ImageView startImage;
+    ImageView startImage,back_image;
     RecyclerView recyclerViewLevels;
+
+
     private AdapterLevel adapterLevel;
     //Sprites
     View root;
@@ -179,13 +181,21 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         authorCurrent = findViewById(R.id.current_text_author);
         txt_open = findViewById(R.id.more_txt);
         tv_record = findViewById(R.id.record_text);
-
+        back_image = findViewById(R.id.back_image);
         titleCurrentSong.setSelected(true);
         titleCurrentSong.setSingleLine(true);
 
         preview.setOnClickListener(v -> showStartSongFragment());
         //lista
 
+        back_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SongList.this,MainScreenActivity.class));
+
+                //finish();
+            }
+        });
         if (ParamsSong.listCuadricula) {
             recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
@@ -365,7 +375,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
         changeMusic.play(spCode, 1, 1, 1, 0, 1.0f);
         releaseMediaPlayer();
-
+        currentSSCIndex= position;
         paths = songsGroup.listOfSongs.get(position).path.getPath();
         try {
             // themeElements.flash.play();
@@ -490,13 +500,12 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onResume() {
         super.onResume();
-
+        Common.setParamsGlobal(this);
         try {
-            changeSong(currentSongIndex);
+            changeSong(currentSSCIndex);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         //  this.bg.start();
         //  threadSprite.running = true;
         if (fadeOut != null && fadeOut.isRunning()) {

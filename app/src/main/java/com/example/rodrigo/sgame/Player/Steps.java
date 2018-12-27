@@ -20,13 +20,14 @@ import java.util.Stack;
 public class Steps {
     static public SpriteReader mine, receptor;
     static private SpriteReader[] arrows, longs, tails;
-    static public SpriteReader[] explotions, explotionTails,tapsEffect;
+    static public SpriteReader[] explotions, explotionTails, tapsEffect;
     static private int Longinfo[] = {-9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999};
     static public boolean efecto = false;
     Point screenSize;
 
     /**
      * Created the step
+     *
      * @param context
      * @param screenSize
      */
@@ -37,7 +38,7 @@ public class Steps {
         this.screenSize = screenSize;
 
         BitmapFactory.Options myOpt = new BitmapFactory.Options();
-        myOpt.inSampleSize = 1;
+        myOpt.inSampleSize = 0;
 
         BitmapFactory.Options myOpt2 = new BitmapFactory.Options();
         myOpt2.inSampleSize = 4;
@@ -52,9 +53,9 @@ public class Steps {
                 tapsEffect = new SpriteReader[10];
 
 
-                for (int j=0;j<5;j++){
-                    tapsEffect[j]= new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(),R.drawable.pad_pressed),5,2,j,j+5,j+5,j),0.2f);
-                    tapsEffect[j+5]= new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(),R.drawable.pad_pressed),5,2,j,j+5,j+5,j),0.2f);
+                for (int j = 0; j < 5; j++) {
+                    tapsEffect[j] = new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(), R.drawable.pad_pressed), 5, 2, j, j + 5, j + 5, j), 0.2f);
+                    tapsEffect[j + 5] = new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(), R.drawable.pad_pressed), 5, 2, j, j + 5, j + 5, j), 0.2f);
                 }
 
                 arrows[0] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_left_tap, myOpt), 6, 1, 0.2f);
@@ -79,11 +80,17 @@ public class Steps {
                 Bitmap r3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s3, myOpt2);
                 Bitmap r4 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s4, myOpt2);
                 Bitmap r5 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s5, myOpt2);
+
+
+                //Bitmap exploAux=BitmapFactory.decodeResource(context.getResources(),R.drawable.explosion_6x1);
+                //Bitmap[] res = TransformBitmap.customSpriteArray(exploAux,6,1,0,1,2,3,4,5);
+
+
                 explotions = new SpriteReader[10];
-                for (int w =0;w<5;w++){
-                    arrows[w+5] = arrows[w];
-                    tails[5+w] = tails[w];
-                    longs[5+w] = longs[w];
+                for (int w = 0; w < 5; w++) {
+                    arrows[w + 5] = arrows[w];
+                    tails[5 + w] = tails[w];
+                    longs[5 + w] = longs[w];
                     // tails[5+w] = tails[w];
                 }
 
@@ -96,15 +103,13 @@ public class Steps {
                             TransformBitmap.returnMaskCut(arrows[cd].frames[4], TransformBitmap.returnMask(arrows[cd].frames[4], r4)),
                             TransformBitmap.returnMaskCut(arrows[cd].frames[5], TransformBitmap.returnMask(arrows[cd].frames[5], r5)),
                     }, 0.15f);
-                    explotionTails[cd]=explotions[cd];
+                    explotionTails[cd] = explotions[cd];
                 }
-
-
 
 
             }//resplandor
         } catch (OutOfMemoryError E) {
-           // System.gc();
+            // System.gc();
             for (int cd = 0; cd < 10; cd++) {
                 explotions[cd] = arrows[cd];
 
@@ -133,7 +138,8 @@ public class Steps {
         }
 
         int posintX2 = posintx;
-        int aux2 = (int) (playerSizeY *Common.START_Y);
+        int aux2 = (int) (playerSizeY * Common.START_Y);
+        int halfDistance = (int) (((playerSizeY-Common.START_Y*Common.HEIGHT)/2)+Common.START_Y*Common.HEIGHT);
         int currenty;
 
         while (!stackSteps.isEmpty()) {
@@ -178,61 +184,55 @@ public class Steps {
             255 presed
 
         */
+                Steps[j]= (byte) Math.abs(Steps[j]);
+                byte typechar = 0;
+                byte typeDisplay = 0;
 
-                switch (Steps[j]) {
-                    case (11):
-                        if (currenty < screenSize.y *0.20f) {
-                           // arrows[j].drawWhitShader(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa), 100);
-//arrows[j].drawWhitShader(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa), 100);
-                        }
-                        else if (currenty > screenSize.y *0.27f){
+                if (Steps[j] == 100) {
+                    typechar = 100;
+
+                } else if (Steps[j] != 0) {
+                    typechar = (byte) (Steps[j] % 10);
+                    typeDisplay = (byte) (Steps[j] / 10);
+
+                }
+
+                boolean sundded = (typeDisplay ==3);
+                boolean vanish = (typeDisplay ==1);
+                boolean hidden = typeDisplay == 2;
+
+
+                if ( typeDisplay == 0 || (currenty < halfDistance && vanish) || (currenty > halfDistance && sundded)) {
+
+                    switch ( typechar) {
+                        case (1):
+                        case (5):
                             arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
-                        } else{
-                            arrows[j].drawWhitShader(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa), 100);
-                        }
+                            break;
+                        case (2):
 
-                        break;
-                    case (1):
-                    case (5):
-                    case (51):
-                    case (61):
-                    case (71):
-                        arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
-                        break;
-                    case (2):
-                    case (52):
-                    case (62):
-                    case (72):
-                        //   longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, nexty));
-                        longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[j]));
-                        arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
-                        Longinfo[j] = -9999;
-                        break;
-                    case (3):
-                    case (53):
-                    case (63):
-                    case (73):
+                            //   longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, nexty));
+                            longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[j]));
+                            arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                            Longinfo[j] = -9999;
+                            break;
+                        case (3):
 
-                        verifyLong(j, currenty);
-                        tails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
-                        break;
-                    case (4):
-                    case (54):
-                    case (64):
-                    case (74):
-
-                        verifyLong(j, currenty);
-
-                        break;
-                    case (7):
-
-                        mine.draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
-                        break;
-                    case (100):
-                        longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[j]));
-                        Longinfo[j] = -9999;
-                        break;
-                    default:
+                            verifyLong(j, currenty);
+                            tails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                            break;
+                        case (4):
+                            verifyLong(j, currenty);
+                            break;
+                        case (7):
+                            mine.draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                            break;
+                        case (100):
+                            longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[j]));
+                            Longinfo[j] = -9999;
+                            break;
+                        default:
+                    }
                 }
             }
         }
@@ -243,7 +243,7 @@ public class Steps {
             }
         }
         currenty = (int) (playerSizeY * Common.START_Y);
-        for (int j = 0; j < 10 && speed != 0; j++) {
+        for (int j = 0; j < 10 && speed != 0; j++) {//se Dibujan receptores y effectos de las notas si los hay
             explotions[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
             explotionTails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
             tapsEffect[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
@@ -255,7 +255,7 @@ public class Steps {
         }
 
 
-        if (false) {
+        if (false) {//atacks
             Matrix sken = new Matrix();
             Camera camera = new Camera();
             camera.rotateY(-1);
@@ -266,10 +266,9 @@ public class Steps {
         }
 
 
-
     }
 
-    public void draw(Canvas ca, Stack<String[]> stackSteps, int currenty, int speed, int posintx, int wa, int playersizex, int playerSizeY) {
+    public void draw33333OLD(Canvas ca, Stack<String[]> stackSteps, int currenty, int speed, int posintx, int wa, int playersizex, int playerSizeY) {
         Canvas c;
         Bitmap stepsBitmap = Bitmap.createBitmap(playersizex, playerSizeY, Bitmap.Config.ARGB_8888);
         if (efecto) {
@@ -277,9 +276,6 @@ public class Steps {
         } else {
             c = ca;
         }
-
-
-
 
 
         int posintX2 = posintx;

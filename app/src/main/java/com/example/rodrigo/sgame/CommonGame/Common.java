@@ -1,16 +1,23 @@
 package com.example.rodrigo.sgame.CommonGame;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.WindowManager;
+
+import com.example.rodrigo.sgame.SettingsActivity;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -29,7 +36,6 @@ import java.util.concurrent.ExecutionException;
  * Creator : Rodrigo Vidal Villaseñor
  */
 public class Common {
-
 
 
     public final static double[] JudgeSJ = {41.6, 41.6, 41.6, 83.3 + 30};
@@ -106,7 +112,7 @@ public class Common {
     public static String convertStreamToString(FileInputStream is) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
-        String line ;
+        String line;
         while ((line = reader.readLine()) != null) {
             sb.append(line).append("\n");
         }
@@ -157,7 +163,7 @@ public class Common {
     }
 
 
-    static public boolean bgaExist( String url) {
+    static public boolean bgaExist(String url) {
         try {
             return new checkBga().execute(url).get();
         } catch (InterruptedException e) {
@@ -169,9 +175,6 @@ public class Common {
 
         }
     }
-
-
-
 
 
     public static class checkBga extends AsyncTask<String, Void, Boolean> {
@@ -206,47 +209,66 @@ public class Common {
     }
 
 
-
-
-
-    public static boolean   compareRecords(Context context, String nameSongs, float percent){
+    public static boolean compareRecords(Context context, String nameSongs, float percent) {
         SharedPreferences sharedPref = context.getSharedPreferences("stepmix", Context.MODE_PRIVATE);
-        float oldRecord=sharedPref.getFloat(nameSongs,0f);
+        float oldRecord = sharedPref.getFloat(nameSongs, 0f);
 
-        return  oldRecord <=percent;
+        return oldRecord <= percent;
 
     }
 
 
-    public static void  writeRecord(Context context,String nameSongs,float value){
+    public static void writeRecord(Context context, String nameSongs, float value) {
         SharedPreferences sharedPref = context.getSharedPreferences("stepmix", Context.MODE_PRIVATE);
-        sharedPref.edit().putFloat(nameSongs,value).clear().apply();
+        sharedPref.edit().putFloat(nameSongs, value).clear().apply();
     }
 
-    public static String   getRecords(Context context, String nameSongs){
+    public static String getRecords(Context context, String nameSongs) {
         SharedPreferences sharedPref = context.getSharedPreferences("stepmix", Context.MODE_PRIVATE);
 
-        float result=sharedPref.getFloat(nameSongs,-1);
-        return result!=-1 ?result+"":"N/A";
+        float result = sharedPref.getFloat(nameSongs, -1);
+        return result != -1 ? result + "" : "N/A";
 
     }
 
 
+    public static void setParamsGlobal(Activity a) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        a.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(a);
+        HIDENAVBAR = sharedPref.getBoolean("custom_pad_hide_nav", false);
+        DRAWSTATS = sharedPref.getBoolean("pref_show_stats", false);
+
+        HEIGHT = displayMetrics.heightPixels;
+        WIDTH = displayMetrics.widthPixels;
+        int navBarHeight = 0;//verificamos la barra de navegacion
+        Resources resources = a.getResources();
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            navBarHeight = resources.getDimensionPixelSize(resourceId);
+        }
+        if (HIDENAVBAR){
+            HEIGHT += navBarHeight;
+        }
+        String test=sharedPref.getString("pref_offset", 0+"");
+        try{
+            OFFSET = Integer.valueOf(test);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
 
+    }
 
 
-
-
-
-    public static  int WIDTH = 0;
-    public static  int HEIGHT = 0;
-    public static  int AnimateFactor= 100;
-    public static  float START_Y= 0.115f;
-    public static  boolean testingRadars=false;
-
-
-
+    public static int WIDTH = 0;
+    public static int HEIGHT = 0;
+    public static int OFFSET = 0;
+    public static boolean HIDENAVBAR = false;
+    public static int AnimateFactor = 100;
+    public static float START_Y = 0.115f;
+    public static boolean testingRadars = false;
+    public static boolean DRAWSTATS = false;
 
 
 }

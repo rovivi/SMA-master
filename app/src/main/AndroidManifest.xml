@@ -4,7 +4,7 @@
 
     <meta-data
         android:name="firebase_crashlytics_collection_enabled"
-        android:value="true" />
+        android:value="false" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

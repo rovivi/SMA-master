@@ -21,19 +21,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageView
-        android:id="@+id/startGameButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="287dp"
-        android:layout_marginTop="268dp"
-        android:foregroundGravity="center"
-        android:text="play"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logobeta" />
+ <ImageView
+     android:id="@+id/startGameButton"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="268dp"
+     android:layout_marginBottom="287dp"
+     android:foregroundGravity="center"
+     android:text="play"
+     app:layout_constraintBottom_toBottomOf="parent"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent"
+     app:srcCompat="@drawable/logobeta" />
 
 
     <com.facebook.login.widget.LoginButton
@@ -67,16 +67,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.88" />
 
-    <ImageView
-        android:id="@+id/imageViewSetting"
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/settings" />
+ <ImageView
+     android:id="@+id/imageViewSetting"
+     android:layout_width="100sp"
+     android:layout_height="100sp"
+     android:layout_marginTop="8dp"
+     android:layout_marginEnd="8dp"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/adbaner1"
+     app:srcCompat="@drawable/settings" />
 
  <TextView
      android:id="@+id/taptostart"
@@ -84,7 +83,7 @@
      android:layout_height="wrap_content"
      android:layout_marginBottom="8dp"
      android:gravity="center"
-     android:text="tap the screen to start"
+     android:text="@string/tap_the_screen_to_start"
      android:textColor="#ffffff"
      android:textSize="24sp"
      app:layout_constraintBottom_toBottomOf="@+id/bg_loop"
@@ -93,77 +92,23 @@
      app:layout_constraintStart_toStartOf="parent"
      app:layout_constraintTop_toTopOf="parent"
      app:layout_constraintVertical_bias="0.0" />
+
  <com.google.android.gms.ads.AdView
      android:id="@+id/adbaner1"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     android:layout_marginStart="8dp"
-     android:layout_marginTop="8dp"
-     android:layout_marginEnd="8dp"
-     android:layout_centerHorizontal="true"
      android:layout_alignParentBottom="true"
-
-     android:background="@drawable/caution"
+     android:layout_centerHorizontal="true"
+     android:layout_marginStart="8dp"
+     android:layout_marginEnd="8dp"
+     android:layout_marginBottom="8dp"
      ads:adSize="SMART_BANNER"
-     ads:adUnitId=" ca-app-pub-3940256099942544/6300978111 "
+     ads:adUnitId="ca-app-pub-9689972331812584/7767079733"
+     app:layout_constraintBottom_toBottomOf="parent"
      app:layout_constraintEnd_toEndOf="parent"
      app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toTopOf="parent" />
-
-
- <com.example.rodrigo.sgame.CommonGame.CustomSprite.Sprite
-     android:id="@+id/spriteTest"
-     android:layout_width="50sp"
-     android:layout_height="50sp"
-     android:layout_marginStart="8dp"
-     android:layout_marginTop="8dp"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/adbaner1" />
-
- <com.example.rodrigo.sgame.CommonGame.CustomSprite.Sprite
-     android:id="@+id/spriteTest2"
-     android:layout_width="89dp"
-     android:layout_height="93dp"
-     android:layout_marginStart="8dp"
-     android:layout_marginTop="8dp"
-     app:layout_constraintStart_toEndOf="@+id/spriteTest"
-     app:layout_constraintTop_toBottomOf="@+id/adbaner1" />
-
- <com.example.rodrigo.sgame.CommonGame.CustomSprite.Sprite
-     android:id="@+id/spriteTest3"
-     android:layout_width="76dp"
-     android:layout_height="71dp"
-     android:layout_marginStart="8dp"
-     android:layout_marginTop="8dp"
-     app:layout_constraintStart_toEndOf="@+id/spriteTest2"
-     app:layout_constraintTop_toBottomOf="@+id/adbaner1" />
-
- <com.example.rodrigo.sgame.CommonGame.CustomSprite.Sprite
-     android:id="@+id/spriteTest4"
-     android:layout_width="60dp"
-     android:layout_height="122dp"
-     android:layout_marginStart="8dp"
-     android:layout_marginTop="8dp"
-     app:layout_constraintStart_toEndOf="@+id/spriteTest3"
-     app:layout_constraintTop_toTopOf="@+id/spriteTest3" />
-
- <com.example.rodrigo.sgame.CommonGame.CustomSprite.Sprite
-     android:id="@+id/spriteTest5"
-     android:layout_width="50sp"
-     android:layout_height="50sp"
-     android:layout_marginTop="8dp"
-     android:layout_marginBottom="8dp"
-     app:layout_constraintBottom_toTopOf="@+id/spriteTest6"
-     app:layout_constraintTop_toTopOf="@+id/spriteTest3"
-     tools:layout_editor_absoluteX="323dp" />
-
- <com.example.rodrigo.sgame.CommonGame.CustomSprite.Sprite
-     android:id="@+id/spriteTest6"
-     android:layout_width="78dp"
-     android:layout_height="69dp"
-     android:layout_marginStart="8dp"
-     app:layout_constraintStart_toEndOf="@+id/spriteTest4"
-     tools:layout_editor_absoluteY="214dp" />
+     app:layout_constraintTop_toTopOf="parent"
+     app:layout_constraintVertical_bias="0.0" />
 
 
 </android.support.constraint.ConstraintLayout>

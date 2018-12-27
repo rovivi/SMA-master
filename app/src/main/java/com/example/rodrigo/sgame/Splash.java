@@ -66,8 +66,8 @@ public class Splash extends AppCompatActivity {
         MobileAds.initialize(this);
 
 
-        Bitmap prueba = BitmapFactory.decodeResource(getResources(),R.drawable.press_raw);
-        Bitmap [] test211 = TransformBitmap.customSpriteArray(prueba,5,2,0,5);
+        Bitmap prueba = BitmapFactory.decodeResource(getResources(), R.drawable.press_raw);
+        Bitmap[] test211 = TransformBitmap.customSpriteArray(prueba, 5, 2, 0, 5);
 
 
         setContentView(R.layout.activity_splash);
@@ -93,8 +93,6 @@ public class Splash extends AppCompatActivity {
         handler = new Handler();
 
         splashImage.setVisibility(View.GONE);
-
-
 
 
     }
@@ -124,32 +122,12 @@ public class Splash extends AppCompatActivity {
         }
 
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        Common.HEIGHT = displayMetrics.heightPixels;
-        Common.WIDTH = displayMetrics.widthPixels;
+        Common.setParamsGlobal(this);
 
 
 
-        int navBarHeight = 0;//verificamos la barra de navegacion
-        Resources resources = getResources();
-        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            navBarHeight = resources.getDimensionPixelSize(resourceId);
-        }
-
-
-
-        boolean hasPhysicalHomeKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);//Para sumar la barra de navegacion
-
-           Common.HEIGHT+= navBarHeight;
-
-
-        int h=Common.HEIGHT;
-        handler.postDelayed(runAnimation, 1000);    }
-
-
-
+        handler.postDelayed(runAnimation, 1000);
+    }
 
 
     @Override
@@ -171,7 +149,7 @@ public class Splash extends AppCompatActivity {
                                 new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
                                 123);
                     } else {
-                        Toast.makeText(getBaseContext(),"Read archive permises is needed",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), "Read archive permises is needed", Toast.LENGTH_LONG).show();
                         finish();
                     }
                 }

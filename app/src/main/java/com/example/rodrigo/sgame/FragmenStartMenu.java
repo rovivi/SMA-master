@@ -30,6 +30,7 @@ public class FragmenStartMenu extends DialogFragment {
     ImageView hexagons[] = new ImageView[3];
     TextView exit;
     ImageView startImage;
+    ImageView startImage2;
     ValueAnimator anim;
     private boolean wanrStartSong=false;
     public void setSongList(SongList s) {
@@ -58,6 +59,7 @@ public class FragmenStartMenu extends DialogFragment {
 
         exit.setOnClickListener(v -> dismiss());
         startImage = view.findViewById(R.id.start_image);
+        startImage2= view.findViewById(R.id.start_blour);
         startImage.setOnClickListener(v -> {
 
 
@@ -113,7 +115,7 @@ dismiss();
         hexagons[0].startAnimation(AnimationUtils.loadAnimation(getActivity().getBaseContext(), R.anim.rotate));
         hexagons[1].startAnimation(AnimationUtils.loadAnimation(getActivity().getBaseContext(), R.anim.rotate2));
         hexagons[0].startAnimation(AnimationUtils.loadAnimation(getActivity().getBaseContext(), R.anim.rotate));
-
+        startImage2.startAnimation(AnimationUtils.loadAnimation(getActivity().getBaseContext(), R.anim.fade_half));
 
     }
 

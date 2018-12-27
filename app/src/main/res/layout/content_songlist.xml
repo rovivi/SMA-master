@@ -78,7 +78,7 @@
             android:layout_height="0dp"
             android:adjustViewBounds="false"
             android:cropToPadding="true"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
@@ -90,7 +90,6 @@
             android:id="@+id/recyclerSongs"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -188,7 +187,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="80dp"
         android:layout_marginBottom="4dp"
-        android:background="@color/common_google_signin_btn_text_light_default"
+        android:background="@drawable/name_bg"
         android:ellipsize="marquee"
         android:focusable="auto"
         android:marqueeRepeatLimit="marquee_forever"
@@ -239,17 +238,41 @@
         app:srcCompat="@drawable/topback" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/iv_top"
+        android:layout_width="0dp"
+        android:layout_height="40sp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/include3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/top_2" />
+
+    <ImageView
+        android:id="@+id/iv_bot"
         android:layout_width="0dp"
         android:layout_height="25sp"
-        android:layout_marginBottom="8dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/include3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/top" />
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/footer" />
+
+    <ImageView
+        android:id="@+id/back_image"
+        android:layout_width="25sp"
+        android:layout_height="25sp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/black_up" />
 
 
 </android.support.constraint.ConstraintLayout>

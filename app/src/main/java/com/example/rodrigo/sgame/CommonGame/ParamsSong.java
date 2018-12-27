@@ -20,7 +20,7 @@ public class ParamsSong {
      * 0 50-50 mode
      * 1 70-30 mode
      * 2 DM mode
-     * 3 FS mode
+     * 3 Tile mode
      */
     public static short gameMode = 0;
     public static short padOption = 1;

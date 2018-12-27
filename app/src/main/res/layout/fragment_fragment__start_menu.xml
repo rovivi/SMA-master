@@ -60,6 +60,19 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
+        android:id="@+id/start_blour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="6dp"
+        android:accessibilityHeading="@drawable/start_1_blour"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_hexagon3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/iv_hexagon1"
+        app:layout_constraintTop_toTopOf="@+id/iv_hexagon3"
+        app:srcCompat="@drawable/start_1_blour" />
+
+    <ImageView
         android:id="@+id/start_image"
         android:layout_width="200sp"
         android:layout_height="wrap_content"
@@ -69,8 +82,8 @@
         android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/iv_hexagon1"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/start" />
+        app:srcCompat="@drawable/ic_start_vector" />
 
 </android.support.constraint.ConstraintLayout>

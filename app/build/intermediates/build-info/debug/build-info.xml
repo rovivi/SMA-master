@@ -2,44 +2,50 @@
 <instant-run
     abi="arm64-v8a,armeabi-v7a,armeabi"
     api-level="26"
-    build-mode="COLD"
+    build-mode="FULL"
     density="xxhdpi"
     format="10"
     plugin-version="3.2.1"
-    timestamp="1545165677079"
+    timestamp="1545867184547"
     token="6685960864000445536"
-    verifier="COLD_SWAP_REQUESTED" >
+    verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="1450" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="21" />
     <task
         name="verifier"
-        duration="0" />
+        duration="13" />
+
+    <artifact
+        location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
+        type="SPLIT" />
+    <artifact
+        location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
+        type="SPLIT" />
+    <artifact
+        location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1545165474092"
+        timestamp="1545867184547"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
+            location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
             type="SPLIT" />
         <artifact
-            location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
+            location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
             type="SPLIT" />
         <artifact
             location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
             type="SPLIT_MAIN" />
     </build>
-    <build
-        build-mode="COLD"
-        timestamp="1545165677079"
-        verifier="COLD_SWAP_REQUESTED" />
 
 </instant-run>

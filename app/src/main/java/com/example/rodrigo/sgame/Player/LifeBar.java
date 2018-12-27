@@ -13,7 +13,7 @@ import com.example.rodrigo.sgame.R;
 
 public class LifeBar {
 
-    private float life=50,lifeblue=0;
+    public float life=50,lifeblue=0;
     float aumento=0, aumentLife, auxLife =1f;
     Bitmap tipBlue, tipRed, glowBlue, glueRed,skin, barHot,resplandor, lightRed;
     long timeMark;

@@ -18,6 +18,7 @@ anim design_bottom_sheet_slide_in
 anim design_bottom_sheet_slide_out
 anim design_snackbar_in
 anim design_snackbar_out
+anim fade_half
 anim fade_in
 anim fade_out
 anim flip
@@ -1143,6 +1144,7 @@ drawable barhot_double
 drawable base
 drawable bg_disc_selection
 drawable bg_disc_square
+drawable bg_disc_square2
 drawable black_up
 drawable black_ur
 drawable blackbox
@@ -1214,7 +1216,9 @@ drawable design_password_eye
 drawable design_snackbar_background
 drawable dl
 drawable dr
+drawable explosion_6x1
 drawable fiesta_receptor
+drawable footer
 drawable glow_command
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
@@ -1233,7 +1237,10 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_notifications_black_24dp
+drawable ic_start_vector
 drawable ic_sync_black_24dp
+drawable indicator
+drawable indicator_flip
 drawable judgelabels15
 drawable letters
 drawable lifebar_double
@@ -1254,6 +1261,7 @@ drawable messenger_button_white_bg_selector
 drawable mine
 drawable mtrl_snackbar_background
 drawable mtrl_tabs_default_indicator
+drawable name_bg
 drawable navigation_empty_icon
 drawable no_banner
 drawable notification_action_background
@@ -1313,6 +1321,10 @@ drawable sprite_mask_disc
 drawable spritesheet
 drawable square_redonded_corner
 drawable start
+drawable start_1_blour
+drawable start_svg
+drawable start_text
+drawable start_text_blour
 drawable step7
 drawable stomp1_off
 drawable stomp1_on
@@ -1325,6 +1337,7 @@ drawable textura
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 drawable top
+drawable top_2
 drawable topback
 drawable touch_controls
 drawable up
@@ -1372,6 +1385,7 @@ id artist
 id async
 id auto
 id automatic
+id back_image
 id banner
 id banner2
 id banner22
@@ -1471,7 +1485,7 @@ id imageView2
 id imageView3
 id imageView4
 id imageView5
-id imageView6
+id imageView7
 id imageViewSetting
 id imagelevl
 id imagelevl2
@@ -1488,9 +1502,11 @@ id iv1ll
 id iv1pp
 id iv232321
 id ivSpash
+id iv_bot
 id iv_hexagon1
 id iv_hexagon2
 id iv_hexagon3
+id iv_top
 id labeled
 id large
 id largeLabel
@@ -1588,12 +1604,6 @@ id speedControl
 id split_action_bar
 id spread
 id spread_inside
-id spriteTest
-id spriteTest2
-id spriteTest3
-id spriteTest4
-id spriteTest5
-id spriteTest6
 id src_atop
 id src_in
 id src_over
@@ -1601,6 +1611,7 @@ id standard
 id start
 id startButton
 id startGameButton
+id start_blour
 id start_image
 id status_bar_latest_event_content
 id stretch
@@ -1795,6 +1806,7 @@ raw change_song
 raw change_step
 raw command_mod
 raw command_toggle
+raw mine
 raw rank_0
 raw rank_0_b
 raw rank_1
@@ -1923,13 +1935,16 @@ string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
 string pref_default_display_name
-string pref_description_social_recommendations
 string pref_header_data_sync
 string pref_header_general
+string pref_pad_hide_nav_bar
+string pref_pad_hide_nav_bar_desc
+string pref_pad_type
 string pref_title_add_friends_to_messages
 string pref_title_display_name
+string pref_title_display_name_desc
 string pref_title_offset
-string pref_title_social_recommendations
+string pref_title_offset_desc
 string pref_title_sync_frequency
 string pref_title_system_sync_settings
 string project_id
@@ -1942,6 +1957,7 @@ string s6
 string s7
 string search_menu_title
 string status_bar_notification_info_overflow
+string tap_the_screen_to_start
 string title_activity_main_screen
 string title_activity_settings
 string title_activity_songlist

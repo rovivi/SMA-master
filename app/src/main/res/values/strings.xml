@@ -22,17 +22,18 @@
 
 
     <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
+    <string name="pref_header_general">General Settings</string>
 
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
+    <string name="pref_pad_hide_nav_bar">Pad with Navbar</string>
+    <string name="pref_pad_hide_nav_bar_desc">Use when you have a device whit navbar in the screen
     </string>
 
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name"></string>
+    <string name="pref_title_display_name">NickName</string>
+    <string name="pref_title_display_name_desc">This name appear on the Game play</string>
+    <string name="pref_default_display_name">N/A</string>
 
-    <string name="pref_title_offset">GlobalOffset</string>
+    <string name="pref_title_offset">Audio Offset(ms)</string>
+    <string name="pref_title_offset_desc">Only use if you have delay</string>
     <integer name="pref_default_offset">0</integer>
 
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
@@ -69,12 +70,14 @@
     </string-array>
 
     <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
+        <item>Original Mode</item>
+        <item>DM Mode</item>
+        <item>Extended Mode</item>
+        <item>Tile mode</item>
     </string-array>
 
     <string-array name="list_preference_entry_values">
+        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -83,6 +86,8 @@
     <string-array name="multi_select_list_preference_default_value" />
 
     <string name="pref_title_system_sync_settings">System sync settings</string>
+    <string name="tap_the_screen_to_start">tap the screen to start</string>
+    <string name="pref_pad_type">Pad Type</string>
 
     <!-- Example settings for Notifications -->
 
