@@ -42,7 +42,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="300dp" />
+        app:layout_constraintGuide_begin="289dp" />
 
     <ImageView
         android:id="@+id/bg_pad"
@@ -50,12 +50,12 @@
         android:layout_height="0dp"
         android:contentDescription="@string/todo"
         android:scaleType="fitXY"
-        android:src="@drawable/s2"
+        android:src="@drawable/no_banner"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline"
-        app:srcCompat="@drawable/black_ur" />
+        app:srcCompat="@drawable/no_banner" />
 
     <TextView
         android:id="@+id/gamemsg"

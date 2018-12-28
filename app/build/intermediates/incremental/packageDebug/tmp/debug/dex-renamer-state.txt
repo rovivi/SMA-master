@@ -1,4 +1,4 @@
-#Fri Dec 28 12:49:52 CST 2018
+#Fri Dec 28 15:07:25 CST 2018
 base.0=/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/transforms/dexMerger/debug/1
 path.0=classes.dex
 renamed.0=classes.dex

@@ -63,11 +63,9 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        MobileAds.initialize(this);
 
-
-        Bitmap prueba = BitmapFactory.decodeResource(getResources(), R.drawable.press_raw);
-        Bitmap[] test211 = TransformBitmap.customSpriteArray(prueba, 5, 2, 0, 5);
+       //Bitmap prueba = BitmapFactory.decodeResource(getResources(), R.drawable.press_raw);
+        //Bitmap[] test211 = TransformBitmap.customSpriteArray(prueba, 5, 2, 0, 5);
 
 
         setContentView(R.layout.activity_splash);

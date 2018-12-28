@@ -75,7 +75,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     File[] files;
     String currentSSC;
     String paths;
-    String path = "";
+    String path = "",pathImage;
     ObjectAnimator fadeOut;
     public int spCode, spOpenWindow, spSelect, spSelectSong;
     MediaPlayer mediaPlayer;
@@ -346,36 +346,18 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         if (false && obbFile.exists()) {//desabilitado por el momento
             //ObbInfo info =ObbScanner.getObbInfo(obbFile.getPath());
             String superinfoinfo = mountObbFile(obbFile.getPath());
-
-
         } else {
             loadSongs();
-
         }
-
-
-// Selection of the spinner
-        //  spinner = findViewById(R.id.spinner_test);
-
-// Application of the Array to the Spinner
-
-        //  ArrayAdapterLevel spinnerArrayAdapter = new ArrayAdapterLevel(this, levelArrayList);
-        //     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
-        //    spinner.setAdapter(spinnerArrayAdapter);
-
-
     }
 
 
     public void playSoundPool(int spCode) {
-
         changeMusic.play(spCode, 1, 1, 1, 0, 1.0f);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void changeSong(int position) {
-
         changeMusic.play(spCode, 1, 1, 1, 0, 1.0f);
         releaseMediaPlayer();
         currentSSCIndex= position;
@@ -389,7 +371,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             authorCurrent.setText(auxStep.songInfo.get("ARTIST") != null ? "Composed by:" + auxStep.songInfo.get("ARTIST") : "No Artist");
             titleCurrentSong.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.zoom_in));
             authorCurrent.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in));
-
             currentSSC = songsGroup.listOfSongs.get(position).pathSSC;
             lvl.clear();
             levelArrayList.clear();
@@ -405,7 +386,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
                 levelArrayList.add(new Level(lvl, tipo, tag));
             }
 
-            //If the song provides from OBB
             if (auxStep.isPropitarySongs) {
 
 
@@ -443,6 +423,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
                     Bitmap ww = TransformBitmap.makeTransparent(TransformBitmap.myblur(BitmapFactory.decodeFile(bg.getPath()), getApplicationContext()), 150);
                     backgroundBluour.setImageBitmap(BitmapFactory.decodeFile(bg.getPath()));
+                    pathImage= bg.getPath();
                     backgroundBluour.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_in_left));
                      // Picasso.get().load(bg.getPath()).into(backgroundBluour);
 
@@ -550,11 +531,9 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
                 if (musicTimer != null) {
                     if (musicTimer.isRunning) {
                         musicTimer.isRunning = false;
-
                         //  musicTimer.suspend();
                         musicTimer.join();
                     }
-
                 }
             }
 
@@ -830,6 +809,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         i.putExtra("ssc", currentSSC);
         i.putExtra("nchar", currentSongIndex);
         i.putExtra("path", paths);
+        i.putExtra("pathDisc", pathImage);
         startActivity(i);
         //finish();
         startImage.setOnClickListener(null);

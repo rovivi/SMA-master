@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.media.AudioManager;
 import android.os.Build;
@@ -48,31 +49,23 @@ public class PlayerBga extends Activity {
     int nchar;
     int indexMsj = 0;
     byte[] pad = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    private String[] msjs = {"Ready", "GO!"};
+    private String[] msjs = {"", "Ready", "GO!"};
     Runnable textAnimator = new Runnable() {
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         public void run() {
             if (indexMsj < msjs.length) {
                 tvMsj.setText(msjs[indexMsj]);
-                tvMsj.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_out_right));
-                handler.postDelayed(textAnimator, 800);
+                tvMsj.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.zoom_in));
+                handler.postDelayed(textAnimator, 500);
                 indexMsj++;
             } else {
                 tvMsj.setText("");
-              //  animateGpo.run();
-                Common.AnimateFactor=0;
+                Common.AnimateFactor = 0;
                 bgPad.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in));
-
                 tvMsj.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_out_right));
-
-                if (!gamePlayError && gpo != null) {
-                    gpo.startGame();
-                } else {
-                    finish();
-                }
-
+                startGamePlay();
             }
-
         }
     };
 
@@ -81,8 +74,8 @@ public class PlayerBga extends Activity {
         @Override
         public void run() {
             if (Common.AnimateFactor >= 0) {
-            Common.AnimateFactor--;
-            handler.postDelayed(this,10);
+                Common.AnimateFactor--;
+                handler.postDelayed(this, 10);
             } else if (!gpo.isRunning) {
 
                 bgPad.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in));
@@ -121,60 +114,22 @@ public class PlayerBga extends Activity {
         } catch (NullPointerException e) {
         }
 
-       // Common.AnimateFactor=100;
+        // Common.AnimateFactor=100;
         setContentView(R.layout.activity_playerbga);
         tvMsj = findViewById(R.id.gamemsg);
         audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         //evaluationIntet = new Intent(this, EvaluationActivity.class);
         bg = findViewById(R.id.bgVideoView2);
         gl = findViewById(R.id.guideline);
-        String rawscc = getIntent().getExtras().getString("ssc");
-        String path = getIntent().getExtras().getString("path");
-         nchar = getIntent().getExtras().getInt("nchar");
+
+        nchar = getIntent().getExtras().getInt("nchar");
         gpo = findViewById(R.id.gamePlay);
         bgPad = findViewById(R.id.bg_pad);
         hilo = gpo.mainTread;
-        try {
-            //gpo.setZOrderOnTop(true);
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-            int height = displayMetrics.heightPixels;
-            int width = displayMetrics.widthPixels;
-            String z = Common.convertStreamToString(new FileInputStream(rawscc));
-
-            try {
-                gpo.build1Object(getBaseContext(), new SSC(z, false), nchar, path, this, pad, width, height);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                gamePlayError = true;
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-            }
-            //System.gc();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
+        String pathImg = getIntent().getExtras().getString("pathDisc", null);
+        if (pathImg != null) {
+            bgPad.setImageBitmap(BitmapFactory.decodeFile(pathImg));
         }
-        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) gl.getLayoutParams();
-
-        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            params.guidePercent = 1f;
-            gl.setLayoutParams(params);
-        } else {
-            params.guidePercent = 0.555f;
-            gl.setLayoutParams(params);
-
-        }
-
-        bg.setOnErrorListener((mp, what, extra) -> {
-            String path2 = "android.resource://" + getPackageName() + "/" + R.raw.bgaoff;
-            bg.setVideoPath(path2);
-            bg.start();
-            return true;
-        });
-
-
     }
 
 
@@ -317,6 +272,7 @@ public class PlayerBga extends Activity {
         super.onPause();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onResume() {
         super.onResume();
@@ -352,6 +308,7 @@ public class PlayerBga extends Activity {
         startActivity(i);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onStart() {
         super.onStart();
@@ -361,22 +318,12 @@ public class PlayerBga extends Activity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-
         final Fabric fabric = new Fabric.Builder(this)
                 .kits(new Crashlytics())
                 .debuggable(true)           // Enables Crashlytics debugger
                 .build();
         Fabric.with(fabric);
-
-
-        //textAnimator.run();
-        if (!gamePlayError && gpo != null) {
-            gpo.startGame();
-        } else {
-            finish();
-        }
-
-
+        textAnimator.run();
     }
 
 
@@ -386,6 +333,48 @@ public class PlayerBga extends Activity {
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
         return new Point(width, height);
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void startGamePlay() {
+        try {
+            String rawscc = getIntent().getExtras().getString("ssc");
+            String path = getIntent().getExtras().getString("path");
+            String z = Common.convertStreamToString(new FileInputStream(rawscc));
+            try {
+                gpo.build1Object(getBaseContext(), new SSC(z, false), nchar, path, this, pad, Common.WIDTH, Common.HEIGHT);
+            } catch (Exception e) {
+                e.printStackTrace();
+                gamePlayError = true;
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            //System.gc();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) gl.getLayoutParams();
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            params.guidePercent = 1f;
+            gl.setLayoutParams(params);
+        } else {
+            params.guidePercent = 0.555f;
+            gl.setLayoutParams(params);
+        }
+        bg.setOnErrorListener((mp, what, extra) -> {
+            String path2 = "android.resource://" + getPackageName() + "/" + R.raw.bgaoff;
+            bg.setVideoPath(path2);
+            bg.start();
+            return true;
+        });
+
+        if (!gamePlayError && gpo != null) {
+            gpo.startGame();
+        } else {
+            finish();
+        }
     }
 
 

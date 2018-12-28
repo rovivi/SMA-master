@@ -76,12 +76,12 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/cdb1ef551942409fc928529ac13e3c26/res/drawable-hdpi-v4/notification_bg_normal.9.png"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-ldrtl-mdpi-v17_abc_ic_menu_cut_mtrl_alpha.png.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-ldrtl-mdpi-v17/abc_ic_menu_cut_mtrl_alpha.png"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/layout_abc_select_dialog_material.xml.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/layout/abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-ldrtl-mdpi-v17_abc_ic_menu_cut_mtrl_alpha.png.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-ldrtl-mdpi-v17/abc_ic_menu_cut_mtrl_alpha.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/layout-v26_abc_screen_toolbar.xml.flat",
@@ -104,12 +104,12 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xxhdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_dance_pad_up_on.webp.flat",
-        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/dance_pad_up_on.webp"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_btn_check_to_on_mtrl_000.png.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xxhdpi-v4/abc_btn_check_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_dance_pad_up_on.webp.flat",
+        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/dance_pad_up_on.webp"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_ic_menu_selectall_mtrl_alpha.png.flat",
@@ -224,12 +224,12 @@
         "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/x6.png"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_messenger_bubble_large_white.png.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-messenger-4.36.0.aar/907c6db07b8f1608942cacbb4b8c6eaa/res/drawable-xxhdpi-v4/messenger_bubble_large_white.png"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_padpress0.webp.flat",
         "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/padpress0.webp"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_messenger_bubble_large_white.png.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-messenger-4.36.0.aar/907c6db07b8f1608942cacbb4b8c6eaa/res/drawable-xxhdpi-v4/messenger_bubble_large_white.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-v21_abc_dialog_material_background.xml.flat",
@@ -384,16 +384,16 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-v21/abc_edit_text_material.xml"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_com_facebook_tooltip_blue_background.9.png.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-login-4.36.0.aar/2d6506a6d0a690f78f5f9bd2ad498266/res/drawable-xhdpi-v4/com_facebook_tooltip_blue_background.9.png"
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_x3.png.flat",
+        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/x3.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_textfield_search_default_mtrl_alpha.9.png.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-hdpi-v4/abc_textfield_search_default_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_x3.png.flat",
-        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/x3.png"
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_com_facebook_tooltip_blue_background.9.png.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-login-4.36.0.aar/2d6506a6d0a690f78f5f9bd2ad498266/res/drawable-xhdpi-v4/com_facebook_tooltip_blue_background.9.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/layout-v21_notification_template_custom_big.xml.flat",
@@ -460,12 +460,12 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/89df08757bc6590a6347e6d11af91cc1/res/layout/design_bottom_sheet_dialog.xml"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_com_facebook_button_icon_blue.png.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-common-4.36.0.aar/da846506c5beb5c89f4cb6dfcda92668/res/drawable-hdpi-v4/com_facebook_button_icon_blue.png"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_ic_menu_cut_mtrl_alpha.png.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xhdpi-v4/abc_ic_menu_cut_mtrl_alpha.png"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_com_facebook_button_icon_blue.png.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-common-4.36.0.aar/da846506c5beb5c89f4cb6dfcda92668/res/drawable-hdpi-v4/com_facebook_button_icon_blue.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_common_google_signin_btn_icon_dark_normal.xml.flat",
@@ -512,12 +512,12 @@
         "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/anim/rotate2.xml"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_com_facebook_button_like_background.xml.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-common-4.36.0.aar/da846506c5beb5c89f4cb6dfcda92668/res/drawable/com_facebook_button_like_background.xml"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/layout_notification_template_big_media.xml.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/49f2dfb2e5650f95b3d556d643f64b6e/res/layout/notification_template_big_media.xml"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_com_facebook_button_like_background.xml.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-common-4.36.0.aar/da846506c5beb5c89f4cb6dfcda92668/res/drawable/com_facebook_button_like_background.xml"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_com_facebook_profile_picture_blank_portrait.png.flat",
@@ -532,12 +532,12 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xhdpi-v4/abc_list_focused_holo.9.png"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_com_facebook_tooltip_blue_topnub.png.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-login-4.36.0.aar/2d6506a6d0a690f78f5f9bd2ad498266/res/drawable-xhdpi-v4/com_facebook_tooltip_blue_topnub.png"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/color-v23_abc_color_highlight_material.xml.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/color-v23/abc_color_highlight_material.xml"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_com_facebook_tooltip_blue_topnub.png.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-login-4.36.0.aar/2d6506a6d0a690f78f5f9bd2ad498266/res/drawable-xhdpi-v4/com_facebook_tooltip_blue_topnub.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_scrubber_control_to_pressed_mtrl_000.png.flat",
@@ -592,12 +592,12 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/89df08757bc6590a6347e6d11af91cc1/res/interpolator-v21/mtrl_fast_out_slow_in.xml"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/raw_rank_7.mp3.flat",
-        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/raw/rank_7.mp3"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/layout_content_main_screen.xml.flat",
         "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/layout/content_main_screen.xml"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/raw_rank_7.mp3.flat",
+        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/raw/rank_7.mp3"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_com_facebook_button_icon_blue.png.flat",
@@ -636,12 +636,12 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/89df08757bc6590a6347e6d11af91cc1/res/drawable/design_snackbar_background.xml"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4_abc_tab_indicator_mtrl_alpha.9.png.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xxxhdpi-v4/abc_tab_indicator_mtrl_alpha.9.png"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_hexa_double.png.flat",
         "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/hexa_double.png"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4_abc_tab_indicator_mtrl_alpha.9.png.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xxxhdpi-v4/abc_tab_indicator_mtrl_alpha.9.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_scrubber_track_mtrl_alpha.9.png.flat",
@@ -696,12 +696,12 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/89df08757bc6590a6347e6d11af91cc1/res/drawable-xxhdpi-v4/design_ic_visibility.png"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_ic_info_black_24dp.xml.flat",
-        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/ic_info_black_24dp.xml"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/layout_design_navigation_item_subheader.xml.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/89df08757bc6590a6347e6d11af91cc1/res/layout/design_navigation_item_subheader.xml"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_ic_info_black_24dp.xml.flat",
+        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/ic_info_black_24dp.xml"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_ic_star_half_black_36dp.png.flat",
@@ -756,16 +756,16 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/89df08757bc6590a6347e6d11af91cc1/res/layout/design_layout_tab_icon.xml"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_com_facebook_tooltip_black_xout.png.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-login-4.36.0.aar/2d6506a6d0a690f78f5f9bd2ad498266/res/drawable-mdpi-v4/com_facebook_tooltip_black_xout.png"
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xxhdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/animator_mtrl_btn_state_list_anim.xml.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/89df08757bc6590a6347e6d11af91cc1/res/animator/mtrl_btn_state_list_anim.xml"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xxhdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png"
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_com_facebook_tooltip_black_xout.png.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-login-4.36.0.aar/2d6506a6d0a690f78f5f9bd2ad498266/res/drawable-mdpi-v4/com_facebook_tooltip_black_xout.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_list_pressed_holo_dark.9.png.flat",
@@ -784,12 +784,12 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-base-16.0.1.aar/6ff4ba45b7ad65bb2a3e58510abeed8a/res/drawable-xhdpi-v4/googleg_disabled_color_18.png"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/color_mtrl_tabs_ripple_color.xml.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/89df08757bc6590a6347e6d11af91cc1/res/color/mtrl_tabs_ripple_color.xml"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_design_ic_visibility_off.png.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/89df08757bc6590a6347e6d11af91cc1/res/drawable-xhdpi-v4/design_ic_visibility_off.png"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/color_mtrl_tabs_ripple_color.xml.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/89df08757bc6590a6347e6d11af91cc1/res/color/mtrl_tabs_ripple_color.xml"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/color-v23_abc_tint_btn_checkable.xml.flat",
@@ -800,12 +800,12 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xhdpi-v4/abc_btn_radio_to_on_mtrl_000.png"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_design_ic_visibility.png.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/89df08757bc6590a6347e6d11af91cc1/res/drawable-xhdpi-v4/design_ic_visibility.png"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_cab_background_top_mtrl_alpha.9.png.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-hdpi-v4/abc_cab_background_top_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_design_ic_visibility.png.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/89df08757bc6590a6347e6d11af91cc1/res/drawable-xhdpi-v4/design_ic_visibility.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_messenger_bubble_small_blue.png.flat",
@@ -916,20 +916,20 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/color/abc_secondary_text_material_light.xml"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_scrubber_control_off_mtrl_alpha.png.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xhdpi-v4/abc_scrubber_control_off_mtrl_alpha.png"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/anim_anunceranimator.xml.flat",
         "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/anim/anunceranimator.xml"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_ic_star_black_36dp.png.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-mdpi-v4/abc_ic_star_black_36dp.png"
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_scrubber_control_off_mtrl_alpha.png.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xhdpi-v4/abc_scrubber_control_off_mtrl_alpha.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/layout_abc_action_bar_up_container.xml.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/layout/abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_ic_star_black_36dp.png.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-mdpi-v4/abc_ic_star_black_36dp.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_objectospiu.webp.flat",
@@ -1148,12 +1148,12 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xxhdpi-v4/abc_scrubber_primary_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_abc_spinner_textfield_background_material.xml.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable/abc_spinner_textfield_background_material.xml"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_textfield_search_default_mtrl_alpha.9.png.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-mdpi-v4/abc_textfield_search_default_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_abc_spinner_textfield_background_material.xml.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable/abc_spinner_textfield_background_material.xml"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_ic_menu_paste_mtrl_am_alpha.png.flat",
@@ -1172,12 +1172,12 @@
         "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/anim/zoom_letter.xml"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_messenger_bubble_small_blue.png.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-messenger-4.36.0.aar/907c6db07b8f1608942cacbb4b8c6eaa/res/drawable-hdpi-v4/messenger_bubble_small_blue.png"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/raw_mine.ogg.flat",
         "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/raw/mine.ogg"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_messenger_bubble_small_blue.png.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-messenger-4.36.0.aar/907c6db07b8f1608942cacbb4b8c6eaa/res/drawable-hdpi-v4/messenger_bubble_small_blue.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-ldrtl-xxhdpi-v17_abc_ic_menu_cut_mtrl_alpha.png.flat",
@@ -1192,12 +1192,12 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xxxhdpi-v4/abc_ic_star_black_48dp.png"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/layout_abc_action_mode_bar.xml.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/layout/abc_action_mode_bar.xml"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_btn_check_to_on_mtrl_000.png.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-hdpi-v4/abc_btn_check_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/layout_abc_action_mode_bar.xml.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/layout/abc_action_mode_bar.xml"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/color_abc_primary_text_material_dark.xml.flat",
@@ -1332,12 +1332,12 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xxhdpi-v4/abc_tab_indicator_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xhdpi-v4/abc_btn_switch_to_on_mtrl_00001.9.png"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_common_google_signin_btn_text_dark_normal_background.9.png.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/play-services-base-16.0.1.aar/6ff4ba45b7ad65bb2a3e58510abeed8a/res/drawable-xhdpi-v4/common_google_signin_btn_text_dark_normal_background.9.png"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xhdpi-v4/abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/xml_pref_data_sync.xml.flat",
@@ -1400,12 +1400,12 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-xxhdpi-v4/abc_ic_star_black_48dp.png"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_com_facebook_tooltip_blue_topnub.png.flat",
-        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-login-4.36.0.aar/2d6506a6d0a690f78f5f9bd2ad498266/res/drawable-hdpi-v4/com_facebook_tooltip_blue_topnub.png"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_messenger_bubble_large_white.png.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-messenger-4.36.0.aar/907c6db07b8f1608942cacbb4b8c6eaa/res/drawable-hdpi-v4/messenger_bubble_large_white.png"
+    },
+    {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_com_facebook_tooltip_blue_topnub.png.flat",
+        "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-login-4.36.0.aar/2d6506a6d0a690f78f5f9bd2ad498266/res/drawable-hdpi-v4/com_facebook_tooltip_blue_topnub.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_scrubber_track_mtrl_alpha.9.png.flat",
@@ -2616,16 +2616,16 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/84b379e6abf5b3241b0bf3e5008b2dc6/res/drawable-mdpi-v4/abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_start_1_blour.png.flat",
+        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/start_1_blour.png"
+    },
+    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/anim_sequential.xml.flat",
         "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/anim/sequential.xml"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/layout_design_layout_snackbar.xml.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/89df08757bc6590a6347e6d11af91cc1/res/layout/design_layout_snackbar.xml"
-    },
-    {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_start_1_blour.png.flat",
-        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/start_1_blour.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/layout_song_item_square.xml.flat",
