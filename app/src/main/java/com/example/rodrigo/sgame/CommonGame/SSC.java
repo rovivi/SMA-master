@@ -226,15 +226,40 @@ public class SSC implements Serializable {
             SCROLLS = this.arrayListTag(this.chartsInfo[nchar].get("SCROLLS").toString());
         }//DO not remove is for scrolling
 
-        if (Common.testingRadars) {
-            BPMS = setMetadata(chartsInfo[nchar].get("BPMS"), songInfo.get("BPMS"));
+        if (!Common.testingRadars) {
             TICKCOUNTS = setMetadata(chartsInfo[nchar].get("TICKCOUNTS"), songInfo.get("TICKCOUNTS"));
-            WARPS = setMetadata(chartsInfo[nchar].get("WARPS"), songInfo.get("WARPS"));
+            //WARPS = setMetadata(chartsInfo[nchar].get("WARPS"), songInfo.get("WARPS"));
             STOPS = setMetadata(chartsInfo[nchar].get("STOPS"), songInfo.get("STOPS"));
             DELAYS = setMetadata(chartsInfo[nchar].get("DELAYS"), songInfo.get("DELAYS"));
         }
+
+
+
+
+
+
+        //BPMS = setMetadata(chartsInfo[nchar].get("BPMS"), songInfo.get("BPMS"));
+
+
+
+
+        ArrayList<Float[]> auxBPM2WARP= new ArrayList<>();
         //  effectMap.put("BPMS", BPMS);
         if (BPMS != null) {
+            for (int x=0;x<BPMS.size();x++){
+                if (BPMS.get(x)[1]>1000){
+                    Float[] auxF = BPMS.get(x).clone();
+                    float warpValue = BPMS.get(1)[0] - BPMS.get(0)[0];
+                    warpValue *= 0.98;
+                    auxF[1]=warpValue;
+                    auxBPM2WARP.add(auxF);
+                    BPMS.remove(x);
+                    x--;
+                }
+            }
+
+
+
             effectMap.put("BPMS", BPMS);
         }
 
@@ -248,7 +273,11 @@ public class SSC implements Serializable {
 
         if (WARPS != null) {
             effectMap.put("WARPS", WARPS);
+
+        }else {
         }
+
+
 
 
         if (TICKCOUNTS != null) {
@@ -272,7 +301,12 @@ public class SSC implements Serializable {
                             String x = "sdsdsd";
                         }
 
-                        row.rowStep = stringStep2ByteArary(aux.get(i).get(j / div));
+                        if ((j / div)<aux.get(i).size()){
+
+                            row.rowStep = stringStep2ByteArary(aux.get(i).get(j / div));
+
+                        }
+
                     } else {
                         row.rowStep = stringStep2ByteArary("0000000000");
                     }

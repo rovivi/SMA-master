@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rodrigo.sgame"
     android:versionCode="1"
-    android:versionName="1.56" >
+    android:versionName="1.57" >
 
     <uses-sdk
         android:minSdkVersion="18"

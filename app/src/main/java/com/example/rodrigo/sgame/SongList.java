@@ -90,7 +90,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     // ArrayAdapter<String> adp2;
     Intent i;
     VideoView preview;
-    ImageView backgroundBluour, btnLevel, btnSpeed;
+    ImageView backgroundBluour, btnLevel, btnSpeed,bgSongList;
     TextView lvlText, titleCurrentSong, authorCurrent, txt_open, tv_record;
     FirebaseAnalytics mFirebaseAnalytics;
     ArrayList<Level> levelArrayList = new ArrayList<>();
@@ -184,6 +184,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         back_image = findViewById(R.id.back_image);
         titleCurrentSong.setSelected(true);
         titleCurrentSong.setSingleLine(true);
+        bgSongList=findViewById(R.id.bg_song_list);
 
         preview.setOnClickListener(v -> showStartSongFragment());
         //lista
@@ -249,6 +250,8 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             showEditFragment();
         });
 
+
+        Picasso.get().load(R.drawable.bg_disc_square).into(bgSongList);
         //-------------se crea la lista de canciones------------//
         try {
             changeMusic = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
@@ -441,7 +444,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
                     Bitmap ww = TransformBitmap.makeTransparent(TransformBitmap.myblur(BitmapFactory.decodeFile(bg.getPath()), getApplicationContext()), 150);
                     backgroundBluour.setImageBitmap(BitmapFactory.decodeFile(bg.getPath()));
                     backgroundBluour.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_in_left));
-                    //  Picasso.get().load(bg.getPath()).into(backgroundBluour);
+                     // Picasso.get().load(bg.getPath()).into(backgroundBluour);
 
 
                 }

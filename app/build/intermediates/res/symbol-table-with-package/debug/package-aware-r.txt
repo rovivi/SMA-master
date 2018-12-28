@@ -1397,6 +1397,7 @@ id bgVideoView2
 id bg_loop
 id bg_lvl
 id bg_pad
+id bg_song_list
 id blocking
 id bottom
 id box_count
@@ -1480,7 +1481,6 @@ id icon_group
 id icon_only
 id ifRoom
 id image
-id imageView
 id imageView2
 id imageView3
 id imageView4

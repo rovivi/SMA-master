@@ -73,7 +73,7 @@
 
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/bg_song_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adjustViewBounds="false"

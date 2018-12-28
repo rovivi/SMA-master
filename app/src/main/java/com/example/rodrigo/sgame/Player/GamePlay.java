@@ -39,6 +39,8 @@ import com.example.rodrigo.sgame.PlayerBga;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Stack;
 
 //Este objeto contine todo lo relacionado con el gameplay (Sprites,Gameobjets,evaluador,etc)
@@ -214,6 +216,14 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             FAKES = setMetadata((String) stepData.chartsInfo[nchar].get("FAKES"), stepData.songInfo.get("FAKES"));
             SPEEDS = setMetadata((String) stepData.chartsInfo[nchar].get("SPEEDS"), stepData.songInfo.get("SPEEDS"));
 
+
+
+
+
+
+
+
+
             if(!Common.testingRadars){
                 TICKCOUNTS = setMetadata((String) stepData.chartsInfo[nchar].get("TICKCOUNTS"), stepData.songInfo.get("TICKCOUNTS"));
 
@@ -222,6 +232,57 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 WARPS = setMetadata((String) stepData.chartsInfo[nchar].get("WARPS"), stepData.songInfo.get("WARPS"));
 
             }
+
+
+
+
+
+
+
+
+
+            ////////TEST
+
+            ArrayList<Float[]> auxBPM2WARP= new ArrayList<>();
+            //  effectMap.put("BPMS", BPMS);
+            if (BPMS != null) {
+                for (int x=0;x<BPMS.size();x++){
+                    if (BPMS.get(x)[1]>100000){
+                        Float[] auxF = BPMS.get(x).clone();
+                        float warpValue = BPMS.get(x+1)[0] - BPMS.get(x)[0];
+                        warpValue *= 0.9999;
+                        auxF[1]=warpValue;
+                        auxBPM2WARP.add(auxF);
+                        BPMS.remove(x);
+                        x--;
+                    }
+                }
+
+            }
+
+
+            if (WARPS != null) {
+                WARPS.addAll(auxBPM2WARP);
+
+                Collections.sort(WARPS, new Comparator<Float[]>(){
+                    public int compare(Float[] o1, Float[] o2){
+                        return o1[0].compareTo(o2[0]) ;
+                    }
+                });
+            }
+            else{
+                WARPS= auxBPM2WARP;
+            }
+
+
+
+
+
+
+            ///TEST AREA
+
+
+
 
             //ATTACKS= setMetadata(stepData.chartsInfo[nchar].get("ATTACKS"),stepData.songInfo.get("ATTACKS"));
 
@@ -533,11 +594,12 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                     canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                     drawStats(canvas);
                     if ((posBuffer + 1 < bufferSteps.size())) {
-                        if (bufferSteps.get(posBuffer).beat < currentBeat) {
+                        /*if (bufferSteps.get(posBuffer).beat <= currentBeat) {
                             drawCharts(canvas, posBuffer, true);
                         } else if (bufferSteps.get(posBuffer).beat > currentBeat) {
-                            drawCharts(canvas, posBuffer, true);
-                        }
+                        }*/
+                        drawCharts(canvas, posBuffer, true);
+
                     } else if ((posBuffer + 1 >= bufferSteps.size())) {
                         this.startEvaluation();
                         stop();
@@ -714,11 +776,11 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                         evaluate();
                         calculateBeat();
                         //calculateEffects();
-                        if (bufferSteps.get(posBuffer).effect != null &&Common.testingRadars) {
+                       /* if (bufferSteps.get(posBuffer).effect != null &&Common.testingRadars) {
                             for (EffectStep effect : bufferSteps.get(posBuffer).effect) {
                                 effect.execute(this);
                             }
-                        }
+                        }*/
                     }
                 }
             } else {

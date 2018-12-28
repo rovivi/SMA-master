@@ -139,7 +139,7 @@ public class Steps {
 
         int posintX2 = posintx;
         int aux2 = (int) (playerSizeY * Common.START_Y);
-        int halfDistance = (int) (((playerSizeY-Common.START_Y*Common.HEIGHT)/2)+Common.START_Y*Common.HEIGHT);
+        int halfDistance = (int) (((playerSizeY - Common.START_Y * Common.HEIGHT) / 2) + Common.START_Y * Common.HEIGHT);
         int currenty;
 
         while (!stackSteps.isEmpty()) {
@@ -184,7 +184,7 @@ public class Steps {
             255 presed
 
         */
-                Steps[j]= (byte) Math.abs(Steps[j]);
+                Steps[j] = (byte) Math.abs(Steps[j]);
                 byte typechar = 0;
                 byte typeDisplay = 0;
 
@@ -197,14 +197,14 @@ public class Steps {
 
                 }
 
-                boolean sundded = (typeDisplay ==3);
-                boolean vanish = (typeDisplay ==1);
+                boolean sundded = (typeDisplay == 3);
+                boolean vanish = (typeDisplay == 1);
                 boolean hidden = typeDisplay == 2;
 
 
-                if ( typeDisplay == 0 || (currenty < halfDistance && vanish) || (currenty > halfDistance && sundded)) {
+                if (typeDisplay == 0 || (currenty < halfDistance && vanish) || (currenty > halfDistance && sundded)) {
 
-                    switch ( typechar) {
+                    switch (typechar) {
                         case (1):
                         case (5):
                             arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
@@ -232,6 +232,16 @@ public class Steps {
                             Longinfo[j] = -9999;
                             break;
                         default:
+                    }
+                } else {
+                    switch (typechar) {
+                        case (3):
+                        case (4):
+                            verifyLong(j, currenty);
+                            break;
+                        case (100):
+                            Longinfo[j] = -9999;
+                            break;
                     }
                 }
             }
