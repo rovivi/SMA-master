@@ -222,6 +222,21 @@ public class SSC implements Serializable {
 
 
     public ArrayList<RowStep> createBuffer(int nchar) {
+
+        String rowEmpaty="";
+
+        switch (chartsInfo[nchar].get("STEPSTYPE").toString()) {
+            case "pump-double":
+            case "pump-routine":
+                rowEmpaty = "0000000000";
+                break;
+            case "pump-single":
+                rowEmpaty = "00000";
+                break;
+            case "pump-halfdouble":
+                rowEmpaty = "00000";
+                break;
+        }
         if (this.chartsInfo[nchar].get("SCROLLS") != null && !this.chartsInfo[nchar].get("SCROLLS").equals("")) {
             SCROLLS = this.arrayListTag(this.chartsInfo[nchar].get("SCROLLS").toString());
         }//DO not remove is for scrolling
@@ -308,7 +323,7 @@ public class SSC implements Serializable {
                         }
 
                     } else {
-                        row.rowStep = stringStep2ByteArary("0000000000");
+                        row.rowStep = stringStep2ByteArary(rowEmpaty);
                     }
                 }
 

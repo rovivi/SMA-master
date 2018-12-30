@@ -37,15 +37,15 @@ import java.util.concurrent.ExecutionException;
  */
 public class Common {
 
-
-    public final static double[] JudgeSJ = {41.6, 41.6, 41.6, 83.3 + 30};
-    public final static double[] JudgeEJ = {41.6, 41.6, 41.6, 58.3 + 30};
-    public final static double[] JudgeNJ = {41.6, 41.6, 41.6, 41.6 + 30};
-    public final static double[] JudgeHJ = {41.6, 41.6, 41.6, 25.5 + 30};
-    public final static double[] JudgeVJ = {33.3, 33.3, 33.3, 8.5 + 30};
-    public final static double[] JudgeXJ = {41.6, 1, 16.6, 16.6, 16.6 + 30};
-    public final static double[] JudgeUJ = {41.6, 1, 8.3, 8.3, 8.3 + 30};
-    public final static double[][] juicios = {JudgeSJ, JudgeEJ, JudgeNJ, JudgeHJ, JudgeVJ, JudgeXJ, JudgeUJ};
+    public final static String [] PIU_ARROW_NAMES = {"down_left_","up_left_","center_","up_right_","down_right_"};
+    private final static double[] JudgeSJ = {41.6, 41.6, 41.6, 83.3 + 30};
+    private final static double[] JudgeEJ = {41.6, 41.6, 41.6, 58.3 + 30};
+    private final static double[] JudgeNJ = {41.6, 41.6, 41.6, 41.6 + 30};
+    private final static double[] JudgeHJ = {41.6, 41.6, 41.6, 25.5 + 30};
+    private final static double[] JudgeVJ = {33.3, 33.3, 33.3, 8.5 + 30};
+    private final static double[] JudgeXJ = {41.6, 1, 16.6, 16.6, 16.6 + 30};
+    private final static double[] JudgeUJ = {41.6, 1, 8.3, 8.3, 8.3 + 30};
+    public final static double[][] JUDMENT = {JudgeSJ, JudgeEJ, JudgeNJ, JudgeHJ, JudgeVJ, JudgeXJ, JudgeUJ};
 
 
     public final static String[] possibleDirectorys = {

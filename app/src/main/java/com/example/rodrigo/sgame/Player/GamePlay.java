@@ -1,7 +1,6 @@
 package com.example.rodrigo.sgame.Player;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
-import com.example.rodrigo.sgame.CommonGame.EffectStep;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.CommonGame.RowStep;
 import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
@@ -109,7 +108,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     private float currentLife = 50;
     File fileBGA;
     private Paint dibujante;
-    private int Combo = 0, soundPullBeat,soundPullMine,mineHideValue=0;
+    private int Combo = 0, soundPullBeat, soundPullMine, mineHideValue = 0;
     //////
     private Long ttranscurrido = 0l;
     private Long currenttiempo = 0l;
@@ -217,14 +216,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             SPEEDS = setMetadata((String) stepData.chartsInfo[nchar].get("SPEEDS"), stepData.songInfo.get("SPEEDS"));
 
 
-
-
-
-
-
-
-
-            if(!Common.testingRadars){
+            if (!Common.testingRadars) {
                 TICKCOUNTS = setMetadata((String) stepData.chartsInfo[nchar].get("TICKCOUNTS"), stepData.songInfo.get("TICKCOUNTS"));
 
                 STOPS = setMetadata((String) stepData.chartsInfo[nchar].get("STOPS"), stepData.songInfo.get("STOPS"));
@@ -234,24 +226,17 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             }
 
 
-
-
-
-
-
-
-
             ////////TEST
 
-            ArrayList<Float[]> auxBPM2WARP= new ArrayList<>();
+            ArrayList<Float[]> auxBPM2WARP = new ArrayList<>();
             //  effectMap.put("BPMS", BPMS);
             if (BPMS != null) {
-                for (int x=0;x<BPMS.size();x++){
-                    if (BPMS.get(x)[1]>100000){
+                for (int x = 0; x < BPMS.size(); x++) {
+                    if (BPMS.get(x)[1] > 100000) {
                         Float[] auxF = BPMS.get(x).clone();
-                        float warpValue = BPMS.get(x+1)[0] - BPMS.get(x)[0];
+                        float warpValue = BPMS.get(x + 1)[0] - BPMS.get(x)[0];
                         warpValue *= 0.9999;
-                        auxF[1]=warpValue;
+                        auxF[1] = warpValue;
                         auxBPM2WARP.add(auxF);
                         BPMS.remove(x);
                         x--;
@@ -264,24 +249,17 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             if (WARPS != null) {
                 WARPS.addAll(auxBPM2WARP);
 
-                Collections.sort(WARPS, new Comparator<Float[]>(){
-                    public int compare(Float[] o1, Float[] o2){
-                        return o1[0].compareTo(o2[0]) ;
+                Collections.sort(WARPS, new Comparator<Float[]>() {
+                    public int compare(Float[] o1, Float[] o2) {
+                        return o1[0].compareTo(o2[0]);
                     }
                 });
+            } else {
+                WARPS = auxBPM2WARP;
             }
-            else{
-                WARPS= auxBPM2WARP;
-            }
-
-
-
-
 
 
             ///TEST AREA
-
-
 
 
             //ATTACKS= setMetadata(stepData.chartsInfo[nchar].get("ATTACKS"),stepData.songInfo.get("ATTACKS"));
@@ -294,10 +272,13 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
                 offset += Float.parseFloat(xof);
             }
-            offset +=((float)Common.OFFSET/1000);
+            offset += ((float) Common.OFFSET / 1000);
 
             if (stepData.chartsInfo[nchar].get("STEPSTYPE") != null && !stepData.chartsInfo[nchar].get("STEPSTYPE").equals("")) {
                 tipo = stepData.chartsInfo[nchar].get("STEPSTYPE").toString();
+                if (tipo.equals("pump-double")&&stepData.chartsInfo[nchar].get("DESCRIPTION")!=null &&stepData.chartsInfo[nchar].get("DESCRIPTION").toString().contains("DP")){
+                    tipo="pump-routine";
+                }
             } else {
                 tipo = "";
             }
@@ -388,7 +369,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             currentSpeedMod = (int) (height * ParamsSong.speed / 4);
 
             //flecha
-            steps = new Steps(context, BGA.getresolution());
+            steps = new Steps(context, tipo);
 
             dibujante = new Paint();
             dibujante.setTextSize(20);
@@ -454,7 +435,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 ), (int) currentY + arrowSize));*/
 
 
-                } else if (tipo.equals("pump-double")) {
+                } else if (tipo.equals("pump-double")||tipo.equals("pump-routine")) {
                     arrowSize = (int) (playerSizeX / 10 * 0.8);
                     posIntX = (int) (playerSizeX * 0.1);
                     playerSizeY = (int) (Common.HEIGHT * (0.62));
@@ -609,12 +590,12 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 ObjectCombo.draw(canvas, playerSizeX, playerSizeY);
                 touchPad.draw(canvas);
                 life.draw(canvas);
-                if (mineHideValue>0){
-                    Paint pRect= new Paint();
+                if (mineHideValue > 0) {
+                    Paint pRect = new Paint();
                     pRect.setColor(Color.WHITE);
                     pRect.setAlpha(mineHideValue);
-                    canvas.drawRect(new Rect(0,0,Common.WIDTH,Common.HEIGHT),pRect);
-                    mineHideValue-=9;
+                    canvas.drawRect(new Rect(0, 0, Common.WIDTH, Common.HEIGHT), pRect);
+                    mineHideValue -= 9;
 
                 }
 
@@ -918,7 +899,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
     public void evaluate() {
         if (doEvaluate) {
-            double[] currentJudge = Common.juicios[ParamsSong.judgment];
+            double[] currentJudge = Common.JUDMENT[ParamsSong.judgment];
             if (ParamsSong.autoplay) {
                 ObjectCombo.posjudge = 0;
                 if (containTapNote(bufferSteps.get(posBuffer).rowStep)) {
@@ -930,12 +911,12 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                     for (int w = 0; w < auxrow.length; w++) {//animations
                         int aux = auxrow[w];
                         if (aux == 1) {
-                            steps.explotions[w].play();
+                            steps.noteSkins[0].explotions[w].play();
                         } else if (aux == 2) {
-                            steps.explotions[w].play();
-                            steps.explotionTails[w].play();
+                            steps.noteSkins[0].explotions[w].play();
+                            steps.noteSkins[0].explotionTails[w].play();
                         } else if (aux == 0) {
-                            steps.explotionTails[w].stop();
+                            steps.noteSkins[0].explotionTails[w].stop();
                         }
                     }
                     bufferSteps.get(posBuffer).rowStep = preseedRow;
@@ -976,7 +957,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                     comboLess();
                     bufferSteps.get(posBuffer + posBack).rowStep = preseedRow;
                     posBack++;
-                   // miss++;
+                    // miss++;
                 }
                 if (containsMine(bufferSteps.get(posBuffer + posBack).rowStep)) {//evaluate miss
                     bufferSteps.get(posBuffer + posBack).rowStep = preseedRow;
@@ -997,7 +978,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                     if (containSteps((byte[]) bufferSteps.get(posBuffer + posBack).rowStep)) {
                         boolean checkLong = true;
                         //byte[] auxRow = (byte[]) bufferSteps.get(posBuffer + posBack)[0];
-                        for (int w = 0; w < ((byte[]) bufferSteps.get(posBuffer + posBack).rowStep).length; w++) {
+                        for (int w = 0; w < bufferSteps.get(posBuffer + posBack).rowStep.length; w++) {
                             byte currentChar = ((byte[]) bufferSteps.get(posBuffer + posBack).rowStep)[w];
 
 
@@ -1008,7 +989,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                                     combopp();
                                     currentLife += 0.5;
                                 }
-                                steps.explotionTails[w].play();
+                                steps.noteSkins[0].explotionTails[w].play();
 
 
                                 if (checkLong) {
@@ -1031,7 +1012,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                             }
 
                             if (inputs[w] == 1 && containTaps(currentChar)) {// tap1
-                                steps.explotions[w].play();
+                                steps.noteSkins[0].explotions[w].play();
                                 bufferSteps.get(posBuffer + posBack).rowStep[w] = 0;
                                 inputs[w] = 2;
                                 posEvaluate = posBuffer + posBack;
@@ -1039,18 +1020,20 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                             }
 
                             if (inputs[w] == 1 && containsMine(currentChar)) {//tap mine
-                               // steps.explotions[w].play();
+                                // steps.explotions[w].play();
                                 bufferSteps.get(posBuffer + posBack).rowStep[w] = 0;
                                 inputs[w] = 2;
                                 posEvaluate = posBuffer + posBack;
-                                soundPool.play(soundPullMine,0.8f,0.8f,1,0,1f);
-                                mineHideValue=255;
-                                currentLife-=10;
+                                soundPool.play(soundPullMine, 0.8f, 0.8f, 1, 0, 1f);
+                                mineHideValue = 255;
+                                currentLife -= 10;
                             }
 
 
                             if (inputs[w] == 0) {
-                                steps.explotionTails[w].stop();
+                                if (steps.noteSkins[0].explotionTails.length < w) {
+                                    steps.noteSkins[0].explotionTails[w].stop();
+                                }
                             }
 
                             //bufferSteps.get(posBuffer + posBack)[0] = auxRow;
@@ -1147,7 +1130,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
     private boolean containTaps(byte... row) {
         for (int x : row) {
-            if ((x>0)&& (x % 10 == 1 )) {
+            if ((x > 0) && (x % 10 == 1)) {
                 return true;
             }
         }
@@ -1157,7 +1140,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
     private boolean containsMine(byte... row) {
         for (int x : row) {
-            if ((x>0)&& (x % 10 == 7 )) {
+            if ((x > 0) && (x % 10 == 7)) {
                 return true;
             }
         }
@@ -1167,7 +1150,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     private boolean containLongs(byte... row) {
         for (int x : row) {
 
-            if ((x>0)&& (x % 10 == 2 || x % 10 == 3 || x %10== 4)) {
+            if ((x > 0) && (x % 10 == 2 || x % 10 == 3 || x % 10 == 4)) {
                 return true;
             }
         }
@@ -1177,7 +1160,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     private boolean containTapNote(byte... row) {
         for (int x : row) {
 
-            if ((x>0)&& (x % 10 == 1 || x %10== 2)) {
+            if ((x > 0) && (x % 10 == 1 || x % 10 == 2)) {
                 return true;
             }
         }
@@ -1187,7 +1170,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
     private boolean containSteps(byte... row) {
         for (byte x : row) {
-            if ( (x != 0 && x != 127)) {
+            if ((x != 0 && x != 127)) {
                 return true;
             }
         }

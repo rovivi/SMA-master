@@ -14,6 +14,7 @@ public class ParamsSong {
     public static int delayMS = 0;
     public static Float rush = 1.0f;
     public static  boolean autoplay=false;
+    public static  String nameNoteSkin="prime";
 
     /**
      * Game mode

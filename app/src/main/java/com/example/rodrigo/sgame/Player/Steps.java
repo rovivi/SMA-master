@@ -12,118 +12,47 @@ import android.graphics.Rect;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
+import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 import com.example.rodrigo.sgame.R;
 
 import java.util.Stack;
 
 public class Steps {
-    static public SpriteReader mine, receptor;
-    static private SpriteReader[] arrows, longs, tails;
-    static public SpriteReader[] explotions, explotionTails, tapsEffect;
+
     static private int Longinfo[] = {-9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999};
     static public boolean efecto = false;
     Point screenSize;
+    static NoteSkin[] noteSkins;
 
     /**
      * Created the step
      *
      * @param context
-     * @param screenSize
+     * @param gameMode
      */
-    Steps(Context context, Point screenSize) {
-        receptor = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.base), 1, 2, 0.5f);
-        receptor.play();
-        int sizeArrow = (int) (screenSize.x * 0.8 / 10);
-        this.screenSize = screenSize;
+    Steps(Context context, String gameMode) {
 
-        BitmapFactory.Options myOpt = new BitmapFactory.Options();
-        myOpt.inSampleSize = 0;
-
-        BitmapFactory.Options myOpt2 = new BitmapFactory.Options();
-        myOpt2.inSampleSize = 4;
-
-
-        try {
-            if (arrows == null || tails == null || longs == null || explotions == null) {
-                arrows = new SpriteReader[10];
-                tails = new SpriteReader[10];
-                longs = new SpriteReader[10];
-                explotionTails = new SpriteReader[10];
-                tapsEffect = new SpriteReader[10];
-
-
-                for (int j = 0; j < 5; j++) {
-                    tapsEffect[j] = new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(), R.drawable.pad_pressed), 5, 2, j, j + 5, j + 5, j), 0.2f);
-                    tapsEffect[j + 5] = new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(), R.drawable.pad_pressed), 5, 2, j, j + 5, j + 5, j), 0.2f);
-                }
-
-                arrows[0] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_left_tap, myOpt), 6, 1, 0.2f);
-                arrows[1] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_up_left_tap, myOpt), 6, 1, 0.2f);
-                arrows[2] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_center_tap, myOpt), 6, 1, 0.2f);
-                arrows[3] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_up_right_tap, myOpt), 6, 1, 0.2f);
-                arrows[4] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_right_tap, myOpt), 6, 1, 0.2f);
-                tails[0] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_left_tail, myOpt), 6, 1, 0.2f);
-                tails[1] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_up_left_tail, myOpt), 6, 1, 0.2f);
-                tails[2] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_center_tail, myOpt), 6, 1, 0.2f);
-                tails[3] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_up_right_tail, myOpt), 6, 1, 0.2f);
-                tails[4] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_right_tail, myOpt), 6, 1, 0.2f);
-                longs[0] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_left_body, myOpt), 6, 1, 0.2f);
-                longs[1] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_up_left_body, myOpt), 6, 1, 0.2f);
-                longs[2] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_center_body, myOpt), 6, 1, 0.2f);
-                longs[3] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_up_right_body, myOpt), 6, 1, 0.2f);
-                longs[4] = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.prime_down_right_body, myOpt), 6, 1, 0.2f);
-
-
-                Bitmap r1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s1, myOpt2);
-                Bitmap r2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s2, myOpt2);
-                Bitmap r3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s3, myOpt2);
-                Bitmap r4 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s4, myOpt2);
-                Bitmap r5 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s5, myOpt2);
-
-
-                //Bitmap exploAux=BitmapFactory.decodeResource(context.getResources(),R.drawable.explosion_6x1);
-                //Bitmap[] res = TransformBitmap.customSpriteArray(exploAux,6,1,0,1,2,3,4,5);
-
-
-                explotions = new SpriteReader[10];
-                for (int w = 0; w < 5; w++) {
-                    arrows[w + 5] = arrows[w];
-                    tails[5 + w] = tails[w];
-                    longs[5 + w] = longs[w];
-                    // tails[5+w] = tails[w];
-                }
-
-                for (int cd = 0; cd < 10; cd++) {
-                    explotions[cd] = new SpriteReader(new Bitmap[]{
-                            TransformBitmap.returnMaskCut(arrows[cd].frames[0], TransformBitmap.returnMask(arrows[cd].frames[0], r1)),
-                            TransformBitmap.returnMaskCut(arrows[cd].frames[1], TransformBitmap.returnMask(arrows[cd].frames[1], r2)),
-                            TransformBitmap.returnMaskCut(arrows[cd].frames[2], TransformBitmap.returnMask(arrows[cd].frames[2], r3)),
-                            TransformBitmap.returnMaskCut(arrows[cd].frames[3], TransformBitmap.returnMask(arrows[cd].frames[3], r3)),
-                            TransformBitmap.returnMaskCut(arrows[cd].frames[4], TransformBitmap.returnMask(arrows[cd].frames[4], r4)),
-                            TransformBitmap.returnMaskCut(arrows[cd].frames[5], TransformBitmap.returnMask(arrows[cd].frames[5], r5)),
-                    }, 0.15f);
-                    explotionTails[cd] = explotions[cd];
-                }
-
-
-            }//resplandor
-        } catch (OutOfMemoryError E) {
-            // System.gc();
-            for (int cd = 0; cd < 10; cd++) {
-                explotions[cd] = arrows[cd];
-
-            }
+        switch (gameMode) {
+            case "pump-routine":
+                noteSkins = new NoteSkin[3];
+                noteSkins[0] = new NoteSkin(context, gameMode, "routine1");
+                noteSkins[1] = new NoteSkin(context, gameMode, "routine2");
+                noteSkins[2] = new NoteSkin(context, gameMode, "routine3");
+                break;
+            case "pump-double":
+            case "pump-single":
+            case "pump-halfdouble":
+                noteSkins = new NoteSkin[1];
+                noteSkins[0] = new NoteSkin(context, gameMode, ParamsSong.nameNoteSkin);
+                break;
+            case "dance-single":
+                break;
+            case "":
+                break;
 
         }
 
-        for (int x = 0; x < arrows.length; x++) {
-            arrows[x].play();
-            longs[x].play();
-            tails[x].play();
-        }
-        mine = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.mine), 3, 2, 0.2f);
-        mine.play();
 
     }
 
@@ -155,7 +84,7 @@ public class Steps {
             }
 
 
-            for (int j = 0; j < Steps.length && speed != 0; j++) {
+            for (int j = 0; j < noteSkins[0].arrows.length && speed != 0; j++) {
 
                 if (efecto) {
                     posintx = (int) (posintX2 + Math.sin((double) (aux2 - currenty) / wa / 1.2) * wa * 0.8);
@@ -184,6 +113,9 @@ public class Steps {
             255 presed
 
         */
+
+
+                int posNote = 0;
                 Steps[j] = (byte) Math.abs(Steps[j]);
                 byte typechar = 0;
                 byte typeDisplay = 0;
@@ -201,34 +133,44 @@ public class Steps {
                 boolean vanish = (typeDisplay == 1);
                 boolean hidden = typeDisplay == 2;
 
+                if (typeDisplay == 5) {
+                    posNote = 0;
+                }
+                if (typeDisplay == 6) {
+                    posNote = 1;
+                }
+                if (typeDisplay == 7) {
+                    posNote = 2;
+                }
 
-                if (typeDisplay == 0 || (currenty < halfDistance && vanish) || (currenty > halfDistance && sundded)) {
+
+                if (typeDisplay == 6 || typeDisplay == 5 || typeDisplay == 0 || (currenty < halfDistance && vanish) || (currenty > halfDistance && sundded)) {
 
                     switch (typechar) {
                         case (1):
                         case (5):
-                            arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                            noteSkins[posNote].arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                             break;
                         case (2):
 
                             //   longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, nexty));
-                            longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[j]));
-                            arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                            noteSkins[posNote].longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[j]));
+                            noteSkins[posNote].arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                             Longinfo[j] = -9999;
                             break;
                         case (3):
 
                             verifyLong(j, currenty);
-                            tails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                            noteSkins[posNote].tails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                             break;
                         case (4):
                             verifyLong(j, currenty);
                             break;
                         case (7):
-                            mine.draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                            noteSkins[posNote].mine.draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                             break;
                         case (100):
-                            longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[j]));
+                            noteSkins[posNote].longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[j]));
                             Longinfo[j] = -9999;
                             break;
                         default:
@@ -246,21 +188,27 @@ public class Steps {
                 }
             }
         }
-        for (int j = 0; j < 10; j++) {
+        for (int j = 0; j < noteSkins[0].arrows.length; j++) {
             if (Longinfo[j] != -9999) {
-                longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, Longinfo[j]));
+                noteSkins[0].longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, Longinfo[j]));
                 Longinfo[j] = -9999;
             }
         }
-        currenty = (int) (playerSizeY * Common.START_Y);
-        for (int j = 0; j < 10 && speed != 0; j++) {//se Dibujan receptores y effectos de las notas si los hay
-            explotions[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
-            explotionTails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
-            tapsEffect[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
 
-            if (Longinfo[j] != -9999) {
-                longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, Longinfo[j]));
-                Longinfo[j] = -9999;
+
+        currenty = (int) (playerSizeY * Common.START_Y);
+
+
+        for (NoteSkin currentNote : noteSkins) {
+            for (int j = 0; j < currentNote.arrows.length && speed != 0; j++) {//se Dibujan receptores y effectos de las notas si los hay
+                currentNote.explotions[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                currentNote.explotionTails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                currentNote.tapsEffect[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+
+                if (Longinfo[j] != -9999) {
+                    noteSkins[0].longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, Longinfo[j]));
+                    Longinfo[j] = -9999;
+                }
             }
         }
 
@@ -291,7 +239,7 @@ public class Steps {
         int posintX2 = posintx;
         int aux2 = (int) (playerSizeY * Common.START_Y);
         currenty = (int) (playerSizeY * Common.START_Y);
-        receptor.draw(c, new Rect((int) (playersizex * 0.24), currenty, (int) (playersizex * 0.742
+        noteSkins[0].receptor.draw(c, new Rect((int) (playersizex * 0.24), currenty, (int) (playersizex * 0.742
         ), currenty + wa));
         while (!stackSteps.isEmpty()) {
             String[] aux = stackSteps.pop();
@@ -307,21 +255,21 @@ public class Steps {
 
                 switch (Steps.charAt(j)) {
                     case ('1'):
-                        arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                        noteSkins[0].arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                         break;
                     case ('F'):
-                        arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                        noteSkins[0].arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                         break;
                     case ('2'):
                         //   longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, nexty));
-                        longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[j]));
-                        arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                        noteSkins[0].longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[j]));
+                        noteSkins[0].arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
 
                         Longinfo[j] = -9999;
                         break;
                     case ('3'):
                         verifyLong(j, currenty);
-                        tails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                        noteSkins[0].tails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                         break;
                     case ('L'):
                         verifyLong(j, currenty);
@@ -329,12 +277,12 @@ public class Steps {
                         break;
                     case ('M'):
                         //c.drawBitmap(items.frames[6], null, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa), new Paint());
-                        mine.draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                        noteSkins[0].mine.draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                         break;
                     case ('P'):
                         //c.drawBitmap(items.frames[6], null, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa), new Paint());
 
-                        longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[j]));
+                        noteSkins[0].longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[j]));
                         Longinfo[j] = -9999;
                         break;
                     default:
@@ -343,17 +291,17 @@ public class Steps {
         }
         for (int j = 0; j < 10; j++) {
             if (Longinfo[j] != -9999) {
-                longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, Longinfo[j]));
+                noteSkins[0].longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, Longinfo[j]));
                 Longinfo[j] = -9999;
             }
         }
         currenty = (int) (playerSizeY * 0.085);
         for (int j = 0; j < 10 && speed != 0; j++) {
-            explotions[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
-            tapsEffect[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
-            explotionTails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+            noteSkins[0].explotions[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+            noteSkins[0].tapsEffect[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+            noteSkins[0].explotionTails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
             if (Longinfo[j] != -9999) {
-                longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, Longinfo[j]));
+                noteSkins[0].longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, Longinfo[j]));
                 Longinfo[j] = -9999;
             }
         }
@@ -372,20 +320,24 @@ public class Steps {
     }
 
     public void update() {
-        for (int x = 0; x < 10; x++) {
-            arrows[x].update();
-            tails[x].update();
-            longs[x].update();
-            explotions[x].update();
-            explotionTails[x].update();
-            tapsEffect[x].update();
+        for (NoteSkin currentNote : noteSkins) {
+            for (int x = 0; x < currentNote.arrows.length; x++) {
+                currentNote.arrows[x].update();
+                currentNote.tails[x].update();
+                currentNote.longs[x].update();
+                currentNote.explotions[x].update();
+                currentNote.explotionTails[x].update();
+                currentNote.tapsEffect[x].update();
+            }
+            currentNote.receptor.update();
+            currentNote.mine.update();
         }
-        receptor.update();
-        mine.update();
     }
 
 
     private void verifyLong(int pos, int y) {
+
+
         if (Longinfo[pos] == -9999 || Longinfo[pos] < y) {
             Longinfo[pos] = y;
         }
@@ -394,22 +346,7 @@ public class Steps {
 
 
     public void makeDDR(Context context) {
-        Bitmap upOn = BitmapFactory.decodeResource(context.getResources(), R.drawable.dance_pad_up_on);
 
-        explotionTails[0] = explotionTails[2];
-        explotionTails[1] = explotionTails[2];
-        explotionTails[3] = explotionTails[2];
-        tails[0] = tails[2];
-        tails[1] = tails[2];
-        tails[3] = tails[2];
-        arrows[0] = new SpriteReader(TransformBitmap.RotateBitmap(upOn, 270), 1, 1, 0.2f);
-        arrows[1] = new SpriteReader(TransformBitmap.RotateBitmap(upOn, 180), 1, 1, 0.2f);
-        arrows[2] = new SpriteReader(upOn, 1, 1, 0.2f);
-        arrows[3] = new SpriteReader(TransformBitmap.RotateBitmap(upOn, 90), 1, 1, 0.2f);
-        arrows[0].play();
-        arrows[1].play();
-        arrows[2].play();
-        arrows[3].play();
     }
 
 }
