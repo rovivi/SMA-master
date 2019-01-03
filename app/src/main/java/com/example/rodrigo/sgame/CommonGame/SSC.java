@@ -7,7 +7,6 @@ import android.support.annotation.RequiresApi;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -34,7 +33,8 @@ public class SSC implements Serializable {
     public Map<String, String> songInfo = new HashMap<>();//datos generales para el screen select music
     public Map[] chartsInfo = new Map[30];//datos de cada chart
     public ArrayList[] charts = new ArrayList[30];//stepps como arraylist de arraylist de arraylist
-    private short wasLong[] = new short[40];
+    private byte wasLong[] = new byte[12];
+    public Map<Integer, String> perfAux = new HashMap<>();
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
 
@@ -47,8 +47,6 @@ public class SSC implements Serializable {
     public SSC(String raw, boolean option, boolean isPropitary) {
         this.isPropitarySongs = isPropitary;
         this.ParseSSCLines(StripComments(raw), option);
-
-
     }
 
 
@@ -59,7 +57,6 @@ public class SSC implements Serializable {
      * @return String whit out comments
      */
     private static String StripComments(String data) {//Ya quedo uwu
-
         return data.replaceAll("(\\s+//-([^;]+)\\s)|(//[\\s+]measure\\s[0-9]+\\s)", "");
     }
 
@@ -84,8 +81,15 @@ public class SSC implements Serializable {
                     switch (key) {
                         case "NOTES":
                             if (!miniVer) {
-                                valor = valor.replaceAll(" ", "").replaceAll("&", ",");
-                                this.charts[chart] = this.step2Array(valor);
+                                if (valor.contains("&")) {
+                                    String[] steps = valor.split("&");
+                                    this.charts[chart] = this.step2Array(steps[0]);
+                                    this.perfAux.put(chart, steps[1]);
+                                } else {
+                                    this.charts[chart] = this.step2Array(valor);
+                                }
+
+
                             }
                             break;
                         case "BPMS":
@@ -123,6 +127,11 @@ public class SSC implements Serializable {
      * @return array whit steps structure
      */
     private ArrayList step2Array(String data) {
+
+
+        //code for
+
+
         ArrayList<ArrayList<String>> steps = new ArrayList<>(); // initialize the step array
         ArrayList<String> auxBlock = new ArrayList<>(); //initialize the aux block (used to set new block of steps)
         String[] arrayString = data.split("\n");
@@ -149,81 +158,11 @@ public class SSC implements Serializable {
      * @param nchar Contains the index to be used in the player
      * @return the "thing"
      */
-    public ArrayList<Object[]> createBuffer2(int nchar) {
-        if (this.chartsInfo[nchar].get("SCROLLS") != null && !this.chartsInfo[nchar].get("SCROLLS").equals("")) {
-            SCROLLS = this.arrayListTag(this.chartsInfo[nchar].get("SCROLLS").toString());
-        }
-
-
-        //DO not remove is for scrolling
-
-        double currentBeat = 0;//offset/(60/BPM);
-        ArrayList<Object[]> buffer = new ArrayList<>();
-        ArrayList<ArrayList<String>> aux = this.charts[nchar];
-        int numberBlock = 0;
-
-
-        for (int i = 0; i < aux.size(); i++) {
-            for (int j = 0; j < 192; j++) {
-                Object auxObject[] = new Object[4];
-                if (aux.get(i).size() == 192) {
-                    auxObject[0] = stringStep2ByteArary(checkLong(aux.get(i).get(j)));
-                } else {
-                    int div = 192 / aux.get(i).size();
-                    if (j % div == 0) {
-                        if (i >= aux.size() || (j / div) >= aux.get(i).size()) {
-                            String x = "sdsdsd";
-                        }
-
-                        auxObject[0] = stringStep2ByteArary(checkLong(aux.get(i).get(j / div)));
-                    } else {
-                        auxObject[0] = stringStep2ByteArary(checkLong("0000000000"));
-                    }
-                }
-
-                auxObject[1] = currentBeat;
-                auxObject[2] = 1f;
-                buffer.add(auxObject);
-
-
-                currentBeat = (double) numberBlock / 48;
-                numberBlock++;
-                //beat += (double) 4 / 192;
-            }
-        }
-        for (int i = 0; i < buffer.size() && SCROLLS != null; i++) {
-            buffer.get(i)[2] = foundScroll((Double) buffer.get(i)[1], SCROLLS);
-        }
-
-
-
-
-
-
-
-        /*
-        for (int i = 0; i < buffer.size() && SCROLLS != null; i++) {
-            buffer.get(i)[2] = foundScroll((Double) buffer.get(i)[1], SCROLLS);
-        }
-
-
-        BPMS = setMetadata(chartsInfo[nchar].get("BPMS"), songInfo.get("BPMS"));
-        FAKES = setMetadata(chartsInfo[nchar].get("FAKES"), songInfo.get("FAKES"));
-        TICKCOUNTS = setMetadata(chartsInfo[nchar].get("TICKCOUNTS"), songInfo.get("TICKCOUNTS"));
-        STOPS = setMetadata(chartsInfo[nchar].get("STOPS"), songInfo.get("STOPS"));
-        DELAYS = setMetadata(chartsInfo[nchar].get("DELAYS"), songInfo.get("DELAYS"));
-        SPEEDS = setMetadata(chartsInfo[nchar].get("SPEEDS"), songInfo.get("SPEEDS"));
-        WARPS = setMetadata(chartsInfo[nchar].get("WARPS"), songInfo.get("WARPS"));
-*/
-
-
-        return buffer;
-    }
 
 
     public ArrayList<RowStep> createBuffer(int nchar) {
 
-        String rowEmpaty="";
+        String rowEmpaty = "";
 
         switch (chartsInfo[nchar].get("STEPSTYPE").toString()) {
             case "pump-double":
@@ -249,30 +188,23 @@ public class SSC implements Serializable {
         }
 
 
-
-
-
-
         //BPMS = setMetadata(chartsInfo[nchar].get("BPMS"), songInfo.get("BPMS"));
 
 
-
-
-        ArrayList<Float[]> auxBPM2WARP= new ArrayList<>();
+        ArrayList<Float[]> auxBPM2WARP = new ArrayList<>();
         //  effectMap.put("BPMS", BPMS);
         if (BPMS != null) {
-            for (int x=0;x<BPMS.size();x++){
-                if (BPMS.get(x)[1]>1000){
+            for (int x = 0; x < BPMS.size(); x++) {
+                if (BPMS.get(x)[1] > 1000) {
                     Float[] auxF = BPMS.get(x).clone();
                     float warpValue = BPMS.get(1)[0] - BPMS.get(0)[0];
                     warpValue *= 0.98;
-                    auxF[1]=warpValue;
+                    auxF[1] = warpValue;
                     auxBPM2WARP.add(auxF);
                     BPMS.remove(x);
                     x--;
                 }
             }
-
 
 
             effectMap.put("BPMS", BPMS);
@@ -289,10 +221,8 @@ public class SSC implements Serializable {
         if (WARPS != null) {
             effectMap.put("WARPS", WARPS);
 
-        }else {
+        } else {
         }
-
-
 
 
         if (TICKCOUNTS != null) {
@@ -308,7 +238,7 @@ public class SSC implements Serializable {
             for (int j = 0; j < 192; j++) {
                 RowStep row = new RowStep();
                 if (aux.get(i).size() == 192) {
-                    row.rowStep = stringStep2ByteArary(aux.get(i).get(j));
+                    row.rowStep = stringStep2NoteArary(aux.get(i).get(j));
                 } else {
                     int div = 192 / aux.get(i).size();
                     if (j % div == 0) {
@@ -316,14 +246,14 @@ public class SSC implements Serializable {
                             String x = "sdsdsd";
                         }
 
-                        if ((j / div)<aux.get(i).size()){
+                        if ((j / div) < aux.get(i).size()) {
 
-                            row.rowStep = stringStep2ByteArary(aux.get(i).get(j / div));
+                            row.rowStep = stringStep2NoteArary(aux.get(i).get(j / div));
 
                         }
 
                     } else {
-                        row.rowStep = stringStep2ByteArary(rowEmpaty);
+                        row.rowStep = stringStep2NoteArary(rowEmpaty);
                     }
                 }
 
@@ -339,6 +269,63 @@ public class SSC implements Serializable {
                 currentBeat = (double) numberBlock++ / 48;
             }
         }
+
+
+        if (perfAux.get(nchar) != null) {
+
+
+            ArrayList<RowStep> buffer2 = new ArrayList<>();
+            ArrayList<ArrayList<String>> aux2 = this.step2Array(perfAux.get(nchar));
+            for (int i = 0; i < aux2.size(); i++) {
+                for (int j = 0; j < 192; j++) {
+                    RowStep row = new RowStep();
+                    if (aux2.get(i).size() == 192) {
+                        row.rowStep = stringStep2NoteArary(aux2.get(i).get(j));
+                    } else {
+                        int div = 192 / aux2.get(i).size();
+                        if (j % div == 0) {
+                            if (i >= aux2.size() || (j / div) >= aux2.get(i).size()) {
+                                String x = "sdsdsd";
+                            }
+                            if ((j / div) < aux2.get(i).size()) {
+                                row.rowStep = stringStep2NoteArary(aux2.get(i).get(j / div));
+                            }
+                        } else {
+                            row.rowStep = stringStep2NoteArary(rowEmpaty);
+                        }
+                    }
+                    buffer2.add(row);
+                    if (row.effect != null) {
+                        bufferTest.add(row);
+                    }
+                }
+            }
+
+
+            for (int j = 0; j < buffer.size(); j++) {// se suma el valor de perf para cada nota
+                if (buffer.get(j) != null || buffer.get(j).rowStep != null) {
+                    for (int i = 0; (i < buffer.get(j).rowStep.length); i++) {
+                        if (buffer.get(j).rowStep[i].noteType != 0) {
+
+                            buffer.get(j).rowStep[i].noteType += 50;
+                        }
+                    }
+                }
+            }
+
+            for (int j = 0; j < buffer.size(); j++) {
+                if (buffer2.get(j) != null || buffer2.get(j).rowStep != null) {
+                    for (int i = 0; (i < buffer2.get(j).rowStep.length); i++) {
+                        if (buffer2.get(j).rowStep[i].noteType != 0) {
+                            buffer.get(j).rowStep[i] = buffer2.get(j).rowStep[i];
+                            buffer.get(j).rowStep[i].noteType += 60;
+                        }
+                    }
+                }
+            }
+        }
+
+
 
 
 
@@ -402,9 +389,7 @@ public class SSC implements Serializable {
     }
 
 
-
-
-    private String checkLong(String charts) {
+    /*private String checkLong(String charts) {
         if (charts.contains("{")) {
             charts = charts.replace(" ", "").
                     replace("{3|v|0|0}", "E").
@@ -486,7 +471,7 @@ public class SSC implements Serializable {
         }
 
         return charts;
-    }
+    }*/
 
     public String changeCharInPosition(int position, char ch, String str) {
         char[] charArray = str.toCharArray();
@@ -564,7 +549,7 @@ public class SSC implements Serializable {
         return f;
     }
 
-    public byte[] stringStep2ByteArary(String row) {
+    public Note[] stringStep2NoteArary(String row) {
       /*  0 null char
             1 normal step
             2 start long
@@ -574,9 +559,8 @@ public class SSC implements Serializable {
             6 hidden
             7 mine
             8 poisson
-            +10 vanish
-            +20hidden
-            +30 sundden
+            9 pressed long
+
             +40 fit
             51 --PERFORMANCE TAP
             52 --PERFORMANCE START LONG
@@ -598,10 +582,9 @@ public class SSC implements Serializable {
             int charType;
             try {
                 charType = Integer.parseInt(s1.charAt(1) + "");
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-               charType=letterToByte(s1.charAt(1));
+                charType = letterToByte(s1.charAt(1), 0);
             }
             int suma = 0;
             switch (s1.charAt(3)) {
@@ -615,39 +598,47 @@ public class SSC implements Serializable {
                     break;
                 case 'S':
                 case 's':
-                    suma = 210;
+                    suma = 230;
                     break;
+                case 'n':
+                    suma = 0;
+                    break;
+
             }
             suma += charType;
-            if (s1.charAt(5)=='1'){
-                suma=suma+1000;
-
+            if (s1.charAt(5) == '1') {
+                suma = suma + 1000;
             }
             matcher.appendReplacement(bufStr, (char) suma + "");
 
         }
         matcher.appendTail(bufStr);
-        row = bufStr.toString();
-        byte[] data = new byte[row.length()];
+        row = bufStr.toString().replace(" ", "");
+        Note[] data = new Note[row.length()];
+
         for (int x = 0; x < data.length; x++) {
+            data[x] = new Note();
             char aux = row.charAt(x);
             if (aux < 200) {
                 switch (aux) {
                     case '0':
-                        if (wasLong[x] == 1) {
-                            data[x] = 4;
+                        if (wasLong[x] != 0) {
+                            data[x].noteType = wasLong[x];
                         }
                         break;
                     case '2':
-                        data[x] = letterToByte(aux);
-                        wasLong[x] = 1;
+                        data[x].noteType = letterToByte(aux, x);
+                        wasLong[x] = 4;
                         break;
                     case '3':
-                        data[x] = letterToByte(aux);
+                        data[x].noteType = letterToByte(aux, x);
+                        if (wasLong[x] != 0) {
+                            data[x].noteType = (byte) (wasLong[x] - 1);
+                        }
                         wasLong[x] = 0;
                         break;
                     default:
-                        data[x] = letterToByte(aux);
+                        data[x].noteType = letterToByte(aux, x);
 
 
                 }
@@ -655,20 +646,21 @@ public class SSC implements Serializable {
             } else {
 
 
+                data[x].noteType = (byte) (aux - 200);
 
-                data[x] = (byte) (aux - 200);
-                if (aux>1000){
-                    data[x] = (byte) -(aux - 1200);
+                if (aux > 1000) {// la nota se considera fake
+                    data[x].fake = true;
+                    data[x].noteType = (byte) (aux - 1200);
                 }
 
-            }
+                if ((data[x].noteType - 3) % 10 == 0) {
+                    data[x].noteType = (byte) (wasLong[x] - 1);
 
-            if (data[x] > 200) {
-                if ((data[x] - 3) % 10 == 0 || (data[x] - 1) % 10 == 0) {
                     wasLong[x] = 0;
-                } else if ((data[x] - 2) % 10 == 0) {
-                    wasLong[x] = 1;
+                } else if ((data[x].noteType - 2) % 10 == 0) {
+                    wasLong[x] = (byte) (data[x].noteType + 2);
                 }
+
             }
 
 
@@ -793,10 +785,8 @@ public class SSC implements Serializable {
     }
 
 
-
-
-    private byte letterToByte (char letter) {
-        byte x=0;
+    private byte letterToByte(char letter, int pos) {
+        byte x = 0;
         switch (letter) {
             case '1':
                 x = 1;
@@ -805,10 +795,20 @@ public class SSC implements Serializable {
                 x = 2;
                 break;
             case '3':
-                x = 3;
+                if (wasLong[pos] != 0) {
+
+                    x = (byte) (wasLong[pos] - 1);
+                    wasLong[pos] = 0;
+
+                }
+
+
+            case '6':
+                x = 2;
                 break;
             case 'L':
                 x = 4;
+
                 break;
             case 'M':
                 x = 7;
@@ -825,6 +825,7 @@ public class SSC implements Serializable {
                 break;
             case 'O':
                 x = 54;
+
                 break;
             case 'N':
                 x = 64;
@@ -861,10 +862,29 @@ public class SSC implements Serializable {
                 break;
             default:
                 x = 0;
+                if (wasLong[pos] != 0) {
+                    x = wasLong[pos];
+                }
                 break;
+        }
+        if (x % 100 % 10 == 3) {
+            if (wasLong[pos] != 0) {
+
+                x = (byte) (wasLong[pos] - 1);
+                wasLong[pos] = 0;
+
+            }
+
+        } else if (x % 100 % 10 == 2) {
+            wasLong[pos] = (byte) (x + 2);
+        }
+
+        if (x == 3) {
+            String uwu = "l";
 
         }
-    return x;
+
+        return x;
     }
 
 

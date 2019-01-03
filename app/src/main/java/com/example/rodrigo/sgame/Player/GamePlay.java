@@ -1,6 +1,7 @@
 package com.example.rodrigo.sgame.Player;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
+import com.example.rodrigo.sgame.CommonGame.Note;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.CommonGame.RowStep;
 import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
@@ -62,7 +63,8 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     private PlayerBga BGA;
     private Context context;
     private MediaPlayer mpMusic;
-    private static byte[] preseedRow = {100, 100, 100, 100, 100, 100, 100, 100, 100, 100};
+    private static Note presedNote = new Note((byte) 100);
+    private static Note[] preseedRow = {presedNote, presedNote, presedNote, presedNote, presedNote, presedNote, presedNote, presedNote, presedNote, presedNote};
 
     public String pathImage;
     //DrawerMarks and Steps information
@@ -276,8 +278,8 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
             if (stepData.chartsInfo[nchar].get("STEPSTYPE") != null && !stepData.chartsInfo[nchar].get("STEPSTYPE").equals("")) {
                 tipo = stepData.chartsInfo[nchar].get("STEPSTYPE").toString();
-                if (tipo.equals("pump-double")&&stepData.chartsInfo[nchar].get("DESCRIPTION")!=null &&stepData.chartsInfo[nchar].get("DESCRIPTION").toString().contains("DP")){
-                    tipo="pump-routine";
+                if (tipo.equals("pump-double") && stepData.chartsInfo[nchar].get("DESCRIPTION") != null && stepData.chartsInfo[nchar].get("DESCRIPTION").toString().contains("DP")) {
+                    tipo = "pump-routine";
                 }
             } else {
                 tipo = "";
@@ -377,7 +379,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             ObjectCombo.start();
 
             if (tipo.equals("dance-single")) {
-                steps.makeDDR(context);
+              //  steps.makeDDR(context);
             }
 
 
@@ -435,7 +437,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 ), (int) currentY + arrowSize));*/
 
 
-                } else if (tipo.equals("pump-double")||tipo.equals("pump-routine")) {
+                } else if (tipo.equals("pump-double") || tipo.equals("pump-routine")) {
                     arrowSize = (int) (playerSizeX / 10 * 0.8);
                     posIntX = (int) (playerSizeX * 0.1);
                     playerSizeY = (int) (Common.HEIGHT * (0.62));
@@ -622,7 +624,12 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                     effectsThread.running = false;
                     effectsThread.join();
                 }
-                mainTread.setRunning(false);
+                if (mainTread != null) {
+
+                    mainTread.setRunning(false);
+                }
+
+
                 //mainTread.join();
                 //musicPlayer.stopmusic();
                 //musicPlayer.join();
@@ -778,6 +785,11 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
         } catch (IndexOutOfBoundsException e) {
             /*this.stop();
             this.startEvaluation();*/
+            e.printStackTrace();
+        } catch (Exception e) {
+            /*this.stop();
+            this.startEvaluation();*/
+            e.printStackTrace();
         }
 
         if (Common.DRAWSTATS) {
@@ -907,9 +919,9 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                     combopp();
                     currentLife += 0.5;
                     ObjectCombo.show();
-                    byte[] auxrow = bufferSteps.get(posBuffer).rowStep;
+                    Note[] auxrow = bufferSteps.get(posBuffer).rowStep;
                     for (int w = 0; w < auxrow.length; w++) {//animations
-                        int aux = auxrow[w];
+                        int aux = auxrow[w].noteType;
                         if (aux == 1) {
                             steps.noteSkins[0].explotions[w].play();
                         } else if (aux == 2) {
@@ -971,15 +983,16 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                         comboLess();
                         currentLife += 0.5;
                         miss++;
+                        //bufferSteps.get(posBuffer + posBack).rowStep = preseedRow;
                     }
                 }
                 int posEvaluate = -1;
                 while ((posBuffer + posBack < bufferSteps.size()) && posBack <= posNext) {
-                    if (containSteps((byte[]) bufferSteps.get(posBuffer + posBack).rowStep)) {
+                    if (containSteps((Note[]) bufferSteps.get(posBuffer + posBack).rowStep)) {
                         boolean checkLong = true;
                         //byte[] auxRow = (byte[]) bufferSteps.get(posBuffer + posBack)[0];
                         for (int w = 0; w < bufferSteps.get(posBuffer + posBack).rowStep.length; w++) {
-                            byte currentChar = ((byte[]) bufferSteps.get(posBuffer + posBack).rowStep)[w];
+                            Note currentChar = bufferSteps.get(posBuffer + posBack).rowStep[w];
 
 
                             if (posBack < 1 && (inputs[w] != 0) && (containLongs(currentChar))) {
@@ -995,8 +1008,9 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                                 if (checkLong) {
                                     residuoTick += ((double) currentTickCount / 48);
                                     checkLong = false;// se hace que no se sume de nuevo
+                                    checkLong = false;// se hace que no se sume de nuevo
                                 }
-                                (bufferSteps.get(posBuffer + posBack).rowStep)[w] = 100;//Se vacia el array
+                                (bufferSteps.get(posBuffer + posBack).rowStep)[w].noteType = 100;//Se vacia el array
 
                                 if (residuoTick >= 1) {
                                     residuoTick -= 1;
@@ -1013,7 +1027,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
                             if (inputs[w] == 1 && containTaps(currentChar)) {// tap1
                                 steps.noteSkins[0].explotions[w].play();
-                                bufferSteps.get(posBuffer + posBack).rowStep[w] = 0;
+                                bufferSteps.get(posBuffer + posBack).rowStep[w].noteType = 0;
                                 inputs[w] = 2;
                                 posEvaluate = posBuffer + posBack;
 
@@ -1021,7 +1035,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
                             if (inputs[w] == 1 && containsMine(currentChar)) {//tap mine
                                 // steps.explotions[w].play();
-                                bufferSteps.get(posBuffer + posBack).rowStep[w] = 0;
+                                bufferSteps.get(posBuffer + posBack).rowStep[w].noteType = 0;
                                 inputs[w] = 2;
                                 posEvaluate = posBuffer + posBack;
                                 soundPool.play(soundPullMine, 0.8f, 0.8f, 1, 0, 1f);
@@ -1031,8 +1045,8 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
 
                             if (inputs[w] == 0) {
-                                if (steps.noteSkins[0].explotionTails.length < w) {
-                                    steps.noteSkins[0].explotionTails[w].stop();
+                                if (w < Steps.noteSkins[0].explotionTails.length) {
+                                    Steps.noteSkins[0].explotionTails[w].stop();
                                 }
                             }
 
@@ -1041,7 +1055,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                         }
                     }
                     if (posEvaluate != -1) {
-                        if (!containSteps(bufferSteps.get(posEvaluate).rowStep)) {
+                        if (!containTaps(bufferSteps.get(posEvaluate).rowStep)) {
 
                             int auxRetro = Math.abs(posBack);
 
@@ -1075,9 +1089,9 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    private boolean containStartLong(byte[] row) {
-        for (int x : row) {
-            if (x % 10 == 2) {
+    private boolean containStartLong(Note[] row) {
+        for (Note x : row) {
+            if (x.noteType % 10 == 2) {
                 return true;
             }
         }
@@ -1128,9 +1142,9 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
         return backs;
     }
 
-    private boolean containTaps(byte... row) {
-        for (int x : row) {
-            if ((x > 0) && (x % 10 == 1)) {
+    private boolean containTaps(Note... row) {
+        for (Note x : row) {
+            if (!x.fake && (x.noteType % 10 == 1)) {
                 return true;
             }
         }
@@ -1138,29 +1152,19 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     }
 
 
-    private boolean containsMine(byte... row) {
-        for (int x : row) {
-            if ((x > 0) && (x % 10 == 7)) {
+    private boolean containsMine(Note... row) {
+        for (Note x : row) {
+            if (!x.fake && (x.noteType % 10 == 7)) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean containLongs(byte... row) {
-        for (int x : row) {
+    private boolean containLongs(Note... row) {
+        for (Note x : row) {
 
-            if ((x > 0) && (x % 10 == 2 || x % 10 == 3 || x % 10 == 4)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean containTapNote(byte... row) {
-        for (int x : row) {
-
-            if ((x > 0) && (x % 10 == 1 || x % 10 == 2)) {
+            if (!x.fake && (x.noteType > 0) && (x.noteType % 10 == 2 || x.noteType % 10 == 3 || x.noteType % 10 == 4)) {
                 return true;
             }
         }
@@ -1168,9 +1172,20 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     }
 
 
-    private boolean containSteps(byte... row) {
-        for (byte x : row) {
-            if ((x != 0 && x != 127)) {
+    private boolean containTapNote(Note... row) {
+        for (Note x : row) {
+
+            if (!x.fake && (x.noteType % 10 == 1 || x.noteType % 10 == 2)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private boolean containSteps(Note... row) {
+        for (Note x : row) {
+            if (!x.fake && (x.noteType != 0 && x.noteType != 127)) {
                 return true;
             }
         }
