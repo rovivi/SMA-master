@@ -31,4 +31,5 @@ public class ParamsSong {
 
     //List mode
     public static Boolean listCuadricula = true;
+    public static boolean FD=false;
 }

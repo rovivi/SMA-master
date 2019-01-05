@@ -13,7 +13,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/transparent" />
+        app:srcCompat="@android:color/transparent"
+        android:contentDescription="@string/todo" />
 
     <ImageView
         android:id="@+id/iv_hexagon1"
@@ -24,7 +25,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hexagon2" />
+        app:srcCompat="@drawable/hexagon2"
+        android:contentDescription="@string/todo" />
 
     <ImageView
         android:id="@+id/iv_hexagon2"
@@ -36,7 +38,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hexagon2" />
+        app:srcCompat="@drawable/hexagon2"
+        android:contentDescription="@string/todo"
+        />
 
     <TextView
         android:id="@+id/tv_damiss"
@@ -65,7 +69,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="6dp"
-
         app:layout_constraintBottom_toBottomOf="@+id/iv_hexagon3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/iv_hexagon1"

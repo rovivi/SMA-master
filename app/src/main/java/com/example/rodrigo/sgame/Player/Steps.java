@@ -81,6 +81,13 @@ public class Steps {
         int halfDistance = (int) (((playerSizeY - Common.START_Y * Common.HEIGHT) / 2) + Common.START_Y * Common.HEIGHT);
         int currenty;
 
+
+
+        for (int j = 0; j <   noteSkins[0].receptors.length && !ParamsSong.FD; j++) {//se Dibujan receptores y effectos de las notas si los hay
+            noteSkins[0].receptors[j].draw(c, new Rect(posintx + wa * j - 20, aux2, posintx + wa * j + wa, aux2 + wa));
+        }
+
+
         while (!stackSteps.isEmpty()) {
             Object[] aux = stackSteps.pop();
             Note[] Steps = (Note[]) aux[0];
@@ -215,8 +222,10 @@ public class Steps {
                 currentNote.explotions[x].update();
                 currentNote.explotionTails[x].update();
                 currentNote.tapsEffect[x].update();
+                currentNote.receptors[x].update();
+
             }
-            currentNote.receptor.update();
+         //   currentNote.receptor.update();
             currentNote.mine.update();
         }
     }

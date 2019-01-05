@@ -21,62 +21,29 @@ public class RadarEffectsThread extends Thread {
             try {
 
                 if (checkTime(game.BPMS, game.posBPM + 1) && !Common.testingRadars) {
-
                     game.BPM = game.BPMS.get(game.posBPM + 1)[1];
-
                     double difBettwenBeats = game.currentBeat - game.BPMS.get(game.posBPM + 1)[0];
                     game.currentBeat = game.BPMS.get(game.posBPM + 1)[0] + (game.BPMS.get(game.posBPM)[0] / game.BPMS.get(game.posBPM + 1)[0]) * difBettwenBeats;
-
-                    System.out.print(difBettwenBeats);
-
-
                     game.posBPM++;
 
-
-
-
-
-
-                   /* if (game.BPMS.get(game.posBPM)[1] >= 1000) {
-                        game.posBPM++;
-                        if (game.currentBeat < game.BPMS.get(1 + game.posBPM)[0]) { //BPM warp
-
-
-                            game.lostBeatbyWarp = game.currentBeat - game.BPMS.get(game.posBPM + 1)[0];
-
-                            game.BPM = game.BPMS.get(game.posBPM)[1];
-                            game.currentDurationFake -= (game.BPMS.get(game.posBPM)[0] - game.currentBeat);
-                            game.currentBeat = game.BPMS.get(game.posBPM)[0];
-
-                            while ((double) game.bufferSteps.get(game.posBuffer + 1).beat <= game.currentBeat) {
-                                game.posBuffer++;
-                            }
-
-                        }
-
-                    } /*else {
-                BPM = BPMS.get(posBPM + 1)[1];
-                posBPM++;
-            }*/
                 }
 
                 if (checkTime(game.DELAYS, game.posDelay) && !Common.testingRadars) {
                     double dif = game.currentBeat - game.DELAYS.get(game.posDelay)[0];
                     game.currentBeat = game.DELAYS.get(game.posDelay)[0] + 0.00000;
-
                     game.curentempobeat = System.nanoTime();
                     game.currentDelay = game.DELAYS.get(game.posDelay)[1] + game.currentSecond - Common.beat2Second(dif * 1.0018, game.BPM);//0.946f
                     game.posDelay++;
                 }
                 //stops
-                if (checkTime(game.STOPS, game.posstop) && !Common.testingRadars) {
-                    //                                                                                                                                                                                 delayTime= (long) (STOPS.get(posstop)[1]*1000000000.0);
-                    double dif = game.currentBeat - game.STOPS.get(game.posstop)[0];
-                    game.currentBeat = game.STOPS.get(game.posstop)[0];
+                if (checkTime(game.STOPS, game.posStop) && !Common.testingRadars) {
+                    //                                                                                                                                                                                 delayTime= (long) (STOPS.get(posStop)[1]*1000000000.0);
+                    double dif = game.currentBeat - game.STOPS.get(game.posStop)[0];
+                    game.currentBeat = game.STOPS.get(game.posStop)[0];
                     game.curentempobeat = System.nanoTime();
-                    game.currentDelay = game.STOPS.get(game.posstop)[1] + game.currentSecond - Common.beat2Second(dif * 1.018, game.BPM);
-                    // STOPS.remove(posstop);
-                    game.posstop++;
+                    game.currentDelay = game.STOPS.get(game.posStop)[1] + game.currentSecond - Common.beat2Second(dif * 1.018, game.BPM);
+                    // STOPS.remove(posStop);
+                    game.posStop++;
                 }
 
                 if (checkTime(game.FAKES, game.posFake)) {
@@ -99,20 +66,13 @@ public class RadarEffectsThread extends Thread {
                 if (checkTime(game.TICKCOUNTS, game.posTickCount)) {
                     game.currentTickCount = game.TICKCOUNTS.get(game.posTickCount)[1].intValue();
                     game.posTickCount++;
-
-
-
-                /*old version
-                if (game.posTickCount < game.TICKCOUNTS.size()) {
-                    game.posTickCount++;
-                } else {
-                    game.posTickCount = game.TICKCOUNTS.size() - 2;
                 }
-                if (game.posTickCount<game.TICKCOUNTS.size()){
-                    game.currentTickCount = game.TICKCOUNTS.get(game.posTickCount)[1].intValue();
 
-                }*/
+                if (checkTime(game.COMBOS, game.posCombo)) {
+                    game.currentCombo = game.COMBOS.get(game.posCombo)[1].intValue();
+                    game.posCombo++;
                 }
+
                 //scrolls
                 //
                 if (checkTime(game.SCROLLS, game.posScroll)) {
@@ -121,14 +81,16 @@ public class RadarEffectsThread extends Thread {
 
                 //se interpola el speedMod
                 if (game.metaBeatSpeed >= game.currentBeat) {
+
+
                     double div = (game.metaBeatSpeed - game.currentBeat) / game.SPEEDS.get(game.posSpeed - 1)[2];//%
-                    if (div > 0.01) {
-                        if ((game.posSpeed > 1) && (div < 0.99 || game.SPEEDS.get(game.posSpeed - 1)[2] == 0)) {
+                    if (div >= 0) {
+                        if ((game.posSpeed > 1) && (div < 1 || game.SPEEDS.get(game.posSpeed - 1)[2] == 0)) {
                             double difvel = game.SPEEDS.get(game.posSpeed - 2)[1] - game.SPEEDS.get(game.posSpeed - 1)[1];
                             game.speedMod = (game.lastSpeed + (div * difvel));
-                        } else if (div > 0.98) {
-                            //speedMod=SPEEDS.get(posSpeed-1)[1];
-                            game.lastSpeed = game.speedMod;
+                        } else if (div >=1 ) {
+                            game.speedMod=game.SPEEDS.get(game.posSpeed-1)[1];
+                           game.lastSpeed = game.speedMod;
                         }
 
                     } else {
@@ -140,8 +102,6 @@ public class RadarEffectsThread extends Thread {
                     game.speedMod = game.SPEEDS.get(game.posSpeed - 1)[1];
                     game.lastSpeed = game.speedMod;
                 }
-
-
                 game.doEvaluate = !(game.currentDurationFake >= game.currentBeat);
 
                 //WARP
@@ -191,10 +151,7 @@ public class RadarEffectsThread extends Thread {
     }
 
 
-    synchronized void doPause() {
 
-
-    }
 
 
 }

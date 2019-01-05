@@ -47,6 +47,7 @@ import java.util.Stack;
 
 public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     private static double MIN_DISTANCE = (double) 1 / 192;
+
     float testFloatNOTUSE = 0f;
     //NUevo com
     //Objects variables
@@ -80,6 +81,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     protected ArrayList<Float[]> TICKCOUNTS;
     protected ArrayList<Float[]> SCROLLS;
     protected ArrayList<Float[]> FAKES;
+    public ArrayList<Float[]> COMBOS;
     private int playerSizeX = 400;
     private int playerSizeY = 500;
     public int currentTickCount = 0;
@@ -87,11 +89,15 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     protected int posBPM = 0;
     private float speed = 2300;
     private int currentSpeedMod = 1300;
+    public int currentCombo = 1;
+
     public int posDelay = 0;
     protected int posSpeed = 1;
     protected int posWarp = 0;
     protected int posTickCount = 0;
-    protected int posstop = 0;
+    protected int posCombo = 0;
+
+    public int posStop = 0;
     protected int posScroll = 0;
     protected int posFake = 0;
     private int posAttack = 0;
@@ -161,7 +167,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
         posSpeed = 0;
         posWarp = 0;
         posTickCount = 0;
-        posstop = 0;
+        posStop = 0;
         posScroll = 0;
         posFake = 0;
         bad = 0;
@@ -207,8 +213,6 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             //RAW
 
             bufferSteps = stepData.createBuffer(nchar);//se crea un array para el player
-
-
             if (stepData.chartsInfo[nchar].get("SCROLLS") != null && !stepData.chartsInfo[nchar].get("SCROLLS").equals("")) {
                 SCROLLS = stepData.arrayListSpeed(stepData.chartsInfo[nchar].get("SCROLLS").toString());
             }
@@ -224,6 +228,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 STOPS = setMetadata((String) stepData.chartsInfo[nchar].get("STOPS"), stepData.songInfo.get("STOPS"));
                 DELAYS = setMetadata((String) stepData.chartsInfo[nchar].get("DELAYS"), stepData.songInfo.get("DELAYS"));
                 WARPS = setMetadata((String) stepData.chartsInfo[nchar].get("WARPS"), stepData.songInfo.get("WARPS"));
+                COMBOS = setMetadata((String) stepData.chartsInfo[nchar].get("COMBOS"), stepData.songInfo.get("COMBOS"));
 
             }
 
@@ -360,6 +365,13 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 e.printStackTrace();
             }
             mpMusic.prepareAsync();
+
+
+
+            mpMusic.setOnCompletionListener(mp -> {
+                startEvaluation();
+                stop();
+            });
 
 
             // bgaBitmap = BitmapFactory.decodeFile(path + "/" + stepData.songInfo.get("BACKGROUND").toString());
@@ -881,7 +893,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
         currentY = (int) (playerSizeY * Common.START_Y);
 
-        for (int i = bufferPos; currentY > -50 && (i) >= 0 && (speedMod > 0.04); i--) {
+        for (int i = bufferPos; currentY > -50 && (i) >= 0 && (speedMod > 0.04||speedMod < -0.04); i--) {
             float w = bufferSteps.get(i).scroll;
             int nextY = (int) (currentY + (int) (speed / 192 * w));
             if (containSteps(bufferSteps.get(i).rowStep)) {
@@ -917,7 +929,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 if (containTapNote(bufferSteps.get(posBuffer).rowStep)) {
                     playTick();
                     combopp();
-                    currentLife += 0.5;
+                    currentLife += 0.5*currentCombo;
                     ObjectCombo.show();
                     Note[] auxrow = bufferSteps.get(posBuffer).rowStep;
                     for (int w = 0; w < auxrow.length; w++) {//animations
@@ -942,7 +954,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                         residuoTick -= 1;
                         ObjectCombo.show();
                         combopp();
-                        currentLife += 0.5;
+                        currentLife += 0.5*currentCombo;
                     }
 
 
@@ -969,7 +981,6 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                     comboLess();
                     bufferSteps.get(posBuffer + posBack).rowStep = preseedRow;
                     posBack++;
-                    // miss++;
                 }
                 if (containsMine(bufferSteps.get(posBuffer + posBack).rowStep)) {//evaluate miss
                     bufferSteps.get(posBuffer + posBack).rowStep = preseedRow;
@@ -981,8 +992,8 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                         residuoTick -= 1;
                         ObjectCombo.show();
                         comboLess();
-                        currentLife += 0.5;
-                        miss++;
+                        currentLife += 0.5*currentCombo;
+                        miss+=miss*currentCombo;
                         //bufferSteps.get(posBuffer + posBack).rowStep = preseedRow;
                     }
                 }
@@ -1000,7 +1011,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                                 if (containStartLong(bufferSteps.get(posBuffer).rowStep)) {
                                     ObjectCombo.show();
                                     combopp();
-                                    currentLife += 0.5;
+                                    currentLife += 0.5*currentCombo;
                                 }
                                 steps.noteSkins[0].explotionTails[w].play();
 
@@ -1016,10 +1027,10 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                                     residuoTick -= 1;
                                     ObjectCombo.posjudge = 0;
                                     ObjectCombo.show();
-                                    currentLife += 0.5;
+                                    currentLife += 0.5*currentCombo;
                                     combopp();
 
-                                    perfect++;
+                                    perfect+= currentCombo;
                                 }
                                 inputs[w] = 2;
 
@@ -1062,20 +1073,20 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                             if (auxRetro < rGreat) {//perfetc
                                 ObjectCombo.posjudge = 0;
                                 combopp();
-                                currentLife += 0.5;
-                                perfect++;
+                                currentLife += 0.5*currentCombo;
+                                perfect+=currentCombo;
                             } else if (auxRetro < rGood) {//great
                                 ObjectCombo.posjudge = 1;
                                 combopp();
-                                great++;
+                                great+=currentCombo;
                             } else if (auxRetro < rBad) {//good
                                 ObjectCombo.posjudge = 2;
-                                good++;
+                                good+=currentCombo;
                             } else {//bad
                                 ObjectCombo.posjudge = 3;
                                 Combo = 0;
                                 currentLife -= 0.5;
-                                bad++;
+                                bad+=currentCombo;
                             }
                             // AQUI SE VERA SI ES GREAT O QUE ONDA
                             ObjectCombo.show();
@@ -1103,19 +1114,19 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
         if (Combo < 0) {
             Combo = 0;
         }
-        Combo++;
+        Combo+=currentCombo;
         if (Combo > maxCombo) {
             maxCombo = Combo;
         }
     }
 
     private void comboLess() {
-        miss++;
+        miss+=currentCombo;
         ObjectCombo.posjudge = 4;
         if (Combo > 0) {
             Combo = 0;
         } else {
-            Combo -= 1;
+            Combo -= currentCombo;
         }
         ObjectCombo.show();
         currentLife -= 1 - Combo;
@@ -1185,7 +1196,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
     private boolean containSteps(Note... row) {
         for (Note x : row) {
-            if (!x.fake && (x.noteType != 0 && x.noteType != 127)) {
+            if (  (x.noteType != 0 && x.noteType != 127)) {
                 return true;
             }
         }

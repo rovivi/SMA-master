@@ -19,7 +19,7 @@ public class EffectStep {
 
 
                     game.BPM = values[1];
-                 //   game.posBPM++;
+                    //   game.posBPM++;
 
                   /*  if (game.BPMS.get(game.posBPM)[1] >= 1000) {
                         game.posBPM++;
@@ -43,13 +43,22 @@ public class EffectStep {
 
                     break;
                 case "STOPS":
-                case "DELAYS":
-                    double dif = game.currentBeat -values[0];
+                    game.posStop++;
+                    double dif = game.currentBeat - values[0];
                     game.currentBeat = values[0];
                     game.curentempobeat = System.nanoTime();
 
                     game.currentDelay = values[1] + game.currentSecond - Common.beat2Second(dif * 1.018, game.BPM);
-                    game.currentDelay = this.values[1] + game.currentSecond ;//- Common.beat2Second(dif * 1.018, game.BPM);
+                    game.currentDelay = this.values[1] + game.currentSecond;//- Common.beat2Second(dif * 1.018, game.BPM);
+                    break;
+                case "DELAYS":
+                    game.posDelay++;
+                     dif = game.currentBeat - values[0];
+                    game.currentBeat = values[0];
+                    game.curentempobeat = System.nanoTime();
+
+                    game.currentDelay = values[1] + game.currentSecond - Common.beat2Second(dif * 1.018, game.BPM);
+                    game.currentDelay = this.values[1] + game.currentSecond;//- Common.beat2Second(dif * 1.018, game.BPM);
 
                     break;
 
