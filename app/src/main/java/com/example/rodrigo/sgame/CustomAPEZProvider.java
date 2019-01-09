@@ -1,10 +1,10 @@
 package com.example.rodrigo.sgame;
 
 import android.net.Uri;
-import com.android.vending.expansion.zipfile.APEZProvider;
+//import com.android.vending.expansion.zipfile.APEZProvider;
 import java.io.File;
 
-public class CustomAPEZProvider extends APEZProvider {
+/*public class CustomAPEZProvider extends APEZProvider {
     private static final String AUTHORITY = "com.example.rodrigo.sgame.CustomAPEZProvider";
     @Override
     public String getAuthority() {
@@ -21,7 +21,7 @@ public class CustomAPEZProvider extends APEZProvider {
         contentPath.append(path);
 
         return Uri.parse(contentPath.toString());
-    }
+    }*/
 
+public class CustomAPEZProvider {}
 
-}

@@ -1,2 +1,1 @@
-include ':app', ':zip_file', ':obbzipreader'
-include ':zip_file1'
+include ':app'

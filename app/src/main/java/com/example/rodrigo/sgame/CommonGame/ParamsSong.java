@@ -15,6 +15,8 @@ public class ParamsSong {
     public static Float rush = 1.0f;
     public static  boolean autoplay=false;
     public static  String nameNoteSkin="prime";
+    public static int skinIndex = 0;
+
 
     /**
      * Game mode
@@ -23,7 +25,7 @@ public class ParamsSong {
      * 2 DM mode
      * 3 Tile mode
      */
-    public static short gameMode = 0;
+    public static Integer gameMode = 0;
     public static short padOption = 1;
 
 

@@ -76,6 +76,26 @@
         <item>Tile mode</item>
     </string-array>
 
+
+
+    <string-array name="list_preference_quality">
+        <item>Max</item>
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+        <item>Extreme Low</item>
+        <item>Please Do not</item>
+    </string-array>
+    <string-array name="list_preference_entry_quality">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+        <item>8</item>
+        <item>16</item>
+    </string-array>
+
+
     <string-array name="list_preference_entry_values">
         <item>0</item>
         <item>1</item>

@@ -115,7 +115,7 @@
 
     <ImageView
         android:id="@+id/imagelevl2"
-        android:layout_width="40sp"
+        android:layout_width="45sp"
         android:layout_height="30sp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -125,6 +125,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/preview"
         app:srcCompat="@drawable/x3" />
+
+    <ImageView
+        android:id="@+id/imagelevl3"
+        android:layout_width="45sp"
+        android:layout_height="30sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/current_song_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagelevl2"
+        app:layout_constraintVertical_bias="0.437"
+        app:srcCompat="@drawable/lvl" />
+
+    <ImageView
+        android:id="@+id/image_note_preview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/imagelevl3"
+        app:layout_constraintEnd_toEndOf="@+id/imagelevl3"
+        app:layout_constraintStart_toStartOf="@+id/imagelevl3"
+        app:layout_constraintTop_toTopOf="@+id/imagelevl3"
+        app:srcCompat="@drawable/lvl" />
 
     <TextView
         android:id="@+id/speedControl"

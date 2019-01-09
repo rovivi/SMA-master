@@ -238,7 +238,11 @@ public class Common {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(a);
         HIDENAVBAR = sharedPref.getBoolean("custom_pad_hide_nav", false);
         DRAWSTATS = sharedPref.getBoolean("pref_show_stats", false);
+        ANIM_AT_START = sharedPref.getBoolean("anim_at_start", false);
 
+
+        Compression2D=Integer.valueOf(sharedPref.getString("list_preference_quality_2d", "1"));
+        ParamsSong.gameMode=Integer.valueOf(sharedPref.getString("pad_type", "0"));
         HEIGHT = displayMetrics.heightPixels;
         WIDTH = displayMetrics.widthPixels;
         int navBarHeight = 0;//verificamos la barra de navegacion
@@ -269,6 +273,11 @@ public class Common {
     public static float START_Y = 0.115f;
     public static boolean testingRadars = false;
     public static boolean DRAWSTATS = false;
+    public static int Compression2D= 0;
+    public static boolean EVALUATE_ON_SECUNDARY_THREAD = true;
+    public static boolean ANIM_AT_START = true;
+
+
 
 
 }

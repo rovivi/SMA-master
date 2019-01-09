@@ -1,6 +1,8 @@
 package com.example.rodrigo.sgame.Player;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -9,7 +11,10 @@ import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 import com.example.rodrigo.sgame.R;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class NoteSkin {
     private Context context;
@@ -55,10 +60,10 @@ public class NoteSkin {
             //receptor.play();
 
             BitmapFactory.Options myOpt = new BitmapFactory.Options();
-            myOpt.inSampleSize = 0;
+            myOpt.inSampleSize = 1 * Common.Compression2D;
 
             BitmapFactory.Options myOpt2 = new BitmapFactory.Options();
-            myOpt2.inSampleSize = 4;
+            myOpt2.inSampleSize = 4 * Common.Compression2D;
 
 
             arrows = new SpriteReader[numberSteps];
@@ -71,8 +76,8 @@ public class NoteSkin {
 
 
             for (int j = 0; j < 5; j++) {
-                tapsEffect[j] = new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(), R.drawable.pad_pressed), 5, 2, j, j + 5, j + 5, j), 0.2f);
-                tapsEffect[j + 5] = new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(), R.drawable.pad_pressed), 5, 2, j, j + 5, j + 5, j), 0.2f);
+                tapsEffect[j] = new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(), R.drawable.pad_pressed, myOpt), 5, 2, j, j + 5, j + 5, j), 0.2f);
+                tapsEffect[j + 5] = new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(), R.drawable.pad_pressed, myOpt), 5, 2, j, j + 5, j + 5, j), 0.2f);
                 if (assetPath) {
                     InputStream stream1 = context.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[j] + "tap.png");
                     InputStream stream2 = context.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[j] + "hold.png");
@@ -130,7 +135,6 @@ public class NoteSkin {
             mine = new SpriteReader(BitmapFactory.decodeResource(context.getResources(), R.drawable.mine), 3, 2, 0.2f);
             mine.play();
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -158,5 +162,64 @@ public class NoteSkin {
         arrows[3].play();
 
     }
+
+
+    public static boolean validNoteSkin(String name,Context c) {
+        String pathNS = "NoteSkins/pump/" + name + "/";
+        for (int j = 0; j < 5; j++) {
+            if (true) {
+                try {
+                    InputStream stream1 = c.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[j] + "tap.png");
+                    InputStream stream2 = c.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[j] + "hold.png");
+                    InputStream stream3 = c.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[j] + "hold_end.png");
+                    InputStream stream4 = c.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[j] + "receptor.png");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            } else {
+                //stuff for reading on SD
+            }
+        }
+        return true;
+    }
+
+    public static Bitmap maskImage(String name,Context c) {
+        String pathNS = "NoteSkins/pump/" + name + "/";
+        InputStream stream1 = null;
+        try {
+            stream1 = c.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[4] + "tap.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return TransformBitmap.customSpriteArray(BitmapFactory.decodeStream(stream1), 3, 2, 0)[0];
+    }
+
+
+    public static ArrayList arraySkin(Context c) {
+        String pathNS = "NoteSkins/pump";
+        ArrayList<String> sendedArray = new ArrayList<>();
+
+        Resources res = c.getResources(); //if you are in an activity
+        AssetManager am = res.getAssets();
+        String fileList[];
+        try {
+            fileList = am.list(pathNS);
+            for (int i = 0; i < fileList.length; i++) {
+                if (validNoteSkin(fileList[i],c)){
+                    sendedArray.add(fileList[i]);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sendedArray;
+    }
+
+
+    private void listFiles(String dirFrom) {
+
+    }
+
 
 }

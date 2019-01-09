@@ -48,7 +48,9 @@ animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
 array list_preference_entries
+array list_preference_entry_quality
 array list_preference_entry_values
+array list_preference_quality
 array multi_select_list_preference_default_value
 array pref_example_list_titles
 array pref_example_list_values
@@ -1137,6 +1139,7 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable av_base
 drawable avd_hide_password
 drawable avd_show_password
 drawable backbox
@@ -1248,6 +1251,7 @@ drawable lifeframe
 drawable line_top
 drawable logobeta
 drawable lvl
+drawable lvl2
 drawable mask3
 drawable messenger_bubble_large_blue
 drawable messenger_bubble_large_white
@@ -1342,11 +1346,16 @@ drawable topback
 drawable touch_controls
 drawable up
 drawable ur
+drawable x0_5
+drawable x1
 drawable x2
 drawable x3
 drawable x4
 drawable x5
 drawable x6
+drawable x7
+drawable x8
+drawable x9
 id ALT
 id CTRL
 id FUNCTION
@@ -1487,8 +1496,11 @@ id imageView4
 id imageView5
 id imageView7
 id imageViewSetting
+id image_note_preview
+id image_skin
 id imagelevl
 id imagelevl2
+id imagelevl3
 id include3
 id info
 id inline
@@ -1496,10 +1508,12 @@ id inside
 id invisible
 id italic
 id item_touch_helper_previous_elevation
+id iv
 id iv0_5ll
 id iv0_5pp
 id iv1ll
 id iv1pp
+id iv2
 id iv232321
 id ivSpash
 id iv_bot
@@ -1664,6 +1678,7 @@ id tv_miss2
 id tv_msj_level_modal
 id tv_msj_level_modal2
 id tv_msj_level_modal3
+id tv_msj_level_modal4
 id tv_perfect2
 id tvoption1
 id tvrush

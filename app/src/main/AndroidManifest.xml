@@ -44,12 +44,12 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-9689972331812584~5469764045" />
 
-        <provider
+      <!--  <provider
             android:name=".CustomAPEZProvider"
             android:authorities="com.example.rodrigo.sgame.CustomAPEZProvider"
             android:exported="false"
             android:multiprocess="true" />
-
+-->
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation"

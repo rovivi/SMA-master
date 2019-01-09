@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,11 +21,14 @@ import android.widget.TextView;
 
 import com.example.rodrigo.sgame.CommonGame.Level;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
+import com.example.rodrigo.sgame.Player.NoteSkin;
 import com.example.rodrigo.sgame.ScreenSelectMusic.AdapterLevel;
 import com.example.rodrigo.sgame.ScreenSelectMusic.RecyclerItemClickListener;
 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class FragmenSongOptions extends DialogFragment {
@@ -32,10 +36,11 @@ public class FragmenSongOptions extends DialogFragment {
 
     SongList songList;
     TextView msj2;
-    ImageView pp1, pp0_5, ll1, ll0_5;
+    ImageView pp1, pp0_5, ll1, ll0_5, note_button, note_image;
     TextView tvRush, tvJudge;
     Switch switch_autoplay;
-
+    ArrayList skins = new ArrayList<>();
+    int indexNS = 0;
 
     float velocity = ParamsSong.speed;
 
@@ -43,6 +48,7 @@ public class FragmenSongOptions extends DialogFragment {
         this.songList = songList;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,6 +74,8 @@ public class FragmenSongOptions extends DialogFragment {
         pp0_5 = view.findViewById(R.id.iv0_5pp);
         ll1 = view.findViewById(R.id.iv1ll);
         ll0_5 = view.findViewById(R.id.iv0_5ll);
+        note_button = view.findViewById(R.id.iv2);
+        note_image = view.findViewById(R.id.image_skin);
         switch_autoplay = view.findViewById(R.id.switch_autoplay);
         TextView tv1 = view.findViewById(R.id.tvsped);
         TextView tv2 = view.findViewById(R.id.tvsped2);
@@ -88,9 +96,9 @@ public class FragmenSongOptions extends DialogFragment {
 
 
         tvRush.setOnClickListener(v -> {
-            ParamsSong.rush+=0.1f;
-            if (ParamsSong.rush>1.5f){
-                ParamsSong.rush=0.8f;
+            ParamsSong.rush += 0.1f;
+            if (ParamsSong.rush > 1.5f) {
+                ParamsSong.rush = 0.8f;
             }
             songList.playSoundPool(songList.spSelect);
 
@@ -98,12 +106,11 @@ public class FragmenSongOptions extends DialogFragment {
 
         });
         switch_autoplay.setChecked(ParamsSong.autoplay);
-        switch_autoplay.setOnCheckedChangeListener((buttonView, isChecked) -> ParamsSong.autoplay=isChecked);
+        switch_autoplay.setOnCheckedChangeListener((buttonView, isChecked) -> ParamsSong.autoplay = isChecked);
         tvJudge.setOnClickListener(v -> {
-            ParamsSong.judgment= (ParamsSong.judgment+1)%7;
+            ParamsSong.judgment = (ParamsSong.judgment + 1) % 7;
             setTxtJudge();
             songList.playSoundPool(songList.spSelect);
-
 
 
         });
@@ -144,11 +151,33 @@ public class FragmenSongOptions extends DialogFragment {
         });
 
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            skins = NoteSkin.arraySkin(getContext());
+            indexNS = ParamsSong.skinIndex;
+            setImageNS();
+        }
 
+
+        note_button.setOnClickListener(v -> changeNS());
+        note_image.setOnClickListener(v -> changeNS());
 
 
         changeVelocity();
         return view;
+    }
+
+
+    private void changeNS() {
+        indexNS++;
+        indexNS = (indexNS % skins.size());
+        ParamsSong.skinIndex = indexNS;
+        ParamsSong.nameNoteSkin = skins.get(indexNS).toString();
+        setImageNS();
+    }
+
+    private void setImageNS() {
+        note_image.setImageBitmap(NoteSkin.maskImage(skins.get(indexNS).toString(), getContext()));
+        songList.imageSkin.setImageBitmap(NoteSkin.maskImage(skins.get(indexNS).toString(), getContext()));
     }
 
     @Override
@@ -195,11 +224,12 @@ public class FragmenSongOptions extends DialogFragment {
 
     private void setTxtRush() {
 
-        int x=(int)(ParamsSong.rush*100);
+        int x = (int) (ParamsSong.rush * 100);
         tvRush.setText(x + "");
 
 
     }
+
     @Override
     public void onActivityCreated(Bundle arg0) {
         super.onActivityCreated(arg0);

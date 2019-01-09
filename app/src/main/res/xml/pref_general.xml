@@ -44,5 +44,18 @@
         android:icon="@drawable/hexa_single"
         android:key="pad_type"
         android:title="@string/pref_pad_type" />
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/list_preference_quality"
+        android:entryValues="@array/list_preference_entry_quality"
+        android:icon="@drawable/black_ur"
+        android:key="list_preference_quality_2d"
+        android:title="Quality" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:icon="@drawable/blue_tip"
+        android:key="anim_at_start"
+        android:summary="0"
+        android:title="Animation at Start" />
 
 </PreferenceScreen>

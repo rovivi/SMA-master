@@ -31,6 +31,7 @@ public class Steps {
         Longinfo[0] = logPosition;
         Longinfo[1] = noteSkin;
     }
+
     static public boolean efecto = false;
     static NoteSkin[] noteSkins;
 
@@ -82,8 +83,7 @@ public class Steps {
         int currenty;
 
 
-
-        for (int j = 0; j <   noteSkins[0].receptors.length && !ParamsSong.FD; j++) {//se Dibujan receptores y effectos de las notas si los hay
+        for (int j = 0; j < noteSkins[0].receptors.length && !ParamsSong.FD; j++) {//se Dibujan receptores y effectos de las notas si los hay
             noteSkins[0].receptors[j].draw(c, new Rect(posintx + wa * j - 20, aux2, posintx + wa * j + wa, aux2 + wa));
         }
 
@@ -194,15 +194,22 @@ public class Steps {
         currenty = (int) (playerSizeY * Common.START_Y);
         for (NoteSkin currentNote : noteSkins) {
             for (int j = 0; j < currentNote.arrows.length && speed != 0; j++) {//se Dibujan receptores y effectos de las notas si los hay
-                currentNote.explotions[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
-                currentNote.explotionTails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
-                currentNote.tapsEffect[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                 if (Longinfo[0][j] != -9999) {
                     noteSkins[Longinfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, Longinfo[0][j]));
                     Longinfo[0][j] = -9999;
                 }
             }
         }
+
+        for (int j = 0; j < noteSkins[0].arrows.length && speed != 0; j++) {//se Dibujan receptores y effectos de las notas si los hay
+
+            noteSkins[0].explotions[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+            noteSkins[0].explotionTails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+            noteSkins[0].tapsEffect[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+
+        }
+
+
         if (false) {//atacks
             Matrix sken = new Matrix();
             Camera camera = new Camera();
@@ -213,6 +220,7 @@ public class Steps {
             ca.drawBitmap(stepsBitmap, sken, new Paint());
         }
     }
+
     public void update() {
         for (NoteSkin currentNote : noteSkins) {
             for (int x = 0; x < currentNote.arrows.length; x++) {
@@ -225,7 +233,7 @@ public class Steps {
                 currentNote.receptors[x].update();
 
             }
-         //   currentNote.receptor.update();
+            //   currentNote.receptor.update();
             currentNote.mine.update();
         }
     }
@@ -239,8 +247,6 @@ public class Steps {
         }
 
     }
-
-
 
 
 }

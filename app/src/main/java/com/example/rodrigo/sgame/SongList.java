@@ -45,6 +45,7 @@ import com.example.rodrigo.sgame.CommonGame.Level;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.CommonGame.SSC;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
+import com.example.rodrigo.sgame.Player.NoteSkin;
 import com.example.rodrigo.sgame.ScreenSelectMusic.AdapterLevel;
 import com.example.rodrigo.sgame.ScreenSelectMusic.AdapterSSC;
 import com.example.rodrigo.sgame.ScreenSelectMusic.ArrayAdapterLevel;
@@ -90,7 +91,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     // ArrayAdapter<String> adp2;
     Intent i;
     VideoView preview;
-    ImageView backgroundBluour, btnLevel, btnSpeed,bgSongList;
+    ImageView backgroundBluour, btnLevel, btnSpeed,bgSongList,imageSkin;
     TextView lvlText, titleCurrentSong, authorCurrent, txt_open, tv_record;
     FirebaseAnalytics mFirebaseAnalytics;
     ArrayList<Level> levelArrayList = new ArrayList<>();
@@ -123,6 +124,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             openLevelList();
         }
     };
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -182,6 +184,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         txt_open = findViewById(R.id.more_txt);
         tv_record = findViewById(R.id.record_text);
         back_image = findViewById(R.id.back_image);
+        imageSkin= findViewById(R.id.image_note_preview);
         titleCurrentSong.setSelected(true);
         titleCurrentSong.setSingleLine(true);
         bgSongList=findViewById(R.id.bg_song_list);
@@ -231,6 +234,9 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
             return false;
         });
+
+
+        imageSkin.setImageBitmap(NoteSkin.maskImage(ParamsSong.nameNoteSkin, this));
 
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {

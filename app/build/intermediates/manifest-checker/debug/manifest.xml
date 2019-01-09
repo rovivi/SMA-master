@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rodrigo.sgame"
     android:versionCode="1"
-    android:versionName="1.60" >
+    android:versionName="1.65" >
 
     <uses-sdk
         android:minSdkVersion="18"
@@ -57,12 +57,13 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-9689972331812584~5469764045" />
 
-        <provider
-            android:name="com.example.rodrigo.sgame.CustomAPEZProvider"
+        <!--
+            <provider
+            android:name=".CustomAPEZProvider"
             android:authorities="com.example.rodrigo.sgame.CustomAPEZProvider"
             android:exported="false"
             android:multiprocess="true" />
-
+        -->
         <activity
             android:name="com.example.rodrigo.sgame.MainActivity"
             android:configChanges="orientation"

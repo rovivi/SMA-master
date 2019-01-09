@@ -20,7 +20,7 @@ public class LifeBar {
 
     public LifeBar(Context context,String mode){
         BitmapFactory.Options myOpt2 = new BitmapFactory.Options();
-        myOpt2.inSampleSize = 1;
+        myOpt2.inSampleSize = 2*Common.Compression2D;
         
         tipBlue = BitmapFactory.decodeResource(context.getResources(), R.drawable.blue_tip,myOpt2);
         tipRed = BitmapFactory.decodeResource(context.getResources(), R.drawable.red_tip,myOpt2);

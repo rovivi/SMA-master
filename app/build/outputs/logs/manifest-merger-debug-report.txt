@@ -4,7 +4,7 @@ ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.x
 INJECTED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:2:1-120:12
 INJECTED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:2:1-120:12
 INJECTED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:2:1-120:12
-MERGED from [com.android.support:multidex:1.0.2] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/multidex-1.0.2.aar/31d481ec1cf7875ff43fdb6d17e45111/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:multidex:1.0.3] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/multidex-1.0.3.aar/852ca8db61059bb9439fc9334e864947/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:design:28.0.0] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/4bf17053b96d88818e867ad72bce7ed0/AndroidManifest.xml:17:1-24:12
 MERGED from [com.facebook.android:facebook-android-sdk:4.36.0] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-android-sdk-4.36.0.aar/316bcd7ac687a4a543d4418c33414752/AndroidManifest.xml:21:1-31:12
 MERGED from [com.facebook.android:facebook-login:4.36.0] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-login-4.36.0.aar/45f317afb6ac4f64fa85796e15d92d97/AndroidManifest.xml:21:1-31:12
@@ -50,7 +50,6 @@ MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/rodrigo/
 MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/b2eeaa5f0ba40d0a3514670899f104db/AndroidManifest.xml:17:1-22:12
 MERGED from [com.crashlytics.sdk.android:crashlytics:2.9.8] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/crashlytics-2.9.8.aar/245d4b8532423b5eebb119320b76bb13/AndroidManifest.xml:2:1-19:12
 MERGED from [com.github.diogobernardino:WilliamChart:aae138315e] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/WilliamChart-aae138315e.aar/95df6b6c71403052ba4188eb7e271415/AndroidManifest.xml:2:1-10:12
-MERGED from [:zip_file1] /home/rodrigo/Documentos/stepmix/Sgame/zip_file1/build/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:support-fragment:28.0.0] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/c81851dc06795ab6eb5ce843e7dc3571/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-core-ui:28.0.0] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/2743d423bb697d4ed77a8993b37094fd/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:cursoradapter:28.0.0] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/77af83b48320252d1fb74280f5e33ae4/AndroidManifest.xml:17:1-22:12
@@ -302,16 +301,6 @@ ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.x
 		ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:45:13-67
 	android:name
 		ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:44:13-69
-provider#com.example.rodrigo.sgame.CustomAPEZProvider
-ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:47:9-51:43
-	android:authorities
-		ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:49:13-79
-	android:multiprocess
-		ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:51:13-40
-	android:exported
-		ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:50:13-37
-	android:name
-		ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:48:13-47
 activity#com.example.rodrigo.sgame.MainActivity
 ADDED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml:53:9-56:47
 	android:launchMode
@@ -432,8 +421,8 @@ uses-sdk
 INJECTED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml
 INJECTED from /home/rodrigo/Documentos/stepmix/Sgame/app/src/main/AndroidManifest.xml
-MERGED from [com.android.support:multidex:1.0.2] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/multidex-1.0.2.aar/31d481ec1cf7875ff43fdb6d17e45111/AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:multidex:1.0.2] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/multidex-1.0.2.aar/31d481ec1cf7875ff43fdb6d17e45111/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:multidex:1.0.3] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/multidex-1.0.3.aar/852ca8db61059bb9439fc9334e864947/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:multidex:1.0.3] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/multidex-1.0.3.aar/852ca8db61059bb9439fc9334e864947/AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:design:28.0.0] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/4bf17053b96d88818e867ad72bce7ed0/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:design:28.0.0] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/4bf17053b96d88818e867ad72bce7ed0/AndroidManifest.xml:20:5-44
 MERGED from [com.facebook.android:facebook-android-sdk:4.36.0] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-android-sdk-4.36.0.aar/316bcd7ac687a4a543d4418c33414752/AndroidManifest.xml:24:5-26:41
@@ -524,8 +513,6 @@ MERGED from [com.crashlytics.sdk.android:crashlytics:2.9.8] /home/rodrigo/.gradl
 MERGED from [com.crashlytics.sdk.android:crashlytics:2.9.8] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/crashlytics-2.9.8.aar/245d4b8532423b5eebb119320b76bb13/AndroidManifest.xml:7:5-43
 MERGED from [com.github.diogobernardino:WilliamChart:aae138315e] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/WilliamChart-aae138315e.aar/95df6b6c71403052ba4188eb7e271415/AndroidManifest.xml:6:5-8:41
 MERGED from [com.github.diogobernardino:WilliamChart:aae138315e] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/WilliamChart-aae138315e.aar/95df6b6c71403052ba4188eb7e271415/AndroidManifest.xml:6:5-8:41
-MERGED from [:zip_file1] /home/rodrigo/Documentos/stepmix/Sgame/zip_file1/build/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:7:5-9:41
-MERGED from [:zip_file1] /home/rodrigo/Documentos/stepmix/Sgame/zip_file1/build/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:7:5-9:41
 MERGED from [com.android.support:support-fragment:28.0.0] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/c81851dc06795ab6eb5ce843e7dc3571/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-fragment:28.0.0] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/c81851dc06795ab6eb5ce843e7dc3571/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-core-ui:28.0.0] /home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/2743d423bb697d4ed77a8993b37094fd/AndroidManifest.xml:20:5-44

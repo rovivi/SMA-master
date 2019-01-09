@@ -323,8 +323,16 @@ public class PlayerBga extends Activity {
                 .debuggable(true)           // Enables Crashlytics debugger
                 .build();
         Fabric.with(fabric);
-        textAnimator.run();
+
+
+        if (Common.ANIM_AT_START){
+            textAnimator.run();
+        }
+        else {
+            startGamePlay();
+        }
     }
+
 
 
     public Point getresolution() {
@@ -339,6 +347,8 @@ public class PlayerBga extends Activity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void startGamePlay() {
         try {
+
+            gpo.setTop(0);
             String rawscc = getIntent().getExtras().getString("ssc");
             String path = getIntent().getExtras().getString("path");
             String z = Common.convertStreamToString(new FileInputStream(rawscc));

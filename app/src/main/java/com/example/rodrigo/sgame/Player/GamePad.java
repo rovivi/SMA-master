@@ -19,7 +19,7 @@ import com.example.rodrigo.sgame.R;
 
 public class GamePad {
 
-    private Bitmap[] arrows;
+    private Bitmap[] arrows,arrowOFF;
     private Bitmap panel, panel2;
     private TransformBitmap TB;
     private Boolean[] waspressed;
@@ -27,6 +27,7 @@ public class GamePad {
     private Rect[] arrowsPosition2;
     private Point posPanel = new Point(0, 0);
     public byte pad[];
+    private boolean change=true;
     private Bitmap bg=null;
 
 
@@ -38,7 +39,8 @@ public class GamePad {
     public GamePad(Context context, String type, byte[] pad) {
         int width=Common.WIDTH ;
         int height= Common.HEIGHT;
-
+        BitmapFactory.Options myOpt2 = new BitmapFactory.Options();
+        myOpt2.inSampleSize = Common.Compression2D+2;
         panel = BitmapFactory.decodeResource(context.getResources(), R.drawable.touch_controls);
         float starty1=0.76f;
         float starty2=0.51f;
@@ -57,27 +59,27 @@ public class GamePad {
 
             case "pump-single":
 
-                panel = BitmapFactory.decodeResource(context.getResources(), R.drawable.touch_controls);
-                Bitmap step7_On = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_on);
-                Bitmap step1_On = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_on);
-                Bitmap step7_Off = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_off);
-                Bitmap step1_Off = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_off);
+                panel = BitmapFactory.decodeResource(context.getResources(), R.drawable.touch_controls,myOpt2);
+                Bitmap step7_On = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_on,myOpt2);
+                Bitmap step1_On = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_on,myOpt2);
+                Bitmap step7_Off = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_off,myOpt2);
+                Bitmap step1_Off = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_off,myOpt2);
                 this.TB = new TransformBitmap();
                 this.pad = pad;
                 if (true) {
-                    Bitmap[] arrowOFF = new Bitmap[5];
+                    arrowOFF = new Bitmap[5];
                     arrows = new Bitmap[5];
                     waspressed = new Boolean[]{false, false, false, false, false};
                     arrowsPosition = new Point[]{new Point(5, +250), new Point(5, 8), new Point(142, 145), new Point(280, 8), new Point(+280, +250)};
-                    arrows[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_on);   ;//1
-                    arrows[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_on);                          //7
-                    arrows[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stop5_on);                     //5
+                    arrows[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_on,myOpt2);   ;//1
+                    arrows[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_on,myOpt2);                          //7
+                    arrows[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stop5_on,myOpt2);                     //5
                     arrows[3] = TransformBitmap.FlipBitmap(step7_On, true); //9
                     arrows[4] = TransformBitmap.FlipBitmap(step1_On, true);//3
 
-                    arrowOFF[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_off);
-                    arrowOFF[1] =  BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_off);                //7
-                    arrowOFF[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stop5_off);                      //5
+                    arrowOFF[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_off,myOpt2);
+                    arrowOFF[1] =  BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_off,myOpt2);                //7
+                    arrowOFF[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stop5_off,myOpt2);                      //5
                     arrowOFF[3] = TransformBitmap.FlipBitmap(step7_Off, true); //9
                     arrowOFF[4] = TransformBitmap.FlipBitmap(step1_Off, true);//3
                     float startx1=0.0f;
@@ -110,11 +112,11 @@ public class GamePad {
             case "pump-double":
             case "pump-halfdouble":
             case "pump-routine":
-                panel = BitmapFactory.decodeResource(context.getResources(), R.drawable.touch_controls);
-                 step7_On = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_on);
-                 step1_On = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_on);
-                 step7_Off = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_off);
-                 step1_Off = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_off);
+                panel = BitmapFactory.decodeResource(context.getResources(), R.drawable.touch_controls,myOpt2);
+                 step7_On = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_on,myOpt2);
+                 step1_On = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_on,myOpt2);
+                 step7_Off = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_off,myOpt2);
+                 step1_Off = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_off,myOpt2);
                 this.TB = new TransformBitmap();
                 this.pad = pad;
                 if (true) {
@@ -122,9 +124,9 @@ public class GamePad {
                     arrows = new Bitmap[10];
                     waspressed = new Boolean[]{false, false, false, false, false};
                     arrowsPosition = new Point[]{new Point(5, +250), new Point(5, 8), new Point(142, 145), new Point(280, 8), new Point(+280, +250)};
-                    arrows[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_on);   ;//1
-                    arrows[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_on);                          //7
-                    arrows[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stop5_on);                     //5
+                    arrows[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_on,myOpt2);   ;//1
+                    arrows[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_on,myOpt2);                          //7
+                    arrows[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stop5_on,myOpt2);                     //5
                     arrows[3] = TransformBitmap.FlipBitmap(step7_On, true); //9
                     arrows[4] = TransformBitmap.FlipBitmap(step1_On, true);//3
                     arrows[5] = arrows[0];//1
@@ -133,9 +135,9 @@ public class GamePad {
                     arrows[8] = arrows[3];//1
                     arrows[9] = arrows[4];//1
 
-                    arrowOFF[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_off);
-                    arrowOFF[1] =  BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_off);                //7
-                    arrowOFF[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stop5_off);                      //5
+                    arrowOFF[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp1_off,myOpt2);
+                    arrowOFF[1] =  BitmapFactory.decodeResource(context.getResources(), R.drawable.stomp7_off,myOpt2);                //7
+                    arrowOFF[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.stop5_off,myOpt2);                      //5
                     arrowOFF[3] = TransformBitmap.FlipBitmap(step7_Off, true); //9
                     arrowOFF[4] = TransformBitmap.FlipBitmap(step1_Off, true);//3
                     arrowOFF[5]= arrowOFF[0];
@@ -240,22 +242,27 @@ public class GamePad {
     }
 
     public void draw(Canvas canvas) {
+
         Paint paint = new Paint();
-        int alphaValue= 450-(255/100*Common.AnimateFactor);
-        paint.setAlpha(230);
+      //  int alphaValue= 450-(255/100*Common.AnimateFactor);
+       // paint.setAlpha(230);
         if (bg!=null){
          //   canvas.drawBitmap(bg, null,new Rect(0,Common.HEIGHT/2,Common.WIDTH,Common.HEIGHT), paint);
         }
        // posPanel.set((Common.WIDTH/ 2) - (panel.getWidth() / 2), Common.WIDTH / 2);
         // canvas.drawBitmap(panel, posPanel.x, posPanel.y, paint);
-        canvas.drawBitmap(panel2, 0, 0, paint);
-        if (pad != null) {
+      //  canvas.drawBitmap(panel2, 0, 0, paint);
+        if (pad != null ) {
             for (int i = 0; i < arrows.length; i++) {
                 if (pad[i] != 0) {
                     canvas.drawBitmap(arrows[i], null, arrowsPosition2[i], paint);
                 }
+                else {
+                    canvas.drawBitmap(arrowOFF[i], null, arrowsPosition2[i], paint);
+                }
 
             }
+          //  change= false;
         }
     }
     //Controles
@@ -264,10 +271,14 @@ public class GamePad {
         for (int j = 0; j < pad.length; j++) {
             pad[j] = 0;
         }
+       // change= true;
+
     }
 
 
     public void checkInputs(int[][] positions) {
+
+
         for (int j = 0; j < arrows.length; j++) {
             boolean wasPressed = false;
             for (int[] k: positions) {
@@ -287,6 +298,8 @@ public class GamePad {
                 pad[j] = 0;
             }
         }
+      //  change= true;
+
     }
 
 
