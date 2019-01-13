@@ -2,6 +2,7 @@ package com.example.rodrigo.sgame;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -139,6 +140,7 @@ public class EvaluationActivity extends AppCompatActivity {
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
         title.setTypeface(custom_font);
+        //animatedPie.setMainBackgroundColor(Color.BLUE);
         int index = 0;
         for (TextView tv : textView) {
             tv.setTypeface(custom_font);

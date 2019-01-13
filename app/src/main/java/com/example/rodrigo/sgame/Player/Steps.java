@@ -2,37 +2,30 @@ package com.example.rodrigo.sgame.Player;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Rect;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
-import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
 import com.example.rodrigo.sgame.CommonGame.Note;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
-import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
-import com.example.rodrigo.sgame.R;
 
 import java.util.Stack;
 
 public class Steps {
 
-    static private int Longinfo[][];
+    static private int longInfo[][];
     static private int logPosition[] = {-9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999, -9999};
     static private int noteSkin[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-
     static {
-        Longinfo = new int[2][10];
-        Longinfo[0] = logPosition;
-        Longinfo[1] = noteSkin;
+        longInfo = new int[2][10];
+        longInfo[0] = logPosition;
+        longInfo[1] = noteSkin;
     }
 
-    static public boolean efecto = false;
     static NoteSkin[] noteSkins;
 
     /**
@@ -42,7 +35,7 @@ public class Steps {
      * @param gameMode
      */
     Steps(Context context, String gameMode) {
-        Longinfo[1] = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        longInfo[1] = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         switch (gameMode) {
             case "pump-routine":
                 noteSkins = new NoteSkin[4];
@@ -71,7 +64,8 @@ public class Steps {
         Canvas c;
 
         Bitmap stepsBitmap = Bitmap.createBitmap(playersizex, playerSizeY, Bitmap.Config.ARGB_8888);
-        if (efecto) {
+        boolean doMagic = false;
+        if (doMagic) {
             c = new Canvas(stepsBitmap);
         } else {
             c = ca;
@@ -97,7 +91,7 @@ public class Steps {
                 currenty = (int) aux[1];
             }
             for (int j = 0; j < noteSkins[0].arrows.length && speed != 0; j++) {
-                if (efecto) {
+                if (doMagic) {
                     posintx = (int) (posintX2 + Math.sin((double) (aux2 - currenty) / wa / 1.2) * wa * 0.8);
                 }
  /*  0 null char
@@ -120,15 +114,15 @@ public class Steps {
             THE SAME P2+10 +P3+20
         */
                 int posNote = 0;
-                byte typechar = 0;
+                byte typeChar = 0;
                 byte typeDisplay = 0;
                 if (Steps[j].noteType == 100) {
-                    typechar = 100;
+                    typeChar = 100;
                 } else if (Steps[j].noteType != 0) {
-                    typechar = (byte) (Steps[j].noteType % 10);
+                    typeChar = (byte) (Steps[j].noteType % 10);
                     typeDisplay = (byte) (Steps[j].noteType / 10);
                 }
-                boolean sundded = (typeDisplay == 3);
+                boolean sunded = (typeDisplay == 3);
                 boolean vanish = (typeDisplay == 1);
                 boolean hidden = typeDisplay == 2;
                 if (typeDisplay == 5) {
@@ -143,17 +137,17 @@ public class Steps {
                 if (typeDisplay == 0 && noteSkins.length > 1) {
                     posNote = 3;
                 }
-                if (typeDisplay == 7 || typeDisplay == 6 || typeDisplay == 5 || typeDisplay == 0 || (currenty > halfDistance && vanish) || (currenty < halfDistance && sundded)) {
-                    switch (typechar) {
+                if (typeDisplay == 7 || typeDisplay == 6 || typeDisplay == 5 || typeDisplay == 0 || (currenty > halfDistance && vanish) || (currenty < halfDistance && sunded)) {
+                    switch (typeChar) {
                         case (1):
                         case (5):
                             noteSkins[posNote].arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                             break;
                         case (2):
                             //   longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, nexty));
-                            noteSkins[posNote].longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[0][j]));
+                            noteSkins[posNote].longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, longInfo[0][j]));
                             noteSkins[posNote].arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
-                            Longinfo[0][j] = -9999;
+                            longInfo[0][j] = -9999;
                             break;
                         case (3):
                             verifyLong(j, currenty);
@@ -161,56 +155,71 @@ public class Steps {
                             break;
                         case (4):
                             verifyLong(j, currenty);
-                            Longinfo[1][j] = posNote;
+                            longInfo[1][j] = posNote;
                             break;
                         case (7):
                             noteSkins[posNote].mine.draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
                             break;
                         case (100):
-                            noteSkins[Longinfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, Longinfo[0][j]));
-                            Longinfo[0][j] = -9999;
+                            noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, longInfo[0][j]));
+                            longInfo[0][j] = -9999;
                             break;
                         default:
                     }
                 } else {
-                    switch (typechar) {
+                    switch (typeChar) {
                         case (3):
                         case (4):
-                            verifyLong(j, currenty);
+                            //    verifyLong(j, currenty);
+                            if (vanish) {
+                                noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, longInfo[0][j]));
+                                longInfo[0][j] = -9999;
+
+                            }
+
                             break;
                         case (100):
-                            Longinfo[0][j] = -9999;
+
+
+                            longInfo[0][j] = -9999;
                             break;
                     }
                 }
             }
         }
+
+
+        try {
+
         for (int j = 0; j < noteSkins[0].arrows.length; j++) {
-            if (Longinfo[0][j] != -9999) {
-                noteSkins[Longinfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, Longinfo[0][j]));
-                Longinfo[0][j] = -9999;
+            if (longInfo[0][j] != -9999) {
+                noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, longInfo[0][j]));
+                longInfo[0][j] = -9999;
             }
         }
         currenty = (int) (playerSizeY * Common.START_Y);
-        for (NoteSkin currentNote : noteSkins) {
-            for (int j = 0; j < currentNote.arrows.length && speed != 0; j++) {//se Dibujan receptores y effectos de las notas si los hay
-                if (Longinfo[0][j] != -9999) {
-                    noteSkins[Longinfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, Longinfo[0][j]));
-                    Longinfo[0][j] = -9999;
+
+            for (NoteSkin currentNote : noteSkins) {
+                for (int j = 0; j < currentNote.arrows.length && speed != 0; j++) {//se Dibujan receptores y effectos de las notas si los hay
+                    if (longInfo[0][j] != -9999) {
+                        noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, longInfo[0][j]));
+                        longInfo[0][j] = -9999;
+                    }
                 }
             }
-        }
 
         for (int j = 0; j < noteSkins[0].arrows.length && speed != 0; j++) {//se Dibujan receptores y effectos de las notas si los hay
-
             noteSkins[0].explotions[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
             noteSkins[0].explotionTails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
             noteSkins[0].tapsEffect[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
 
         }
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
 
 
-        if (false) {//atacks
+      /*  if (false) {//atacks
             Matrix sken = new Matrix();
             Camera camera = new Camera();
             camera.rotateY(-1);
@@ -218,7 +227,7 @@ public class Steps {
             camera.rotateZ(0);
             camera.getMatrix(sken);
             ca.drawBitmap(stepsBitmap, sken, new Paint());
-        }
+        }*/
     }
 
     public void update() {
@@ -242,8 +251,8 @@ public class Steps {
     private void verifyLong(int pos, int y) {
 
 
-        if (Longinfo[0][pos] == -9999 || Longinfo[0][pos] < y) {
-            Longinfo[0][pos] = y;
+        if (longInfo[0][pos] == -9999 || longInfo[0][pos] < y) {
+            longInfo[0][pos] = y;
         }
 
     }

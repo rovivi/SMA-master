@@ -356,7 +356,7 @@ public class SSC implements Serializable {
         ArrayList<EffectStep> auxArray = new ArrayList<>();
         while (it.hasNext()) {
             Map.Entry<String, ArrayList<Float[]>> pair = it.next();
-            String key = pair.getKey();//Nombre del efecto
+            String key = pair.getKey();//Nombre del doMagic
             ArrayList<Float[]> value = pair.getValue();// se declara la lista de efectos
 
 

@@ -7,13 +7,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.storage.OnObbStateChangeListener;
@@ -38,9 +38,7 @@ import android.widget.VideoView;
 
 import com.crashlytics.android.Crashlytics;
 import com.example.rodrigo.sgame.CommonGame.Common;
-import com.example.rodrigo.sgame.CommonGame.CustomSprite.Sprite;
 import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
-import com.example.rodrigo.sgame.CommonGame.CustomSprite.ThreadSprite;
 import com.example.rodrigo.sgame.CommonGame.Level;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.CommonGame.SSC;
@@ -48,7 +46,6 @@ import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 import com.example.rodrigo.sgame.Player.NoteSkin;
 import com.example.rodrigo.sgame.ScreenSelectMusic.AdapterLevel;
 import com.example.rodrigo.sgame.ScreenSelectMusic.AdapterSSC;
-import com.example.rodrigo.sgame.ScreenSelectMusic.ArrayAdapterLevel;
 import com.example.rodrigo.sgame.ScreenSelectMusic.MusicThread;
 import com.example.rodrigo.sgame.ScreenSelectMusic.RecyclerItemClickListener;
 import com.example.rodrigo.sgame.ScreenSelectMusic.SongsGroup;
@@ -56,6 +53,7 @@ import com.example.rodrigo.sgame.ScreenSelectMusic.SongsGroup;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -66,7 +64,6 @@ import java.util.Map;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.perf.FirebasePerformance;
 import com.google.firebase.perf.metrics.Trace;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import io.fabric.sdk.android.Fabric;
@@ -91,8 +88,8 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     // ArrayAdapter<String> adp2;
     Intent i;
     VideoView preview;
-    ImageView backgroundBluour, btnLevel, btnSpeed,bgSongList,imageSkin;
-    TextView lvlText, titleCurrentSong, authorCurrent, txt_open, tv_record;
+    ImageView backgroundBluour, btnLevel, btnSpeed,bgSongList,imageSkin,img_velocity;
+    TextView lvlText, titleCurrentSong, authorCurrent, txt_open, tv_record,tv_velocity,tv_judment,tv_apareance,tv_bpm ;
     FirebaseAnalytics mFirebaseAnalytics;
     ArrayList<Level> levelArrayList = new ArrayList<>();
     Spinner spinner;
@@ -107,8 +104,8 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     private AdapterLevel adapterLevel;
     //Sprites
     View root;
-    Sprite flashSpeedSprite, sriteMask;
-    ThreadSprite threadSprite;
+   // Sprite flashSpeedSprite, sriteMask;
+  //  ThreadSprite threadSprite;
     View.OnClickListener listenerButton = new View.OnClickListener() {
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         public void onClick(View v) {
@@ -183,8 +180,13 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         authorCurrent = findViewById(R.id.current_text_author);
         txt_open = findViewById(R.id.more_txt);
         tv_record = findViewById(R.id.record_text);
+        tv_velocity = findViewById(R.id.text_speed);
+        tv_judment = findViewById(R.id.text_judment);
+        tv_apareance= findViewById(R.id.text_apararience);
+        tv_bpm=findViewById(R.id.text_bpm);
         back_image = findViewById(R.id.back_image);
         imageSkin= findViewById(R.id.image_note_preview);
+        //img_velocity=findViewById(R.id.)
         titleCurrentSong.setSelected(true);
         titleCurrentSong.setSingleLine(true);
         bgSongList=findViewById(R.id.bg_song_list);
@@ -212,23 +214,30 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         recyclerView.setNestedScrollingEnabled(true);
         TextView msjlvl = findViewById(R.id.yourlvlmsjtv);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
+        Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/font2.ttf");
+        //Typeface custom_font3 = Typeface.createFromAsset(getAssets(), "fonts/font3.ttf");
 
-        msjlvl.setTypeface(custom_font);
+
+        msjlvl.setTypeface(custom_font2);
+        txt_open.setTypeface(custom_font);
+        tv_bpm.setTypeface(custom_font);
+        lvlText.setTypeface(custom_font2);
+
         preview.setOnErrorListener((mp, what, extra) -> {
             //    Log.d("video", "setOnErrorListener ");
-            if (what == -1010 || extra == -1010) ;
+            if (what == -1010 || extra == -1010) {
 
-            preview.setBackground(errorAuxImage);
+            }
+//            preview.setBackground(errorAuxImage);
+            playVideoError();
             return true;
         });
 
-        lvlText.setTypeface(custom_font);
 
         //---------Listeners-------//
 
 
         btnLevel.setOnClickListener(listenerlvl);
-
         btnLevel.setOnLongClickListener(v -> {
             //showEditFragment();
 
@@ -261,7 +270,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         //-------------se crea la lista de canciones------------//
         try {
             changeMusic = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-
             spCode = changeMusic.load(this, R.raw.change_song, 0);
             spOpenWindow = changeMusic.load(this, R.raw.command_toggle, 0);
             spSelect = changeMusic.load(this, R.raw.command_mod, 0);
@@ -341,21 +349,24 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         try {
             //   threadSprite.running = true;
             //  threadSprite.start();
-
         } catch (Exception e) {
         }
 
+        loadSongs();
 
-        //se carga el OBB
-        File obbFile = new File(getObbDir().getPath() + "/main.1." + getPackageName() + ".obb");
-
-        if (false && obbFile.exists()) {//desabilitado por el momento
-            //ObbInfo info =ObbScanner.getObbInfo(obbFile.getPath());
-            String superinfoinfo = mountObbFile(obbFile.getPath());
-        } else {
-            loadSongs();
-        }
     }
+
+
+    private ArrayList <Float[]>
+    setMetadata(SSC stepData,String dataCurrentChar, String dataGeneral) {
+        if (dataCurrentChar != null) {
+            return stepData.arrayListSpeed(dataCurrentChar);
+        } else if (dataGeneral != null && !dataGeneral.equals("")) {
+            return stepData.arrayListSpeed(dataGeneral);
+        }
+        return null;
+    }
+
 
 
     public void playSoundPool(int spCode) {
@@ -374,6 +385,18 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             Float sampleStart = Float.parseFloat(auxStep.songInfo.get("SAMPLESTART"));
             int offset = (int) (sampleStart * 1000);
             titleCurrentSong.setText(auxStep.songInfo.get("TITLE") != null ? auxStep.songInfo.get("TITLE") : "No title");
+
+
+
+
+
+            ArrayList<Float[]> bpms =setMetadata(auxStep, null, auxStep.songInfo.get("BPMS"));
+
+
+            boolean checkBPM =(bpms != null ) &&(bpms.get(0)!=null);
+            tv_bpm.setText( checkBPM?"B.P.M. "+bpms.get(0)[1].intValue() : "B.P.M. ???");
+            tv_bpm.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.zoom_in));
+
             authorCurrent.setText(auxStep.songInfo.get("ARTIST") != null ? "Composed by:" + auxStep.songInfo.get("ARTIST") : "No Artist");
             titleCurrentSong.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.zoom_in));
             authorCurrent.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in));
@@ -401,17 +424,19 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
                 File audio = new File(paths + "/" + auxStep.songInfo.get("MUSIC"));
                 File video = new File(paths + "/" + auxStep.songInfo.get("PREVIEWVID"));
                 File bg = new File(paths + "/" + auxStep.songInfo.get("BACKGROUND"));
-
+                Bitmap transparent;
                 if (video.exists() && (video.getPath().endsWith(".mpg") || video.getPath().endsWith(".mp4") || video.getPath().endsWith(".avi"))) {
                     preview.setBackground(null);
                     // Uri uri = CustomAPEZProvider.buildUri(video.getPath().replace(obbMountPath + "/", ""));
                     //preview.setVideoURI(uri);
                     preview.setVideoPath(video.getPath());
                     preview.start();
+                    transparent = TransformBitmap.makeTransparent(BitmapFactory.decodeFile(bg.getPath()), 180);
+                    this.errorAuxImage = new BitmapDrawable(transparent);
 
                 } else {
                     playVideoError();
-                    Bitmap transparent;
+
                     if (bg.exists() && bg.isFile()) {
                         transparent = TransformBitmap.makeTransparent(BitmapFactory.decodeFile(bg.getPath()), 180);
                         this.errorAuxImage = new BitmapDrawable(transparent);
@@ -484,6 +509,19 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
                 .build();
         Fabric.with(fabric);
 //        threadSprite.running = true;
+
+        //se carga el OBB
+        /*File obbFile = new File(getObbDir().getPath() + "/main.1." + getPackageName() + ".obb");
+
+        if (false && obbFile.exists()) {//desabilitado por el momento
+            //ObbInfo info =ObbScanner.getObbInfo(obbFile.getPath());
+            String superinfoinfo = mountObbFile(obbFile.getPath());
+        } else {
+            loadSongs();
+        }*/
+
+
+
     }
 
 
@@ -501,6 +539,10 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         if (fadeOut != null && fadeOut.isRunning()) {
             fadeOut.cancel(); // Cancel the opposite animation if it is running or else you get funky looks
         }
+
+
+
+        // new LoadSongTask().execute(null);
     }
 
     @Override
@@ -632,14 +674,11 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     private void loadSongs() {
 
         SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);
-      /*  Gson gson = new Gson();
-        String json = mPrefs.getString("cacheList3", "");
-*/
-        songsGroup = SongsGroup.readIt(getBaseContext());
+        songsGroup = SongsGroup.readIt(getBaseContext());//busca su propio archivo
 
-        if (songsGroup == null) {
+        if (songsGroup == null) {//Si no existe o si se esta recargando
             songsGroup = new SongsGroup();
-            SharedPreferences.Editor prefsEditor = mPrefs.edit();
+           // SharedPreferences.Editor prefsEditor = mPrefs.edit();
             File aux = Common.checkDirSongsFolders();
             path = aux.getPath();
             files = Common.checkDirSongsFolders().listFiles();
@@ -667,15 +706,11 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
                 }
 
             }
-
-
             AdapterSSC adapterSSC = new AdapterSSC(songsGroup, currentSongIndex);
             recyclerView.setAdapter(adapterSSC);
             //  themeElements.biuldObject(this, songsGroup);
             concurrentSort(songsGroup.listOfSongs, songsGroup.listOfSongs);
             // json = gson.toJson(songsGroup.listOfSongs);
-
-
             try {
                 songsGroup.saveIt(this);
             } catch (IOException e) {
@@ -711,7 +746,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
         hide();
     }
-
 
     public static void concurrentSort(
             final List<SSC> key, List<?>... lists) {
@@ -835,4 +869,35 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
 
     }
+
+
+    private class LoadSongTask extends AsyncTask<URL, Integer, Long> {
+        protected Long doInBackground(URL... urls) {
+            /*int count = urls.length;
+            long totalSize = 0;
+            for (int i = 0; i < count; i++) {
+                totalSize += Downloader.downloadFile(urls[i]);
+                publishProgress((int) ((i / (float) count) * 100));
+                // Escape early if cancel() is called
+                if (isCancelled()) break;
+            }*/
+         //
+            return 0l;
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            //setProgressPercent(progress[0]);
+        }
+
+        protected void onPostExecute(Long result) {
+           // showDialog("Downloaded " + result + " bytes");
+        }
+    }
+
+
 }
+
+
+
+
+

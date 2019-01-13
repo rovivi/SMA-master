@@ -192,10 +192,10 @@ public class TransformBitmap {
         Bitmap result = Bitmap.createBitmap(original.getWidth(), original.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas mCanvas = new Canvas(result);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY));
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.ADD));
         mCanvas.drawBitmap(original, 0, 0, null);
         // mCanvas.drawBitmap(mask, , paint);
-        mCanvas.drawBitmap(mask, null, new Rect(0, 0, original.getWidth(), original.getHeight()), paint);
+        mCanvas.drawBitmap(mask, null, new Rect(- original.getWidth(), -original.getHeight(), original.getWidth()*2, original.getHeight()*2), paint);
 
 
         paint.setXfermode(null);
@@ -246,6 +246,30 @@ public class TransformBitmap {
         }
         return spriteArray ;
     }
+
+
+    public static  Bitmap replaceColor(Bitmap b, int fromColor,int toColor ){
+
+        Bitmap out = Bitmap.createBitmap(b.getWidth(),b.getHeight(),b.getConfig());
+
+        for(int x = 0; x<b.getWidth(); x++){
+            for(int y = 0; y<b.getHeight(); y++){
+                if(b.getPixel(x, y) == fromColor){
+                    out.setPixel(x, y, toColor);
+                }
+                else{
+                    out.setPixel(x,y,b.getPixel(x,y));
+                }
+
+
+            }
+        }
+
+
+        return out;
+
+    }
+
 
 
 }

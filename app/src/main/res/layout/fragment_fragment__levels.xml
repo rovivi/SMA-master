@@ -18,8 +18,10 @@
         android:src="@drawable/option_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.617"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.49" />
 
     <TextView
         android:id="@+id/tv_msj_level_modal"
@@ -27,8 +29,10 @@
         android:layout_height="20sp"
         android:layout_marginTop="52dp"
         android:background="@drawable/topback"
+        android:gravity="center"
         android:text="Select AV"
         android:textAlignment="center"
+        android:textColor="@color/com_facebook_button_background_color_focused"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/rv_leves"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,6 +48,7 @@
         android:background="@drawable/topback"
         android:text="Select Your Speed"
         android:textAlignment="center"
+        android:textColor="@color/com_facebook_button_background_color_focused"
         android:textSize="18sp"
         android:theme="@style/shadow_free"
         app:layout_constraintBottom_toTopOf="@+id/rv_leves"
@@ -122,6 +127,7 @@
         android:text="1+"
         android:textColor="#ffffff"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/iv1pp"
         app:layout_constraintEnd_toEndOf="@+id/iv1pp"
         app:layout_constraintStart_toStartOf="@+id/iv1pp"
@@ -134,6 +140,7 @@
         android:text="0.5+"
         android:textColor="#ffffff"
         android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/iv0_5pp"
         app:layout_constraintEnd_toEndOf="@+id/iv0_5pp"
         app:layout_constraintStart_toStartOf="@+id/iv0_5pp"
@@ -146,6 +153,7 @@
         android:text="1-"
         android:textColor="#ffffff"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/iv1ll"
         app:layout_constraintEnd_toEndOf="@+id/iv1ll"
         app:layout_constraintStart_toStartOf="@+id/iv1ll"
@@ -158,6 +166,7 @@
         android:text="0.5-"
         android:textColor="#ffffff"
         android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/iv0_5ll"
         app:layout_constraintEnd_toEndOf="@+id/iv0_5ll"
         app:layout_constraintStart_toStartOf="@+id/iv0_5ll"
@@ -192,6 +201,7 @@
         android:background="@drawable/topback"
         android:text="Judment /Rush"
         android:textAlignment="center"
+        android:textColor="@color/com_facebook_button_background_color_focused"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/rv_leves"
         app:layout_constraintEnd_toEndOf="@+id/imageView5"
@@ -199,13 +209,12 @@
         app:layout_constraintTop_toBottomOf="@+id/iv0_5pp" />
 
     <TextView
-        android:id="@+id/tv_msj_level_modal4"
+        android:id="@+id/title_apear"
         android:layout_width="wrap_content"
         android:layout_height="20sp"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="2dp"
         android:background="@drawable/topback"
-        android:text="Note Skin"
+        android:text="Note Skin / FD"
         android:textAlignment="center"
         android:textColor="@color/com_facebook_button_background_color_focused"
         android:textSize="18sp"
@@ -236,9 +245,24 @@
         android:id="@+id/iv2"
         android:layout_width="44sp"
         android:layout_height="44sp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_msj_level_modal4"
-        app:layout_constraintStart_toStartOf="@+id/tv_msj_level_modal4"
-        app:layout_constraintTop_toBottomOf="@+id/tv_msj_level_modal4"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/iv232321"
+        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintStart_toStartOf="@+id/iv232321"
+        app:layout_constraintTop_toBottomOf="@+id/title_apear"
+        app:srcCompat="@drawable/lvl" />
+
+    <ImageView
+        android:id="@+id/iv3"
+        android:layout_width="44sp"
+        android:layout_height="44sp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv2"
+        app:layout_constraintEnd_toEndOf="@+id/iv"
+        app:layout_constraintHorizontal_bias="0.23"
+        app:layout_constraintStart_toStartOf="@+id/iv"
+        app:layout_constraintTop_toTopOf="@+id/image_skin"
         app:srcCompat="@drawable/lvl" />
 
     <ImageView
@@ -251,6 +275,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/iv2"
         app:layout_constraintEnd_toEndOf="@+id/iv2"
+        app:layout_constraintHorizontal_bias="0.22"
         app:layout_constraintStart_toStartOf="@+id/iv2"
         app:layout_constraintTop_toTopOf="@+id/iv2"
         app:srcCompat="@drawable/lvl" />
@@ -262,11 +287,25 @@
         android:text="HJ"
         android:textColor="#ffffff"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvrush"
         app:layout_constraintEnd_toEndOf="@+id/iv232321"
         app:layout_constraintStart_toStartOf="@+id/iv232321"
         app:layout_constraintTop_toTopOf="@+id/tvrush"
         app:layout_constraintVertical_bias="0.51" />
+
+    <TextView
+        android:id="@+id/tv_judge2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HJ"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/iv3"
+        app:layout_constraintEnd_toEndOf="@+id/iv3"
+        app:layout_constraintStart_toStartOf="@+id/iv3"
+        app:layout_constraintTop_toTopOf="@+id/iv3" />
 
     <TextView
         android:id="@+id/tvrush"
@@ -277,9 +316,10 @@
         android:text="10"
         android:textColor="#ffffff"
         android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/iv"
         app:layout_constraintEnd_toEndOf="@+id/iv"
-        app:layout_constraintHorizontal_bias="0.65"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="@+id/iv"
         app:layout_constraintTop_toTopOf="@+id/iv"
         app:layout_constraintVertical_bias="0.51" />

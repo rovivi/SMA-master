@@ -14,30 +14,29 @@
         android:id="@+id/bgBlurEvaluation"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="35sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="9dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_evaluation"
         app:layout_constraintVertical_bias="0.0" />
 
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:gravity="left"
+        android:layout_marginEnd="8dp"
+        android:gravity="left|center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/bgBlurEvaluation"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/bgBlurEvaluation"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_evaluation">
 
         <LinearLayout
@@ -194,11 +193,11 @@
     <TextView
         android:id="@+id/title_evaluation"
         android:layout_width="0dp"
-        android:layout_height="38dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="4dp"
-        android:background="@drawable/line_top"
+        android:background="@drawable/name_bg"
         android:gravity="center"
         android:text="TextView"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
@@ -215,25 +214,29 @@
         android:layout_marginStart="177dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="175dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="monospace"
-        android:text="Dance Grade"
+        android:text="Tap Grade"
         android:textColor="@color/cardview_light_background"
-        app:layout_constraintBottom_toTopOf="@+id/bgBlurEvaluation"
+        app:layout_constraintBottom_toTopOf="@+id/title_evaluation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26" />
 
     <ImageView
         android:id="@+id/letterGrade"
         android:layout_width="150sp"
         android:layout_height="150sp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/pieView"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/pieView"
-        app:layout_constraintTop_toTopOf="@+id/pieView"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.49"
         plainpie:srcCompat="@android:color/transparent" />
 
 

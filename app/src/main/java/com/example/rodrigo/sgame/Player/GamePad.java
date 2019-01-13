@@ -120,7 +120,7 @@ public class GamePad {
                 this.TB = new TransformBitmap();
                 this.pad = pad;
                 if (true) {
-                    Bitmap[] arrowOFF = new Bitmap[10];
+                    arrowOFF = new Bitmap[10];
                     arrows = new Bitmap[10];
                     waspressed = new Boolean[]{false, false, false, false, false};
                     arrowsPosition = new Point[]{new Point(5, +250), new Point(5, 8), new Point(142, 145), new Point(280, 8), new Point(+280, +250)};
@@ -194,7 +194,7 @@ public class GamePad {
                 panel2 = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
                 Bitmap upOn = BitmapFactory.decodeResource(context.getResources(), R.drawable.dance_pad_up_on);
                 Bitmap upOFF = BitmapFactory.decodeResource(context.getResources(), R.drawable.dance_pad_up_on);
-                Bitmap[] arrowOFF = new Bitmap[10];
+                 arrowOFF = new Bitmap[10];
                 this.pad = pad;
                 arrows = new Bitmap[4];//0 to 5 per step
                 waspressed = new Boolean[]{false, false, false, false};

@@ -1,14 +1,9 @@
 <resources>
     <string name="app_name">Sgame</string>
-    <string name="title_activity_songlist">Songlist</string>
-    <string name="title_activity_test_touch_delete">TestTouchDelete</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="title_activity_splash">Splash</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_splash">StepDroid</string>
     <string name="title_activity_main_screen">MainScreenActivity</string>
 
     <string name="facebook_app_id">259210448034964</string>
@@ -29,50 +24,16 @@
     </string>
 
     <string name="pref_title_display_name">NickName</string>
-    <string name="pref_title_display_name_desc">This name appear on the Game play</string>
     <string name="pref_default_display_name">N/A</string>
 
-    <string name="pref_title_offset">Audio Offset(ms)</string>
     <string name="pref_title_offset_desc">Only use if you have delay</string>
-    <integer name="pref_default_offset">0</integer>
-
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
 
     <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
 
     <string-array name="list_preference_entries">
         <item>Original Mode</item>
-        <item>DM Mode</item>
         <item>Extended Mode</item>
+        <item>DM Mode</item>
         <item>Tile mode</item>
     </string-array>
 
@@ -103,10 +64,7 @@
         <item>3</item>
     </string-array>
 
-    <string-array name="multi_select_list_preference_default_value" />
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-    <string name="tap_the_screen_to_start">tap the screen to start</string>
+    <string name="tap_the_screen_to_start">Tap the screen to start</string>
     <string name="pref_pad_type">Pad Type</string>
 
     <!-- Example settings for Notifications -->

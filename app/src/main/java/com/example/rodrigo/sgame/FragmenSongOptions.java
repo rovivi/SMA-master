@@ -67,8 +67,8 @@ public class FragmenSongOptions extends DialogFragment {
 
         Typeface custom_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font.ttf");
         msj.setTypeface(custom_font);
-        msj.setTextColor(Color.rgb(96, 242, 220));
-        msj2.setTextColor(Color.rgb(96, 242, 220));
+      //  msj.setTextColor(Color.rgb(96, 242, 220));
+      //  msj2.setTextColor(Color.rgb(96, 242, 220));
         msj2.setTypeface(custom_font);
         pp1 = view.findViewById(R.id.iv1pp);
         pp0_5 = view.findViewById(R.id.iv0_5pp);
@@ -81,18 +81,22 @@ public class FragmenSongOptions extends DialogFragment {
         TextView tv2 = view.findViewById(R.id.tvsped2);
         TextView tv3 = view.findViewById(R.id.tvsped3);
         TextView tv4 = view.findViewById(R.id.tvsped4);
+        TextView tv5 = view.findViewById(R.id.title_apear);
+
         tvRush = view.findViewById(R.id.tvrush);
         tvJudge = view.findViewById(R.id.tv_judge);
 
         TextView title3 = view.findViewById(R.id.tv_msj_level_modal3);
-        title3.setTextColor(Color.rgb(96, 242, 220));
-        tv1.setTypeface(custom_font);
-        tv2.setTypeface(custom_font);
-        tv3.setTypeface(custom_font);
-        tv4.setTypeface(custom_font);
+      //  title3.setTextColor(Color.rgb(96, 242, 220));
+       //tv1.setTypeface(custom_font);
+        //tv2.setTypeface(custom_font);
+       //tv3.setTypeface(custom_font);
+       // tv4.setTypeface(custom_font);
         title3.setTypeface(custom_font);
-        tvRush.setTypeface(custom_font);
+        tv5.setTypeface(custom_font);
+        //tvRush.setTypeface(custom_font);
         tvJudge.setTypeface(custom_font);
+        switch_autoplay.setTypeface(custom_font);
 
 
         tvRush.setOnClickListener(v -> {
@@ -101,9 +105,7 @@ public class FragmenSongOptions extends DialogFragment {
                 ParamsSong.rush = 0.8f;
             }
             songList.playSoundPool(songList.spSelect);
-
             setTxtRush();
-
         });
         switch_autoplay.setChecked(ParamsSong.autoplay);
         switch_autoplay.setOnCheckedChangeListener((buttonView, isChecked) -> ParamsSong.autoplay = isChecked);
@@ -111,8 +113,6 @@ public class FragmenSongOptions extends DialogFragment {
             ParamsSong.judgment = (ParamsSong.judgment + 1) % 7;
             setTxtJudge();
             songList.playSoundPool(songList.spSelect);
-
-
         });
         setTxtJudge();
         setTxtRush();
@@ -191,34 +191,38 @@ public class FragmenSongOptions extends DialogFragment {
         velocity = velocity < 0.5 ? 0.5f : velocity;
         ParamsSong.speed = velocity;
         msj2.setText("Velocity  " + velocity);
+        songList.tv_velocity.setText("x" + (int)velocity);
     }
 
 
     private void setTxtJudge() {
-
+        String text = "";
         switch (ParamsSong.judgment) {
             case 0://SJ
-                tvJudge.setText("SJ");
+                text = "SJ";
                 break;
             case 1://EJ
-                tvJudge.setText("EJ");
+                text = "EJ";
                 break;
             case 2://NJ
-                tvJudge.setText("NJ");
+                text = "NJ";
                 break;
             case 3://HJ
-                tvJudge.setText("HJ");
+                text = "HJ";
                 break;
             case 4://VJ
-                tvJudge.setText("VJ");
+                text = "VJ";
                 break;
             case 5://XJ
-                tvJudge.setText("XJ");
+                text = "XJ";
                 break;
             case 6://UJ
-                tvJudge.setText("UJ");
+                text = "UJ";
                 break;
         }
+        tvJudge.setText(text);
+        songList.tv_judment.setText(text);
+
 
     }
 

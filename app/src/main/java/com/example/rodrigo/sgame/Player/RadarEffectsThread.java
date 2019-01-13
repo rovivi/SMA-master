@@ -158,45 +158,8 @@ public class RadarEffectsThread extends Thread {
     public void evaluate() {
         if (game.doEvaluate) {
             double[] currentJudge = Common.JUDMENT[ParamsSong.judgment];
-            if (ParamsSong.autoplay) {
-                game.ObjectCombo.posjudge = 0;
-                if (containTapNote(game.bufferSteps.get(game.posBuffer).rowStep)) {
-                    game.playTick();
-                    combopp();
-                    game.currentLife += 0.5 * game.currentCombo;
-                    game.ObjectCombo.show();
-                    Note[] auxrow = game.bufferSteps.get(game.posBuffer).rowStep;
-                    for (int w = 0; w < auxrow.length; w++) {//animations
-                        int aux = auxrow[w].noteType;
-                        if (aux == 1) {
-                            game.steps.noteSkins[0].explotions[w].play();
-                        } else if (aux == 2) {
-                            game.steps.noteSkins[0].explotions[w].play();
-                            game.steps.noteSkins[0].explotionTails[w].play();
-                        } else if (aux == 0) {
-                            game.steps.noteSkins[0].explotionTails[w].stop();
-                        }
-                    }
-                    game.bufferSteps.get(game.posBuffer).rowStep = game.preseedRow;
-
-
-                } else if (containLongs(game.bufferSteps.get(game.posBuffer).rowStep)) {
-
-
-                    game.residuoTick += ((double) game.currentTickCount / 48);
-                    if (game.residuoTick >= 1) {
-                        game.residuoTick -= 1;
-                        game.ObjectCombo.show();
-                        combopp();
-                        game.currentLife += 0.5 * game.currentCombo;
-                    }
-
-
-                    game.bufferSteps.get(game.posBuffer).rowStep = game.preseedRow;
-
-                }
-
-            } else {//juicio normal
+            if (!ParamsSong.autoplay) {
+           //juicio normal
                 int posBack;
                 int posNext;
                 int backSteps;
@@ -210,27 +173,6 @@ public class RadarEffectsThread extends Thread {
                     posBack = -game.posBuffer;
                 }
                 posNext = backSteps;
-
-             /*   if (containTaps(game.bufferSteps.get(game.posBuffer + posBack).rowStep)) {//evaluate miss
-                    comboLess();
-                    game.bufferSteps.get(game.posBuffer + posBack).rowStep = game.preseedRow;
-                    posBack++;
-                }
-                if (containsMine(game.bufferSteps.get(game.posBuffer + posBack).rowStep)) {//evaluate miss
-                    game.bufferSteps.get(game.posBuffer + posBack).rowStep = game.preseedRow;
-                    posBack++;
-                }
-                if (containLongs(game.bufferSteps.get(game.posBuffer + posBack).rowStep)) {
-                    game.residuoTick += ((double) game.currentTickCount / 48);
-                    if (game.residuoTick >= 1) {
-                        game.residuoTick -= 1;
-                        game.ObjectCombo.show();
-                        comboLess();
-                        game.currentLife += 0.5 * game.currentCombo;
-                        game.miss += game.currentCombo;
-                        //bufferSteps.get(posBuffer + posBack).rowStep = preseedRow;
-                    }
-                }*/
                 int posEvaluate = -1;
                 while ((game.posBuffer + posBack < game.bufferSteps.size()) && posBack <= posNext && game.fingersOnScreen > 0) {
                     if (containSteps((Note[]) game.bufferSteps.get(game.posBuffer + posBack).rowStep)) {

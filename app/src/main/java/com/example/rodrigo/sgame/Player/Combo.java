@@ -9,6 +9,7 @@ import android.graphics.Rect;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
+import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 import com.example.rodrigo.sgame.R;
 
@@ -20,6 +21,7 @@ public class Combo {
     private int posIntY,x,y, posIntXCombo, posIntYCombo, posintync, posintx ,Combo = 0,aumentCombo = -220;
 
     public short posjudge = 0;
+    float factor=1f;
 
     public Combo(Context c, int x, int y) {
         this.x=x;
@@ -46,7 +48,14 @@ public class Combo {
         aumentolabel = 2 * aumento / 3;
         ratiostepcombo = 2 * ratiostep / 3;
 
+
         posIntY = (int) (y / 2 - (y * 0.084) / 2);
+
+        if (ParamsSong.gameMode==2 || ParamsSong.gameMode==3){
+            posIntY = (int) (y / 3 - (y * 0.084) / 2);
+          factor=0.60f;
+
+        }
         posintync = 0;
 
 
@@ -75,14 +84,18 @@ public class Combo {
 
     public void draw(Canvas canvas) {
         posintx = (int) (x / 2 - (x * 0.4 * (ratiostep + aumento * aumentCombo)) / 2);
+
+
         posIntXCombo = (int) (x / 2 - (x * 0.13) * (ratiostep + aumento * aumentCombo) / 2);
+
+
         posIntYCombo = (int) (posIntY + (y * 0.039) + (y * 0.084) * (ratiostepcombo + aumentolabel * aumentCombo) / 2);// (int) (y / 2 - (y * 0.05) / 2);
 
 
         if (aumentCombo > -12) {
             if (aumentCombo >= 0) {
 
-                canvas.drawBitmap(judgeSprite.frames[posjudge], null, new Rect(posintx, posIntY, posintx + (int) ((x * 0.4) * (ratiostep + aumento * aumentCombo)), posIntY + (int) ((y * 0.084) * (ratiostep + aumento * aumentCombo))), new Paint());
+                canvas.drawBitmap(judgeSprite.frames[posjudge], null, new Rect(posintx, posIntY, posintx + (int) ((x * 0.4) * (ratiostep + aumento * aumentCombo)), posIntY + (int) ((y * 0.084*factor) * (ratiostep + aumento * aumentCombo))), new Paint());
                 posintync = posIntYCombo + (int) ((combo.getHeight()) * (ratiostepcombo + aumentolabel * aumentCombo) * 0.7);
 
             } else if (aumentCombo < -6) {
@@ -90,11 +103,11 @@ public class Combo {
                 int opacidad = (100 + 5 * aumentCombo);
                 int xt = aumentCombo * -1;
                 int yt = aumentCombo * 1;
-                canvas.drawBitmap(TransformBitmap.makeTransparent(judgeSprite.frames[posjudge], opacidad), null, new Rect(posintx, posIntY, posintx + (int) (x * 0.4 * (ratiostep) * ((float) xt * 5 / 100)), 10 * aumentCombo + posIntY + (int) ((y * 0.084) * (ratiostep + aumento * aumentCombo) * ((float) yt * 5 / 100))), new Paint());
+                canvas.drawBitmap(TransformBitmap.makeTransparent(judgeSprite.frames[posjudge], opacidad), null, new Rect(posintx, posIntY, posintx + (int) (x * 0.4 * (ratiostep) * ((float) xt * 5 / 100)), 10 * aumentCombo + posIntY + (int) ((y *factor* 0.084) * (ratiostep + aumento * aumentCombo) * ((float) yt * 5 / 100))), new Paint());
 
             } else {
                 posintx = (int) (x / 2 - (x * 0.4 * (ratiostep)) / 2);
-                canvas.drawBitmap(judgeSprite.frames[posjudge], null, new Rect(posintx, posIntY, posintx + (int) (x * 0.4 * ratiostep), posIntY + (int) (y * 0.084 * ratiostep)), new Paint());
+                canvas.drawBitmap(judgeSprite.frames[posjudge], null, new Rect(posintx, posIntY, posintx + (int) (x * 0.4 * ratiostep), posIntY + (int) (y * 0.084 *factor* ratiostep)), new Paint());
                 // canvas.drawBitmap(currentBitMapCombo, null, new Rect(posIntXCombo, posIntYCombo, posIntXCombo + (int) ((x * 0.17) * (ratiostepcombo + aumentolabel)), posIntYCombo + (int) ((y * 0.053) * (ratiostepcombo + aumentolabel))), new Paint());
             }
 
@@ -102,8 +115,12 @@ public class Combo {
             //canvas.drawText(""+Combo,x/2-50,y/2,dibujante);
             posintync = posIntYCombo + (int) ((y * 0.05) * (ratiostepcombo + aumentolabel * aumentCombo));
             if (Combo > 3 || Combo < -3) {
+
+
                 canvas.drawBitmap(currentBitMapCombo, null, new Rect(posIntXCombo, posIntYCombo, posIntXCombo + (int) ((x * 0.17) * (ratiostepcombo + aumentolabel * aumentCombo)), posIntYCombo + (int) ((y * 0.053) * (ratiostepcombo + aumentolabel * aumentCombo))), new Paint());
+
                 ////
+
                 long lc = 100000000 + Math.abs(Combo);
                 String sc = lc + "";
                 String sc2 = Math.abs(Combo) + "";

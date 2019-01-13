@@ -60,7 +60,7 @@ public class AdapterLevel extends RecyclerView.Adapter<AdapterLevel.LvlHolder> {
             textView = itemView.findViewById(R.id.tv_level);
 
             bg= itemView.findViewById(R.id.bg_lvl);
-            Typeface custom_font = Typeface.createFromAsset(am, "fonts/font.ttf");
+            Typeface custom_font = Typeface.createFromAsset(am, "fonts/font2.ttf");
 
             textView.setTypeface(custom_font);
 
@@ -68,23 +68,17 @@ public class AdapterLevel extends RecyclerView.Adapter<AdapterLevel.LvlHolder> {
         }
 
         public void setAttr(int index) {
-            textView.setText(levels.get(index).getNumberLevel() + "");
+            textView.setText(levels.get(index).getNumberLevel()<98 ? levels.get(index).getNumberLevel()  + "": "??");
             if (levels.get(index).getGameType().endsWith("double")) {
-               // textView.setTextColor(Color.rgb(188, 244, 66));
-
                 Picasso.get().load(R.drawable.hexa_double).into(bg);
-
-
             } else if (levels.get(index).getGameType().endsWith("single")) {
-                //textView.setTextColor(Color.rgb(239, 140, 33));
                 Picasso.get().load(R.drawable.hexa_single).into(bg);
-
             }
             else {
-
                 Picasso.get().load(R.drawable.hexa_performance).into(bg);
-
             }
+
+
 
         }
 

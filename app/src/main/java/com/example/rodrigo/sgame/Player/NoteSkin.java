@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
@@ -13,7 +14,9 @@ import com.example.rodrigo.sgame.R;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class NoteSkin {
@@ -74,31 +77,32 @@ public class NoteSkin {
             explotions = new SpriteReader[numberSteps];
             receptors = new SpriteReader[numberSteps];
 
-
             for (int j = 0; j < 5; j++) {
-                tapsEffect[j] = new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(), R.drawable.pad_pressed, myOpt), 5, 2, j, j + 5, j + 5, j), 0.2f);
-                tapsEffect[j + 5] = new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(), R.drawable.pad_pressed, myOpt), 5, 2, j, j + 5, j + 5, j), 0.2f);
+              //  tapsEffect[j] = new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(), R.drawable.pad_pressed, myOpt), 5, 2, j, j + 5, j + 5, j), 0.2f);
+
+                    Bitmap [] arrayAux = new Bitmap[2];
+                 //   arrayAux[0]=receptorArray[j];
+              //  tapsEffect[j + 5] = new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(), R.drawable.pad_pressed, myOpt), 5, 2, j, j + 5, j + 5, j), 0.2f);
                 if (assetPath) {
                     InputStream stream1 = context.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[j] + "tap.png");
                     InputStream stream2 = context.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[j] + "hold.png");
                     InputStream stream3 = context.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[j] + "hold_end.png");
                     InputStream stream4 = context.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[j] + "receptor.png");
-                    arrows[j] = new SpriteReader(BitmapFactory.decodeStream(stream1, null, myOpt), 3, 2, 0.2f);
-                    tails[j] = new SpriteReader(BitmapFactory.decodeStream(stream3, null, myOpt), 6, 1, 0.2f);
-                    longs[j] = new SpriteReader(BitmapFactory.decodeStream(stream2, null, myOpt), 6, 1, 0.2f);
-                    receptors[j] = new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeStream(stream4, null, myOpt), 1, 3, 0, 1), 0.8f);
-
+                    Bitmap [] arrayAux2 =TransformBitmap.customSpriteArray(BitmapFactory.decodeStream(stream4, null, myOpt), 1, 3, 0, 1,2);
+                    arrows[j] = new SpriteReader(BitmapFactory.decodeStream(stream1, null, myOpt), 3, 2, 0.32f);
+                    tails[j] = new SpriteReader(BitmapFactory.decodeStream(stream3, null, myOpt), 6, 1, 0.32f);
+                    longs[j] = new SpriteReader(BitmapFactory.decodeStream(stream2, null, myOpt), 6, 1, 0.32f);
+                    receptors[j] = new SpriteReader(Arrays.copyOfRange(arrayAux2,0,1), 0.8f);
+                    arrayAux[0]=arrayAux2[2];
+                    arrayAux[1]=arrayAux2[2];
+                    tapsEffect[j] = new SpriteReader(arrayAux,0.3f);
+                    tapsEffect[j+5] = new SpriteReader(arrayAux,0.3f);
                 } else {
                     //stuff for reading on SD
                 }
             }
 
 
-            Bitmap r1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s1, myOpt2);
-            Bitmap r2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s2, myOpt2);
-            Bitmap r3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s3, myOpt2);
-            Bitmap r4 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s4, myOpt2);
-            Bitmap r5 = BitmapFactory.decodeResource(context.getResources(), R.drawable.s5, myOpt2);
             for (int w = 0; (type.equals("pump-double") || type.equals("pump-routine")) && w < 5; w++) {
                 arrows[w + 5] = arrows[w];
                 tails[5 + w] = tails[w];
@@ -109,21 +113,21 @@ public class NoteSkin {
             }
 
 
+            Bitmap explotion= BitmapFactory.decodeStream(context.getAssets().open(pathNS + "_explosion 6x1.png"));
+           // Bitmap explotion= TransformBitmap.replaceColor(BitmapFactory.decodeStream(context.getAssets().open(pathNS + "_explosion 6x1.png")),Color.BLACK,Color.TRANSPARENT);
+
+            Bitmap[] explotionArray= TransformBitmap.customSpriteArray(explotion,6,1,0,1,2,3,4,5);
+
             for (int cd = 0; cd < numberSteps; cd++) {
-                explotions[cd] = new SpriteReader(new Bitmap[]{
-                        TransformBitmap.returnMaskCut(arrows[cd].frames[0], TransformBitmap.returnMask(arrows[cd].frames[0], r1)),
-                        TransformBitmap.returnMaskCut(arrows[cd].frames[1], TransformBitmap.returnMask(arrows[cd].frames[1], r2)),
-                        TransformBitmap.returnMaskCut(arrows[cd].frames[2], TransformBitmap.returnMask(arrows[cd].frames[2], r3)),
-                        TransformBitmap.returnMaskCut(arrows[cd].frames[3], TransformBitmap.returnMask(arrows[cd].frames[3], r3)),
-                        TransformBitmap.returnMaskCut(arrows[cd].frames[4], TransformBitmap.returnMask(arrows[cd].frames[4], r4)),
-                        TransformBitmap.returnMaskCut(arrows[cd].frames[5], TransformBitmap.returnMask(arrows[cd].frames[5], r5)),
-                }, 0.15f);
+                Bitmap[] explotionArray2= new Bitmap[6];
+                for (int j=0;j<6;j++){
+                    explotionArray2[j]=TransformBitmap.returnMaskCut(arrows[cd].frames[j], TransformBitmap.returnMask(arrows[cd].frames[j], explotionArray[j]));
+                 //   explotionArray2[j]=TransformBitmap.returnMask(arrows[cd].frames[j], explotionArray[j]);
+
+                }
+                explotions[cd] = new SpriteReader( explotionArray2, 0.15f);
                 explotionTails[cd] = explotions[cd];
             }
-
-
-            //Bitmap exploAux=BitmapFactory.decodeResource(context.getResources(),R.drawable.explosion_6x1);
-            //Bitmap[] res = TransformBitmap.customSpriteArray(exploAux,6,1,0,1,2,3,4,5);
 
 
             for (int x = 0; x < arrows.length; x++) {
@@ -138,8 +142,6 @@ public class NoteSkin {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
 
@@ -188,7 +190,7 @@ public class NoteSkin {
         String pathNS = "NoteSkins/pump/" + name + "/";
         InputStream stream1 = null;
         try {
-            stream1 = c.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[4] + "tap.png");
+            stream1 = c.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[2] + "tap.png");
         } catch (IOException e) {
             e.printStackTrace();
         }

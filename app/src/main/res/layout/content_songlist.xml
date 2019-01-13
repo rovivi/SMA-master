@@ -30,12 +30,13 @@
 
     <VideoView
         android:id="@+id/preview"
+        style="@style/ShadowWhiteFRee"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@id/guideStartList"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -115,38 +116,62 @@
 
     <ImageView
         android:id="@+id/imagelevl2"
-        android:layout_width="45sp"
-        android:layout_height="30sp"
+        android:layout_width="30sp"
+        android:layout_height="25sp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/current_song_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/preview"
-        app:srcCompat="@drawable/x3" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_top"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/lvl" />
+
+    <ImageView
+        android:id="@+id/image_apareance"
+        android:layout_width="30sp"
+        android:layout_height="25sp"
+        android:layout_marginTop="4dp"
+        android:scaleType="fitXY"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/imagelevl3"
+        app:layout_constraintStart_toStartOf="@+id/imagelevl3"
+        app:layout_constraintTop_toBottomOf="@+id/imagelevl3"
+        app:srcCompat="@drawable/lvl" />
+
+    <ImageView
+        android:id="@+id/imagelevl5"
+        android:layout_width="30sp"
+        android:layout_height="25sp"
+        android:layout_marginTop="8dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="@+id/imagelevl3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imagelevl3"
+        app:layout_constraintTop_toBottomOf="@+id/text_apararience"
+        app:srcCompat="@drawable/lvl" />
 
     <ImageView
         android:id="@+id/imagelevl3"
-        android:layout_width="45sp"
-        android:layout_height="30sp"
+        android:layout_width="30sp"
+        android:layout_height="25sp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/current_song_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagelevl2"
-        app:layout_constraintVertical_bias="0.437"
+        app:layout_constraintVertical_bias="0.13999999"
         app:srcCompat="@drawable/lvl" />
 
     <ImageView
         android:id="@+id/image_note_preview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="6dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/imagelevl3"
         app:layout_constraintEnd_toEndOf="@+id/imagelevl3"
@@ -196,7 +221,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="3dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/guideStartList"
         app:layout_constraintEnd_toEndOf="parent"
@@ -301,6 +326,62 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/black_up" />
+
+    <TextView
+        android:id="@+id/text_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="x2"
+        android:textColor="@color/com_facebook_button_background_color_focused"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/speedControl"
+        app:layout_constraintEnd_toEndOf="@+id/imagelevl2"
+        app:layout_constraintStart_toStartOf="@+id/imagelevl2"
+        app:layout_constraintTop_toTopOf="@+id/imagelevl2" />
+
+    <TextView
+        android:id="@+id/text_apararience"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FD"
+        android:textColor="@color/com_facebook_button_background_color_focused"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/image_apareance"
+        app:layout_constraintEnd_toEndOf="@+id/image_apareance"
+        app:layout_constraintStart_toStartOf="@+id/image_apareance"
+        app:layout_constraintTop_toTopOf="@+id/image_apareance" />
+
+    <TextView
+        android:id="@+id/text_judment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HJ"
+        android:textColor="@color/com_facebook_button_background_color_focused"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imagelevl5"
+        app:layout_constraintEnd_toEndOf="@+id/imagelevl5"
+        app:layout_constraintStart_toStartOf="@+id/imagelevl5"
+        app:layout_constraintTop_toTopOf="@+id/imagelevl5" />
+
+    <TextView
+        android:id="@+id/text_bpm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/common_google_signin_btn_text_light_focused"
+        android:rotation="-15"
+        android:text="B.P.M. 150"
+        android:textAlignment="textEnd"
+        android:textAllCaps="false"
+        android:textColor="?android:attr/colorPressedHighlight"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/guideStartList"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

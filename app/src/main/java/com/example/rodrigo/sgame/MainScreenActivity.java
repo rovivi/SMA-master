@@ -134,7 +134,6 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
 
         sing.setOnClickListener(v -> signIn());
 
-
         //Google login
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -148,8 +147,6 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
 // ...
 // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
-
         //login FB
 
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -233,10 +230,10 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
         //set and start video
         Uri uriVideoBg = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bgmain2);
         bgLoop.setVideoURI(uriVideoBg);
-        bgLoop.start();
+
 
         //set animation
-        new AnimationUtils();
+        //new AnimationUtils();
 
         Animation controller = AnimationUtils.loadAnimation(this, R.anim.zoom_splash);
         startButton.startAnimation(controller);
@@ -250,7 +247,11 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
 
         AdRequest adRequest = new AdRequest.Builder().build();
 
+
+
         mAdView.loadAd(adRequest);
+
+
 
     }
 
@@ -380,6 +381,12 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
         super.onRestart();
 
 
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+         if (bgLoop!=null){bgLoop.start();}
     }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {

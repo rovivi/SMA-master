@@ -372,7 +372,6 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             mpMusic.prepareAsync();
 
 
-
             mpMusic.setOnCompletionListener(mp -> {
                 startEvaluation();
                 stop();
@@ -394,7 +393,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             dibujante.setTextSize(20);
 
             if (tipo.equals("dance-single")) {
-              //  steps.makeDDR(context);
+                //  steps.makeDDR(context);
             }
 
 
@@ -420,56 +419,38 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
                 //playerSizeX = c.getWidth() * (1);
                 if (tipo.equals("pump-single")) {
-
                     switch (ParamsSong.gameMode) {
                         case 0:
-                            Common.START_Y=0.115f;
-                            playerSizeY = (int) (Common.HEIGHT * (0.56));
+                            Common.START_Y = 0.105f;
+                            playerSizeY = (int) (Common.HEIGHT * (0.545));
                             arrowSize = (int) (playerSizeX / 10 * 0.8);
                             posIntX = (int) (playerSizeX * 0.3);
-
                             break;
                         case 1:
-                            Common.START_Y=0.095f;
-                            playerSizeY = (int) (Common.HEIGHT * (0.6));
-                            arrowSize = (int) (playerSizeX /10*  0.9);
+                            Common.START_Y = 0.095f;
+                            playerSizeY = (int) (Common.HEIGHT * (0.54));
+                            arrowSize = (int) (playerSizeX / 10 * 0.9);
                             posIntX = (int) (playerSizeX * 0.275);
-
                             break;
                         case 2:
-                            Common.START_Y=0.05f;
-                            playerSizeY = (Common.HEIGHT );
-                            arrowSize = (int) (playerSizeX /5*  0.7);
-                            posIntX = (int) (playerSizeX * 0.15);
+                        case 3:
+                            Common.START_Y = 0.05f;
+                            playerSizeY = (Common.HEIGHT);
+                            arrowSize = (int) (playerSizeX / 5 * 0.65);
+                            posIntX = (int) (playerSizeX * 0.175);
                             break;
-
                     }
-
-
-
-
-
-               /* posIntX = (int) (playerSizeX * 0.3);
-                steps.receptor.draw(c, new Rect((int) (playerSizeX * 0.24), (int) currentY, (int) (playerSizeX * 0.742
-                ), (int) currentY + arrowSize));*/
-
 
                 } else if (tipo.equals("pump-double") || tipo.equals("pump-routine")) {
                     arrowSize = (int) (playerSizeX / 10 * 0.8);
                     posIntX = (int) (playerSizeX * 0.1);
                     playerSizeY = (int) (Common.HEIGHT * (0.62));
-               /* steps.receptor.draw(c, new Rect((int) (playerSizeX * 0.04), (int) currentY, (int) (playerSizeX * 0.542
-                ), (int) currentY + arrowSize));
-                steps.receptor.draw(c, new Rect((int) (playerSizeX * 0.435), (int) currentY, (int) (playerSizeX * 0.94
-                ), (int) currentY + arrowSize));*/
                 }
 
-                ObjectCombo = new Combo(context,playerSizeX,playerSizeY);
+                ObjectCombo = new Combo(context, playerSizeX, playerSizeY);
                 ObjectCombo.start();
-
                 mainTread.setRunning(true);
                 mainTread.start();
-
 
 
             }
@@ -481,16 +462,11 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                     ww = TransformBitmap.makeTransparent(TransformBitmap.myblur(ww, context), 130);
                     bga.bgPad.setImageBitmap(ww);
                 }
-
             }
             dibujante.setColor(Color.TRANSPARENT);
-
-
-
         } catch (Exception e) {
             throw e;
         }
-
     }
 
 
@@ -593,13 +569,13 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 if (isRunning) {
                     residuoy = 0;
                     Paint painty = new Paint();
-                   // painty.setTextSize(20);
+                    // painty.setTextSize(20);
                     painty.setStyle(Paint.Style.FILL);
                     painty.setColor(Color.TRANSPARENT);
-                   // painty.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+                    // painty.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 
                     canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-                    canvas.drawRect(new Rect(0,0,Common.WIDTH,playerSizeY),painty);
+                    canvas.drawRect(new Rect(0, 0, Common.WIDTH, playerSizeY), painty);
                     drawStats(canvas);
                     if ((posBuffer + 1 < bufferSteps.size())) {
                         drawCharts(canvas, posBuffer, false);
@@ -610,7 +586,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 }
 
                 ObjectCombo.draw(canvas);
-               touchPad.draw(canvas);
+                touchPad.draw(canvas);
                 life.draw(canvas);
                 if (mineHideValue > 0) {
                     Paint pRect = new Paint();
@@ -667,7 +643,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
             int maskedAction = event.getActionMasked();
             int fingers = event.getPointerCount();
-            this.fingersOnScreen= (byte) fingers;
+            this.fingersOnScreen = (byte) fingers;
             // this.event = "f:" + fingers + " ";//Se limpia el string
             int[][] inputsTouch = new int[fingers][2];
             for (int i = 0; i < fingers; i++) {
@@ -710,7 +686,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                         //ParamsSong.autoplay = !ParamsSong.autoplay;
                     } else if (event.getX() > playerSizeX / 2 && event.getY() > playerSizeY / 2 && event.getY() < playerSizeY) {
 
-                        //    steps.efecto = !steps.efecto;
+                        //    steps.doMagic = !steps.doMagic;
                     }
                     touchPad.checkInputs(inputsTouch);
                 default:
@@ -769,9 +745,9 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
                         calculateBeat();
                         //calculateEffects();
-                       /* if (bufferSteps.get(posBuffer).effect != null &&Common.testingRadars) {
-                            for (EffectStep effect : bufferSteps.get(posBuffer).effect) {
-                                effect.execute(this);
+                       /* if (bufferSteps.get(posBuffer).doMagic != null &&Common.testingRadars) {
+                            for (EffectStep doMagic : bufferSteps.get(posBuffer).doMagic) {
+                                doMagic.execute(this);
                             }
                         }*/
                     }
@@ -856,6 +832,31 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
         //dibujante.setColor(Color.WHITE);
         Stack<Object[]> stackSteps = new Stack<>();
+        Stack<Object[]> stackStepstop = new Stack<>();
+
+
+        for (int i = bufferPos; currentY > -50 && (i) >= 0 && (speedMod > 0.04 || speedMod < -0.04); i--) {
+            double scrollSize = bufferSteps.get(i).scroll;
+            double nextY = (currentY + (scrollSize * speed / 192));
+            if (containSteps(bufferSteps.get(i).rowStep)) {
+                Object[] auxString = new Object[3];
+                auxString[0] = bufferSteps.get(i).rowStep;
+                auxString[1] = (int) (currentY);
+                auxString[2] = nextY;
+                stackStepstop.push(auxString);
+            }
+            double aumentoY = (currentSpeedMod * speedMod / 192);
+            currentY -= aumentoY * scrollSize;
+
+        }
+        while (!stackStepstop.isEmpty()) {
+            stackSteps.push(stackStepstop.pop());
+        }
+
+
+        currentY = (int) (playerSizeY * Common.START_Y);
+
+
         for (int i = bufferPos; currentY < playerSizeY && i < bufferSteps.size() && (speedMod > 0.04); i++) {
             double scrollSize = bufferSteps.get(i).scroll;
             double nextY = (currentY + (scrollSize * speed / 192));
@@ -870,22 +871,6 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             currentY += aumentoY * scrollSize;
         }
 
-        currentY = (int) (playerSizeY * Common.START_Y);
-
-        for (int i = bufferPos; currentY > -50 && (i) >= 0 && (speedMod > 0.04||speedMod < -0.04); i--) {
-            double scrollSize = bufferSteps.get(i).scroll;
-            double nextY = (currentY + (scrollSize * speed / 192));
-            if (containSteps(bufferSteps.get(i).rowStep)) {
-                Object[] auxString = new Object[3];
-                auxString[0] = bufferSteps.get(i).rowStep;
-                auxString[1] = (int) (currentY);
-                auxString[2] = nextY;
-                stackSteps.push(auxString);
-            }
-            double aumentoY = (currentSpeedMod * speedMod / 192);
-            currentY -= aumentoY * scrollSize;
-
-        }
         //  event = "Nsteps" + stackSteps.size();
         //steps.draw(c, stackSteps, currentY, speed, posIntX, wa, playerSizeX, playerSizeY);
         steps.draw(c, stackSteps, speed, posIntX, arrowSize, playerSizeX, playerSizeY);
@@ -905,7 +890,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 if (containTapNote(bufferSteps.get(posBuffer).rowStep)) {
                     playTick();
                     combopp();
-                    currentLife += 0.5*currentCombo;
+                    currentLife += 0.5 * currentCombo;
                     ObjectCombo.show();
                     Note[] auxrow = bufferSteps.get(posBuffer).rowStep;
                     for (int w = 0; w < auxrow.length; w++) {//animations
@@ -926,14 +911,14 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                         residuoTick -= 1;
                         ObjectCombo.show();
                         combopp();
-                        currentLife += 0.5*currentCombo;
+                        currentLife += 0.5 * currentCombo;
                     }
                     bufferSteps.get(posBuffer).rowStep = preseedRow;
                 }
             } else {//juicio normal
                 double[] currentJudge = Common.JUDMENT[ParamsSong.judgment];
                 int posBack;
-             //   int posNext;
+                //   int posNext;
                 int backSteps;
                 int rGreat = mil2BackSpaces((float) currentJudge[3]);
                 int rGood = rGreat + mil2BackSpaces((float) currentJudge[2]);
@@ -961,11 +946,12 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                         residuoTick -= 1;
                         ObjectCombo.show();
                         comboLess();
-                        currentLife += 0.5*currentCombo;
-                        miss+=currentCombo;
+                        currentLife += 0.5 * currentCombo;
+                        miss += currentCombo;
                         //bufferSteps.get(posBuffer + posBack).rowStep = preseedRow;
                     }
-                }}
+                }
+            }
               /*  int posEvaluate = -1;
                 while ((posBuffer + posBack < bufferSteps.size()) && posBack <= posNext) {
                     if (containSteps((Note[]) bufferSteps.get(posBuffer + posBack).rowStep)) {
@@ -1083,14 +1069,14 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
         if (Combo < 0) {
             Combo = 0;
         }
-        Combo+=currentCombo;
+        Combo += currentCombo;
         if (Combo > maxCombo) {
             maxCombo = Combo;
         }
     }
 
     private void comboLess() {
-        miss+=currentCombo;
+        miss += currentCombo;
         ObjectCombo.posjudge = 4;
         if (Combo > 0) {
             Combo = 0;
@@ -1165,7 +1151,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
     private boolean containSteps(Note... row) {
         for (Note x : row) {
-            if (  (x.noteType != 0 && x.noteType != 127)) {
+            if ((x.noteType != 0 && x.noteType != 127)) {
                 return true;
             }
         }
