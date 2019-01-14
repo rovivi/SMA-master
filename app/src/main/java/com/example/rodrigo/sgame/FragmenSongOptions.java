@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -77,6 +78,7 @@ public class FragmenSongOptions extends DialogFragment {
         note_button = view.findViewById(R.id.iv2);
         note_image = view.findViewById(R.id.image_skin);
         switch_autoplay = view.findViewById(R.id.switch_autoplay);
+
         TextView tv1 = view.findViewById(R.id.tvsped);
         TextView tv2 = view.findViewById(R.id.tvsped2);
         TextView tv3 = view.findViewById(R.id.tvsped3);
@@ -97,6 +99,7 @@ public class FragmenSongOptions extends DialogFragment {
         //tvRush.setTypeface(custom_font);
         tvJudge.setTypeface(custom_font);
         switch_autoplay.setTypeface(custom_font);
+
 
 
         tvRush.setOnClickListener(v -> {
@@ -176,7 +179,7 @@ public class FragmenSongOptions extends DialogFragment {
     }
 
     private void setImageNS() {
-        note_image.setImageBitmap(NoteSkin.maskImage(skins.get(indexNS).toString(), getContext()));
+        note_image.setImageBitmap(NoteSkin.maskImage(skins.get(indexNS).toString(),  getContext()));
         songList.imageSkin.setImageBitmap(NoteSkin.maskImage(skins.get(indexNS).toString(), getContext()));
     }
 

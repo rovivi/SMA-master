@@ -2,27 +2,26 @@ package com.example.rodrigo.sgame;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
+import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import com.example.rodrigo.sgame.Player.NoteSkin;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,18 +32,20 @@ import az.plainpie.animation.PieAngleAnimation;
 public class EvaluationActivity extends AppCompatActivity {
     ImageView bg;
     TextView[] textView = new TextView[12];
-    TextView title,continueText,danceGrade;
+    TextView title,continueText,danceGrade,tvJudge,tvLvl;
     PieView animatedPie;
     float percent = 0;
     Handler handler = new Handler();
     int indexLabel = 0;
     SoundPool soundPool;
     //Animation animation;
-    Animation animation2,animationDown;
+    Animation animation2,animationDown,animationZoom;
     String letter="f";
-    ImageView letterGrade;
+    ImageView letterGrade,skinImg,imageLvl;
     Bitmap letterGradeBitmap;
     Bitmap[] lettersArray;
+    ConstraintLayout constraintLayout;
+
 
 
     int spScore;
@@ -76,6 +77,7 @@ public class EvaluationActivity extends AppCompatActivity {
 
         }
     };
+    private Animation animationZoom2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +96,11 @@ public class EvaluationActivity extends AppCompatActivity {
         //  animation = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
         animation2 = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
         animationDown = AnimationUtils.loadAnimation(this, R.anim.translate_down);
+        animationZoom = AnimationUtils.loadAnimation(this, R.anim.zoom_in);
+        animationZoom2 = AnimationUtils.loadAnimation(this, R.anim.zoom_in);
 
 
+        ArrayList <String>skins = NoteSkin.arraySkin(this);
 
 
 
@@ -103,9 +108,14 @@ public class EvaluationActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         int[] params = getIntent().getIntArrayExtra("evaluation");
-        danceGrade = findViewById(R.id.dance_grade_text);
+            danceGrade = findViewById(R.id.dance_grade_text);
         letterGrade= findViewById(R.id.letterGrade);
         bg = findViewById(R.id.bgBlurEvaluation);
+        tvJudge= findViewById(R.id.lvl_judment_eval);
+        skinImg= findViewById(R.id.skin_image);
+        constraintLayout=findViewById(R.id.layout_1);
+        imageLvl=findViewById(R.id.image_level);
+        tvLvl =findViewById(R.id.text_lvl_ecal);
         animatedPie = findViewById(R.id.pieView);
         textView[0] = findViewById(R.id.tvPerfect1);
         textView[1] = findViewById(R.id.tvGreat);
@@ -140,8 +150,10 @@ public class EvaluationActivity extends AppCompatActivity {
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
         title.setTypeface(custom_font);
+        Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/font2.ttf");
+        tvLvl.setTypeface(custom_font2);
         //animatedPie.setMainBackgroundColor(Color.BLUE);
-        int index = 0;
+        int index = 0   ;
         for (TextView tv : textView) {
             tv.setTypeface(custom_font);
             tv.setTextSize(25);
@@ -163,8 +175,9 @@ public class EvaluationActivity extends AppCompatActivity {
                 ((float) params[3] / total * 0.4f);
 
         animatedPie.setPercentage(percent * 100);
-        animatedPie.setPercentageTextSize(32);
+        animatedPie.setPercentageTextSize(16);
         animatedPie.setInnerText((double) Math.round(100 * percent * 100000d) / 100000d + "%");
+        animatedPie.setPieInnerPadding(10);
         //listener
         String secretName= getIntent().getExtras().getString("name")+getIntent().getExtras().getInt("nchar");
 
@@ -175,6 +188,7 @@ public class EvaluationActivity extends AppCompatActivity {
 
 
        continueText = findViewById(R.id.buttonContinue);
+            continueText.setTypeface(custom_font);
         continueText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,17 +222,61 @@ public class EvaluationActivity extends AppCompatActivity {
             letter="d";
         }
 
+
+        if (ParamsSong.stepType2Evaluation.contains("double")){
+            Picasso.get().load(R.drawable.hexa_double).into(imageLvl);
+        }
+        else if (ParamsSong.stepType2Evaluation.contains("single")){
+            Picasso.get().load(R.drawable.hexa_single).into(imageLvl);
+        }
+        else{
+            Picasso.get().load(R.drawable.hexa_performance).into(imageLvl);
+        }
+        skinImg.setImageBitmap(NoteSkin.maskImage(skins.get(ParamsSong.skinIndex),
+                this));
+        setTxtJudge();
+        tvLvl.setText(ParamsSong.stepLevel);
+        animationZoom.setDuration(500);
+        animationZoom2.setDuration(600);
+
+        animationZoom.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                animateInfo.run();
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+
     }
+
+
+
+
+
+
+
 
     @Override
     protected void onStart() {
         super.onStart();
-        danceGrade.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.translate_up));
-        continueText.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.translate_down));
-        title.startAnimation(AnimationUtils.loadAnimation(getBaseContext(),android.R.anim.slide_in_left));
-        animatedPie.startAnimation(AnimationUtils.loadAnimation(getBaseContext(),  android.R.anim.slide_in_left));
+        danceGrade.startAnimation(animationZoom2);
+        continueText.startAnimation(animationZoom2);
+        tvLvl.startAnimation(animationZoom2);
+        imageLvl.startAnimation(animationZoom2);
 
-        animateInfo.run();
+        title.startAnimation(AnimationUtils.loadAnimation(getBaseContext(),R.anim.fade_in));
+        animatedPie.startAnimation(AnimationUtils.loadAnimation(getBaseContext(),  android.R.anim.slide_in_left));
+        constraintLayout.startAnimation(animationZoom);
+
 
 
 
@@ -295,6 +353,40 @@ public class EvaluationActivity extends AppCompatActivity {
         mediaPlayer.start();
         mediaPlayerbg.start();
     }
+
+
+
+    private void setTxtJudge() {
+        String text = "";
+        switch (ParamsSong.judgment) {
+            case 0://SJ
+                text = "SJ";
+                break;
+            case 1://EJ
+                text = "EJ";
+                break;
+            case 2://NJ
+                text = "NJ";
+                break;
+            case 3://HJ
+                text = "HJ";
+                break;
+            case 4://VJ
+                text = "VJ";
+                break;
+            case 5://XJ
+                text = "XJ";
+                break;
+            case 6://UJ
+                text = "UJ";
+                break;
+        }
+        tvJudge.setText(text);
+
+
+
+    }
+
 
 
 }

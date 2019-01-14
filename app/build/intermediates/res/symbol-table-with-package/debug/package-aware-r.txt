@@ -1207,6 +1207,7 @@ drawable ic_start_vector
 drawable indicator
 drawable indicator_flip
 drawable judgelabels15
+drawable kya
 drawable letters
 drawable lifeframe
 drawable line_top
@@ -1310,6 +1311,7 @@ id beginning
 id bgBlur
 id bgBlurEvaluation
 id bgVideoView2
+id bg_eval
 id bg_loop
 id bg_lvl
 id bg_pad
@@ -1380,6 +1382,7 @@ id fill_vertical
 id filled
 id fixed
 id forever
+id fotternll
 id fullscreen_content
 id gamePlay
 id gamemsg
@@ -1402,8 +1405,11 @@ id imageView3
 id imageView4
 id imageView5
 id imageView7
+id imageView8
+id imageView9
 id imageViewSetting
 id image_apareance
+id image_level
 id image_note_preview
 id image_skin
 id imagelevl
@@ -1434,15 +1440,19 @@ id iv_top
 id labeled
 id large
 id largeLabel
+id layout_1
 id left
 id letterGrade
 id light
 id line1
 id line3
 id linearLayout
+id linearLayout2
+id linearLayout3
 id listMode
 id list_item
 id login_button
+id lvl_judment_eval
 id masked
 id media_actions
 id message
@@ -1517,6 +1527,7 @@ id showCustom
 id showHome
 id showTitle
 id sign_in_google
+id skin_image
 id small
 id smallLabel
 id snackbar_action
@@ -1557,6 +1568,7 @@ id text_apararience
 id text_bpm
 id text_input_password_toggle
 id text_judment
+id text_lvl_ecal
 id text_speed
 id textinput_counter
 id textinput_error

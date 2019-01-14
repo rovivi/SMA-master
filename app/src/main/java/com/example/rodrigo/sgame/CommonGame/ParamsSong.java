@@ -15,6 +15,9 @@ public class ParamsSong {
     public static Float rush = 1.0f;
     public static  boolean autoplay=false;
     public static  String nameNoteSkin="prime";
+    public static  String stepType2Evaluation ="single";
+    public static  String stepLevel="15";
+
     public static int skinIndex = 0;
 
 

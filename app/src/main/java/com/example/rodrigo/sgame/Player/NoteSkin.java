@@ -5,8 +5,6 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-
 import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
@@ -14,10 +12,9 @@ import com.example.rodrigo.sgame.R;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.Objects;
 
 public class NoteSkin {
     private Context context;
@@ -88,10 +85,10 @@ public class NoteSkin {
                     InputStream stream2 = context.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[j] + "hold.png");
                     InputStream stream3 = context.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[j] + "hold_end.png");
                     InputStream stream4 = context.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[j] + "receptor.png");
-                    Bitmap [] arrayAux2 =TransformBitmap.customSpriteArray(BitmapFactory.decodeStream(stream4, null, myOpt), 1, 3, 0, 1,2);
-                    arrows[j] = new SpriteReader(BitmapFactory.decodeStream(stream1, null, myOpt), 3, 2, 0.32f);
-                    tails[j] = new SpriteReader(BitmapFactory.decodeStream(stream3, null, myOpt), 6, 1, 0.32f);
-                    longs[j] = new SpriteReader(BitmapFactory.decodeStream(stream2, null, myOpt), 6, 1, 0.32f);
+                    Bitmap [] arrayAux2 =TransformBitmap.customSpriteArray(Objects.requireNonNull(BitmapFactory.decodeStream(stream4, null, myOpt)), 1, 3, 0, 1,2);
+                    arrows[j] = new SpriteReader(Objects.requireNonNull(BitmapFactory.decodeStream(stream1, null, myOpt)), 3, 2, 0.32f);
+                    tails[j] = new SpriteReader(Objects.requireNonNull(BitmapFactory.decodeStream(stream3, null, myOpt)), 6, 1, 0.32f);
+                    longs[j] = new SpriteReader(Objects.requireNonNull(BitmapFactory.decodeStream(stream2, null, myOpt)), 6, 1, 0.32f);
                     receptors[j] = new SpriteReader(Arrays.copyOfRange(arrayAux2,0,1), 0.8f);
                     arrayAux[0]=arrayAux2[2];
                     arrayAux[1]=arrayAux2[2];

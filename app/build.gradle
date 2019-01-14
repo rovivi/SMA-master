@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.github.diogobernardino:WilliamChart:aae138315e'
     implementation 'com.facebook.android:facebook-android-sdk:4.36.0'
     implementation 'com.android.support:multidex:1.0.3'
+    //implementation 'com.github.AnyChart:AnyChart-Android:1.0.8'
 
 }
 apply plugin: 'com.google.gms.google-services'

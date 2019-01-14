@@ -2196,6 +2196,10 @@
         "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/combo.webp"
     },
     {
+        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_kya.webp.flat",
+        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/kya.webp"
+    },
+    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_popup_background_mtrl_mult.9.png.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/a76c3870767d261f57495ee05b849e0e/res/drawable-xhdpi-v4/abc_popup_background_mtrl_mult.9.png"
     },

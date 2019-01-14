@@ -616,6 +616,11 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         if (currentSongIndex >= levelArrayList.size()) {
             currentSongIndex = 0;
         }
+
+        ParamsSong.stepType2Evaluation =levelArrayList.get(currentSongIndex).getGameType();
+        ParamsSong.stepLevel=levelArrayList.get(currentSongIndex).getNumberLevel()<99? levelArrayList.get(currentSongIndex).getNumberLevel()+"":"??";
+
+
         setRecord();
         animelvl();
     }
@@ -628,6 +633,10 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         btnLevel.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.zoom_in));
         lvlText.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.zoom_in));
         recyclerViewLevels.setVisibility(View.INVISIBLE);
+
+        ParamsSong.stepType2Evaluation =levelArrayList.get(currentSongIndex).getGameType();
+        ParamsSong.stepLevel=levelArrayList.get(currentSongIndex).getNumberLevel()<99? levelArrayList.get(currentSongIndex).getNumberLevel()+"":"??";
+
 
 
         animelvl();
