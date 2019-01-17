@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.diogobernardino:WilliamChart:aae138315e@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/WilliamChart-aae138315e.aar/3c7561928ce303898130bafdb519916c/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/WilliamChart-aae138315e.aar/3c7561928ce303898130bafdb519916c/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.diogobernardino/WilliamChart/aae138315e/7d9130c1f0dd8ae5f975a1712feee1019d817f5/WilliamChart-aae138315e-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -61,8 +61,9 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
     private static final String TAG = "MainScreen";
     GoogleSignInClient mGoogleSignInClient;
     VideoView bgLoop;
-    TextView taptostart;
+    TextView taptostart, tv___start;
     MediaPlayer mp = new MediaPlayer();
+    Animation fadeOut, fadeIn;
 
     //Sprite testSprite, testSprite2, testSprite3, testSprite4, testSprite5, testSprite6;
     ThreadSprite threadSprite;
@@ -97,8 +98,49 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
         startButton = findViewById(R.id.startGameButton);
         taptostart = findViewById(R.id.taptostart);
         settingsButton = findViewById(R.id.imageViewSetting);
-
+        tv___start = findViewById(R.id.tv___start);
         mAdView = findViewById(R.id.adbaner1);
+
+        fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out_start);
+        fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        fadeIn.setDuration(250);
+
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+                showLoadingAnimation();
+                releaseMediaPlayer();
+                startGame();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                startButton.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
@@ -116,13 +158,16 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
 
 
         View.OnClickListener listenerStart = v -> {
-            releaseMediaPlayer();
-            startGame();
+            startButton.setVisibility(View.VISIBLE);
+            startButton.setAnimation(fadeIn);
+            //showLoadingAnimation();
+
 
         };
 
         bgLoop.setOnClickListener(listenerStart);
         startButton.setOnClickListener(listenerStart);
+        tv___start.setOnClickListener(listenerStart);
         taptostart.setOnClickListener(listenerStart);
         constraintLayout.setOnClickListener(listenerStart);
 
@@ -236,7 +281,7 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
         //new AnimationUtils();
 
         Animation controller = AnimationUtils.loadAnimation(this, R.anim.zoom_splash);
-        startButton.startAnimation(controller);
+        startButton.startAnimation(fadeOut);
         taptostart.setAnimation(controller);
         if (mp != null) {
             mp.setLooping(true);
@@ -248,9 +293,7 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
         AdRequest adRequest = new AdRequest.Builder().build();
 
 
-
         mAdView.loadAd(adRequest);
-
 
 
     }
@@ -386,7 +429,9 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onPostResume() {
         super.onPostResume();
-         if (bgLoop!=null){bgLoop.start();}
+        if (bgLoop != null) {
+            bgLoop.start();
+        }
     }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
@@ -412,7 +457,7 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        startGame();
+    //    startGame();
 
 
     }
@@ -449,5 +494,13 @@ public class MainScreenActivity extends AppCompatActivity implements View.OnClic
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void showLoadingAnimation() {
+        FragmenStartMenu newFragment = new FragmenStartMenu();//newFragment.setSongList(this);
+        newFragment.loadingScreen = true;
+        newFragment.show(getFragmentManager(), "");
+
     }
 }

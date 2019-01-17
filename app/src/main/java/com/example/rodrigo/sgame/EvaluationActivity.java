@@ -78,6 +78,7 @@ public class EvaluationActivity extends AppCompatActivity {
         }
     };
     private Animation animationZoom2;
+    private TextView tvTP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +117,8 @@ public class EvaluationActivity extends AppCompatActivity {
         constraintLayout=findViewById(R.id.layout_1);
         imageLvl=findViewById(R.id.image_level);
         tvLvl =findViewById(R.id.text_lvl_ecal);
+        tvTP=findViewById(R.id.text_tp);
+
         animatedPie = findViewById(R.id.pieView);
         textView[0] = findViewById(R.id.tvPerfect1);
         textView[1] = findViewById(R.id.tvGreat);
@@ -150,6 +153,7 @@ public class EvaluationActivity extends AppCompatActivity {
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
         title.setTypeface(custom_font);
+        tvTP.setTypeface(custom_font);
         Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/font2.ttf");
         tvLvl.setTypeface(custom_font2);
         //animatedPie.setMainBackgroundColor(Color.BLUE);
@@ -276,10 +280,6 @@ public class EvaluationActivity extends AppCompatActivity {
         title.startAnimation(AnimationUtils.loadAnimation(getBaseContext(),R.anim.fade_in));
         animatedPie.startAnimation(AnimationUtils.loadAnimation(getBaseContext(),  android.R.anim.slide_in_left));
         constraintLayout.startAnimation(animationZoom);
-
-
-
-
         PieAngleAnimation animation3 = new PieAngleAnimation(animatedPie);
         animation3.setDuration(2000); //This is the duration of the animation in millis
         animatedPie.startAnimation(animation3);

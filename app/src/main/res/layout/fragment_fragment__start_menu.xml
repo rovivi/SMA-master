@@ -5,28 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/loading_text_dialog"
+        style="@style/ShadowWhiteFRee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:text="Loading..."
+        android:textColor="@android:color/background_light"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/start_image"
+        app:layout_constraintEnd_toEndOf="@+id/iv_hexagon2"
+        app:layout_constraintStart_toStartOf="@+id/iv_hexagon2"
+        app:layout_constraintTop_toTopOf="@+id/start_image" />
+
     <ImageView
         android:id="@+id/iv_hexagon3"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/todo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/transparent"
-        android:contentDescription="@string/todo" />
+        app:srcCompat="@android:color/transparent" />
 
     <ImageView
         android:id="@+id/iv_hexagon1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/todo"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hexagon2"
-        android:contentDescription="@string/todo" />
+        app:srcCompat="@drawable/hexagon2" />
 
     <ImageView
         android:id="@+id/iv_hexagon2"
@@ -34,13 +49,12 @@
         android:layout_height="150dp"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
+        android:contentDescription="@string/todo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hexagon2"
-        android:contentDescription="@string/todo"
-        />
+        app:srcCompat="@drawable/hexagon2" />
 
     <TextView
         android:id="@+id/tv_damiss"
@@ -88,5 +102,19 @@
         app:layout_constraintStart_toStartOf="@+id/iv_hexagon1"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_start_vector" />
+
+    <TextView
+        android:id="@+id/percent_text_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="54%"
+        android:textColor="@android:color/background_light"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_hexagon2" />
 
 </android.support.constraint.ConstraintLayout>

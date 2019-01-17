@@ -304,7 +304,7 @@
         <ImageView
             android:id="@+id/fotternll"
             android:layout_width="wrap_content"
-            android:layout_height="50sp"
+            android:layout_height="50dp"
             plainpie:srcCompat="@drawable/footer" />
 
         <ImageView
@@ -315,7 +315,7 @@
             android:layout_marginEnd="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.35"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/lvl" />
@@ -355,6 +355,20 @@
             plainpie:srcCompat="@drawable/ic_info_black_24dp" />
 
     </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/text_tp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="8dp"
+        android:text="T.P."
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@+id/pieView"
+        app:layout_constraintEnd_toEndOf="@+id/pieView"
+        app:layout_constraintStart_toStartOf="@+id/pieView"
+        app:layout_constraintTop_toBottomOf="@+id/layout_1" />
 
 
 </android.support.constraint.ConstraintLayout>

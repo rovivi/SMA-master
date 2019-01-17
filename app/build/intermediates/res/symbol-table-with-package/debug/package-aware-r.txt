@@ -20,6 +20,7 @@ anim design_snackbar_out
 anim fade_half
 anim fade_in
 anim fade_out
+anim fade_out_start
 anim rotate
 anim rotate2
 anim slide_up
@@ -1451,6 +1452,7 @@ id linearLayout2
 id linearLayout3
 id listMode
 id list_item
+id loading_text_dialog
 id login_button
 id lvl_judment_eval
 id masked
@@ -1482,6 +1484,7 @@ id parent
 id parentPanel
 id parent_matrix
 id percent
+id percent_text_fragment
 id pieView
 id pin
 id preview
@@ -1570,6 +1573,7 @@ id text_input_password_toggle
 id text_judment
 id text_lvl_ecal
 id text_speed
+id text_tp
 id textinput_counter
 id textinput_error
 id textinput_helper_text
@@ -1593,6 +1597,7 @@ id tvGreat
 id tvMiss
 id tvPerfect1
 id tv_Combo
+id tv___start
 id tv_bad2
 id tv_best
 id tv_damiss
@@ -1761,9 +1766,13 @@ raw rank_6
 raw rank_6_b
 raw rank_7
 raw rank_7_b
+raw select_3
+raw select_4
 raw select_song
+raw start_sound
 raw tick
 raw title_loop
+raw transformation
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description

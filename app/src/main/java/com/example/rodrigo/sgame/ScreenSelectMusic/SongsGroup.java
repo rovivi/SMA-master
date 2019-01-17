@@ -8,9 +8,11 @@ import android.graphics.BitmapFactory;
 import android.media.SoundPool;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.widget.TextView;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.SSC;
+import com.example.rodrigo.sgame.FragmenStartMenu;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,12 +28,21 @@ import java.util.ArrayList;
 public class SongsGroup implements Serializable {
     public String description = "";
     public String name;
+    private String text;
+
     //public SoundPool audio;
     public String banner = null;
     public ArrayList<SSC> listOfSongs = new ArrayList<>();
     // public ArrayList<File> listOfPaths = new ArrayList<>();
     //public ArrayList<String> listOfPathsSSC = new ArrayList<>();
     public ArrayList<SSC> assetsListOfSongs = new ArrayList<>();
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -83,6 +94,8 @@ public class SongsGroup implements Serializable {
                     }
 
                 } else {
+                    int size =songFiles.length;
+                    int currentIndex =0;
                     for (File j : songFiles) {
                         if (j.getPath().endsWith(".ssc")) {
                             try {
@@ -90,6 +103,7 @@ public class SongsGroup implements Serializable {
                                 aux.path = i;
                                 aux.pathSSC = j.getPath();
                                 listOfSongs.add(aux);
+
                                 //listOfPathsSSC.add(j.getPath());
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
@@ -97,6 +111,11 @@ public class SongsGroup implements Serializable {
                                 e.printStackTrace();
                             }
                         }
+                        if (text!=null){
+                            int percet = (int) (100* (float)(currentIndex/size));
+                            text=percet+"%";
+                        }
+                        currentIndex++;
                     }
                 }
             } else if (i.getName().contains("banner")) {

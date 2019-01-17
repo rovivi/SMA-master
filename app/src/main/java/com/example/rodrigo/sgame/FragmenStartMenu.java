@@ -7,32 +7,33 @@ import android.animation.ValueAnimator;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
-
-import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 
 import java.util.Objects;
 
 public class FragmenStartMenu extends DialogFragment {
+    public static boolean loadingScreen = false;
     //public ArrayList<Level> lista;
 
     SongList songList;
     ImageView hexagons[] = new ImageView[3];
-    TextView exit;
-    ImageView startImage;
-    ImageView startImage2;
+    TextView exit,loading;
+    public TextView percent;
+    public String textPercent="";
+    ImageView startImage,startImage2;
     ValueAnimator anim;
-    private boolean wanrStartSong=false;
+    private boolean wanrStartSong = false;
+    Handler handler=new Handler();
+
     public void setSongList(SongList s) {
         this.songList = s;
     }
@@ -55,26 +56,35 @@ public class FragmenStartMenu extends DialogFragment {
         hexagons[0] = view.findViewById(R.id.iv_hexagon1);
         hexagons[1] = view.findViewById(R.id.iv_hexagon2);
         hexagons[2] = view.findViewById(R.id.iv_hexagon3);
+        percent=view.findViewById(R.id.percent_text_fragment);
+        loading=view.findViewById(R.id.loading_text_dialog);
         exit = view.findViewById(R.id.tv_damiss);
 
         exit.setOnClickListener(v -> dismiss());
         startImage = view.findViewById(R.id.start_image);
-        startImage2= view.findViewById(R.id.start_blour);
-        startImage.setOnClickListener(v -> {
+        startImage2 = view.findViewById(R.id.start_blour);
 
 
-                    anim.start();
-                    wanrStartSong=true;
+        if (!loadingScreen) {
+            startImage.setOnClickListener(v -> {
+                        anim.start();
+                        wanrStartSong = true;
+                    }
+            );
+        } else {
+            startImage2.setVisibility(View.INVISIBLE);
+            startImage.setVisibility(View.INVISIBLE);
+            exit.setVisibility(View.INVISIBLE);
+          //  getDialog().setCancelable(false);
+            loading.setVisibility(View.VISIBLE);
+        //    percent.setVisibility(View.VISIBLE);
 
-                   // songList.startSong();
-                }
+
+        }
 
 
-        );
-
-
-        final int from = Color.argb(100,00,00,00);
-        final int to = Color.argb(100,255,255,255);
+        final int from = Color.argb(100, 00, 00, 00);
+        final int to = Color.argb(100, 255, 255, 255);
 
         anim = new ValueAnimator();
         anim.setIntValues(from, to);
@@ -84,11 +94,10 @@ public class FragmenStartMenu extends DialogFragment {
         anim.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-dismiss();
+                dismiss();
             }
         });
         anim.setDuration(250);
-
 
 
         return view;
@@ -97,7 +106,11 @@ dismiss();
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        songList.playSoundPool(songList.spSelectSong);
+
+        if (songList!=null){
+            songList.playSoundPool(songList.spSelectSong);
+
+        }
 
     }
 
@@ -112,22 +125,29 @@ dismiss();
     public void onStart() {
         super.onStart();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         hexagons[0].startAnimation(AnimationUtils.loadAnimation(getActivity().getBaseContext(), R.anim.rotate));
         hexagons[1].startAnimation(AnimationUtils.loadAnimation(getActivity().getBaseContext(), R.anim.rotate2));
         hexagons[0].startAnimation(AnimationUtils.loadAnimation(getActivity().getBaseContext(), R.anim.rotate));
-        startImage2.startAnimation(AnimationUtils.loadAnimation(getActivity().getBaseContext(), R.anim.fade_half));
+        if (!loadingScreen){
+            startImage2.startAnimation(AnimationUtils.loadAnimation(getActivity().getBaseContext(), R.anim.fade_half));
+        }
 
     }
-
 
     @Override
     public void onDetach() {
-        if (wanrStartSong){
-
+        if (wanrStartSong) {
+            if (songList!=null){
             songList.startSong();
+            }
         }
-
-
         super.onDetach();
     }
+
 }

@@ -239,6 +239,8 @@ public class Common {
         HIDENAVBAR = sharedPref.getBoolean("custom_pad_hide_nav", false);
         DRAWSTATS = sharedPref.getBoolean("pref_show_stats", false);
         ANIM_AT_START = sharedPref.getBoolean("anim_at_start", false);
+        RELOAD_SONGS = sharedPref.getBoolean("reload_songs", false);
+
 
 
         Compression2D=Integer.valueOf(sharedPref.getString("list_preference_quality_2d", "1"));
@@ -276,6 +278,7 @@ public class Common {
     public static int Compression2D= 0;
     public static boolean EVALUATE_ON_SECUNDARY_THREAD = true;
     public static boolean ANIM_AT_START = true;
+    public static boolean RELOAD_SONGS = false;
 
 
 

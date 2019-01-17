@@ -10,6 +10,12 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="@string/pref_title_display_name" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:icon="@drawable/lvl"
+        android:key="reload_songs"
+        android:summary="Restart required"
+        android:title="Reload Sons" />
     <SwitchPreference
         android:defaultValue="true"
         android:icon="@drawable/stop5_on"

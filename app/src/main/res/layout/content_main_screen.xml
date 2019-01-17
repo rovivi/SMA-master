@@ -10,16 +10,44 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainScreenActivity"
     tools:showIn="@layout/activity_main_screen">
-      <VideoView
+
+    <VideoView
         android:id="@+id/bg_loop"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/common_google_signin_btn_text_light_default"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <ImageView
+        android:id="@+id/startGameButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/black"
+        android:clickable="true"
+        android:foregroundGravity="center"
+        android:text="play"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/adbaner1"
+
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@android:color/transparent" />
+
+    <TextView
+        android:id="@+id/tv___start"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
@@ -50,11 +78,11 @@
 
     <ImageView
         android:id="@+id/imageViewSetting"
-        android:layout_width="75sp"
-        android:layout_height="75sp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adbaner1"
         app:srcCompat="@drawable/settings" />
 
@@ -90,21 +118,6 @@
      app:layout_constraintStart_toStartOf="parent"
      app:layout_constraintTop_toTopOf="parent"
      app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/startGameButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
-        android:foregroundGravity="center"
-        android:text="play"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/login_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewSetting"
-        app:srcCompat="@drawable/logobeta" />
 
 
 </android.support.constraint.ConstraintLayout>
