@@ -15,6 +15,7 @@ import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.storage.OnObbStateChangeListener;
 import android.os.storage.StorageManager;
@@ -357,11 +358,18 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
 
         try {
-            //   threadSprite.running = true;
-            //  threadSprite.start();
+            //   loadSongs();
         } catch (Exception e) {
+
+            Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
 
+
+
+        if (ParamsSong.av==0){
+            //tv_velocity.set
+        }
 
     }
 
@@ -533,22 +541,24 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     public void onResume() {
         super.onResume();
         Common.setParamsGlobal(this);
-        try {
-            changeSong(currentSSCIndex);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         //  this.bg.start();
         //  threadSprite.running = true;
         if (fadeOut != null && fadeOut.isRunning()) {
             fadeOut.cancel(); // Cancel the opposite animation if it is running or else you get funky looks
         }
-
-        if (songsGroup.listOfSongs.size() == 0 ||Common.RELOAD_SONGS) {
+        if (songsGroup.listOfSongs.size() == 0 || Common.RELOAD_SONGS) {
             //  root.setVisibility(View.INVISIBLE);
             loadSongs();
-            changeSong(0);
+
             // handler.postDelayed(runableLoadSongs,100);
+        } else {
+            try {
+                changeSong(currentSSCIndex);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
         }
         // new LoadSongTask().execute(null);
     }
@@ -689,65 +699,20 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void loadSongs() {
-
-        SharedPreferences mPrefs =  PreferenceManager.getDefaultSharedPreferences(this);
         songsGroup = SongsGroup.readIt(getBaseContext());//busca su propio archivo
-
         if (songsGroup == null || Common.RELOAD_SONGS) {//Si no existe o si se esta recargando
-            songsGroup = new SongsGroup();
-            File aux = Common.checkDirSongsFolders();
-            path = aux.getPath();
-            files = Common.checkDirSongsFolders().listFiles();
-            if (aux == null) {
-                File archivo = new File(this.getBaseContext().getFilesDir().getPath() + "/piu/Songs/");
-                if (archivo.exists()) {
-                    files = archivo.listFiles();
-                    path = archivo.getPath();
-                } else if (archivo.mkdirs()) {
-                    files = archivo.listFiles();
-                    path = archivo.getPath();
-                } else {
-                    Toast.makeText(getBaseContext(), "No se podrá por hoy :C ", Toast.LENGTH_LONG).show();
-                }
-            }
-            if (files.length <= 0) {
-                Toast.makeText(getBaseContext(), "No hay archivos :c en:" + path, Toast.LENGTH_LONG).show();
-            } else {
-                if (currentDF != null) {
-                    songsGroup.setText(currentDF.textPercent);
-                }
-                songsGroup.addList(Common.checkDirSongsFolders());
-                if (songsGroup.listOfSongs.size() <= 0) {
-                    Toast.makeText(getBaseContext(), ":c No hay archivos que pueda leer" +
-                            " en:" + path, Toast.LENGTH_LONG).show();
-                } else {
 
-                }
-
-            }
+            reloadSongs();
             AdapterSSC adapterSSC = new AdapterSSC(songsGroup, currentSongIndex);
             recyclerView.setAdapter(adapterSSC);
             //  themeElements.biuldObject(this, songsGroup);
-            concurrentSort(songsGroup.listOfSongs, songsGroup.listOfSongs);
-            // json = gson.toJson(songsGroup.listOfSongs);
-            try {
-                songsGroup.saveIt(this);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-          /*  prefsEditor.putString("cacheList3", json);
-            */
-
-            SharedPreferences.Editor prefsEditor = mPrefs.edit();
-            prefsEditor.putBoolean("reload_songs", false);
-            prefsEditor.apply();
         } else {
 
 
             AdapterSSC adapterSSC = new AdapterSSC(songsGroup, currentSongIndex);
             recyclerView.setAdapter(adapterSSC);
             concurrentSort(songsGroup.listOfSongs, songsGroup.listOfSongs);
+            changeSong(0);
 
         }
         //changeSong(cu);
@@ -756,7 +721,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
 
     private void hide() {
-
         backgroundBluour.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -828,7 +792,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
                 obbMountPath = "ERROR";
             }
 
-            loadSongs();
+            //  loadSongs();
         }
     };
 
@@ -847,7 +811,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         preview.start();
 
     }
-
 
     public void startSong() {
 
@@ -889,9 +852,47 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     }
 
 
+    public void reloadSongs() {
+        SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        songsGroup = new SongsGroup();
+
+
+        File aux = Common.checkDirSongsFolders(this);
+        if (aux == null) {//implement Chose folder stuff
+
+        } else {
+            files = new File(aux.getPath() + "/songs").listFiles();
+            if (files.length < 1) {
+                Toast.makeText(getBaseContext(), "There are't files in" + aux.getPath() + "/songs please chose a forder or put song data", Toast.LENGTH_LONG).show();
+                //Folder choser again
+            } else {
+                //implements add From assets Folder
+                songsGroup.addList(new File(aux.getPath() + "/songs"));
+            }
+        }
+        if (songsGroup.listOfSongs.size() < 1) {
+            startActivity(new Intent(SongList.this, MainScreenActivity.class));
+            finish();
+            Toast.makeText(getBaseContext(), "No song found please verify  ¯\\_(⊙_ʖ⊙)_/¯", Toast.LENGTH_LONG).show();
+        } else {//all things are ok
+            concurrentSort(songsGroup.listOfSongs, songsGroup.listOfSongs);
+            try {
+                songsGroup.saveIt(this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            SharedPreferences.Editor prefsEditor = mPrefs.edit();
+            prefsEditor.putBoolean("reload_songs", false);
+            prefsEditor.apply();
+            changeSong(0);
+
+        }
+    }
+
 }
 
 
 
 
 
+    

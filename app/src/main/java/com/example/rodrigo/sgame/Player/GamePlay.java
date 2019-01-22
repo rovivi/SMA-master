@@ -311,8 +311,8 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 String[] infoBgas = stepData.songInfo.get("BGCHANGES").split(",");
                 if (infoBgas != null) {
 
-                    if (Common.checkBGADir(path, infoBgas[0]) != null) {
-                        fileBGA = new File(Common.checkBGADir(path, infoBgas[0]));
+                    if (Common.checkBGADir(path, infoBgas[0], context) != null) {
+                        fileBGA = new File(Common.checkBGADir(path, infoBgas[0], context));
                     } else {
                         for (int i = 0; i < infoBgas.length; i++) {
                             databga.add(infoBgas[i].split("="));
@@ -321,8 +321,8 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
                                 if ((databgas.endsWith("mpg") || databgas.endsWith("mp4") || databgas.endsWith("avi"))) {
 
-                                    if (Common.checkBGADir(path, databgas) != null) {
-                                        fileBGA = new File(Common.checkBGADir(path, databgas));
+                                    if (Common.checkBGADir(path, databgas, context) != null) {
+                                        fileBGA = new File(Common.checkBGADir(path, databgas, context));
                                         BGA.bg.seekTo((int) (-offset * 1000));
                                         break;
                                     } else {
@@ -384,8 +384,16 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             setFocusable(true);
             touchPad = new GamePad(context, tipo, inputs);
 
-            currentSpeedMod = (int) (height * ParamsSong.speed / 4);
-
+            if (ParamsSong.av==0){
+                currentSpeedMod = (int) (height * ParamsSong.speed / 4);
+            }else{
+                //currentSpeedMod = BPM;
+                float vel =  (float)ParamsSong.av/(float)( height*0.25);
+                currentSpeedMod = (int) (height *vel/2 );
+            }
+            if (ParamsSong.gameMode > 2) {
+                currentSpeedMod *= 2.2f;
+            }
             //flecha
             steps = new Steps(context, tipo);
 
@@ -433,11 +441,17 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                             posIntX = (int) (playerSizeX * 0.275);
                             break;
                         case 2:
-                        case 3:
+
                             Common.START_Y = 0.05f;
                             playerSizeY = (Common.HEIGHT);
                             arrowSize = (int) (playerSizeX / 5 * 0.65);
                             posIntX = (int) (playerSizeX * 0.175);
+                            break;
+                        case 3:
+                            Common.START_Y = 0.9f;
+                            playerSizeY = (Common.HEIGHT);
+                            arrowSize = (int) (playerSizeX / 5);
+                            posIntX = 0;
                             break;
                     }
 
@@ -586,7 +600,9 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 }
 
                 ObjectCombo.draw(canvas);
-                touchPad.draw(canvas);
+                if (ParamsSong.gameMode < 3) {
+                    touchPad.draw(canvas);
+                }
                 life.draw(canvas);
                 if (mineHideValue > 0) {
                     Paint pRect = new Paint();
@@ -776,7 +792,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
         if (Common.DRAWSTATS) {
             dibujante.setTextSize(25);
             dibujante.setColor(Color.WHITE);
-            c.drawText("FPS: " + fps, 0, 350, dibujante);
+            c.drawText("FPS: " + fps, 0, 250, dibujante);
             c.drawText("Log: " + currentTickCount, 0, 100, dibujante);
             c.drawText("event: " + testFloatNOTUSE, 0, playerSizeY - 200, dibujante);
             //iversosn
@@ -830,34 +846,47 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
 
-        //dibujante.setColor(Color.WHITE);
         Stack<Object[]> stackSteps = new Stack<>();
         Stack<Object[]> stackStepstop = new Stack<>();
-
-
-        for (int i = bufferPos; currentY > -50 && (i) >= 0 && (speedMod > 0.04 || speedMod < -0.04); i--) {
-            double scrollSize = bufferSteps.get(i).scroll;
-            double nextY = (currentY + (scrollSize * speed / 192));
-            if (containSteps(bufferSteps.get(i).rowStep)) {
-                Object[] auxString = new Object[3];
-                auxString[0] = bufferSteps.get(i).rowStep;
-                auxString[1] = (int) (currentY);
-                auxString[2] = nextY;
-                stackStepstop.push(auxString);
+        if (ParamsSong.gameMode < 3) {
+            pushToStackSteps(posBuffer, -50, stackStepstop, currentY, false, true);
+            while (!stackStepstop.isEmpty()) {
+                stackSteps.push(stackStepstop.pop());
             }
-            double aumentoY = (currentSpeedMod * speedMod / 192);
-            currentY -= aumentoY * scrollSize;
+            currentY = (int) (playerSizeY * Common.START_Y);
+            pushToStackSteps(posBuffer, playerSizeY, stackSteps, currentY, true, true);
+        } else {
 
+            pushToStackSteps(posBuffer, (int) (playerSizeY*1.1f), stackStepstop, currentY, false, false);
+
+            //pushToStackSteps(posBuffer, 0, stackStepstop, currentY, true, false);
+            while (!stackStepstop.isEmpty()) {
+                stackSteps.push(stackStepstop.pop());
+            }
+            currentY = (int) (playerSizeY * Common.START_Y);
+            pushToStackSteps(posBuffer, 0, stackSteps, currentY, true, false);
         }
-        while (!stackStepstop.isEmpty()) {
-            stackSteps.push(stackStepstop.pop());
-        }
+        //  event = "Nsteps" + stackSteps.size();
+        //steps.draw(c, stackSteps, currentY, speed, posIntX, wa, playerSizeX, playerSizeY);
+        steps.draw(c, stackSteps, speed, posIntX, arrowSize, playerSizeX, playerSizeY);
+        dibujante.setColor(Color.TRANSPARENT);
+    }
 
 
-        currentY = (int) (playerSizeY * Common.START_Y);
+    private void pushToStackSteps(int bufferPos, int End, Stack<Object[]> stackSteps, double currentY, Boolean downStepType, Boolean inverter) {
+        int suma = downStepType ? 1 : -1;
+        for (int i = bufferPos; (i) >= 0 && i < bufferSteps.size() && (speedMod > 0.04); i += suma) {
 
+            if (inverter) {
+                if ((downStepType && End < currentY) || ((!downStepType && End > currentY))) {
+                    break;
+                }
+            } else {
+                if ((downStepType && End > currentY) || ((!downStepType && End < currentY))) {
+                    break;
+                }
 
-        for (int i = bufferPos; currentY < playerSizeY && i < bufferSteps.size() && (speedMod > 0.04); i++) {
+            }
             double scrollSize = bufferSteps.get(i).scroll;
             double nextY = (currentY + (scrollSize * speed / 192));
             if (containSteps(bufferSteps.get(i).rowStep)) {
@@ -868,14 +897,16 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 stackSteps.push(auxString);
             }
             double aumentoY = (currentSpeedMod * speedMod / 192);
-            currentY += aumentoY * scrollSize;
-        }
+            if ((inverter && downStepType) | (!inverter && !downStepType)) {
+                currentY += aumentoY * scrollSize;
+            } else {
+                currentY -= aumentoY * scrollSize;
+            }
 
-        //  event = "Nsteps" + stackSteps.size();
-        //steps.draw(c, stackSteps, currentY, speed, posIntX, wa, playerSizeX, playerSizeY);
-        steps.draw(c, stackSteps, speed, posIntX, arrowSize, playerSizeX, playerSizeY);
-        dibujante.setColor(Color.TRANSPARENT);
+
+        }
     }
+
 
     public void playTick() {
         if (doEvaluate) {
@@ -894,7 +925,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                     ObjectCombo.show();
                     Note[] auxrow = bufferSteps.get(posBuffer).rowStep;
                     for (int w = 0; w < auxrow.length; w++) {//animations
-                        int aux = auxrow[w].noteType;
+                        int aux = auxrow[w].getNoteType();
                         if (aux == 1) {
                             steps.noteSkins[0].explotions[w].play();
                         } else if (aux == 2) {
@@ -1057,7 +1088,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
     private boolean containStartLong(Note[] row) {
         for (Note x : row) {
-            if (x.noteType % 10 == 2) {
+            if (x.getNoteType() % 10 == 2) {
                 return true;
             }
         }
@@ -1110,7 +1141,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
     private boolean containTaps(Note... row) {
         for (Note x : row) {
-            if (!x.fake && (x.noteType % 10 == 1)) {
+            if (!x.getFake() && (x.getNoteType() % 10 == 1)) {
                 return true;
             }
         }
@@ -1120,7 +1151,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
     private boolean containsMine(Note... row) {
         for (Note x : row) {
-            if (!x.fake && (x.noteType % 10 == 7)) {
+            if (!x.getFake() && (x.getNoteType() % 10 == 7)) {
                 return true;
             }
         }
@@ -1130,7 +1161,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     private boolean containLongs(Note... row) {
         for (Note x : row) {
 
-            if (!x.fake && (x.noteType > 0) && (x.noteType % 10 == 2 || x.noteType % 10 == 3 || x.noteType % 10 == 4)) {
+            if (!x.getFake() && (x.getNoteType() > 0) && (x.getNoteType() % 10 == 2 || x.getNoteType() % 10 == 3 || x.getNoteType() % 10 == 4)) {
                 return true;
             }
         }
@@ -1140,8 +1171,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
     private boolean containTapNote(Note... row) {
         for (Note x : row) {
-
-            if (!x.fake && (x.noteType % 10 == 1 || x.noteType % 10 == 2)) {
+            if (!x.getFake() && (x.getNoteType() % 10 == 1 || x.getNoteType() % 10 == 2)) {
                 return true;
             }
         }
@@ -1151,23 +1181,13 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
     private boolean containSteps(Note... row) {
         for (Note x : row) {
-            if ((x.noteType != 0 && x.noteType != 127)) {
+            if ((x.getNoteType() != 0 && x.getNoteType() != 127)) {
                 return true;
             }
         }
         return false;
     }
 
-    @Nullable
-    private ArrayList
-    setMetadata(String dataCurrentChar, String dataGeneral) {
-        if (dataCurrentChar != null) {
-            return stepData.arrayListSpeed(dataCurrentChar);
-        } else if (dataGeneral != null && !dataGeneral.equals("")) {
-            return stepData.arrayListSpeed(dataGeneral);
-        }
-        return null;
-    }
 
     private void startEvaluation() {
         BGA.StartEvaluation(new int[]{perfect, great, good, bad, miss, maxCombo});
@@ -1187,4 +1207,18 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             e.printStackTrace();
         }
     }
+
+
+    @Nullable
+    private ArrayList
+    setMetadata(String dataCurrentChar, String dataGeneral) {
+        if (dataCurrentChar != null) {
+            return stepData.arrayListSpeed(dataCurrentChar);
+        } else if (dataGeneral != null && !dataGeneral.equals("")) {
+            return stepData.arrayListSpeed(dataGeneral);
+        }
+        return null;
+    }
+
+
 }

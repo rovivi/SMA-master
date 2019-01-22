@@ -1522,7 +1522,7 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
-id seekBar
+id seekBar_av
 id select_dialog_listview
 id selected
 id shortcut
@@ -1601,10 +1601,10 @@ id tv___start
 id tv_bad2
 id tv_best
 id tv_damiss
+id tv_fd
 id tv_good2
 id tv_great2
 id tv_judge
-id tv_judge2
 id tv_level
 id tv_maxCombo
 id tv_miss2

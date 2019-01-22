@@ -54,10 +54,10 @@
         app:layout_constraintBottom_toTopOf="@+id/rv_leves"
         app:layout_constraintEnd_toEndOf="@+id/imageView5"
         app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+        app:layout_constraintTop_toBottomOf="@+id/seekBar_av" />
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/seekBar_av"
         style="@style/shadow_free"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -295,10 +295,10 @@
         app:layout_constraintVertical_bias="0.51" />
 
     <TextView
-        android:id="@+id/tv_judge2"
+        android:id="@+id/tv_fd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="HJ"
+        android:text="FD"
         android:textColor="#ffffff"
         android:textSize="18sp"
         android:textStyle="bold"

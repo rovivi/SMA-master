@@ -196,7 +196,7 @@ public class RadarEffectsThread extends Thread {
                                     game.residuoTick += ((double) game.currentTickCount / 48);
                                     checkLong = false;// se hace que no se sume de nuevo
                                 }
-                                (game.bufferSteps.get(game.posBuffer + posBack).rowStep)[w].noteType = 100;//Se vacia el array
+                                (game.bufferSteps.get(game.posBuffer + posBack).rowStep)[w].setNoteType((byte) 100);//Se vacia el array
 
                                 if (game.residuoTick >= 1) {
                                     game.residuoTick -= 1;
@@ -213,7 +213,7 @@ public class RadarEffectsThread extends Thread {
 
                             if (game.inputs[w] == 1 && containTaps(currentChar)) {// tap1
                                 game.steps.noteSkins[0].explotions[w].play();
-                                game.bufferSteps.get(game.posBuffer + posBack).rowStep[w].noteType = 0;
+                                game.bufferSteps.get(game.posBuffer + posBack).rowStep[w].setNoteType((byte) 0);
                                 game.inputs[w] = 2;
                                 posEvaluate = game.posBuffer + posBack;
 
@@ -221,7 +221,7 @@ public class RadarEffectsThread extends Thread {
 
                             if (game.inputs[w] == 1 && containsMine(currentChar)) {//tap mine
                                 // steps.explotions[w].play();
-                                game.bufferSteps.get(game.posBuffer + posBack).rowStep[w].noteType = 0;
+                                game.bufferSteps.get(game.posBuffer + posBack).rowStep[w].setNoteType((byte) 0);
                                 game.inputs[w] = 2;
                                 posEvaluate = game.posBuffer + posBack;
                                 game.soundPool.play(game.soundPullMine, 0.8f, 0.8f, 1, 0, 1f);
@@ -277,7 +277,7 @@ public class RadarEffectsThread extends Thread {
 
     private boolean containStartLong(Note[] row) {
         for (Note x : row) {
-            if (x.noteType % 10 == 2) {
+            if (x.getNoteType() % 10 == 2) {
                 return true;
             }
         }
@@ -330,7 +330,7 @@ public class RadarEffectsThread extends Thread {
 
     private boolean containTaps(Note... row) {
         for (Note x : row) {
-            if (!x.fake && (x.noteType % 10 == 1)) {
+            if (!x.getFake() && (x.getNoteType()  % 10 == 1)) {
                 return true;
             }
         }
@@ -340,7 +340,7 @@ public class RadarEffectsThread extends Thread {
 
     private boolean containsMine(Note... row) {
         for (Note x : row) {
-            if (!x.fake && (x.noteType % 10 == 7)) {
+            if (!x.getFake() && (x.getNoteType()  % 10 == 7)) {
                 return true;
             }
         }
@@ -350,7 +350,7 @@ public class RadarEffectsThread extends Thread {
     private boolean containLongs(Note... row) {
         for (Note x : row) {
 
-            if (!x.fake && (x.noteType > 0) && (x.noteType % 10 == 2 || x.noteType % 10 == 3 || x.noteType % 10 == 4)) {
+            if (!x.getFake() && (x.getNoteType()  > 0) && (x.getNoteType()  % 10 == 2 || x.getNoteType()  % 10 == 3 || x.getNoteType()  % 10 == 4)) {
                 return true;
             }
         }
@@ -361,7 +361,7 @@ public class RadarEffectsThread extends Thread {
     private boolean containTapNote(Note... row) {
         for (Note x : row) {
 
-            if (!x.fake && (x.noteType % 10 == 1 || x.noteType % 10 == 2)) {
+            if (!x.getFake() && (x.getNoteType()  % 10 == 1 || x.getNoteType()  % 10 == 2)) {
                 return true;
             }
         }
@@ -371,7 +371,7 @@ public class RadarEffectsThread extends Thread {
 
     private boolean containSteps(Note... row) {
         for (Note x : row) {
-            if ((x.noteType != 0 && x.noteType != 127)) {
+            if ((x.getNoteType()  != 0 && x.getNoteType()  != 127)) {
                 return true;
             }
         }

@@ -4,7 +4,7 @@
             "outputFile": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-id/values-id.xml",
             "map": [
                 {
-                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-common-4.36.0.aar/1ef194b4ec3f10d0dddf9a3adc0d38f1/res/values-id/values-id.xml",
+                    "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-common-4.36.0.aar/8e1406c5845a23e0c0b6b324ed1947a0/res/values-id/values-id.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

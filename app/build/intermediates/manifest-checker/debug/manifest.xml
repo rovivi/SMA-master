@@ -2,31 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rodrigo.sgame"
     android:versionCode="1"
-    android:versionName="1.72" >
+    android:versionName="1.75" >
 
     <uses-sdk
-        android:minSdkVersion="18"
+        android:minSdkVersion="20"
         android:targetSdkVersion="28" />
 
-    <meta-data
-        android:name="firebase_crashlytics_collection_enabled"
-        android:value="false" />
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.STORAGE" />
     <!-- Required to access Google Play Licensing -->
     <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
-
     <!-- Required to download files from Google Play -->
     <uses-permission android:name="android.permission.INTERNET" />
-
     <!--
          Required to keep CPU alive while downloading files
         (NOT to keep screen awake)
     -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <!--
          Required to poll the state of the network connection
         and respond to changes
@@ -37,7 +27,11 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <!-- Required to read and write the expansion files on shared storage -->
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" /> <!-- Required by older versions of Google Play services to create IID tokens -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -53,6 +47,9 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="false" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-9689972331812584~5469764045" />

@@ -57,7 +57,11 @@ public class Splash extends AppCompatActivity {
                     Manifest.permission.READ_CONTACTS)) {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        69);
+                        70);
+                /*ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        70);*/
+
             }
         } else {
             handler.postDelayed(startActivity, 1500);
@@ -137,6 +141,28 @@ public class Splash extends AppCompatActivity {
                             android.Manifest.permission.READ_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
                             android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        //Can add more as per requirement
+
+                        Toast.makeText(getBaseContext(), "Read archive permission is needed", Toast.LENGTH_LONG).show();
+                        finish();
+                        ActivityCompat.requestPermissions(this,
+                                new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                                123);
+
+                    }
+                }
+                return;
+            }
+            case 70: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    handler.postDelayed(startActivity, 1500);
+                } else {
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
+                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
                         //Can add more as per requirement
 

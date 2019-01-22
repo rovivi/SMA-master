@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.Note;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
+import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
 
 import java.util.Stack;
 
@@ -64,35 +65,33 @@ public class Steps {
         Canvas c;
 
         Bitmap stepsBitmap = Bitmap.createBitmap(playersizex, playerSizeY, Bitmap.Config.ARGB_8888);
+        //boolean flip = ParamsSong.gameMode==3;
+        boolean flip = false;
         boolean doMagic = false;
-        if (doMagic) {
+        if (flip) {
             c = new Canvas(stepsBitmap);
         } else {
             c = ca;
         }
-
         int posintX2 = posintx;
         int aux2 = (int) (playerSizeY * Common.START_Y);
         int halfDistance = (int) (((playerSizeY - Common.START_Y * Common.HEIGHT) / 2) + Common.START_Y * Common.HEIGHT);
-        int currenty;
-
-
+        int currentY;
         for (int j = 0; j < noteSkins[0].receptors.length && !ParamsSong.FD; j++) {//se Dibujan receptores y effectos de las notas si los hay
             noteSkins[0].receptors[j].draw(c, new Rect(posintx + wa * j - 20, aux2, posintx + wa * j + wa, aux2 + wa));
         }
-
 
         while (!stackSteps.isEmpty()) {
             Object[] aux = stackSteps.pop();
             Note[] Steps = (Note[]) aux[0];
             if (aux[1] instanceof Double) {
-                currenty = (int) (double) aux[1];
+                currentY = (int) (double) aux[1];
             } else {
-                currenty = (int) aux[1];
+                currentY = (int) aux[1];
             }
             for (int j = 0; j < noteSkins[0].arrows.length && speed != 0; j++) {
                 if (doMagic) {
-                    posintx = (int) (posintX2 + Math.sin((double) (aux2 - currenty) / wa / 1.2) * wa * 0.8);
+                    posintx = (int) (posintX2 + Math.sin((double) (aux2 - currentY) / wa / 1.2) * wa * 0.8);
                 }
  /*  0 null char
             1 normal step
@@ -116,11 +115,11 @@ public class Steps {
                 int posNote = 0;
                 byte typeChar = 0;
                 byte typeDisplay = 0;
-                if (Steps[j].noteType == 100) {
+                if (Steps[j].getNoteType() == 100) {
                     typeChar = 100;
-                } else if (Steps[j].noteType != 0) {
-                    typeChar = (byte) (Steps[j].noteType % 10);
-                    typeDisplay = (byte) (Steps[j].noteType / 10);
+                } else if (Steps[j].getNoteType() != 0) {
+                    typeChar = (byte) (Steps[j].getNoteType() % 10);
+                    typeDisplay = (byte) (Steps[j].getNoteType() / 10);
                 }
                 boolean sunded = (typeDisplay == 3);
                 boolean vanish = (typeDisplay == 1);
@@ -137,31 +136,35 @@ public class Steps {
                 if (typeDisplay == 0 && noteSkins.length > 1) {
                     posNote = 3;
                 }
-                if (typeDisplay == 7 || typeDisplay == 6 || typeDisplay == 5 || typeDisplay == 0 || (currenty > halfDistance && vanish) || (currenty < halfDistance && sunded)) {
+                if (typeDisplay == 7 || typeDisplay == 6 || typeDisplay == 5 || typeDisplay == 0 || (currentY > halfDistance && vanish) || (currentY < halfDistance && sunded)) {
                     switch (typeChar) {
                         case (1):
                         case (5):
-                            noteSkins[posNote].arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                            noteSkins[posNote].arrows[j].draw(c, new Rect(posintx + wa * j - 20, currentY, posintx + wa * j + wa, currentY + wa));
                             break;
                         case (2):
                             //   longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, nexty));
-                            noteSkins[posNote].longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, longInfo[0][j]));
-                            noteSkins[posNote].arrows[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                            noteSkins[posNote].longs[j].draw(c, new Rect(posintx + wa * j - 20, currentY + wa / 2, posintx + wa * j + wa, longInfo[0][j]));
+                            noteSkins[posNote].arrows[j].draw(c, new Rect(posintx + wa * j - 20, currentY, posintx + wa * j + wa, currentY + wa));
                             longInfo[0][j] = -9999;
                             break;
                         case (3):
-                            verifyLong(j, currenty);
-                            noteSkins[posNote].tails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                            verifyLong(j, currentY);
+                            noteSkins[posNote].tails[j].draw(c, new Rect(posintx + wa * j - 20, currentY, posintx + wa * j + wa, currentY + wa));
                             break;
                         case (4):
-                            verifyLong(j, currenty);
+                            verifyLong(j, currentY);
                             longInfo[1][j] = posNote;
                             break;
                         case (7):
-                            noteSkins[posNote].mine.draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+                            noteSkins[posNote].mine.draw(c, new Rect(posintx + wa * j - 20, currentY, posintx + wa * j + wa, currentY + wa));
                             break;
                         case (100):
-                            noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, longInfo[0][j]));
+                            if (ParamsSong.gameMode == 3) {
+                                noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, playerSizeY, posintx + wa * j + wa, longInfo[0][j]));
+                            } else {
+                                noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, currentY + wa / 2, posintx + wa * j + wa, longInfo[0][j]));
+                            }
                             longInfo[0][j] = -9999;
                             break;
                         default:
@@ -172,15 +175,11 @@ public class Steps {
                         case (4):
                             //    verifyLong(j, currenty);
                             if (vanish) {
-                                noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, currenty + wa / 2, posintx + wa * j + wa, longInfo[0][j]));
+                                noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, currentY + wa / 2, posintx + wa * j + wa, longInfo[0][j]));
                                 longInfo[0][j] = -9999;
-
                             }
-
                             break;
                         case (100):
-
-
                             longInfo[0][j] = -9999;
                             break;
                     }
@@ -191,33 +190,47 @@ public class Steps {
 
         try {
 
-        for (int j = 0; j < noteSkins[0].arrows.length; j++) {
-            if (longInfo[0][j] != -9999) {
-                noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, longInfo[0][j]));
-                longInfo[0][j] = -9999;
-            }
-        }
-        currenty = (int) (playerSizeY * Common.START_Y);
+            for (int j = 0; j < noteSkins[0].arrows.length; j++) {
+                if (longInfo[0][j] != -9999) {
+                    if (ParamsSong.gameMode == 3) {
+                        noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, longInfo[0][j], posintx + wa * j + wa, 0));
 
+                    } else {
+                        noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, longInfo[0][j]));
+                    }
+                    longInfo[0][j] = -9999;
+                }
+            }
+            currentY = (int) (playerSizeY * Common.START_Y);
             for (NoteSkin currentNote : noteSkins) {
                 for (int j = 0; j < currentNote.arrows.length && speed != 0; j++) {//se Dibujan receptores y effectos de las notas si los hay
                     if (longInfo[0][j] != -9999) {
-                        noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, longInfo[0][j]));
+                        if (ParamsSong.gameMode == 3) {
+                            noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, longInfo[0][j], posintx + wa * j + wa, 0));
+                        } else {
+                            noteSkins[longInfo[1][j]].longs[j].draw(c, new Rect(posintx + wa * j - 20, 0, posintx + wa * j + wa, longInfo[0][j]));
+                        }
                         longInfo[0][j] = -9999;
                     }
                 }
             }
 
-        for (int j = 0; j < noteSkins[0].arrows.length && speed != 0; j++) {//se Dibujan receptores y effectos de las notas si los hay
-            noteSkins[0].explotions[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
-            noteSkins[0].explotionTails[j].draw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
-            noteSkins[0].tapsEffect[j].staticDraw(c, new Rect(posintx + wa * j - 20, currenty, posintx + wa * j + wa, currenty + wa));
+            for (int j = 0; j < noteSkins[0].arrows.length && speed != 0; j++) {//se Dibujan receptores y effectos de las notas si los hay
+                noteSkins[0].explotions[j].staticDraw(c, new Rect(posintx + wa * j - 20, currentY, posintx + wa * j + wa, currentY + wa));
+                noteSkins[0].explotionTails[j].draw(c, new Rect(posintx + wa * j - 20, currentY, posintx + wa * j + wa, currentY + wa));
+                noteSkins[0].tapsEffect[j].staticDraw(c, new Rect(posintx + wa * j - 20, currentY, posintx + wa * j + wa, currentY + wa));
 
-        }
+            }
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
 
+
+        if (flip) {
+
+            stepsBitmap = TransformBitmap.FlipBitmap(stepsBitmap, false);
+            ca.drawBitmap(stepsBitmap, new Matrix(), new Paint());
+        }
 
       /*  if (false) {//atacks
             Matrix sken = new Matrix();
@@ -226,7 +239,7 @@ public class Steps {
             camera.rotateX(7);
             camera.rotateZ(0);
             camera.getMatrix(sken);
-            ca.drawBitmap(stepsBitmap, sken, new Paint());
+
         }*/
     }
 
@@ -249,11 +262,10 @@ public class Steps {
 
 
     private void verifyLong(int pos, int y) {
-
-
-        if (longInfo[0][pos] == -9999 || longInfo[0][pos] < y) {
+        if ((ParamsSong.gameMode < 3 && (longInfo[0][pos] == -9999 || longInfo[0][pos] < y)) || (ParamsSong.gameMode == 3 && (longInfo[0][pos] == -9999 || longInfo[0][pos] > y))) {
             longInfo[0][pos] = y;
         }
+
 
     }
 

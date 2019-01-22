@@ -21,7 +21,7 @@ public class Recycler extends AppCompatActivity {
         setContentView(R.layout.activity_recycler);
         recyclerView= findViewById(R.id.recicler1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false ));
-        SongsGroup songsGroup = new SongsGroup(Common.checkDirSongsFolders());
+        SongsGroup songsGroup = new SongsGroup(Common.checkDirSongsFolders(this));
         AdapterSSC adapterSSC= new AdapterSSC(songsGroup,0);
         recyclerView.setAdapter(adapterSSC);
 

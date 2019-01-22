@@ -305,9 +305,9 @@ public class SSC implements Serializable {
             for (int j = 0; j < buffer.size(); j++) {// se suma el valor de perf para cada nota
                 if (buffer.get(j) != null || buffer.get(j).rowStep != null) {
                     for (int i = 0; (i < buffer.get(j).rowStep.length); i++) {
-                        if (buffer.get(j).rowStep[i].noteType != 0) {
+                        if (buffer.get(j).rowStep[i].getNoteType() != 0) {
 
-                            buffer.get(j).rowStep[i].noteType += 50;
+                            buffer.get(j).rowStep[i].setNoteType((byte) (buffer.get(j).rowStep[i].getNoteType()+50));
                         }
                     }
                 }
@@ -316,9 +316,10 @@ public class SSC implements Serializable {
             for (int j = 0; j < buffer.size(); j++) {
                 if (buffer2.get(j) != null || buffer2.get(j).rowStep != null) {
                     for (int i = 0; (i < buffer2.get(j).rowStep.length); i++) {
-                        if (buffer2.get(j).rowStep[i].noteType != 0) {
+                        if (buffer2.get(j).rowStep[i].getNoteType() != 0) {
                             buffer.get(j).rowStep[i] = buffer2.get(j).rowStep[i];
-                            buffer.get(j).rowStep[i].noteType += 60;
+                            buffer.get(j).rowStep[i].setNoteType((byte) (buffer.get(j).rowStep[i].getNoteType()+60));
+
                         }
                     }
                 }
@@ -623,22 +624,22 @@ public class SSC implements Serializable {
                 switch (aux) {
                     case '0':
                         if (wasLong[x] != 0) {
-                            data[x].noteType = wasLong[x];
+                            data[x].setNoteType( wasLong[x]);
                         }
                         break;
                     case '2':
-                        data[x].noteType = letterToByte(aux, x);
+                        data[x].setNoteType(letterToByte(aux, x));
                         wasLong[x] = 4;
                         break;
                     case '3':
-                        data[x].noteType = letterToByte(aux, x);
+                        data[x].setNoteType( letterToByte(aux, x));
                         if (wasLong[x] != 0) {
-                            data[x].noteType = (byte) (wasLong[x] - 1);
+                            data[x].setNoteType((byte) (wasLong[x] - 1));
                         }
                         wasLong[x] = 0;
                         break;
                     default:
-                        data[x].noteType = letterToByte(aux, x);
+                        data[x].setNoteType( letterToByte(aux, x));
 
 
                 }
@@ -646,19 +647,19 @@ public class SSC implements Serializable {
             } else {
 
 
-                data[x].noteType = (byte) (aux - 200);
+                data[x].setNoteType((byte) (aux - 200)) ;
 
                 if (aux > 1000) {// la nota se considera fake
-                    data[x].fake = true;
-                    data[x].noteType = (byte) (aux - 1200);
+                    data[x].setFake( true);
+                    data[x].setNoteType( (byte) (aux - 1200));
                 }
 
-                if ((data[x].noteType - 3) % 10 == 0) {
-                    data[x].noteType = (byte) (wasLong[x] - 1);
+                if ((data[x].getNoteType() - 3) % 10 == 0) {
+                    data[x].setNoteType( (byte) (wasLong[x] - 1));
 
                     wasLong[x] = 0;
-                } else if ((data[x].noteType - 2) % 10 == 0) {
-                    wasLong[x] = (byte) (data[x].noteType + 2);
+                } else if ((data[x].getNoteType() - 2) % 10 == 0) {
+                    wasLong[x] = (byte) (data[x].getNoteType() + 2);
                 }
 
             }

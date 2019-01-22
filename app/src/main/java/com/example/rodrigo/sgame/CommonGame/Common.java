@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
@@ -29,6 +30,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
@@ -37,7 +40,23 @@ import java.util.concurrent.ExecutionException;
  */
 public class Common {
 
-    public final static String [] PIU_ARROW_NAMES = {"down_left_","up_left_","center_","up_right_","down_right_"};
+
+    public static int WIDTH = 0;
+    public static int HEIGHT = 0;
+    public static int OFFSET = 0;
+    public static boolean HIDENAVBAR = false;
+    public static int AnimateFactor = 100;
+    public static float START_Y = 0.115f;
+    public static boolean testingRadars = false;
+    public static boolean DRAWSTATS = false;
+    public static int Compression2D = 0;
+    public static boolean EVALUATE_ON_SECUNDARY_THREAD = true;
+    public static boolean ANIM_AT_START = true;
+    public static boolean RELOAD_SONGS = false;
+    public static String APP_NAME = "StepDroid";
+
+
+    public final static String[] PIU_ARROW_NAMES = {"down_left_", "up_left_", "center_", "up_right_", "down_right_"};
     private final static double[] JudgeSJ = {41.6, 41.6, 41.6, 83.3 + 30};
     private final static double[] JudgeEJ = {41.6, 41.6, 41.6, 58.3 + 30};
     private final static double[] JudgeNJ = {41.6, 41.6, 41.6, 41.6 + 30};
@@ -49,21 +68,17 @@ public class Common {
 
 
     public final static String[] possibleDirectorys = {
-            "/storage/3839-2A39/piu/Songs",
-            "/storage/sdcard1/piu/Songs",
-            "/sdcard/piu/Songs",
-            System.getenv("EXTERNAL_STORAGE") + "/piu/Songs",
-            System.getenv("SECONDARY_STORAGE") + "/piu/Songs",
-            System.getenv("EXTERNAL_SDCARD_STORAGE") + "/piu/Songs",
-            Environment.getExternalStoragePublicDirectory("piu").getPath() + "/Songs",
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath() + "/Songs",
-            //"/storage/self/primary/piu/Songs",
-            "/storage/self/secondary/piu/Songs",
-            Environment.DIRECTORY_DOCUMENTS + "/piu/Songs",
-            Environment.getExternalStoragePublicDirectory("SONGS").getPath(),
 
-            //        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath(),
-
+            Environment.getExternalStoragePublicDirectory(APP_NAME).getPath(),
+            "/storage/sdcard1/" + APP_NAME,
+            System.getenv("EXTERNAL_STORAGE") + "/" + APP_NAME,
+            System.getenv("SECONDARY_STORAGE") + "/" + APP_NAME,
+            System.getenv("PRIMARY_STORAGE") + "/" + APP_NAME,
+            System.getenv("EXTERNAL_SDCARD_STORAGE") + "/" + APP_NAME,
+            System.getenv("INTERNAL_SDCARD_STORAGE") + "/" + APP_NAME,
+            new File(Environment.getExternalStorageDirectory(), APP_NAME).getPath(),
+            "/storage/self/secondary/" + APP_NAME,
+            Environment.DIRECTORY_DOCUMENTS + "/" + APP_NAME,
     };
 
 
@@ -77,34 +92,54 @@ public class Common {
         return r.nextInt((max - min) + 1) + min;
     }
 
-    public static File checkDirSongsFolders() {
-        File directory = null;
+    public static File checkDirSongsFolders(Context c) {
+        File path = null;
         for (String currentPath : possibleDirectorys) {
-            File f = new File(currentPath);
-            if (f.exists()) {
-                return f;
-            } else if (f.mkdirs() && f.isDirectory()) {
-                return f;
+
+            if (dirExist(currentPath)) {
+                return new File(currentPath);
             }
+
+
         }
-        return directory;
+        if (dirExist(new File(Environment.getExternalStorageDirectory(), APP_NAME).getPath())) {
+            return (new File(Environment.getExternalStorageDirectory(), APP_NAME));
+        }
+
+
+        return path;
     }
 
 
-    public static String checkBGADir(String currentpath, String bganame) {
+    private static boolean dirExist(String dir) {
+
+        File f = new File(dir);
+
+
+        if (f.exists()) {
+            return true;
+        } else {
+            boolean created;
+            created = f.mkdir();
+            if (created) {
+
+                String path_aux = f.getPath();
+                new File(path_aux + "/songs").mkdirs();
+                new File(path_aux + "/noteskin").mkdirs();
+                new File(path_aux + "/songmovies").mkdirs();
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public static String checkBGADir(String currentpath, String bganame, Context c) {
         String directory = null;
-        if (new File(System.getenv("EXTERNAL_STORAGE") + "/SONGMOVIES/" + bganame).exists()) {
-            directory = new File(System.getenv("EXTERNAL_STORAGE") + "/SONGMOVIES/" + bganame).getPath();
-        } else if (new File(System.getenv("SECONDARY_STORAGE") + "/SONGMOVIES/" + bganame).exists()) {
-            directory = new File(System.getenv("SECONDARY_STORAGE") + "/SONGMOVIES/" + bganame).getPath();
-        } else if (new File(System.getenv("EXTERNAL_SDCARD_STORAGE") + "/SONGMOVIES/" + bganame).exists()) {
-            directory = new File(System.getenv("EXTERNAL_SDCARD_STORAGE") + "/SONGMOVIES/" + bganame).getPath();
-        } else if (new File(Environment.getExternalStorageDirectory().getPath() + "/SONGMOVIES/" + bganame).exists()) {
-            directory = new File(Environment.getExternalStorageDirectory().getPath() + "/SONGMOVIES/" + bganame).getPath();
-        } else if (new File(Environment.getDataDirectory().getPath() + "/SONGMOVIES/" + bganame).exists()) {
-            directory = new File(Environment.getDataDirectory() + "/SONGMOVIES/" + bganame).getPath();
-        } else if (new File(currentpath + "/" + bganame).exists()) {
+        if (new File(currentpath + "/" + bganame).exists()) {
             directory = currentpath + "/" + bganame;
+        } else if (new File(checkDirSongsFolders(c).getPath() + "/songmovies/" + bganame).exists()) {
+            directory =new File(checkDirSongsFolders(c).getPath() + "/songmovies/" + bganame).getPath();
         }
         return directory;
     }
@@ -242,9 +277,8 @@ public class Common {
         RELOAD_SONGS = sharedPref.getBoolean("reload_songs", false);
 
 
-
-        Compression2D=Integer.valueOf(sharedPref.getString("list_preference_quality_2d", "1"));
-        ParamsSong.gameMode=Integer.valueOf(sharedPref.getString("pad_type", "0"));
+        Compression2D = Integer.valueOf(sharedPref.getString("list_preference_quality_2d", "1"));
+        ParamsSong.gameMode = Integer.valueOf(sharedPref.getString("pad_type", "0"));
         HEIGHT = displayMetrics.heightPixels;
         WIDTH = displayMetrics.widthPixels;
         int navBarHeight = 0;//verificamos la barra de navegacion
@@ -253,13 +287,13 @@ public class Common {
         if (resourceId > 0) {
             navBarHeight = resources.getDimensionPixelSize(resourceId);
         }
-        if (HIDENAVBAR){
+        if (HIDENAVBAR) {
             HEIGHT += navBarHeight;
         }
-        String test=sharedPref.getString("pref_offset", 0+"");
-        try{
+        String test = sharedPref.getString("pref_offset", 0 + "");
+        try {
             OFFSET = Integer.valueOf(test);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -267,20 +301,11 @@ public class Common {
     }
 
 
-    public static int WIDTH = 0;
-    public static int HEIGHT = 0;
-    public static int OFFSET = 0;
-    public static boolean HIDENAVBAR = false;
-    public static int AnimateFactor = 100;
-    public static float START_Y = 0.115f;
-    public static boolean testingRadars = false;
-    public static boolean DRAWSTATS = false;
-    public static int Compression2D= 0;
-    public static boolean EVALUATE_ON_SECUNDARY_THREAD = true;
-    public static boolean ANIM_AT_START = true;
-    public static boolean RELOAD_SONGS = false;
-
-
+    public static String getMasterPath(Context c) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(c);
+        String value = sharedPref.getString("masterPath", null);
+        return value != null ? value : checkDirSongsFolders(c).getPath();
+    }
 
 
 }

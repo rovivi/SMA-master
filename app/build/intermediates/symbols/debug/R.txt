@@ -1521,7 +1521,7 @@ int id search_mag_icon 0x7f0900fd
 int id search_plate 0x7f0900fe
 int id search_src_text 0x7f0900ff
 int id search_voice_btn 0x7f090100
-int id seekBar 0x7f090101
+int id seekBar_av 0x7f090101
 int id select_dialog_listview 0x7f090102
 int id selected 0x7f090103
 int id shortcut 0x7f090104
@@ -1600,10 +1600,10 @@ int id tv___start 0x7f09014c
 int id tv_bad2 0x7f09014d
 int id tv_best 0x7f09014e
 int id tv_damiss 0x7f09014f
-int id tv_good2 0x7f090150
-int id tv_great2 0x7f090151
-int id tv_judge 0x7f090152
-int id tv_judge2 0x7f090153
+int id tv_fd 0x7f090150
+int id tv_good2 0x7f090151
+int id tv_great2 0x7f090152
+int id tv_judge 0x7f090153
 int id tv_level 0x7f090154
 int id tv_maxCombo 0x7f090155
 int id tv_miss2 0x7f090156
