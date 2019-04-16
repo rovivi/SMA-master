@@ -76,7 +76,8 @@
         <activity
             android:name=".PlayerBga"
             android:keepScreenOn="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".Recycler" />
         <activity
             android:name=".EvaluationActivity"

@@ -8,6 +8,10 @@ public class MusicThread extends Thread {
     public long time=20000000;
     public  boolean isRunning = true;
     long timeStamp;
+    public static String owoowoowo = "songs/piu/f2/o";
+
+
+
 
 
     public MusicThread() {

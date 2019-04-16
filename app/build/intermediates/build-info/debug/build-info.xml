@@ -2,35 +2,40 @@
 <instant-run
     abi="arm64-v8a,armeabi-v7a,armeabi"
     api-level="26"
-    build-mode="COLD"
+    build-mode="FULL"
     density="xxhdpi"
     format="10"
-    ir-eligibility="COMPATIBLE"
     plugin-version="3.2.1"
-    timestamp="1548123396167"
+    timestamp="1550707438246"
     token="6685960864000445536"
-    verifier="COLD_SWAP_REQUESTED" >
+    verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="712" />
+        duration="1098" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="25" />
+        duration="80" />
     <task
         name="verifier"
-        duration="9" />
+        duration="21" />
 
     <artifact
         location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
         type="SPLIT" />
+    <artifact
+        location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
+        type="SPLIT" />
+    <artifact
+        location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1548121546853"
+        timestamp="1550707438246"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
@@ -41,15 +46,6 @@
         <artifact
             location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
             type="SPLIT_MAIN" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
-        timestamp="1548123396167"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
-            type="SPLIT" />
     </build>
 
 </instant-run>

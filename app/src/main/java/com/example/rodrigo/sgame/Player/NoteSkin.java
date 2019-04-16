@@ -61,11 +61,8 @@ public class NoteSkin {
 
             BitmapFactory.Options myOpt = new BitmapFactory.Options();
             myOpt.inSampleSize = 1 * Common.Compression2D;
-
             BitmapFactory.Options myOpt2 = new BitmapFactory.Options();
             myOpt2.inSampleSize = 4 * Common.Compression2D;
-
-
             arrows = new SpriteReader[numberSteps];
             tails = new SpriteReader[numberSteps];
             longs = new SpriteReader[numberSteps];
@@ -73,7 +70,6 @@ public class NoteSkin {
             tapsEffect = new SpriteReader[10];
             explotions = new SpriteReader[numberSteps];
             receptors = new SpriteReader[numberSteps];
-
             for (int j = 0; j < 5; j++) {
               //  tapsEffect[j] = new SpriteReader(TransformBitmap.customSpriteArray(BitmapFactory.decodeResource(context.getResources(), R.drawable.pad_pressed, myOpt), 5, 2, j, j + 5, j + 5, j), 0.2f);
 
@@ -110,10 +106,9 @@ public class NoteSkin {
             }
 
 
-            Bitmap explotion= BitmapFactory.decodeStream(context.getAssets().open(pathNS + "_explosion 6x1.png"));
-           // Bitmap explotion= TransformBitmap.replaceColor(BitmapFactory.decodeStream(context.getAssets().open(pathNS + "_explosion 6x1.png")),Color.BLACK,Color.TRANSPARENT);
-
-            Bitmap[] explotionArray= TransformBitmap.customSpriteArray(explotion,6,1,0,1,2,3,4,5);
+            Bitmap xploBitmap= BitmapFactory.decodeStream(context.getAssets().open(pathNS + "_explosion 6x1.png"));
+           // Bitmap ex plotion= TransformBitmap.replaceColor(BitmapFactory.decodeStream(context.getAssets().open(pathNS + "_explosion 6x1.png")),Color.BLACK,Color.TRANSPARENT);
+            Bitmap[] explotionArray= TransformBitmap.customSpriteArray(xploBitmap,6,1,0,1,2,3,4,5);
 
             for (int cd = 0; cd < numberSteps; cd++) {
                 Bitmap[] explotionArray2= new Bitmap[6];
@@ -187,7 +182,7 @@ public class NoteSkin {
         String pathNS = "NoteSkins/pump/" + name + "/";
         InputStream stream1 = null;
         try {
-            stream1 = c.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[2] + "tap.png");
+            stream1 = c.getAssets().open(pathNS + Common.PIU_ARROW_NAMES[1] + "tap.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -214,8 +209,6 @@ public class NoteSkin {
         }
         return sendedArray;
     }
-
-
     private void listFiles(String dirFrom) {
 
     }

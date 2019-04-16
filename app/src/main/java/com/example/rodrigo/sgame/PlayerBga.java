@@ -158,8 +158,43 @@ public class PlayerBga extends Activity {
 
         // Toast.makeText(getApplicationContext(),""+keyCode,Toast.LENGTH_LONG).show();
         switch (keyCode) {
+
+
+
+            case KeyEvent.KEYCODE_BUTTON_1:
+                pad[7] = 1;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_2:
+                pad[9] = 1;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_3:
+                pad[6] = 1;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_4:
+                pad[8] = 1;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_5:
+                pad[0] = 1;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_6:
+                pad[2] = 1;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_7:
+                pad[3] = 1;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_8:
+                pad[1] = 1;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_9:
+                pad[4] = 1;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_10:
+                pad[5] = 1;
+                break;
+
             case 145:
             case 288:
+
                 pad[5] = 1;
                 break;
             case 157:
@@ -227,6 +262,49 @@ public class PlayerBga extends Activity {
 
         // Toast.makeText(getApplicationContext(),""+keyCode,Toast.LENGTH_LONG).show();
         switch (keyCode) {
+
+
+
+
+
+
+            case KeyEvent.KEYCODE_BUTTON_1:
+                pad[7] = 0;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_2:
+                pad[9] = 0;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_3:
+                pad[6] = 0;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_4:
+                pad[8] = 0;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_5:
+                pad[0] = 0;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_6:
+                pad[2] = 0;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_7:
+                pad[3] = 0;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_8:
+                pad[1] = 0;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_9:
+                pad[4] = 0;
+                break;
+            case KeyEvent.KEYCODE_BUTTON_10:
+                pad[5] = 0;
+                break;
+
+
+
+
+
+
+
             case 145:
                 pad[5] = 0;
                 break;

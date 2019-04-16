@@ -98,7 +98,7 @@ public class GamePad {
 
                         float startx4 = 0.2f;
                         widthStep7 = 0.1f;
-
+                           Common.HIDE_PAD= true;
 
                         for (int j = 0; j < 5; j++) {
                                                                                                                            arrowsPosition2[j] = new Rect((int) (width * startx4) * j, (int) (height * 0.8), (int) ((width * startx4) * (j+1)), (int) (height * 1.08f));

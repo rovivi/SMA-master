@@ -42,13 +42,13 @@ public class SongsGroup implements Serializable {
     }
 
 
-
-
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public SongsGroup(File path) {
+
         add2List(path, false);
+
     }
+
 
     public SongsGroup() {
     }
@@ -63,18 +63,23 @@ public class SongsGroup implements Serializable {
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void addAssetsSongs(AssetManager am) throws IOException {
-        String[] archivos = am.list("Songs");
-
-        for (String currentFodler : archivos) {
-            String[] archivos2 = am.list("Songs/" + currentFodler);
-            for (String currentFile : archivos2) {
-                if (currentFile.toLowerCase().endsWith(".ssc")) {
-                    String ssc = Common.is2String(am.open("Songs/" + currentFodler + "/" + currentFile));
-                    assetsListOfSongs.add(new SSC(ssc, true, false));
-
+    public void addAssetsSongs(AssetManager am) {
+        try {
+            String[] files = am.list("songs");
+            for (String currentFolder : files) {
+                String[] filesInside = am.list("songs/" + currentFolder);
+                for (String currentFile : filesInside) {
+                    if (currentFile.toLowerCase().endsWith(".ssc")) {
+                        String ssc = Common.is2String(am.open("songs/" + currentFolder + "/" + currentFile));
+                        SSC aux = new SSC(ssc,true);
+                        aux.pathSSC = "songs/" + currentFolder ;
+                        aux.path = new File("songs/" + currentFolder + "/" + currentFile);
+                        listOfSongs.add(aux);
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -94,16 +99,15 @@ public class SongsGroup implements Serializable {
                     }
 
                 } else {
-                    int size =songFiles.length;
-                    int currentIndex =0;
+                    int size = songFiles.length;
+                    int currentIndex = 0;
                     for (File j : songFiles) {
-                        if (j.getPath().endsWith(".ssc")) {
+                        if (j.getPath().endsWith(".ssc") ) {
                             try {
                                 SSC aux = new SSC(Common.convertStreamToString(new FileInputStream(j)), true, isPropietary);
                                 aux.path = i;
                                 aux.pathSSC = j.getPath();
                                 listOfSongs.add(aux);
-
                                 //listOfPathsSSC.add(j.getPath());
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
@@ -111,9 +115,9 @@ public class SongsGroup implements Serializable {
                                 e.printStackTrace();
                             }
                         }
-                        if (text!=null){
-                            int percet = (int) (100* (float)(currentIndex/size));
-                            text=percet+"%";
+                        if (text != null) {
+                            int percet = (int) (100 * (float) (currentIndex / size));
+                            text = percet + "%";
                         }
                         currentIndex++;
                     }
@@ -128,17 +132,14 @@ public class SongsGroup implements Serializable {
 
 
     public void saveIt(Context context, String path) throws IOException {
-
         FileOutputStream fos = context.openFileOutput("SongList.dat", Context.MODE_PRIVATE);
         ObjectOutputStream os = new ObjectOutputStream(fos);
         os.writeObject(this);
         os.close();
         fos.close();
-
     }
 
     public void saveIt(Context context) throws IOException {
-
         FileOutputStream fos = context.openFileOutput("SongList.dat", Context.MODE_PRIVATE);
         ObjectOutputStream os = new ObjectOutputStream(fos);
         os.writeObject(this);
@@ -149,8 +150,6 @@ public class SongsGroup implements Serializable {
 
 
     public static SongsGroup readIt(Context context) {
-
-
         try {
             FileInputStream fis = context.openFileInput("SongList.dat");
             ObjectInputStream is = new ObjectInputStream(fis);
@@ -158,7 +157,7 @@ public class SongsGroup implements Serializable {
             is.close();
             fis.close();
             return simpleClass;
-        } catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }

@@ -84,10 +84,6 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e17896b03ed48ed0a299b14c971294d9/res/drawable-v21/abc_action_bar_item_background_material.xml"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/raw_start_sound.mp3.flat",
-        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/raw/start_sound.mp3"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_scrubber_track_mtrl_alpha.9.png.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e17896b03ed48ed0a299b14c971294d9/res/drawable-xxhdpi-v4/abc_scrubber_track_mtrl_alpha.9.png"
     },
@@ -262,10 +258,6 @@
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/layout-sw600dp-v13_mtrl_layout_snackbar.xml.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/3fd45a6fd40dcd5f73bcefe710d0dd00/res/layout-sw600dp-v13/mtrl_layout_snackbar.xml"
-    },
-    {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/anim_translate_up.xml.flat",
-        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/anim/translate_up.xml"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_mtrl_snackbar_background.xml.flat",
@@ -486,10 +478,6 @@
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/animator_mtrl_fab_hide_motion_spec.xml.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/3fd45a6fd40dcd5f73bcefe710d0dd00/res/animator/mtrl_fab_hide_motion_spec.xml"
-    },
-    {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_line_top.png.flat",
-        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/line_top.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_btn_radio_to_on_mtrl_015.png.flat",
@@ -734,10 +722,6 @@
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/layout-v21_notification_action_tombstone.xml.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/6f82f2a6fd917e23076fd1cbce675513/res/layout-v21/notification_action_tombstone.xml"
-    },
-    {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/raw_select_song.ogg.flat",
-        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/raw/select_song.ogg"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_common_google_signin_btn_icon_light_normal_background.9.png.flat",
@@ -1300,10 +1284,6 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/3fd45a6fd40dcd5f73bcefe710d0dd00/res/color/mtrl_btn_text_color_selector.xml"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_splash.jpg.flat",
-        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/splash.jpg"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_com_facebook_button_send_icon_blue.png.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/facebook-share-4.36.0.aar/e5351eb78e7e8fe2907a07f5766aef52/res/drawable-xhdpi-v4/com_facebook_button_send_icon_blue.png"
     },
@@ -1772,10 +1752,6 @@
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/3fd45a6fd40dcd5f73bcefe710d0dd00/res/drawable/mtrl_tabs_default_indicator.xml"
     },
     {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/raw_select_4.mp3.flat",
-        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/raw/select_4.mp3"
-    },
-    {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/layout_design_text_input_password_icon.xml.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/3fd45a6fd40dcd5f73bcefe710d0dd00/res/layout/design_text_input_password_icon.xml"
     },
@@ -1786,10 +1762,6 @@
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_abc_cab_background_internal_bg.xml.flat",
         "source": "/home/rodrigo/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e17896b03ed48ed0a299b14c971294d9/res/drawable/abc_cab_background_internal_bg.xml"
-    },
-    {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/raw_command_toggle.mp3.flat",
-        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/raw/command_toggle.mp3"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/color_abc_tint_default.xml.flat",
@@ -2962,10 +2934,6 @@
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_option_bg.png.flat",
         "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/option_bg.png"
-    },
-    {
-        "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable_logobeta.png.flat",
-        "source": "/home/rodrigo/Documentos/stepmix/Sgame/app/src/main/res/drawable/logobeta.png"
     },
     {
         "merged": "/home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_menu_hardkey_panel_mtrl_mult.9.png.flat",

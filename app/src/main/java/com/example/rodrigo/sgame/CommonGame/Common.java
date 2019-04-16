@@ -41,6 +41,7 @@ import java.util.concurrent.ExecutionException;
 public class Common {
 
 
+    public static boolean HIDE_PAD = false;
     public static int WIDTH = 0;
     public static int HEIGHT = 0;
     public static int OFFSET = 0;
@@ -112,17 +113,13 @@ public class Common {
 
 
     private static boolean dirExist(String dir) {
-
         File f = new File(dir);
-
-
         if (f.exists()) {
             return true;
         } else {
             boolean created;
             created = f.mkdir();
             if (created) {
-
                 String path_aux = f.getPath();
                 new File(path_aux + "/songs").mkdirs();
                 new File(path_aux + "/noteskin").mkdirs();

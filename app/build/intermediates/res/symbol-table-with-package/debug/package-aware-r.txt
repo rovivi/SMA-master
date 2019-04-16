@@ -25,7 +25,6 @@ anim rotate
 anim rotate2
 anim slide_up
 anim translate_down
-anim translate_up
 anim zoom_in
 anim zoom_letter
 anim zoom_splash
@@ -1211,8 +1210,6 @@ drawable judgelabels15
 drawable kya
 drawable letters
 drawable lifeframe
-drawable line_top
-drawable logobeta
 drawable lvl
 drawable mask3
 drawable messenger_bubble_large_blue
@@ -1249,7 +1246,6 @@ drawable select1
 drawable settings
 drawable solid
 drawable song_list_bg
-drawable splash
 drawable sprite_mask_disc
 drawable square_redonded_corner
 drawable start
@@ -1748,7 +1744,6 @@ raw bgaoff
 raw bgmain2
 raw change_song
 raw command_mod
-raw command_toggle
 raw mine
 raw rank_0
 raw rank_0_b
@@ -1767,9 +1762,6 @@ raw rank_6_b
 raw rank_7
 raw rank_7_b
 raw select_3
-raw select_4
-raw select_song
-raw start_sound
 raw tick
 raw title_loop
 raw transformation

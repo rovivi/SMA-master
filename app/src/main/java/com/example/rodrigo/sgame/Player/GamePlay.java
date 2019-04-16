@@ -15,7 +15,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -63,16 +62,15 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     public Combo ObjectCombo;
     //private Bitmap bgaBitmap;
     private PlayerBga BGA;
-    private Context context;
     private MediaPlayer mpMusic;
-    private static Note presedNote = new Note((byte) 100);
-    public static Note[] preseedRow = {presedNote, presedNote, presedNote, presedNote, presedNote, presedNote, presedNote, presedNote, presedNote, presedNote};
+    private static Note pressedNote = new Note((byte) 100);
+    public static Note[] pressedRow = {pressedNote, pressedNote, pressedNote, pressedNote, pressedNote, pressedNote, pressedNote, pressedNote, pressedNote, pressedNote};
 
     public String pathImage;
     //DrawerMarks and Steps information
     //public ArrayList<String[]> bufferSteps;
     public ArrayList<RowStep> bufferSteps;
-    private ArrayList<String[]> databga;
+    private ArrayList<String[]> dataBGA;
     private ArrayList<String[]> ATTACKS;
     protected ArrayList<Float[]> BPMS;
     public ArrayList<Float[]> DELAYS;
@@ -102,7 +100,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     public int posStop = 0;
     protected int posScroll = 0;
     protected int posFake = 0;
-    private int posAttack = 0;
+    //private int posAttack = 0;
     public int contadorTick = 0;
     public double residuoTick = 0;
     private int arrowSize;
@@ -202,7 +200,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
         try {
 
 
-            this.context = context;
+            //init object
             reset();
             this.setZOrderOnTop(true); //necessary
             getHolder().setFormat(PixelFormat.TRANSPARENT);
@@ -214,9 +212,10 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             soundPullBeat = soundPool.load(this.getContext(), R.raw.beat2, 3);
             soundPullMine = soundPool.load(this.getContext(), R.raw.mine, 3);
             getHolder().addCallback(this);
-            this.stepData = stepData;//se lee el archio ssc y se convierte a array y maps
-            //RAW
 
+
+            //SSC parsing
+            this.stepData = stepData;//se lee el archio ssc y se convierte a array y maps
             bufferSteps = stepData.createBuffer(nchar);//se crea un array para el player
             if (stepData.chartsInfo[nchar].get("SCROLLS") != null && !stepData.chartsInfo[nchar].get("SCROLLS").equals("")) {
                 SCROLLS = stepData.arrayListSpeed(stepData.chartsInfo[nchar].get("SCROLLS").toString());
@@ -225,16 +224,12 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             BPM = BPMS.get(0)[1];
             FAKES = setMetadata((String) stepData.chartsInfo[nchar].get("FAKES"), stepData.songInfo.get("FAKES"));
             SPEEDS = setMetadata((String) stepData.chartsInfo[nchar].get("SPEEDS"), stepData.songInfo.get("SPEEDS"));
-
-
             if (!Common.testingRadars) {
                 TICKCOUNTS = setMetadata((String) stepData.chartsInfo[nchar].get("TICKCOUNTS"), stepData.songInfo.get("TICKCOUNTS"));
-
                 STOPS = setMetadata((String) stepData.chartsInfo[nchar].get("STOPS"), stepData.songInfo.get("STOPS"));
                 DELAYS = setMetadata((String) stepData.chartsInfo[nchar].get("DELAYS"), stepData.songInfo.get("DELAYS"));
                 WARPS = setMetadata((String) stepData.chartsInfo[nchar].get("WARPS"), stepData.songInfo.get("WARPS"));
                 COMBOS = setMetadata((String) stepData.chartsInfo[nchar].get("COMBOS"), stepData.songInfo.get("COMBOS"));
-
             }
 
 
@@ -294,72 +289,64 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             } else {
                 tipo = "";
             }
+            //end parsing
 
-
-            databga = new ArrayList<>();
-
-            ConnectivityManager cm =
-                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-            boolean isConnected = activeNetwork != null &&
-                    activeNetwork.isConnectedOrConnecting();
-
-            boolean internetConectionBywify;
-            String urlvideo = "";
+            //init media
+            mpMusic = new MediaPlayer();
+            dataBGA = new ArrayList<>();
+            String urlVideo = "";
+            String[] infoBgas = null;
             if (stepData.songInfo.get("BGCHANGES") != null) {
-                String[] infoBgas = stepData.songInfo.get("BGCHANGES").split(",");
-                if (infoBgas != null) {
-
-                    if (Common.checkBGADir(path, infoBgas[0], context) != null) {
-                        fileBGA = new File(Common.checkBGADir(path, infoBgas[0], context));
-                    } else {
-                        for (int i = 0; i < infoBgas.length; i++) {
-                            databga.add(infoBgas[i].split("="));
-
-                            for (String databgas : databga.get(i)) {
-
-                                if ((databgas.endsWith("mpg") || databgas.endsWith("mp4") || databgas.endsWith("avi"))) {
-
-                                    if (Common.checkBGADir(path, databgas, context) != null) {
-                                        fileBGA = new File(Common.checkBGADir(path, databgas, context));
-                                        BGA.bg.seekTo((int) (-offset * 1000));
-                                        break;
-                                    } else {
-                                        urlvideo = "https://kyagamy.mx/assets/bga/" + databgas;
-                                    }
-
-                                }
+                infoBgas = stepData.songInfo.get("BGCHANGES").split(",");
+            }
 
 
+            //end media
+
+
+            //init setting
+
+
+            //end setting
+
+
+            if (infoBgas != null && Common.checkBGADir(path, infoBgas[0], context) != null) {
+                fileBGA = new File(Common.checkBGADir(path, infoBgas[0], context));
+            } else {
+                for (int i = 0; i < infoBgas.length; i++) {
+                    dataBGA.add(infoBgas[i].split("="));
+                    for (String databgas : dataBGA.get(i)) {
+                        if ((databgas.endsWith("mpg") || databgas.endsWith("mp4") || databgas.endsWith("avi"))) {
+                            if (Common.checkBGADir(path, databgas, context) != null) {
+                                fileBGA = new File(Common.checkBGADir(path, databgas, context));
+                                BGA.bg.seekTo((int) (-offset * 1000));
+                                break;
+                            } else {
+                                urlVideo = "https://kyagamy.mx/assets/bga/" + databgas;
                             }
-
                         }
                     }
                 }
             }
+
+
             if (fileBGA != null && BGA != null && fileBGA.exists()) {//Si hay reproductor y si hay bga
                 BGA.setVideoPath(fileBGA.getPath());
-            } else if ((!urlvideo.equals("")) && Common.bgaExist(urlvideo)) {
-                Uri uri = Uri.parse(urlvideo);
+            } else if ((!urlVideo.equals("")) && Common.bgaExist(urlVideo)) {
+                Uri uri = Uri.parse(urlVideo);
                 BGA.bg.setVideoURI(uri);
             } else if (BGA != null) {
-
                 String path2 = "android.resource://" + context.getPackageName() + "/" + R.raw.bgaoff;
                 BGA.setVideoPath(path2);
             }
-
-
             //beat = (double) -offset / (60 / BPM);
             currentSecond = offset;
             pathMusic = path + "/" + stepData.songInfo.get("MUSIC");
             pathImage = path + "/" + stepData.songInfo.get("BACKGROUND");
 
 
-            //musica
 
 
-            mpMusic = new MediaPlayer();
             try {
                 mpMusic.setDataSource(pathMusic);
 
@@ -369,27 +356,33 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
+
+
+
+
+
+
+
+
             mpMusic.prepareAsync();
-
-
             mpMusic.setOnCompletionListener(mp -> {
                 startEvaluation();
                 stop();
             });
-
-
             // bgaBitmap = BitmapFactory.decodeFile(path + "/" + stepData.songInfo.get("BACKGROUND").toString());
             mainTread = new MainThread(getHolder(), this);
             fps = 0;
             setFocusable(true);
             touchPad = new GamePad(context, tipo, inputs);
 
-            if (ParamsSong.av==0){
+            if (ParamsSong.av == 0) {
                 currentSpeedMod = (int) (height * ParamsSong.speed / 4);
-            }else{
+            } else {
                 //currentSpeedMod = BPM;
-                float vel =  (float)ParamsSong.av/(float)( height*0.25);
-                currentSpeedMod = (int) (height *vel/2 );
+                float vel = (float) ParamsSong.av / (float) (height * 0.25);
+                currentSpeedMod = (int) (height * vel / 2);
             }
             if (ParamsSong.gameMode > 2) {
                 currentSpeedMod *= 2.2f;
@@ -411,20 +404,22 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
 
             if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {//horizonal
-
+                Common.HIDE_PAD= true;
                 if (tipo.equals("pump-single")) {
+                    Common.START_Y = 0.105f;
                     arrowSize = (int) (playerSizeX / 10 * 0.9);
-                    posIntX = (int) (playerSizeX * 0.125);
+                    posIntX = (int) (playerSizeX * 0.275);
+                    playerSizeY = (int) (Common.HEIGHT );
+
                 } else if (tipo.equals("pump-double")) {
+                    Common.START_Y = 0.105f;
+                    playerSizeY = (int) (Common.HEIGHT );
                     arrowSize = (int) (playerSizeX / 10 * 0.9);
                     posIntX = (int) (playerSizeX * 0.125);
-         /*       steps.receptor.draw(c, new Rect((int) (playerSizeX * 0.04), (int) currentY, (int) (playerSizeX * 0.542
-                ), (int) currentY + arrowSize));
-                steps.receptor.draw(c, new Rect((int) (playerSizeX * 0.435), (int) currentY, (int) (playerSizeX * 0.94
-                ), (int) currentY + arrowSize));*/
+
                 }
             } else {//portriot
-
+                Common.HIDE_PAD= false;
                 //playerSizeX = c.getWidth() * (1);
                 if (tipo.equals("pump-single")) {
                     switch (ParamsSong.gameMode) {
@@ -454,25 +449,25 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                             posIntX = 0;
                             break;
                     }
-
                 } else if (tipo.equals("pump-double") || tipo.equals("pump-routine")) {
                     arrowSize = (int) (playerSizeX / 10 * 0.8);
                     posIntX = (int) (playerSizeX * 0.1);
-                    playerSizeY = (int) (Common.HEIGHT * (0.62));
+                    playerSizeY = (int) (Common.HEIGHT * (0.54));
                 }
-
-                ObjectCombo = new Combo(context, playerSizeX, playerSizeY);
-                ObjectCombo.start();
-                mainTread.setRunning(true);
-                mainTread.start();
 
 
             }
 
+            ObjectCombo = new Combo(context, playerSizeX, playerSizeY);
+            ObjectCombo.start();
+            mainTread.setRunning(true);
+            mainTread.start();
+
+
             File bgImage = new File(pathImage);//se le asigna una mimagen al panel
             if (bgImage.exists() && bgImage.isFile()) {
                 Bitmap ww = BitmapFactory.decodeFile(bgImage.getPath());
-                if (ww != null && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                if (ww != null) {
                     ww = TransformBitmap.makeTransparent(TransformBitmap.myblur(ww, context), 130);
                     bga.bgPad.setImageBitmap(ww);
                 }
@@ -566,7 +561,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
         // bgaBitmap = null;
         soundPool = null;
         stepData = null;
-        databga = null;
+        dataBGA = null;
         fileBGA = null;
         BGA = null;
         touchPad = null;
@@ -600,7 +595,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 }
 
                 ObjectCombo.draw(canvas);
-                if (ParamsSong.gameMode < 3) {
+                if ( (!Common.HIDE_PAD)    ) {
                     touchPad.draw(canvas);
                 }
                 life.draw(canvas);
@@ -857,7 +852,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             pushToStackSteps(posBuffer, playerSizeY, stackSteps, currentY, true, true);
         } else {
 
-            pushToStackSteps(posBuffer, (int) (playerSizeY*1.1f), stackStepstop, currentY, false, false);
+            pushToStackSteps(posBuffer, (int) (playerSizeY * 1.1f), stackStepstop, currentY, false, false);
 
             //pushToStackSteps(posBuffer, 0, stackStepstop, currentY, true, false);
             while (!stackStepstop.isEmpty()) {
@@ -935,7 +930,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                             steps.noteSkins[0].explotionTails[w].stop();
                         }
                     }
-                    bufferSteps.get(posBuffer).rowStep = preseedRow;
+                    bufferSteps.get(posBuffer).rowStep = pressedRow;
                 } else if (containLongs(bufferSteps.get(posBuffer).rowStep)) {
                     residuoTick += ((double) currentTickCount / 48);
                     if (residuoTick >= 1) {
@@ -944,7 +939,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                         combopp();
                         currentLife += 0.5 * currentCombo;
                     }
-                    bufferSteps.get(posBuffer).rowStep = preseedRow;
+                    bufferSteps.get(posBuffer).rowStep = pressedRow;
                 }
             } else {//juicio normal
                 double[] currentJudge = Common.JUDMENT[ParamsSong.judgment];
@@ -964,11 +959,11 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
                 if (containTaps(bufferSteps.get(posBuffer + posBack).rowStep)) {//evaluate miss
                     comboLess();
-                    bufferSteps.get(posBuffer + posBack).rowStep = preseedRow;
+                    bufferSteps.get(posBuffer + posBack).rowStep = pressedRow;
                     posBack++;
                 }
                 if (containsMine(bufferSteps.get(posBuffer + posBack).rowStep)) {//evaluate miss
-                    bufferSteps.get(posBuffer + posBack).rowStep = preseedRow;
+                    bufferSteps.get(posBuffer + posBack).rowStep = pressedRow;
                     posBack++;
                 }
                 if (containLongs(bufferSteps.get(posBuffer + posBack).rowStep)) {
@@ -979,7 +974,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                         comboLess();
                         currentLife += 0.5 * currentCombo;
                         miss += currentCombo;
-                        //bufferSteps.get(posBuffer + posBack).rowStep = preseedRow;
+                        //bufferSteps.get(posBuffer + posBack).rowStep = pressedRow;
                     }
                 }
             }

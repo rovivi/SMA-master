@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -45,6 +46,7 @@ import com.example.rodrigo.sgame.CommonGame.Level;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.CommonGame.SSC;
 import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
+import com.example.rodrigo.sgame.CommonGame.zipUtils;
 import com.example.rodrigo.sgame.Player.NoteSkin;
 import com.example.rodrigo.sgame.ScreenSelectMusic.AdapterLevel;
 import com.example.rodrigo.sgame.ScreenSelectMusic.AdapterSSC;
@@ -55,6 +57,7 @@ import com.example.rodrigo.sgame.ScreenSelectMusic.SongsGroup;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -503,6 +506,18 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
     }
 
+
+
+    public void changeSongDemo (int position ){
+
+        changeMusic.play(spCode, 1, 1, 1, 0, 1.0f);
+        releaseMediaPlayer();
+        currentSSCIndex = position;
+        paths = songsGroup.listOfSongs.get(position).path.getPath();
+    }
+
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -666,7 +681,12 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         btnLevel.setOnClickListener(null);
         recyclerViewLevels.setVisibility(View.VISIBLE);
         btnLevel.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_out));
+
         lvlText.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_out));
+
+
+
+
         recyclerViewLevels.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_in_left));
 
     }
@@ -701,14 +721,11 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     private void loadSongs() {
         songsGroup = SongsGroup.readIt(getBaseContext());//busca su propio archivo
         if (songsGroup == null || Common.RELOAD_SONGS) {//Si no existe o si se esta recargando
-
             reloadSongs();
             AdapterSSC adapterSSC = new AdapterSSC(songsGroup, currentSongIndex);
             recyclerView.setAdapter(adapterSSC);
             //  themeElements.biuldObject(this, songsGroup);
         } else {
-
-
             AdapterSSC adapterSSC = new AdapterSSC(songsGroup, currentSongIndex);
             recyclerView.setAdapter(adapterSSC);
             concurrentSort(songsGroup.listOfSongs, songsGroup.listOfSongs);
@@ -855,19 +872,24 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     public void reloadSongs() {
         SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         songsGroup = new SongsGroup();
-
-
         File aux = Common.checkDirSongsFolders(this);
         if (aux == null) {//implement Chose folder stuff
 
         } else {
+
             files = new File(aux.getPath() + "/songs").listFiles();
-            if (files.length < 1) {
+            if (   files.length < 1) {
                 Toast.makeText(getBaseContext(), "There are't files in" + aux.getPath() + "/songs please chose a forder or put song data", Toast.LENGTH_LONG).show();
-                //Folder choser again
+                try {
+                    zipUtils zip= new zipUtils();
+                    zip.unpackZip(aux.getPath() ,getAssets().open("songs/had.zip"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 //implements add From assets Folder
                 songsGroup.addList(new File(aux.getPath() + "/songs"));
+
             }
         }
         if (songsGroup.listOfSongs.size() < 1) {
@@ -885,7 +907,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             prefsEditor.putBoolean("reload_songs", false);
             prefsEditor.apply();
             changeSong(0);
-
         }
     }
 
