@@ -1,2 +1,0 @@
-# Referenced at /home/rodrigo/Documentos/stepmix/Sgame/app/build/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:39
--keep class android.support.multidex.MultiDexApplication { <init>(...); }
