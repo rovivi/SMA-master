@@ -243,7 +243,6 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
             }
 
-
             if (WARPS != null) {
                 WARPS.addAll(auxBPM2WARP);
                 Collections.sort(WARPS, new Comparator<Float[]>() {
@@ -251,13 +250,9 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                         return o1[0].compareTo(o2[0]);
                     }
                 });
-            } else {
+            } else
                 WARPS = auxBPM2WARP;
-            }
-
-
             ///TEST AREA
-
             //ATTACKS= setMetadata(stepData.chartsInfo[nchar].get("ATTACKS"),stepData.songInfo.get("ATTACKS"));
 
             if (stepData.chartsInfo[nchar].get("OFFSET") != null) {

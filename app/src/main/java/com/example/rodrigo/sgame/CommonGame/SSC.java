@@ -88,8 +88,6 @@ public class SSC implements Serializable {
                                 } else {
                                     this.charts[chart] = this.step2Array(valor);
                                 }
-
-
                             }
                             break;
                         case "BPMS":
