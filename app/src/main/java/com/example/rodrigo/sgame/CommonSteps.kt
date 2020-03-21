@@ -85,12 +85,12 @@ public class CommonSteps {
                                 var counTick = 0
                                 try {
                                     while (true) {//prevent infinite loop
-                                        beatLong += (1.0 / 48)
+                                        beatLong += (1.0 / 192)
                                         //se debe de ir de 192 en 192 para que no sé
                                         val newRowAux = steps.firstOrNull { findRow -> almostEqual(beatLong, findRow.currentBeat) }
                                         if (newRowAux == null) {
-                                            if ((48 / currentTickCount) <= counTick) {
-                                                val valaaa = currentTickCount / 48
+                                            if ((192 / currentTickCount) <= counTick) {
+                                                val valaaa = currentTickCount / 192
                                                 val string = "$valaaa >$counTick"
                                                 println(string)
                                                 counTick = 0
@@ -132,46 +132,48 @@ public class CommonSteps {
         }
 
         fun stopsToScroll(steps: ArrayList<GameRow>) {
+            var rowaux = GameRow();
+            var bpm = 0.0;
             try {
                 var currentBPM = 0.0
                 var currentScroll = 0.0
                 var count = 0
                 while (count < steps.size) {
                     val row = steps[count]
+                    rowaux = row
                     if (row.modifiers != null) {
-                        row.modifiers!!.forEach { mod ->
-                            when (mod.key) {
-                                "BPMS" -> {
-                                    currentBPM = mod.value[1]
-                                }
-                                "SCROLLS" -> {
-                                    currentScroll = mod.value[1]
-                                }
-                                "STOPS", "DELAYS" -> {//Stop Into Beat Conversion
-                                    try {
-                                        val rowStop = GameRow()
-                                        rowStop.modifiers = hashMapOf()
-                                        rowStop.modifiers!!["SCROLLS"] = arrayListOf(0.0, 0.0)
-                                        rowStop.currentBeat = row.currentBeat
-                                        steps.add(rowStop)
-                                        val additionalBeats = secondToBeat(mod.value[1], currentBPM)
-                                        row.modifiers!!["SCROLLS"] = arrayListOf(0.0, currentScroll)
-                                        row.currentBeat += additionalBeats
-                                        for (rows in steps) {
-                                            if (rows.currentBeat > rowStop.currentBeat && rows != row)
-                                                rows.currentBeat += additionalBeats
-                                        }
-                                    } catch (ex: ConcurrentModificationException) {
-                                        ex.printStackTrace()
-                                    }
-                                }
+
+                        currentBPM = row.modifiers!!["BPMS"]?.get(1) ?: currentBPM
+                        currentScroll = row.modifiers!!["SCROLLS"]?.get(1) ?: currentScroll
+                        var stopValue: Double? = null
+                        if (row.modifiers!!["STOPS"] != null)
+                            stopValue = row.modifiers!!["STOPS"]?.get(1)
+                        if (row.modifiers!!["DELAYS"] != null)
+                            stopValue = row.modifiers!!["DELAYS"]?.get(1)
+
+                        if (stopValue != null) {
+                            val rowStop = GameRow()
+                            rowStop.modifiers = hashMapOf()
+                            rowStop.modifiers!!["SCROLLS"] = arrayListOf(0.0, 0.0)
+                            rowStop.currentBeat = row.currentBeat
+                            steps.add(rowStop)
+                            val additionalBeats = secondToBeat(stopValue, currentBPM)
+                            row.modifiers!!["SCROLLS"] = arrayListOf(0.0, currentScroll)
+                            row.currentBeat += additionalBeats
+//                                        for (rows in steps) {
+                            for (i in 0 until steps.size) {
+                                bpm = steps[i].currentBeat
+//                                if (i >= steps.size - 1)
+//                                    break
+                                if (steps[i].currentBeat > rowStop.currentBeat && steps[i] != row)
+                                    steps[i].currentBeat += additionalBeats
                             }
                         }
                     }
-                    count++
+                count++
                 }
             } catch (ex: Exception) {
-                Log.d("Parse error ", "Conversion stop to scroll Failed ")
+                Log.d("Parse error ", "Conversion stop to scroll Failed $rowaux")
                 throw ex
             }
         }
@@ -193,6 +195,7 @@ public class CommonSteps {
                 const val NOTE_ITEM_FAKE = 0x21   //  0b00100001
                 const val NOTE_ITEM = 0x61   //  0b01100001
                 const val NOTE_ROW = 0x80   //  0b10000000
+
                 /*  Effect Stuff    */
                 /*
                                             [Type, Attr, Seed, Attr2]

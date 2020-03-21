@@ -40,7 +40,7 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
     public MainThreadNew mainTread;
     private ArrayList<GameRow> steps;
 
-    int FrameCounter=0;
+    int FrameCounter = 0;
 
 
     //private Bitmap bgaBitmap;
@@ -77,12 +77,13 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
     }
 
 
-
     private Runnable musicRun = new Runnable() {
         @Override
         public void run() {
-            if (mpMusic != null)
+            if (mpMusic != null) {
                 mpMusic.start();
+                isRunning = true;
+            }
         }
     };
 
@@ -127,12 +128,12 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
 
 
             //steps
-            stepsDrawer= new StepsDrawer(getContext(),stepData.getStepType());
+            stepsDrawer = new StepsDrawer(getContext(), stepData.getStepType());
 
-            offset=stepData.getSongOffset();
+            offset = stepData.getSongOffset();
             mpMusic.prepare();
-            mpMusic.setOnCompletionListener(mp -> stop()  );
-            mpMusic.setOnPreparedListener(mp ->startGame());
+            mpMusic.setOnCompletionListener(mp -> stop());
+            mpMusic.setOnPreparedListener(mp -> startGame());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,7 +141,7 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void reset() {
-        currentBeat = 0; 
+        currentBeat = 0;
         currentSecond = 20;
         currentElement = 0;
     }
@@ -152,18 +153,21 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
         mainTread.start();
     }
 
+
     public void startGame() {
         currentTempoBeat = currentTempo = startTime = System.nanoTime();
         try {
             if (mainTread.running) {
-                isRunning = true;
-                currentBeat = -1;
-                if (offset > 0)
+                if (offset > 0) {
                     handler1.postDelayed(musicRun, (long) (offset * 1000));
-                else {
+                } else {
                     //currentBeat = (double) offset / (60 / BPM);
                     mpMusic.seekTo((int) Math.abs(offset * 1000));
-                    mpMusic.start();
+                    mpMusic.setOnPreparedListener(mp -> {
+                        mpMusic.start();
+                        isRunning = true;
+                    });
+                    mpMusic.prepare();
                 }
             } else
                 mainTread.sulrfaceHolder = this.getHolder();
@@ -180,13 +184,14 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceDestroyed(SurfaceHolder holder) {
         stop();
     }
+
     public void draw(Canvas canvas) {
         super.draw(canvas);
         //se limpia la pantalla
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
         try {
-            int speed = (int) (50*ParamsSong.speed);
+            int speed = (int) (50 * ParamsSong.speed);
             double lastScrollAux = lastScroll;
             double lastBeat = this.currentBeat + 0;
             double lastPosition = 100;
@@ -197,9 +202,9 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
                         GameRow currentElemt = steps.get(currentElement + x);
                         double diffBeats = currentElemt.getCurrentBeat() - lastBeat;
                         lastPosition += diffBeats * speed * currentSpeedMod * lastScrollAux;
-                        if (lastPosition >= playerSizeY/2)
+                        if (lastPosition >= playerSizeY / 2)
                             break;
-                        if (currentElemt.getNotes() != null){
+                        if (currentElemt.getNotes() != null) {
                             stepsDrawer.draw(canvas, currentElemt.getNotes(), (int) lastPosition);
                         }
                         if (currentElemt.getModifiers() != null && currentElemt.getModifiers().get("SCROLLS") != null)
@@ -216,7 +221,7 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update() {
-        if (isRunning){
+        if (isRunning) {
             calculateBeat();
             stepsDrawer.update();
         }
@@ -305,8 +310,8 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
         c.drawText("C Speed: " + this.currentSpeedMod, 0, playerSizeY - 100, paint);
         c.drawText("Scroll: " + this.lastScroll, 0, playerSizeY - 400, paint);
         c.drawText("pad: ", playerSizeX - 250, playerSizeY - 20, paint);
-        c.drawText("frame: " +FrameCounter++, 100, 100, paint);
-      //  paint.setColor(Color.BLACK);
+        c.drawText("frame: " + FrameCounter++, 100, 100, paint);
+        //  paint.setColor(Color.BLACK);
         paint.setColor(Color.TRANSPARENT);
     }
 
@@ -346,9 +351,6 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
             e.printStackTrace();
         }
     }
-
-
-
 
 
 }

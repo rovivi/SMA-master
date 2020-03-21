@@ -371,7 +371,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
 
     public void playSoundPool(int spCode) {
-        changeMusic.play(spCode, 1, 1, 1, 0, 1.1f);
+        changeMusic.play(spCode, 0.5f, 0.5f, 1, 0, 1.1f);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)

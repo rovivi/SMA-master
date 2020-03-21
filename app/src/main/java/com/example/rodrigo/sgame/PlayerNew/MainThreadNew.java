@@ -26,7 +26,7 @@ public class MainThreadNew extends Thread {
     public void run() {
         long startTime, waitTime,  timeLapsed ;
         int frameCount = 0;
-        waitTime = 4;
+        waitTime = 0;
         startTime = System.nanoTime();
         while (running) {
 
@@ -44,15 +44,9 @@ public class MainThreadNew extends Thread {
                     if (canvas != null) {
                         sulrfaceHolder.unlockCanvasAndPost(canvas);
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            try {
-                    sleep(waitTime);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
             timeLapsed = System.nanoTime() - startTime;
             frameCount++;

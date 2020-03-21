@@ -25,7 +25,8 @@ class FileSSC(override var pathFile: String, override var indexStep: Int) : Step
         stepObject.levelMetada = HashMap()
         var steps: ArrayList<GameRow> = arrayListOf()
 
-        //Se limpian los comentarios
+        //Se limpian los comen
+        // tarios
         stringData = stringData.replace(Regex("(\\s+//-([^;]+)\\s)|(//[\\s+]measure\\s[0-9]+\\s)"), "")
 
         //Se crea el matcher Para Seccionar el Regex
@@ -67,12 +68,15 @@ class FileSSC(override var pathFile: String, override var indexStep: Int) : Step
                 "BPMS", "WARPS", "TICKCOUNTS", "SPEEDS", "SCROLLS", "STOPS", "DELAYS", "COMBOS" -> {
                     modifier.value.forEach { values ->
                         //effect List
+                        println("processing " + modifier.key)
                         val beat = values[0]
                         val element =
                                 steps.firstOrNull { row -> CommonSteps.almostEqual(row.currentBeat, beat) }
                         val index = (steps.indexOf(element))
                         if (index != -1) {
-                            if (steps[index].modifiers == null) steps[index].modifiers = HashMap()
+                            if (steps[index].modifiers == null) {
+                                steps[index].modifiers = HashMap()
+                            }
                             steps[index].modifiers?.put(modifier.key, values)
                         } else {
                             val newRow = GameRow()
@@ -84,18 +88,19 @@ class FileSSC(override var pathFile: String, override var indexStep: Int) : Step
                     }
                 }
             }
+            CommonSteps.orderByBeat(steps)
         }
 
-        CommonSteps.orderByBeat(steps)//se ordernan
+        //se ordernan
         CommonSteps.applyLongNotes(steps, CommonSteps.lengthByStepType(stepObject.stepType))//Se aplican los longs
 
-        CommonSteps.stopsToScroll(steps)//Se aplican los longs
+        CommonSteps.stopsToScroll(steps)//Se aplican los stops
         CommonSteps.orderByBeat(steps)
         steps.filter { x -> x.notes != null }.forEach { x -> println(x.toString()) }
         stepObject.steps = steps
         /**End Apply effects*/
         stepObject.songMetada = songMetaData
-        stepObject.levelMetada=levelMetaData
+        stepObject.levelMetada = levelMetaData
         //stepObject.steps.forEach { x -> println(x) }
         return stepObject
     }

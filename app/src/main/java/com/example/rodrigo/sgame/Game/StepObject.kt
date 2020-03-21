@@ -46,6 +46,10 @@ class StepObject {
     }
 
 
+//    fun getBPM():Doubl{
+//
+//        return steps[0].modifiers!!["BPMS"]).get(1)
+//    }
 
 }
 

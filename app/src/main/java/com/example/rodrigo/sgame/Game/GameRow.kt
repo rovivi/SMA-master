@@ -6,6 +6,7 @@ class GameRow {
     var notes :ArrayList<Note>? = null
     var currentBeat :Double = 0.0
     var modifiers : HashMap<String, ArrayList<Double>>?= null
+    var currentY:Double=0.0
 
 
     override fun toString(): String {
