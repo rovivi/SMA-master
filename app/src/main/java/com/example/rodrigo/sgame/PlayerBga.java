@@ -72,28 +72,28 @@ public class PlayerBga extends Activity {
     };
 
 
-    Runnable animateGpo = new Runnable() {
-        @Override
-        public void run() {
-            if (Common.AnimateFactor >= 0) {
-                Common.AnimateFactor--;
-                handler.postDelayed(this, 10);
-            } else if (!gpo.isRunning) {
-
-                bgPad.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in));
-
-                tvMsj.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_out_right));
-
-                if (!gamePlayError && gpo != null) {
-                    gpo.startGame();
-                } else {
-                    finish();
-                }
-
-            }
-
-        }
-    };
+//    Runnable animateGpo = new Runnable() {
+//        @Override
+//        public void run() {
+//            if (Common.AnimateFactor >= 0) {
+//                Common.AnimateFactor--;
+//                handler.postDelayed(this, 10);
+//            } else if (!gpo.isRunning) {
+//
+//                bgPad.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in));
+//
+//                tvMsj.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_out_right));
+//
+//                if (!gamePlayError && gpo != null) {
+//                    gpo.startGame();
+//                } else {
+//                    finish();
+//                }
+//
+//            }
+//
+//        }
+//    };
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

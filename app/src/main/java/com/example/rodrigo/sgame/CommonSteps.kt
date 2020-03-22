@@ -89,8 +89,8 @@ public class CommonSteps {
                                         //se debe de ir de 192 en 192 para que no sé
                                         val newRowAux = steps.firstOrNull { findRow -> almostEqual(beatLong, findRow.currentBeat) }
                                         if (newRowAux == null) {
-                                            if ((192 / currentTickCount) <= counTick) {
-                                                val valaaa = currentTickCount / 192
+                                            if ((48 / currentTickCount) <= counTick) {
+                                                val valaaa = currentTickCount / 48
                                                 val string = "$valaaa >$counTick"
                                                 println(string)
                                                 counTick = 0
