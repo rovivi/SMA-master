@@ -13,36 +13,39 @@ class StepObject {
 
 
     /**Media Data*/
-    var path: String=""
+    var path: String = ""
     var songFileName: String = ""
     var bgImageFileName: String = ""
 
 
-
-
-
     //Functions
 
-    fun getMusicPath():String{
-        return path+"/"+ songMetada.get("MUSIC")
+    fun getMusicPath(): String {
+        return path + "/" + songMetada.get("MUSIC")
     }
 
     ///TEST AREA
 //ATTACKS= setMetadata(stepData.chartsInfo[nchar].get("ATTACKS"),stepData.songInfo.get("ATTACKS"));
 
-    fun getSongOffset():Float{
+    fun getSongOffset(): Float {
 
-    if (levelMetada["OFFSET"] != null)
-    {
-        val xof: String = levelMetada["OFFSET"].toString()
-        offset = xof.toFloat().toDouble()
-    } else
-    {
-        val xof: String = songMetada["OFFSET"].toString()
-        offset += xof.toFloat()
-    }
+        if (levelMetada["OFFSET"] != null) {
+            val xof: String = levelMetada["OFFSET"].toString()
+            offset = xof.toFloat().toDouble()
+        } else {
+            val xof: String = songMetada["OFFSET"].toString()
+            offset += xof.toFloat()
+        }
 //    offset += (com.example.rodrigo.sgame.CommonGame.Common.OFFSET as kotlin.Float / 1000)
         return offset.toFloat()
+    }
+
+    fun getBgChanges(): String {
+
+        if (levelMetada["BGCHANGES"] != null)
+            return levelMetada["BGCHANGES"].toString()
+        else
+            return songMetada["BGCHANGES"].toString()
     }
 
 

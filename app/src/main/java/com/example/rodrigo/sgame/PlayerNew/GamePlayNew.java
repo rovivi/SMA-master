@@ -13,11 +13,15 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.VideoView;
+
 import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
+
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
+
 import game.GameRow;
 import game.StepObject;
 
@@ -36,6 +40,7 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
     //////
     StepsDrawer stepsDrawer;
     String msj;
+    BgPlayer bgPlayer;
 
     public GamePlayNew(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -54,11 +59,11 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public GamePlayNew(Context context, StepObject steps) {
         super(context);
-        build1Object(context, steps);
+        build1Object(null, steps);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void build1Object(Context context, StepObject stepData) {
+    public void build1Object(VideoView videoView, StepObject stepData) {
         try {
             this.setZOrderOnTop(true); //necessary
             getHolder().setFormat(PixelFormat.TRANSPARENT);
@@ -68,6 +73,9 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
             mpMusic = new MediaPlayer();
             mainTread = new MainThreadNew(getHolder(), this);
             mainTread.setRunning(true);
+
+            bgPlayer = new BgPlayer(stepData.getPath(), stepData.getBgChanges(), videoView, getContext());
+
             fps = 0d;
             setFocusable(true);
             paint = new Paint();
@@ -75,6 +83,7 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
             //-- Metrics of player
             playerSizeX = Common.WIDTH;
             playerSizeY = Common.HEIGHT;
+
 
             paint.setColor(Color.WHITE);
             try {
@@ -102,11 +111,13 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
         mainTread.setRunning(true);
         mainTread.start();
     }
+
     public void startGame() {
         gameState.start();
         try {
             if (mainTread.running) {
                 if (gameState.offset > 0) {
+                    bgPlayer.start(gameState.currentBeat);
                     handler1.postDelayed(musicRun, (long) (gameState.offset * 1000));
                 } else {
                     mpMusic.seekTo((int) Math.abs(gameState.offset * 1000));
@@ -114,6 +125,7 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
                         mpMusic.start();
                         gameState.isRunning = true;
                     });
+                    bgPlayer.start(gameState.currentBeat);
                     mpMusic.prepare();
                 }
             } else
@@ -165,6 +177,7 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
         gameState.update();
         if (gameState.isRunning) {
             stepsDrawer.update();
+            bgPlayer.update(gameState.currentBeat);
         }
     }
 

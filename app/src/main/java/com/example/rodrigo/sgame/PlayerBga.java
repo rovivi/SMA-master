@@ -71,31 +71,6 @@ public class PlayerBga extends Activity {
         }
     };
 
-
-//    Runnable animateGpo = new Runnable() {
-//        @Override
-//        public void run() {
-//            if (Common.AnimateFactor >= 0) {
-//                Common.AnimateFactor--;
-//                handler.postDelayed(this, 10);
-//            } else if (!gpo.isRunning) {
-//
-//                bgPad.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in));
-//
-//                tvMsj.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_out_right));
-//
-//                if (!gamePlayError && gpo != null) {
-//                    gpo.startGame();
-//                } else {
-//                    finish();
-//                }
-//
-//            }
-//
-//        }
-//    };
-
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,9 +89,9 @@ public class PlayerBga extends Activity {
                             | View.SYSTEM_UI_FLAG_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_IMMERSIVE);
         } catch (NullPointerException e) {
+
         }
 
-        // Common.AnimateFactor=100;
         setContentView(R.layout.activity_playerbga);
         tvMsj = findViewById(R.id.gamemsg);
         audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -170,10 +145,8 @@ public class PlayerBga extends Activity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed(ParamsSong.rush));// Esto será para el rush
             }
-
         });
         bg.start();
-
     }
 
     public void StartEvaluation(int[] params) {
@@ -181,7 +154,6 @@ public class PlayerBga extends Activity {
         i.putExtra("pathbg", "");
         i.putExtra("name", "Noame");
         i.putExtra("nchar", nchar);
-
         startActivity(i);
     }
 
@@ -209,8 +181,6 @@ public class PlayerBga extends Activity {
         }
     }
 
-
-
     public Point getresolution() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -232,16 +202,14 @@ public class PlayerBga extends Activity {
                 StepObject step = new FileSSC(s,nchar).parseData();
                 step.setPath(path);
 //                gpo.build1Object(getBaseContext(), new SSC(z, false), nchar, path, this, pad, Common.WIDTH, Common.HEIGHT);
-                gpo.build1Object(getBaseContext(),step);
+                gpo.build1Object(bg,step);
             } catch (Exception e) {
                 e.printStackTrace();
                 gamePlayError = true;
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) gl.getLayoutParams();
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
