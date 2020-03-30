@@ -135,24 +135,5 @@ public class BgPlayer {
         public float getBeat() {
             return beat;
         }
-        public String getFileName() {
-            return fileName;
-        }
-        public void setFileName(String fileName) {
-            this.fileName = fileName;
-        }
-        public float getProp1() {
-            return prop1;
-        }
-        public byte getProp2() {
-            return prop2;
-        }
-        public byte getProp3() {
-            return prop3;
-        }
-
-        public byte getProp4() {
-            return prop4;
-        }
     }
 }

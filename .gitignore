@@ -1,0 +1,53 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+.gradle/
+.idea/.gitignore
+.idea/assetWizardSettings.xml
+.idea/caches/
+.idea/codeStyles/
+.idea/gradle.xml
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/runConfigurations.xml
+.idea/vcs.xml
+README.md
+SMA-master.iml
+Sgame.iml
+app/app.iml
+app/build.gradle
+app/build/generated/ap_generated_sources/
+app/build/generated/fabric/
+app/build/generated/not_namespaced_r_class_sources/
+app/build/generated/res/
+app/build/intermediates/
+app/build/kotlin/
+app/build/outputs/
+app/build/tmp/
+app/google-services.json
+app/libs/
+app/proguard-rules.pro
+app/src/main/AndroidManifest.xml
+app/src/main/assets/
+app/src/main/ic_launcher-web.png
+app/src/main/java/com/example/rodrigo/sgame/ScreenSelectMusic/
+app/src/main/res/
+build.gradle
+build/
+gradle.properties
+gradle/
+gradlew
+gradlew.bat
+import-summary.txt
+local.properties
+obbzipreader/
+settings.gradle
+zip_file/
+zip_file1/

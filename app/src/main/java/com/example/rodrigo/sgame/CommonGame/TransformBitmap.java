@@ -14,7 +14,7 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 
 public class TransformBitmap {
     public static Bitmap RotateBitmap(Bitmap source, float angle) {

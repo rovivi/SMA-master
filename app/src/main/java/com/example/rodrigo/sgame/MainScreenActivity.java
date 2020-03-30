@@ -1,16 +1,13 @@
 package com.example.rodrigo.sgame;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -21,8 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.example.rodrigo.sgame.CommonGame.CustomSprite.Sprite;
-import com.example.rodrigo.sgame.CommonGame.CustomSprite.SpriteReader;
 import com.example.rodrigo.sgame.CommonGame.CustomSprite.ThreadSprite;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;

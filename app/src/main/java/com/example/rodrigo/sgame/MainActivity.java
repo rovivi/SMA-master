@@ -3,7 +3,7 @@ package com.example.rodrigo.sgame;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -13,7 +13,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.example.rodrigo.sgame.CommonGame.SSC;
