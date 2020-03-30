@@ -74,7 +74,7 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
             mainTread = new MainThreadNew(getHolder(), this);
             mainTread.setRunning(true);
 
-            bgPlayer = new BgPlayer(stepData.getPath(), stepData.getBgChanges(), videoView, getContext());
+            bgPlayer = new BgPlayer(stepData.getPath(), stepData.getBgChanges(), videoView, getContext(),gameState.BPM);
 
             fps = 0d;
             setFocusable(true);

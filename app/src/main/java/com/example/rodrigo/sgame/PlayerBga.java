@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
@@ -107,6 +108,16 @@ public class PlayerBga extends Activity {
         if (pathImg != null) {
             bgPad.setImageBitmap(BitmapFactory.decodeFile(pathImg));
         }
+
+        bg.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+                mp.setVolume(0,0);
+            }
+        });
+
+
     }
 
 

@@ -16,8 +16,9 @@ public class BgPlayer {
     private Context context;
     boolean changeVideo = false, isRunning = false;
     private String path;
+    private Double BPM ;
 
-    public BgPlayer(String path, String data, VideoView player, Context context) {
+    public BgPlayer(String path, String data, VideoView player, Context context, Double BPM) {
         assert data != null;
         assert player != null;
         assert context != null;
@@ -25,6 +26,7 @@ public class BgPlayer {
         this.context = context;
         this.path = path;
         this.player = player;
+        this.BPM =BPM;
         String[] listBG = data.replace("\n", "").replace("\r", "").split(",");
         for (String bg : listBG) {
             BGList.add(new bgChange(bg));
@@ -38,6 +40,7 @@ public class BgPlayer {
             if (changeVideo && bg.beat <= beat) {
 
                 try {
+                    if (bg.fileName.contains(".")){
                     String ext = bg.fileName.substring(bg.fileName.lastIndexOf("."));
                     ext = ext.toLowerCase();
                     switch (ext) {
@@ -50,8 +53,11 @@ public class BgPlayer {
                         case ".mpg":
                         case ".flv":
                             String bgaDir = Common.checkBGADir(path, bg.fileName, context);
+                            player.setBackground(null);
                             if (bgaDir != null) {
                                 player.setVideoPath(bgaDir);
+                                if (bg.beat<0)
+                                    player.seekTo((int) Math.abs(Common.beat2Second(bg.beat,BPM)*1000  +100));
                                 player.start();
                             }
                             else
@@ -70,7 +76,7 @@ public class BgPlayer {
                             break;
                         default:
                             break;
-                    }
+                    }}
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 } finally {
@@ -86,12 +92,6 @@ public class BgPlayer {
 
     private void playBgaOff() {
         String path2 = "android.resource://" + context.getPackageName() + "/" + R.raw.bgaoff;
-        player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.setLooping(true);
-            }
-        });
         player.setVideoPath(path2);
         player.start();
     }
