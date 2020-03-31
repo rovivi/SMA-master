@@ -48,6 +48,15 @@ class StepObject {
             return songMetada["BGCHANGES"].toString()
     }
 
+    fun getInitialBPM(): Double {
+        var x = 0;
+        while (true) {
+            if (steps[x].modifiers != null && steps[x].modifiers?.get("BPMS") != null)
+                return steps[x].modifiers?.get("BPMS")?.get(1)!!
+            x++
+        }
+    }
+
 
 //    fun getBPM():Doubl{
 //

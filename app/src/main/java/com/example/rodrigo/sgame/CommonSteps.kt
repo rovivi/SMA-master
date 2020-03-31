@@ -177,7 +177,6 @@ public class CommonSteps {
                 throw ex
             }
         }
-
         class NX20 {
             companion object {
                 //Constants

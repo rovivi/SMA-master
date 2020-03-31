@@ -66,11 +66,6 @@ public class Splash extends AppCompatActivity {
         MultiDex.install(getApplicationContext());
         super.onCreate(savedInstanceState);
 
-
-        //Bitmap prueba = BitmapFactory.decodeResource(getResources(), R.drawable.press_raw);
-        //Bitmap[] test211 = TransformBitmap.customSpriteArray(prueba, 5, 2, 0, 5);
-
-
         setContentView(R.layout.activity_splash);
         try {
             this.getSupportActionBar().hide();
@@ -88,14 +83,10 @@ public class Splash extends AppCompatActivity {
 
         }
         splashImage = findViewById(R.id.ivSpash);
-        // splashImage.setVisibility(View.GONE);
-
         anim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         handler = new Handler();
 
         splashImage.setVisibility(View.GONE);
-
-
     }
 
     public void startSongList() {
@@ -109,9 +100,6 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-
-        //  Common.setParamsGlobal(this);
 
 
         handler.postDelayed(runAnimation, 1000);

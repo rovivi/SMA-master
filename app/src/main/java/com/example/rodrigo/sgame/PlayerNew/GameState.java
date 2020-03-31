@@ -26,10 +26,9 @@ public class GameState {
     public boolean isRunning = true;
 
 
-
-    public GameState(StepObject stepData){
+    public GameState(StepObject stepData) {
         steps = stepData.steps;
-        BPM = Objects.requireNonNull(Objects.requireNonNull(steps.get(0).getModifiers()).get("BPMS")).get(1);
+        BPM = stepData.getInitialBPM();
         offset = stepData.getSongOffset();
 
     }
@@ -50,12 +49,16 @@ public class GameState {
         }
         if (effects.get("SPEEDS") != null) {
             ArrayList<Double> entry = effects.get("SPEEDS");
-            if (entry.get(2) == 0d)
-                currentSpeedMod = entry.get(1);
-            else {
-                initialSpeedMod = currentSpeedMod;
-                currentSpeed = entry;
+            if (entry.get(2) == 0d && currentSpeed != null) {// esta cosa rara creo que la hace SM es la unica forma en la que pude "imitar unos efectos"
+                currentSpeed.get(2);
+                entry.set(2, currentSpeed.get(2));
             }
+//
+//            if (currentSpeed!=null)
+//                System.out.println("aqui owo");
+
+            initialSpeedMod = currentSpeedMod;
+            currentSpeed = entry;
         }
         if (effects.get("SCROLLS") != null) {
             lastScroll = effects.get("SCROLLS").get(1);//==0d?1d:0d;
@@ -91,6 +94,7 @@ public class GameState {
         isRunning = !(currentElement >= steps.size());
 
     }
+
     protected void reset() {
         currentBeat = 0;
         currentSecond = 20;
@@ -99,7 +103,6 @@ public class GameState {
 
     public void start() {
         currentTempoBeat = currentTempo = startTime = System.nanoTime();
-
     }
 
     public void update() {
@@ -111,14 +114,13 @@ public class GameState {
     }
 
     void calculateCurrentSpeed() {
-        double beatInicial = currentSpeed.get(0);
+        double beatInitial = currentSpeed.get(0);
         double razonBeat = (initialSpeedMod - currentSpeed.get(1)) / currentSpeed.get(2);
         double metaSpeed = currentSpeed.get(1);
         double metaBeat = currentSpeed.get(0) + currentSpeed.get(2);
-        currentSpeedMod = initialSpeedMod + (beatInicial - currentBeat) * razonBeat;
-        if (CommonSteps.Companion.almostEqualEasy(metaSpeed, currentSpeedMod) || currentBeat >= metaBeat) {
+        currentSpeedMod = initialSpeedMod + (beatInitial - currentBeat) * razonBeat;
+        if (CommonSteps.Companion.almostEqual(metaSpeed, currentSpeedMod) || currentBeat >= metaBeat) {
             currentSpeedMod = metaSpeed;
-            currentSpeed = null;
         }
     }
 
