@@ -2,7 +2,7 @@ package com.example.rodrigo.sgame.CommonGame;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 
 import java.io.File;
 import java.io.Serializable;
@@ -88,8 +88,6 @@ public class SSC implements Serializable {
                                 } else {
                                     this.charts[chart] = this.step2Array(valor);
                                 }
-
-
                             }
                             break;
                         case "BPMS":

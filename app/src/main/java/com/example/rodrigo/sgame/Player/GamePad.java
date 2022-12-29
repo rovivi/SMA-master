@@ -8,8 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.view.WindowManager;
+import androidx.annotation.RequiresApi;
 
 import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;

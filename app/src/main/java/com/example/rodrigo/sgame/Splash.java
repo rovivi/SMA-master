@@ -4,30 +4,20 @@ package com.example.rodrigo.sgame;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.RequiresApi;
-import android.support.multidex.MultiDex;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.RequiresApi;
+import androidx.multidex.MultiDex;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.example.rodrigo.sgame.CommonGame.Common;
-import com.example.rodrigo.sgame.CommonGame.TransformBitmap;
-import com.google.android.gms.ads.MobileAds;
 
 
 public class Splash extends AppCompatActivity {
@@ -76,11 +66,6 @@ public class Splash extends AppCompatActivity {
         MultiDex.install(getApplicationContext());
         super.onCreate(savedInstanceState);
 
-
-        //Bitmap prueba = BitmapFactory.decodeResource(getResources(), R.drawable.press_raw);
-        //Bitmap[] test211 = TransformBitmap.customSpriteArray(prueba, 5, 2, 0, 5);
-
-
         setContentView(R.layout.activity_splash);
         try {
             this.getSupportActionBar().hide();
@@ -98,14 +83,10 @@ public class Splash extends AppCompatActivity {
 
         }
         splashImage = findViewById(R.id.ivSpash);
-        // splashImage.setVisibility(View.GONE);
-
         anim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         handler = new Handler();
 
         splashImage.setVisibility(View.GONE);
-
-
     }
 
     public void startSongList() {
@@ -119,9 +100,6 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-
-        //  Common.setParamsGlobal(this);
 
 
         handler.postDelayed(runAnimation, 1000);

@@ -1,0 +1,67 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/pref_default_display_name"
+        android:icon="@drawable/black_ur"
+        android:inputType="textCapWords"
+        android:key="pref_nickname"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_display_name" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:icon="@drawable/lvl"
+        android:key="reload_songs"
+        android:summary="Restart required"
+        android:title="Reload Sons" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:icon="@drawable/stop5_on"
+        android:key="custom_pad_hide_nav"
+        android:summary="@string/pref_pad_hide_nav_bar_desc"
+        android:title="@string/pref_pad_hide_nav_bar" />
+
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="0"
+        android:icon="@drawable/black_up"
+        android:inputType="number|numberSigned"
+        android:key="pref_offset"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="@string/pref_title_offset_desc"
+        android:title="Global Offset"
+
+        />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:key="pref_show_stats"
+        android:summary="Show GamePlay Stats"
+        android:title="Show Stats" />
+    <ListPreference
+        android:defaultValue="0"
+        android:entries="@array/list_preference_entries"
+        android:entryValues="@array/list_preference_entry_values"
+        android:icon="@drawable/hexa_single"
+        android:key="pad_type"
+        android:title="@string/pref_pad_type" />
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/list_preference_quality"
+        android:entryValues="@array/list_preference_entry_quality"
+        android:icon="@drawable/black_ur"
+        android:key="list_preference_quality_2d"
+        android:title="Quality" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:icon="@drawable/blue_tip"
+        android:key="anim_at_start"
+        android:summary="0"
+        android:title="Animation at Start" />
+
+</PreferenceScreen>

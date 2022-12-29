@@ -2,9 +2,8 @@ package com.example.rodrigo.sgame;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 

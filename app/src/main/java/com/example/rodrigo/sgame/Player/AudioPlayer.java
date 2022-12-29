@@ -1,21 +1,23 @@
 package com.example.rodrigo.sgame.Player;
 
+import android.media.AudioFormat;
+import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.util.Log;
 
 public class AudioPlayer
         extends AudioTrack
 {
-    private boolean a = false;
+    private boolean isPlaying = false;
 
-    public AudioPlayer(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5)
+    public AudioPlayer( int bitRate, int audioFormat, int length)
     {
-        super(paramInt1, paramInt2, paramInt3, paramInt4, paramInt5, 1);
+        super(AudioManager.STREAM_MUSIC, bitRate, audioFormat, length, AudioFormat.ENCODING_PCM_16BIT, AudioTrack.MODE_STREAM);
     }
 
     public void flush()
     {
-        if (this.a) {
+        if (this.isPlaying) {
             return;
         }
         super.flush();
@@ -23,7 +25,7 @@ public class AudioPlayer
 
     public int getPlaybackHeadPosition()
     {
-        if (this.a) {
+        if (this.isPlaying) {
             return -1;
         }
         return super.getPlaybackHeadPosition();
@@ -31,7 +33,7 @@ public class AudioPlayer
 
     public int getPlaybackRate()
     {
-        if (this.a) {
+        if (this.isPlaying) {
             return -1;
         }
         return super.getPlaybackRate();
@@ -39,7 +41,7 @@ public class AudioPlayer
 
     public void pause()
     {
-        if (this.a) {
+        if (this.isPlaying) {
             return;
         }
         super.pause();
@@ -47,7 +49,7 @@ public class AudioPlayer
 
     public void play()
     {
-        if (this.a) {
+        if (this.isPlaying) {
             return;
         }
         super.play();
@@ -55,17 +57,17 @@ public class AudioPlayer
 
     public void release()
     {
-        if (this.a) {
+        if (this.isPlaying) {
             return;
         }
-        this.a = true;
+        this.isPlaying = true;
         super.release();
         Log.e("MyAudioTrack", "Released");
     }
 
     public int setPlaybackRate(int paramInt)
     {
-        if (this.a) {
+        if (this.isPlaying) {
             return -3;
         }
         return super.setPlaybackRate(paramInt);
@@ -73,7 +75,7 @@ public class AudioPlayer
 
     public void stop()
     {
-        if (this.a) {
+        if (this.isPlaying) {
             return;
         }
         super.stop();
