@@ -15,10 +15,12 @@ import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.storage.OnObbStateChangeListener;
 import android.os.storage.StorageManager;
 import android.preference.PreferenceManager;
+
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.Guideline;
@@ -26,6 +28,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -50,6 +54,7 @@ import com.example.rodrigo.sgame.ScreenSelectMusic.AdapterSSC;
 import com.example.rodrigo.sgame.ScreenSelectMusic.MusicThread;
 import com.example.rodrigo.sgame.ScreenSelectMusic.RecyclerItemClickListener;
 import com.example.rodrigo.sgame.ScreenSelectMusic.SongsGroup;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -347,7 +352,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
             e.printStackTrace();
         }
 
-        if (ParamsSong.av==0){
+        if (ParamsSong.av == 0) {
             //tv_velocity.set
         }
 
@@ -484,15 +489,13 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     }
 
 
-
-    public void changeSongDemo (int position ){
+    public void changeSongDemo(int position) {
 
         changeMusic.play(spCode, 1, 1, 1, 0, 1.0f);
         releaseMediaPlayer();
         currentSSCIndex = position;
         paths = songsGroup.listOfSongs.get(position).path.getPath();
     }
-
 
 
     @Override
@@ -660,8 +663,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         btnLevel.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_out));
 
         lvlText.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_out));
-
-
 
 
         recyclerViewLevels.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_in_left));
@@ -847,6 +848,21 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
 
     public void reloadSongs() {
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                try {
+                    Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
+                    startActivity(intent);
+                } catch (Exception ex) {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                    startActivity(intent);
+                }
+                // Do something for lollipop and above versions
+            }
+        }
         SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         songsGroup = new SongsGroup();
         File aux = Common.checkDirSongsFolders(this);
@@ -855,11 +871,15 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         } else {
 
             files = new File(aux.getPath() + "/songs").listFiles();
-            if (   files.length < 1) {
-                Toast.makeText(getBaseContext(), "There are't files in" + aux.getPath() + "/songs please chose a forder or put song data", Toast.LENGTH_LONG).show();
+
+            if (files == null) {
+                Toast.makeText(getBaseContext(), "There aren't files in" + aux.getPath() + "/songs please choose a folder or put song data", Toast.LENGTH_LONG).show();
+            }
+            if (files.length < 1) {
+                Toast.makeText(getBaseContext(), "There aren't files in" + aux.getPath() + "/songs please choose a folder or put song data", Toast.LENGTH_LONG).show();
                 try {
-                    zipUtils zip= new zipUtils();
-                    zip.unpackZip(aux.getPath() ,getAssets().open("songs/had.zip"));
+                    zipUtils zip = new zipUtils();
+                    zip.unpackZip(aux.getPath(), getAssets().open("songs/had.zip"));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

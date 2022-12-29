@@ -27,6 +27,9 @@ import android.widget.VideoView;
 //import com.crashlytics.android.Crashlytics;
 import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
+import com.example.rodrigo.sgame.CommonGame.SSC;
+import com.example.rodrigo.sgame.Player.GamePlay;
+import com.example.rodrigo.sgame.Player.MainThread;
 import com.example.rodrigo.sgame.PlayerNew.GamePlayNew;
 import com.example.rodrigo.sgame.PlayerNew.MainThreadNew;
 
@@ -37,11 +40,11 @@ import game.StepObject;
 import parsers.FileSSC;
 
 public class PlayerBga extends Activity {
-    GamePlayNew gpo;
+    GamePlay gpo;
     public VideoView bg;
     public ImageView bgPad;
     TextView tvMsj;
-    MainThreadNew hilo;
+    MainThread hilo;
     Guideline gl;
     Intent i;
     AudioManager audio;
@@ -207,11 +210,12 @@ public class PlayerBga extends Activity {
             String rawscc = getIntent().getExtras().getString("ssc");
             String path = getIntent().getExtras().getString("path");
             String s = Common.convertStreamToString(new FileInputStream(rawscc));
+
             try {
                 StepObject step = new FileSSC(s,nchar).parseData();
                 step.setPath(path);
-//                gpo.build1Object(getBaseContext(), new SSC(z, false), nchar, path, this, pad, Common.WIDTH, Common.HEIGHT);
-                gpo.build1Object(bg,step);
+                gpo.build1Object(getBaseContext(), new SSC(s, false), nchar, path, this, pad, Common.WIDTH, Common.HEIGHT);
+   //             gpo.build1Object(bg,step);
             } catch (Exception e) {
                 e.printStackTrace();
                 gamePlayError = true;
