@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintlogo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#007f85"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainScreenActivity"
+    tools:showIn="@layout/activity_main_screen">
+
+    <VideoView
+        android:id="@+id/bg_loop"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/startGameButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/black"
+        android:clickable="true"
+        android:foregroundGravity="center"
+        android:text="play"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/adbaner1"
+
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@android:color/transparent"
+        android:contentDescription="TODO"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/tv___start"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="TextView"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <ImageView
+        android:id="@+id/imageViewSetting"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adbaner1"
+        app:srcCompat="@drawable/settings" />
+
+    <TextView
+        android:id="@+id/taptostart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="@string/tap_the_screen_to_start"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bg_loop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.79" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

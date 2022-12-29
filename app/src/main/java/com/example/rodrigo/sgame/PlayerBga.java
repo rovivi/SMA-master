@@ -24,7 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
 import com.example.rodrigo.sgame.PlayerNew.GamePlayNew;
@@ -33,7 +33,7 @@ import com.example.rodrigo.sgame.PlayerNew.MainThreadNew;
 import java.io.FileInputStream;
 
 import game.StepObject;
-import io.fabric.sdk.android.Fabric;
+//import io.fabric.sdk.android.Fabric;
 import parsers.FileSSC;
 
 public class PlayerBga extends Activity {
@@ -176,11 +176,11 @@ public class PlayerBga extends Activity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        final Fabric fabric = new Fabric.Builder(this)
-                .kits(new Crashlytics())
-                .debuggable(true)           // Enables Crashlytics debugger
-                .build();
-        Fabric.with(fabric);
+//        final Fabric fabric = new Fabric.Builder(this)
+//                .kits(new Crashlytics())
+//                .debuggable(true)           // Enables Crashlytics debugger
+//                .build();
+//        Fabric.with(fabric);
 
         if (Common.ANIM_AT_START){
             textAnimator.run();

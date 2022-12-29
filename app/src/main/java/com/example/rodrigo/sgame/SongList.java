@@ -37,7 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.Level;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
@@ -50,6 +50,7 @@ import com.example.rodrigo.sgame.ScreenSelectMusic.AdapterSSC;
 import com.example.rodrigo.sgame.ScreenSelectMusic.MusicThread;
 import com.example.rodrigo.sgame.ScreenSelectMusic.RecyclerItemClickListener;
 import com.example.rodrigo.sgame.ScreenSelectMusic.SongsGroup;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -61,12 +62,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.perf.FirebasePerformance;
-import com.google.firebase.perf.metrics.Trace;
-import com.squareup.picasso.Picasso;
-
-import io.fabric.sdk.android.Fabric;
+//import com.google.firebase.analytics.FirebaseAnalytics;
+//import com.google.firebase.perf.FirebasePerformance;
+//import com.google.firebase.perf.metrics.Trace;
+//import com.squareup.picasso.Picasso;
+//
+//import io.fabric.sdk.android.Fabric;
 
 
 public class SongList extends AppCompatActivity implements View.OnClickListener {
@@ -90,7 +91,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     VideoView preview;
     ImageView backgroundBluour, btnLevel, btnSpeed, bgSongList, imageSkin, img_velocity;
     TextView lvlText, titleCurrentSong, authorCurrent, txt_open, tv_record, tv_velocity, tv_judment, tv_apareance, tv_bpm;
-    FirebaseAnalytics mFirebaseAnalytics;
     ArrayList<Level> levelArrayList = new ArrayList<>();
     Spinner spinner;
 
@@ -141,7 +141,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Windows Decorator
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         try {
             this.getSupportActionBar().hide();
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -505,15 +504,15 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         startImage.setOnClickListener(listenerButton);
 
 
-        Trace myTrace = FirebasePerformance.getInstance().newTrace("test_trace");
-        myTrace.start();
-
-
-        final Fabric fabric = new Fabric.Builder(this)
-                .kits(new Crashlytics())
-                .debuggable(true)           // Enables Crashlytics debugger
-                .build();
-        Fabric.with(fabric);
+//        Trace myTrace = FirebasePerformance.getInstance().newTrace("test_trace");
+//        myTrace.start();
+//
+//
+//        final Fabric fabric = new Fabric.Builder(this)
+//                .kits(new Crashlytics())
+//                .debuggable(true)           // Enables Crashlytics debugger
+//                .build();
+//        Fabric.with(fabric);
 //        threadSprite.running = true;
 
         //se carga el OBB

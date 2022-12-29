@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.google.firebase.crashlytics'
+
+android {
+    compileSdkVersion 31
+    defaultConfig {
+        applicationId "com.example.rodrigo.sgame"
+        minSdkVersion 19
+        targetSdkVersion 31
+        versionCode 1
+        versionName '1.75'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            useProguard false
+        }
+    }
+    productFlavors {
+    }
+    buildToolsVersion '28.0.3'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.github.zurche:plain-pie:v0.2.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    //implementation 'com.crashlytics.sdk.android:crashlytics:17.2.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.github.zurche:plain-pie:v0.2.4'
+    implementation 'com.github.diogobernardino:WilliamChart:aae138315e'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //implementation 'com.github.AnyChart:AnyChart-Android:1.0.8'
+
+}
+apply plugin: 'com.google.gms.google-services'
+repositories {
+    mavenCentral()
+}
