@@ -202,12 +202,12 @@ public class FragmenSongOptions extends DialogFragment {
     //    velocity = velocity < 0.5 ? 0.5f : velocity;
         ParamsSong.speed = velocity;
         msj2.setText("Velocity  " + velocity);
-        songList.tv_velocity.setText("x" + (int)velocity);
+        songList.tvVelocity.setText("x" + (int)velocity);
     }
 
     public void setAv (){
       //  msj.setText("AV OFF");
-        songList.tv_velocity.setText("" + ParamsSong.av);
+        songList.tvVelocity.setText("" + ParamsSong.av);
         msj.setText("AV "+ParamsSong.av);
         msj2.setText("Velocity OFF");
 
@@ -239,7 +239,7 @@ public class FragmenSongOptions extends DialogFragment {
                 break;
         }
         tvJudge.setText(text);
-        songList.tv_judment.setText(text);
+        songList.tvJudgement.setText(text);
     }
 
     private void setTxtRush() {
