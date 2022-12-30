@@ -15,7 +15,6 @@ import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.storage.OnObbStateChangeListener;
 import android.os.storage.StorageManager;
@@ -29,7 +28,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -41,7 +39,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-//import com.crashlytics.android.Crashlytics;
 import com.example.rodrigo.sgame.CommonGame.Common;
 import com.example.rodrigo.sgame.CommonGame.Level;
 import com.example.rodrigo.sgame.CommonGame.ParamsSong;
@@ -54,7 +51,6 @@ import com.example.rodrigo.sgame.ScreenSelectMusic.AdapterSSC;
 import com.example.rodrigo.sgame.ScreenSelectMusic.MusicThread;
 import com.example.rodrigo.sgame.ScreenSelectMusic.RecyclerItemClickListener;
 import com.example.rodrigo.sgame.ScreenSelectMusic.SongsGroup;
-import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -66,13 +62,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-//import com.google.firebase.analytics.FirebaseAnalytics;
-//import com.google.firebase.perf.FirebasePerformance;
-//import com.google.firebase.perf.metrics.Trace;
-//import com.squareup.picasso.Picasso;
-//
-//import io.fabric.sdk.android.Fabric;
 
 
 public class SongList extends AppCompatActivity implements View.OnClickListener {
@@ -112,21 +101,12 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     View root;
     // Sprite flashSpeedSprite, sriteMask;
     //  ThreadSprite threadSprite;
-    View.OnClickListener listenerButton = new View.OnClickListener() {
-        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-        public void onClick(View v) {
-            // releaseMediaPlayer();
-            showStartSongFragment(false);
-        }
+    View.OnClickListener listenerButton = v -> {
+        showStartSongFragment(false);
     };
 
 
-    View.OnClickListener listenerlvl = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openLevelList();
-        }
-    };
+    View.OnClickListener listenerlvl = v -> openLevelList();
 
 
     Runnable runableLoadSongs = () -> {
@@ -137,12 +117,8 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
     };
 
-    Thread threadLoad = new Thread(runableLoadSongs);
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Windows Decorator
@@ -180,14 +156,11 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
         //------Fin de las lineas guia-----//
         //------get Elemets----------------//
-        //sriteMask= findViewById(R.id.sprite_disc_mask);
         btnLevel = findViewById(R.id.imagelevl);
         btnSpeed = findViewById(R.id.imagelevl2);
         lvlText = findViewById(R.id.numberlevel);
-        //  themeElements = findViewById(R.id.songElements);
         backgroundBluour = findViewById(R.id.bgBlur);
         recyclerView = findViewById(R.id.recyclerSongs);
-        //  bg = findViewById(R.id.bgVideoView);
         preview = findViewById(R.id.preview);
         startImage = findViewById(R.id.startButton);
         titleCurrentSong = findViewById(R.id.current_song_name);
@@ -200,7 +173,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         tv_bpm = findViewById(R.id.text_bpm);
         back_image = findViewById(R.id.back_image);
         imageSkin = findViewById(R.id.image_note_preview);
-        //img_velocity=findViewById(R.id.)
         titleCurrentSong.setSelected(true);
         titleCurrentSong.setSingleLine(true);
         bgSongList = findViewById(R.id.bg_song_list);
@@ -331,19 +303,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         }));
 
 
-        ///////Sprites
-        //flashSpeedSprite = findViewById(R.id.sprite_velocity);
-        //flashSpeedSprite.staticDraw=true;
-
-//        Bitmap sprite = BitmapFactory.decodeResource(getResources(), R.drawable.sprite_mask_disc);
-//        SpriteReader spriteReaderMaskDisc = new SpriteReader(sprite, 5, 2, 1f);
-//
-//        SpriteReader spriFlash = new SpriteReader(BitmapFactory.decodeResource(getResources(), R.drawable.glow_command), 1, 2, 0.5f);
-//        //flashSpeedSprite.create(spriFlash);
-        //sriteMask.create(spriteReaderMaskDisc);
-        //threadSprite = new ThreadSprite(flashSpeedSprite,sriteMask);
-
-
         try {
             //   loadSongs();
         } catch (Exception e) {
@@ -374,7 +333,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         changeMusic.play(spCode, 0.5f, 0.5f, 1, 0, 1.1f);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void changeSong(int position) {
         changeMusic.play(spCode, 1, 1, 1, 0, 1.0f);
         releaseMediaPlayer();
@@ -791,14 +749,6 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
         }
     };
 
-    public String mountObbFile(String obbFile) {
-        StorageManager storageManager = (StorageManager) getSystemService(STORAGE_SERVICE);
-        storageManager.mountObb(obbFile, null, obi);
-        String w = storageManager.getMountedObbPath(obbFile);
-        boolean x = storageManager.isObbMounted(obbMountPath);
-        return obbMountPath;
-    }
-
 
     private void playVideoError() {
         Uri uriVideoBgError = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_no_banner);
@@ -849,20 +799,7 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
 
     public void reloadSongs() {
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (!Environment.isExternalStorageManager()) {
-                try {
-                    Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
-                    startActivity(intent);
-                } catch (Exception ex) {
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                    startActivity(intent);
-                }
-                // Do something for lollipop and above versions
-            }
-        }
+
         SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         songsGroup = new SongsGroup();
         File aux = Common.checkDirSongsFolders(this);
@@ -908,9 +845,3 @@ public class SongList extends AppCompatActivity implements View.OnClickListener 
     }
 
 }
-
-
-
-
-
-    
