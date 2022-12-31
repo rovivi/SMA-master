@@ -127,11 +127,11 @@ public class FragmenSongOptions extends DialogFragment {
             setFD();
         });
 
-      //  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             skins = NoteSkin.arraySkin(getContext());
             indexNS = ParamsSong.skinIndex;
             setImageNS();
-        //}
+        }
         avBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -175,7 +175,6 @@ public class FragmenSongOptions extends DialogFragment {
         }
     }
 
-
     private void changeNS() {
         indexNS++;
         indexNS = (indexNS % skins.size());
@@ -185,8 +184,10 @@ public class FragmenSongOptions extends DialogFragment {
     }
 
     private void setImageNS() {
-        note_image.setImageBitmap(NoteSkin.maskImage(ParamsSong.nameNoteSkin,  getContext()));
-        songList.imageSkin.setImageBitmap(NoteSkin.maskImage(ParamsSong.nameNoteSkin, getContext()));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            note_image.setImageBitmap(NoteSkin.maskImage(ParamsSong.nameNoteSkin,  getContext()));
+            songList.imageSkin.setImageBitmap(NoteSkin.maskImage(ParamsSong.nameNoteSkin, getContext()));
+        }
     }
 
     @Override
@@ -202,12 +203,12 @@ public class FragmenSongOptions extends DialogFragment {
     //    velocity = velocity < 0.5 ? 0.5f : velocity;
         ParamsSong.speed = velocity;
         msj2.setText("Velocity  " + velocity);
-        songList.tv_velocity.setText("x" + (int)velocity);
+        songList.tvVelocity.setText("x" + (int)velocity);
     }
 
     public void setAv (){
       //  msj.setText("AV OFF");
-        songList.tv_velocity.setText("" + ParamsSong.av);
+        songList.tvVelocity.setText("" + ParamsSong.av);
         msj.setText("AV "+ParamsSong.av);
         msj2.setText("Velocity OFF");
 
@@ -239,7 +240,7 @@ public class FragmenSongOptions extends DialogFragment {
                 break;
         }
         tvJudge.setText(text);
-        songList.tv_judment.setText(text);
+        songList.tvJudgement.setText(text);
     }
 
     private void setTxtRush() {
