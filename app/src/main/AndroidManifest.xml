@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.rodrigo.sgame">
+    package="com.kyadevs.stepdroid">
 
     <!-- Required to access Google Play Licensing -->
     <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
@@ -52,40 +52,28 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-9689972331812584~5469764045" />
 
-      <!--  <provider
-            android:name=".CustomAPEZProvider"
-            android:authorities="com.example.rodrigo.sgame.CustomAPEZProvider"
-            android:exported="false"
-            android:multiprocess="true" />
--->
+
         <activity
-            android:name=".MainActivity"
+            android:name="com.kyadevs.stepdroid.MainActivity"
             android:configChanges="orientation"
             android:launchMode="singleTask" />
         <activity
-            android:name=".SongList"
+            android:name="com.kyadevs.stepdroid.SongList"
             android:launchMode="singleTask"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar">
-
-            <!--
-              <intent-filter>
-                  <action android:name="android.intent.action.MAIN" />
-                  <category android:name="android.intent.category.LAUNCHER" />
-              </intent-filter>
-            -->
         </activity>
         <activity
-            android:name=".PlayerBga"
+            android:name="com.kyadevs.stepdroid.PlayerBga"
             android:keepScreenOn="true"
             android:screenOrientation="fullSensor"
             />
-        <activity android:name=".Recycler" />
+        <activity android:name="com.kyadevs.stepdroid.Recycler" />
         <activity
-            android:name=".EvaluationActivity"
+            android:name="com.kyadevs.stepdroid.EvaluationActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".Splash"
+            android:name="com.kyadevs.stepdroid.Splash"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash"
             android:screenOrientation="fullSensor"
@@ -93,13 +81,11 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
-            android:name=".MainScreenActivity"
+            android:name="com.kyadevs.stepdroid.MainScreenActivity"
             android:label="@string/title_activity_main_screen"
             android:theme="@style/AppTheme.NoActionBar"
             android:exported="true">
@@ -115,7 +101,7 @@
 
 
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.kyadevs.stepdroid.SettingsActivity"
             android:label="@string/title_activity_settings" />
     </application>
 
