@@ -178,7 +178,6 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
         super(context, attrs);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public GamePlay(Context context, SSC ssc, int nchar, String path, byte[] pad, int width, int height) {
         super(context);
         try {
@@ -188,7 +187,6 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void build1Object(Context context, SSC stepData, int nchar, String path, PlayerBga bga, byte[] panel, int width, int height) throws IOException {
 
         try {
@@ -444,7 +442,6 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
     public void startGame() {
         curentempobeat = currenttiempo = Startime = System.nanoTime();
-
         try {
             if (mainTread.running) {
                 ttranscurrido = System.nanoTime();
@@ -475,7 +472,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update() {
-        currentLife = (currentLife > 100) ? 100 : 0.01f;
+        currentLife = (currentLife > 100) ? 100 : currentLife;
         life.updateLife(currentLife);
         ObjectCombo.update(Combo);
         steps.update();

@@ -74,6 +74,7 @@ class Splash : FullScreenActivity() {
         anim = AnimationUtils.loadAnimation(this, R.anim.fade_in)
         handler = Handler()
         splashImage.visibility = View.GONE
+
     }
 
     private fun startSongList() {

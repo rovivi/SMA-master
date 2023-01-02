@@ -617,12 +617,6 @@ class SongList : FullScreenActivity(), View.OnClickListener {
                     "There aren't files in" + aux.path + "/songs please choose a folder or put song data",
                     Toast.LENGTH_LONG
                 ).show()
-                try {
-                    val zip = zipUtils()
-                    zip.unpackZip(aux.path, assets.open("songs/had.zip"))
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
             } else {
                 //implements add From assets Folder
                 songsGroup!!.addList(File(aux.path + "/songs"))
