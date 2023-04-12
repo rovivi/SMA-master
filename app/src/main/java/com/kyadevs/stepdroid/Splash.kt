@@ -93,6 +93,7 @@ class Splash : FullScreenActivity() {
         requestCode: Int,
         permissions: Array<String>, grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             69 -> {
                 if (grantResults.isNotEmpty()
