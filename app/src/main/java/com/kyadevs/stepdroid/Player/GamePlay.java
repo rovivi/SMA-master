@@ -19,6 +19,7 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -325,6 +326,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                     mpMusic.setPlaybackParams(mpMusic.getPlaybackParams().setSpeed(ParamsSong.rush));// Esto será para el rush
             } catch (IOException e) {
                 e.printStackTrace();
+                throw  e;
             }
 
             mpMusic.prepare();
@@ -425,7 +427,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 Bitmap ww = BitmapFactory.decodeFile(bgImage.getPath());
                 if (ww != null) {
                     ww = TransformBitmap.makeTransparent(TransformBitmap.myblur(ww, context), 130);
-                    bga.bgPad.setImageBitmap(ww);
+                    //bga.bgPad.setImageBitmap(ww);
                 }
             }
             dibujante.setColor(Color.TRANSPARENT);
@@ -460,6 +462,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
                 mainTread.sulrfaceHolder = this.getHolder();
         } catch (Exception e) {
             e.printStackTrace();
+            throw  e;
         }
     }
 
@@ -528,6 +531,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e("Error", e.getMessage());
         }
     }
 
@@ -902,7 +906,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
 
     private void startEvaluation() {
-        BGA.StartEvaluation(new int[]{perfect, great, good, bad, miss, maxCombo});
+        BGA.startEvaluation(new int[]{perfect, great, good, bad, miss, maxCombo});
         BGA.finish();
     }
 

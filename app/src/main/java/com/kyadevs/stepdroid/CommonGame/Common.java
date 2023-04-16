@@ -207,16 +207,17 @@ public class Common {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            try {
-                HttpURLConnection.setFollowRedirects(false);
-                HttpURLConnection con = (HttpURLConnection) new URL(params[0]).openConnection();
-                con.setRequestMethod("HEAD");
-                System.out.println(con.getResponseCode());
-                return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
+//            try {
+//                HttpURLConnection.setFollowRedirects(false);
+//                HttpURLConnection con = (HttpURLConnection) new URL(params[0]).openConnection();
+//                con.setRequestMethod("HEAD");
+//                System.out.println(con.getResponseCode());
+//                return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                return false;
+//            }
+            return false;
         }
 
         @Override

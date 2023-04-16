@@ -2,7 +2,7 @@ package parsers
 
 
 import com.kyadevs.stepdroid.CommonSteps
-import game.GameRow
+import com.kyadevs.stepdroid.Game.GameRow
 import game.Note
 import game.StepObject
 import java.lang.Exception

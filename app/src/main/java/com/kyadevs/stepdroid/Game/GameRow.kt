@@ -1,5 +1,5 @@
-package game
-
+package com.kyadevs.stepdroid.Game
+import game.Note
 import kotlin.collections.ArrayList
 
 class GameRow {

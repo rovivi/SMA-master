@@ -88,12 +88,6 @@ public class EvaluationActivity extends AppCompatActivity {
         //publicidad
 
 
-
-
-
-
-
-
         //  animation = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
         animation2 = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
         animationDown = AnimationUtils.loadAnimation(this, R.anim.translate_down);

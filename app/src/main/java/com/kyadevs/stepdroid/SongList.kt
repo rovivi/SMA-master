@@ -30,7 +30,6 @@ import android.widget.*
 import androidx.constraintlayout.widget.Guideline
 import com.kyadevs.stepdroid.CommonGame.*
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.IOException
 import java.lang.Exception
 import java.util.*
@@ -276,121 +275,140 @@ class SongList : FullScreenActivity(), View.OnClickListener {
     }
 
     fun changeSong(position: Int) {
-        changeMusic!!.play(spCode, 1f, 1f, 1, 0, 1.0f)
+        playChangeMusicSound()
         releaseMediaPlayer()
-        currentSSCIndex = position
-        paths = songsGroup!!.listOfSongs[position].path.path
-        try {
-            // themeElements.flash.play();
-            val auxStep = songsGroup!!.listOfSongs[position]
-            val sampleStart = auxStep.songInfo["SAMPLESTART"]!!.toFloat()
-            val offset = (sampleStart * 1000).toInt()
-            titleCurrentSong.text =
-                if (auxStep.songInfo["TITLE"] != null) auxStep.songInfo["TITLE"] else "No title"
-            val bpms = setMetadata(auxStep, null, auxStep.songInfo["BPMS"])
-            val checkBPM = bpms != null && bpms[0] != null
-            tvBPM.text = if (checkBPM) "B.P.M. " + bpms!![0]!![1].toInt() else "B.P.M. ???"
-            tvBPM.startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.zoom_in))
-            authorCurrent!!.text =
-                if (auxStep.songInfo["ARTIST"] != null) "Composed by:" + auxStep.songInfo["ARTIST"] else "No Artist"
-            titleCurrentSong.startAnimation(
-                AnimationUtils.loadAnimation(
-                    baseContext, R.anim.zoom_in
-                )
-            )
-            authorCurrent!!.startAnimation(
-                AnimationUtils.loadAnimation(
-                    baseContext, R.anim.fade_in
-                )
-            )
-            currentSSC = songsGroup!!.listOfSongs[position].pathSSC
-            lvl.clear()
-            levelArrayList.clear()
-            adapterLevel!!.notifyDataSetChanged()
-            adapterLevel!!.lastPosition = -1
-            for (currentChart in auxStep.chartsInfo) {
-                if (currentChart == null) {
-                    break
-                }
-                val lvl = if (currentChart["METER"] != null) currentChart["METER"].toString()
-                    .toInt() else 0
-                val tipo =
-                    if (currentChart["STEPSTYPE"] != null) currentChart["STEPSTYPE"].toString() else ""
-                val tag =
-                    if (currentChart["STEPSTYPE"] != null) currentChart["STEPSTYPE"].toString() else ""
-                levelArrayList.add(Level(lvl, tipo, tag))
-            }
-
-            //if the song provides from SD
-            val audio = File(paths + "/" + auxStep.songInfo["MUSIC"])
-            val video = File(paths + "/" + auxStep.songInfo["PREVIEWVID"])
-            val bg = File(paths + "/" + auxStep.songInfo["BACKGROUND"])
-            val transparent: Bitmap
-            if (video.exists() && (video.path.endsWith(".mpg") || video.path.endsWith(".mp4") || video.path.endsWith(
-                    ".avi"
-                ))
-            ) {
-                preview.background = null
-                // Uri uri = CustomAPEZProvider.buildUri(video.getPath().replace(obbMountPath + "/", ""));
-                //preview.setVideoURI(uri);
-                preview.setVideoPath(video.path)
-                preview.start()
-                transparent =
-                    TransformBitmap.makeTransparent(BitmapFactory.decodeFile(bg.path), 180)
-                errorAuxImage = BitmapDrawable(transparent)
-            } else {
-                playVideoError()
-                if (bg.exists() && bg.isFile) {
-                    transparent =
-                        TransformBitmap.makeTransparent(BitmapFactory.decodeFile(bg.path), 180)
-                    errorAuxImage = BitmapDrawable(transparent)
-                } else {
-                    transparent = TransformBitmap.makeTransparent(
-                        BitmapFactory.decodeResource(
-                            resources, R.drawable.no_banner
-                        ), 180
-                    )
-                    errorAuxImage = BitmapDrawable(transparent)
-                }
-                preview.background = errorAuxImage
-            }
-            if (bg.exists() && bg.isFile) {
-                val ww = TransformBitmap.makeTransparent(
-                    TransformBitmap.myblur(
-                        BitmapFactory.decodeFile(bg.path), applicationContext
-                    ), 150
-                )
-                backgroundBlur!!.setImageBitmap(BitmapFactory.decodeFile(bg.path))
-                pathImage = bg.path
-                backgroundBlur!!.startAnimation(
-                    AnimationUtils.loadAnimation(
-                        baseContext, android.R.anim.slide_in_left
-                    )
-                )
-                // Picasso.get().load(bg.getPath()).into(backgroundBluour);
-            }
-            mediaPlayer = MediaPlayer()
-            mediaPlayer!!.setVolume(1f, 1f)
-
-            mediaPlayer!!.setDataSource(audio.path)
-
-            mediaPlayer!!.prepare()
-            mediaPlayer!!.seekTo(offset)
-            musicTimer = MusicThread()
-            musicTimer!!.player = mediaPlayer
-            musicTimer!!.time = (auxStep.songInfo["SAMPLELENGTH"]!!.toDouble() * 1000).toLong()
-            musicTimer!!.start()
-            mediaPlayer!!.start()
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        setCurrentSongAndPath(position)
+        setMetadataAndAnimations()
+        setLevelArrayList()
+        setPreviewAndBackground()
+        setMediaPlayer()
         setRecord()
         if (recyclerViewLevels.visibility == View.INVISIBLE) {
             changeLevel()
         }
     }
+
+    private fun playChangeMusicSound() {
+        changeMusic?.play(spCode, 1f, 1f, 1, 0, 1.0f)
+    }
+
+    private fun setCurrentSongAndPath(position: Int) {
+        currentSSCIndex = position
+        paths = songsGroup?.listOfSongs?.get(position)?.path?.path
+    }
+
+    private fun setMetadataAndAnimations() {
+        val auxStep = songsGroup?.listOfSongs?.get(currentSSCIndex)
+        titleCurrentSong.text = auxStep?.songInfo?.get("TITLE") ?: "No title"
+        authorCurrent?.text = "Composed by:${auxStep?.songInfo?.get("ARTIST") ?: "No Artist"}"
+
+        val bpms = auxStep?.let { setMetadata(it, null, auxStep?.songInfo?.get("BPMS")) }
+        val checkBPM = bpms != null && bpms[0] != null
+        tvBPM.text = if (checkBPM) "B.P.M. ${bpms!![0]!![1].toInt()}" else "B.P.M. ???"
+
+        startAnimations()
+    }
+
+    private fun startAnimations() {
+        tvBPM.startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.zoom_in))
+        titleCurrentSong.startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.zoom_in))
+        authorCurrent?.startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.fade_in))
+    }
+
+    private fun setLevelArrayList() {
+        currentSSC = songsGroup?.listOfSongs?.get(currentSSCIndex)?.pathSSC
+        lvl.clear()
+        levelArrayList.clear()
+        adapterLevel?.notifyDataSetChanged()
+        adapterLevel?.lastPosition = -1
+
+        val auxStep = songsGroup?.listOfSongs?.get(currentSSCIndex)
+        auxStep?.chartsInfo?.forEach { currentChart ->
+            currentChart?.let {
+                val lvl = it["METER"]?.toString()?.toInt() ?: 0
+                val tipo = it["STEPSTYPE"]?.toString() ?: ""
+                val tag = it["STEPSTYPE"]?.toString() ?: ""
+                levelArrayList.add(Level(lvl, tipo, tag))
+            }
+        }
+    }
+
+    private fun setPreviewAndBackground() {
+        val auxStep = songsGroup?.listOfSongs?.get(currentSSCIndex)
+        val audio = File(paths + "/" + auxStep?.songInfo?.get("MUSIC"))
+        val video = File(paths + "/" + auxStep?.songInfo?.get("PREVIEWVID"))
+        val bg = File(paths + "/" + auxStep?.songInfo?.get("BACKGROUND"))
+
+        if (video.exists() && (video.path.endsWith(".mpg") || video.path.endsWith(".mp4") || video.path.endsWith(".avi"))) {
+            setPreviewVideo(video, bg)
+        } else {
+            playVideoError()
+            setPreviewBackground(bg)
+        }
+
+        setBackgroundBlur(bg)
+    }
+
+    private fun setMediaPlayer() {
+        val auxStep = songsGroup?.listOfSongs?.get(currentSSCIndex)
+        val sampleStart = auxStep?.songInfo?.get("SAMPLESTART")?.toFloat() ?: 0f
+        val offset = (sampleStart * 1000).toInt()
+        val audio = File(paths + "/" + (auxStep?.songInfo?.get("MUSIC") ?:  "No music"))
+
+        mediaPlayer = MediaPlayer().apply {
+            setVolume(1f, 1f)
+            setDataSource(audio.path)
+            prepare()
+            seekTo(offset)
+            start()
+        }
+
+        val sampleLength = (auxStep?.songInfo?.get("SAMPLELENGTH")!!.toDouble() * 1000).toLong()
+        setupMusicTimer(sampleLength)
+    }
+
+    private fun setupMusicTimer(sampleLength: Long) {
+        musicTimer = MusicThread().apply {
+            player = mediaPlayer
+            time = sampleLength
+            start()
+        }
+    }
+
+    private fun setPreviewVideo(video: File, bg: File) {
+        preview.background = null
+        preview.setVideoPath(video.path)
+        preview.start()
+
+        val transparent = TransformBitmap.makeTransparent(BitmapFactory.decodeFile(bg.path), 180)
+        errorAuxImage = BitmapDrawable(transparent)
+    }
+
+    private fun setPreviewBackground(bg: File) {
+        val transparent = if (bg.exists() && bg.isFile) {
+            TransformBitmap.makeTransparent(BitmapFactory.decodeFile(bg.path), 180)
+        } else {
+            TransformBitmap.makeTransparent(
+                BitmapFactory.decodeResource(resources, R.drawable.no_banner), 180
+            )
+        }
+        errorAuxImage = BitmapDrawable(transparent)
+        preview.background = errorAuxImage
+    }
+
+    private fun setBackgroundBlur(bg: File) {
+        if (bg.exists() && bg.isFile) {
+            val ww = TransformBitmap.makeTransparent(
+                TransformBitmap.myblur(BitmapFactory.decodeFile(bg.path), applicationContext), 150
+            )
+            backgroundBlur?.setImageBitmap(BitmapFactory.decodeFile(bg.path))
+            pathImage = bg.path
+            backgroundBlur?.startAnimation(
+                AnimationUtils.loadAnimation(baseContext, android.R.anim.slide_in_left)
+            )
+        }
+    }
+
 
     override fun onStart() {
         super.onStart()

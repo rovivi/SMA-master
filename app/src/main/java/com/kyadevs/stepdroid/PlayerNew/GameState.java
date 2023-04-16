@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-import game.GameRow;
+import com.kyadevs.stepdroid.Game.GameRow;
 import game.StepObject;
 
 public class GameState {

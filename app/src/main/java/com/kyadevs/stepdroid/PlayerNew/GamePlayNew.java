@@ -9,7 +9,6 @@ import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
-import androidx.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -22,7 +21,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
 
-import game.GameRow;
+import com.kyadevs.stepdroid.Game.GameRow;
 import game.StepObject;
 
 public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
@@ -56,13 +55,11 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
         }
     };
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public GamePlayNew(Context context, StepObject steps) {
         super(context);
         build1Object(null, steps);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void build1Object(VideoView videoView, StepObject stepData) {
         try {
             this.setZOrderOnTop(true); //necessary
@@ -129,7 +126,7 @@ public class GamePlayNew extends SurfaceView implements SurfaceHolder.Callback {
                     mpMusic.prepare();
                 }
             } else
-                mainTread.sulrfaceHolder = this.getHolder();
+                mainTread.surfaceHolder = this.getHolder();
         } catch (Exception e) {
             e.printStackTrace();
         }

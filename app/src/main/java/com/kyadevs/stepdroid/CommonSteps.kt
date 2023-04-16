@@ -1,7 +1,7 @@
 package com.kyadevs.stepdroid
 
 import android.util.Log
-import game.GameRow
+import com.kyadevs.stepdroid.Game.GameRow
 import game.Note
 import java.lang.Exception
 import java.util.*

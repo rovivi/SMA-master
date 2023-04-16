@@ -4,12 +4,10 @@ import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
 public class MainThreadNew extends Thread {
-    public static final int MAXFPS =1000;
-    private double avergeFPS;
-    public  SurfaceHolder sulrfaceHolder;
+    private double averageFPS;
+    public  SurfaceHolder surfaceHolder;
     private GamePlayNew game;
     public boolean running;
-    public static Canvas canvas;
 
 
     public void setRunning(Boolean running) {
@@ -18,21 +16,20 @@ public class MainThreadNew extends Thread {
 
     MainThreadNew(SurfaceHolder holder, GamePlayNew game) {
         super();
-        this.sulrfaceHolder = holder;
+        this.surfaceHolder = holder;
         this.game = game;
     }
     @Override
     public void run() {
-        long startTime, waitTime,  timeLapsed ;
+        long startTime,  timeLapsed ;
         int frameCount = 0;
-        waitTime = 0;
         startTime = System.nanoTime();
         while (running) {
 
-            canvas = null;
+            Canvas canvas = null;
             try {
-                canvas = this.sulrfaceHolder.lockCanvas();
-                synchronized (sulrfaceHolder) {
+                canvas = this.surfaceHolder.lockCanvas();
+                synchronized (surfaceHolder) {
                     this.game.update();
                     this.game.draw(canvas);
                 }
@@ -41,7 +38,7 @@ public class MainThreadNew extends Thread {
             } finally {
                 try {
                     if (canvas != null) {
-                        sulrfaceHolder.unlockCanvasAndPost(canvas);
+                        surfaceHolder.unlockCanvasAndPost(canvas);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -50,15 +47,11 @@ public class MainThreadNew extends Thread {
             timeLapsed = System.nanoTime() - startTime;
             frameCount++;
             if (timeLapsed>1000000000){
-                avergeFPS =frameCount;
+                averageFPS =frameCount;
                 frameCount=0;
                 startTime=System.nanoTime();
             }
-            game.fps= avergeFPS;
-
-
+            game.fps= averageFPS;
         }
     }
-
-
-} 
+}

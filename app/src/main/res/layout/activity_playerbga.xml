@@ -11,7 +11,7 @@
 
     <VideoView
         android:scaleType="fitXY"
-        android:id="@+id/bgVideoView2"
+        android:id="@+id/vvBGA"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="25sp"
@@ -36,6 +36,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+<!--    <com.kyadevs.stepdroid.PlayerNew.GamePlayNew-->
+<!--        android:id="@+id/gamePlay2"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -67,9 +78,9 @@
         android:textColor="@color/black_overlay"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/bgVideoView2"
+        app:layout_constraintBottom_toBottomOf="@+id/vvBGA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bgVideoView2" />
+        app:layout_constraintTop_toTopOf="@+id/vvBGA" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
