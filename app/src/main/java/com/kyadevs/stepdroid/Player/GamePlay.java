@@ -340,7 +340,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
             setFocusable(true);
             touchPad = new GamePad(context, tipo, inputs);
 
-            if (ParamsSong.av == 0)
+            if (ParamsSong.av == -1)
                 currentSpeedMod = (int) (height * ParamsSong.speed / 4);
             else {
                 //currentSpeedMod = BPM;
@@ -907,7 +907,7 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback {
 
     private void startEvaluation() {
         BGA.startEvaluation(new int[]{perfect, great, good, bad, miss, maxCombo});
-        BGA.finish();
+
     }
 
 

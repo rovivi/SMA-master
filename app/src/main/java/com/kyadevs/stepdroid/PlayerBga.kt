@@ -17,7 +17,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.VideoView
-import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Guideline
 import com.kyadevs.stepdroid.CommonGame.Common
@@ -28,8 +27,6 @@ import com.kyadevs.stepdroid.Player.MainThread
 import parsers.FileSSC
 import java.io.FileInputStream
 
-//import com.crashlytics.android.Crashlytics;
-//import io.fabric.sdk.android.Fabric;
 class PlayerBga : FullScreenActivity() {
     lateinit var  gpo: GamePlay
     lateinit var bg: VideoView
@@ -37,7 +34,7 @@ class PlayerBga : FullScreenActivity() {
     var tvMsj: TextView? = null
     var hilo: MainThread? = null
     var gl: Guideline? = null
-    var i: Intent? = null
+    //var i: Intent? = null
     var audio: AudioManager? = null
     var gamePlayError = false
     var handler = Handler()
@@ -76,7 +73,7 @@ class PlayerBga : FullScreenActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        i = Intent(this, EvaluationActivity::class.java)
+
         setContentView(R.layout.activity_playerbga)
         tvMsj = findViewById(R.id.gamemsg)
         audio = getSystemService(AUDIO_SERVICE) as AudioManager
@@ -116,7 +113,7 @@ class PlayerBga : FullScreenActivity() {
     }
 
     fun startVideo() {
-        bg!!.setOnPreparedListener { mediaPlayer: MediaPlayer ->
+        bg.setOnPreparedListener { mediaPlayer: MediaPlayer ->
             mediaPlayer.isLooping = true
             mediaPlayer.setVolume(0f, 0f)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -124,24 +121,31 @@ class PlayerBga : FullScreenActivity() {
                     mediaPlayer.playbackParams.setSpeed(ParamsSong.rush) // Esto será para el rush
             }
         }
-        bg!!.start()
+        bg.start()
     }
 
     fun startEvaluation(params: IntArray?) {
-        i!!.putExtra("evaluation", params)
-        i!!.putExtra("pathbg", "")
-        i!!.putExtra("name", "Noame")
-        i!!.putExtra("nchar", nchar)
-        startActivity(i)
+        try {
+            val i = Intent(this, EvaluationActivity::class.java)
+            i.putExtra("evaluation", params)
+            i.putExtra("pathbg", "")
+            i.putExtra("name", "Noame")
+            i.putExtra("nchar", nchar)
+            startActivity(i)
+            this.finish()
+        } catch (ex: Exception) {
+            Global.logError(ex)
+        }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     override fun onStart() {
         super.onStart()
         if (Common.ANIM_AT_START) {
             textAnimator.run()
         } else {
             startGamePlay()
+            //startEvaluation(intArrayOf(100, 0, 0, 0, 0, 100))
+
         }
     }
 
@@ -155,7 +159,7 @@ class PlayerBga : FullScreenActivity() {
 
     private fun startGamePlay() {
         try {
-            gpo!!.top = 0
+            gpo.top = 0
             val rawscc = intent.extras!!.getString("ssc")
             val path = intent.extras!!.getString("path")
             val s = Common.convertStreamToString(FileInputStream(rawscc))
